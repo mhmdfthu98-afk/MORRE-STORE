@@ -200,6 +200,13 @@
             margin-bottom: 0.5rem;
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
+        .user-item {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 1rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
         .sidebar {
             position: fixed;
             top: 0;
@@ -363,6 +370,15 @@
         .sidebar .border-yellow-500 {
             border-color: #d97706;
         }
+        .user-detail-modal {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            max-width: 500px;
+            width: 100%;
+            margin: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -448,18 +464,20 @@
                 </div>
             </div>
 
-            <!-- لوحة تحكم الأدمن (للبريد المحدد فقط) -->
+            <!-- لوحة تحكم الأدمن -->
             <div id="adminPanel" class="hidden mb-6">
                 <div class="glass p-4 rounded-2xl">
                     <h3 class="text-xl font-bold text-dark mb-4 text-center">👑 لوحة تحكم الأدمن</h3>
                     <div class="flex flex-wrap gap-2 mb-4">
                         <button class="admin-tab" data-admin-tab="stats">📊 إحصائيات</button>
+                        <button class="admin-tab" data-admin-tab="users">👥 المستخدمين</button>
                         <button class="admin-tab" data-admin-tab="add">➕ إضافة منتج</button>
                         <button class="admin-tab" data-admin-tab="manage">📦 إدارة المنتجات</button>
                         <button class="admin-tab" data-admin-tab="orders">📋 الطلبات</button>
                         <button class="admin-tab" data-admin-tab="recharge">💰 شحن رصيد</button>
                     </div>
 
+                    <!-- إحصائيات -->
                     <div id="adminStats" class="admin-tab-content active">
                         <div class="grid grid-cols-3 gap-3 text-center">
                             <div class="bg-white/5 p-3 rounded-xl"><p class="text-xs text-dark-light">👥 المستخدمين</p><p id="totalUsers" class="text-2xl font-bold text-yellow-dark">0</p></div>
@@ -468,6 +486,13 @@
                         </div>
                     </div>
 
+                    <!-- قائمة المستخدمين -->
+                    <div id="adminUsers" class="admin-tab-content">
+                        <h4 class="text-dark font-bold mb-2">👥 جميع المستخدمين</h4>
+                        <div id="usersList" class="space-y-2 max-h-80 overflow-y-auto"></div>
+                    </div>
+
+                    <!-- إضافة منتج -->
                     <div id="adminAdd" class="admin-tab-content">
                         <div class="space-y-3">
                             <select id="productGame" class="w-full">
@@ -487,16 +512,19 @@
                         </div>
                     </div>
 
+                    <!-- إدارة المنتجات -->
                     <div id="adminManage" class="admin-tab-content">
                         <h4 class="text-dark font-bold mb-2">📦 المنتجات الحالية</h4>
                         <div id="manageProductsList" class="space-y-2 max-h-80 overflow-y-auto"></div>
                     </div>
 
+                    <!-- الطلبات -->
                     <div id="adminOrders" class="admin-tab-content">
                         <h4 class="text-dark font-bold mb-2">📋 الطلبات المعلقة</h4>
                         <div id="adminOrdersList" class="space-y-2 max-h-80 overflow-y-auto"></div>
                     </div>
 
+                    <!-- شحن رصيد -->
                     <div id="adminRecharge" class="admin-tab-content">
                         <div class="space-y-3">
                             <input type="text" id="targetWallet" placeholder="رقم المحفظة (مثال: 123456)">
@@ -512,63 +540,46 @@
             <div id="homePage" class="home-page">
                 <h2 class="text-2xl font-black text-dark mb-6 text-center">🌟 جميع الخدمات</h2>
                 <div class="service-grid">
-                    <!-- PUBG -->
                     <div class="glass-card p-4 text-center service-card" onclick="showCategory('pubg')">
                         <img src="https://i.ibb.co/Pzxr7M06/IMG.png" alt="PUBG" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">ببجي PUBG</h3>
                         <p class="text-dark-light text-xs">شحن فوري</p>
                     </div>
-
-                    <!-- FreeFire -->
                     <div class="glass-card p-4 text-center service-card" onclick="showCategory('freefire')">
                         <img src="https://i.ibb.co/JwTt6xQS/IMG.png" alt="FreeFire" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">فري فاير FreeFire</h3>
                         <p class="text-dark-light text-xs">شحن فوري</p>
                     </div>
-
-                    <!-- eFootball -->
                     <div class="glass-card p-4 text-center service-card" onclick="showCategory('efootball')">
                         <img src="https://i.ibb.co/HfxMcj4T/IMG.png" alt="eFootball" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">eFootball شحن</h3>
                         <p class="text-dark-light text-xs">كوينز وباقات</p>
                     </div>
-
-                    <!-- Clash of Clans -->
                     <div class="glass-card p-4 text-center service-card" onclick="showCategory('clash')">
                         <img src="https://i.ibb.co/8DWbJvFL/IMG.png" alt="Clash of Clans" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">كلاش أوف كلانس</h3>
                         <p class="text-dark-light text-xs">تذاكر وجواهر</p>
                     </div>
-
-                    <!-- Netflix -->
                     <div class="glass-card p-4 text-center service-card" onclick="showCategory('netflix')">
                         <img src="https://i.ibb.co/PsqRGPHR/IMG.png" alt="Netflix" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">نتفليكس Netflix</h3>
                         <p class="text-dark-light text-xs">اشتراكات شهرية</p>
                     </div>
-
-                    <!-- Google Play -->
                     <div class="glass-card p-4 text-center service-card" onclick="showCategory('googleplay')">
                         <img src="https://i.ibb.co/cSm7F7Ry/IMG.png" alt="Google Play" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">جوجل بلاي</h3>
                         <p class="text-dark-light text-xs">بطاقات شحن</p>
                     </div>
-
-                    <!-- Redotpay -->
                     <div class="glass-card p-4 text-center service-card" onclick="showCategory('redotpay')">
                         <img src="https://i.ibb.co/yFkwNDTV/IMG.png" alt="Redotpay" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">فيزا Redotpay</h3>
                         <p class="text-dark-light text-xs">بطاقة افتراضية</p>
                     </div>
-
-                    <!-- TikTok -->
                     <div class="glass-card p-4 text-center service-card" onclick="showCategory('tiktok')">
                         <img src="https://i.ibb.co/B2Vhg5vw/IMG.png" alt="TikTok" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">تيك توك TikTok</h3>
                         <p class="text-dark-light text-xs">عملات تيك توك</p>
                     </div>
-
-                    <!-- AI -->
                     <div class="glass-card p-4 text-center service-card" onclick="showCategory('ai')">
                         <img src="https://i.ibb.co/8DZGctQM/IMG.png" alt="AI" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">الذكاء الاصطناعي</h3>
@@ -578,7 +589,6 @@
             </div>
 
             <!-- صفحات الخدمات -->
-            <!-- PUBG -->
             <div id="category-pubg" class="category-page">
                 <div class="flex items-center gap-4 mb-6">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -586,8 +596,6 @@
                 </div>
                 <div id="pubgGrid" class="product-grid"></div>
             </div>
-
-            <!-- FreeFire -->
             <div id="category-freefire" class="category-page">
                 <div class="flex items-center gap-4 mb-6">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -595,8 +603,6 @@
                 </div>
                 <div id="freefireGrid" class="product-grid"></div>
             </div>
-
-            <!-- eFootball -->
             <div id="category-efootball" class="category-page">
                 <div class="flex items-center gap-4 mb-6">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -604,8 +610,6 @@
                 </div>
                 <div id="efootballGrid" class="product-grid"></div>
             </div>
-
-            <!-- Clash of Clans -->
             <div id="category-clash" class="category-page">
                 <div class="flex items-center gap-4 mb-6">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -613,8 +617,6 @@
                 </div>
                 <div id="clashGrid" class="product-grid"></div>
             </div>
-
-            <!-- Netflix -->
             <div id="category-netflix" class="category-page">
                 <div class="flex items-center gap-4 mb-6">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -622,8 +624,6 @@
                 </div>
                 <div id="netflixGrid" class="product-grid"></div>
             </div>
-
-            <!-- Google Play -->
             <div id="category-googleplay" class="category-page">
                 <div class="flex items-center gap-4 mb-6">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -631,8 +631,6 @@
                 </div>
                 <div id="googleplayGrid" class="product-grid"></div>
             </div>
-
-            <!-- Redotpay -->
             <div id="category-redotpay" class="category-page">
                 <div class="flex items-center gap-4 mb-6">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -640,8 +638,6 @@
                 </div>
                 <div id="redotpayGrid" class="product-grid"></div>
             </div>
-
-            <!-- TikTok -->
             <div id="category-tiktok" class="category-page">
                 <div class="flex items-center gap-4 mb-6">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -649,8 +645,6 @@
                 </div>
                 <div id="tiktokGrid" class="product-grid"></div>
             </div>
-
-            <!-- AI -->
             <div id="category-ai" class="category-page">
                 <div class="flex items-center gap-4 mb-6">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -712,6 +706,18 @@
             <h3 class="text-xl font-bold mb-4">📄 تفاصيل الطلب</h3>
             <div id="orderDetailContent" class="space-y-2 text-sm"></div>
             <button onclick="closeOrderDetailModal()" class="mt-6 w-full bg-dark/5 py-2 rounded-xl">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- مودال تفاصيل المستخدم -->
+    <div id="userDetailModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-50 flex items-center justify-center p-4">
+        <div class="user-detail-modal text-dark">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">👤 تفاصيل المستخدم</h3>
+                <button onclick="closeUserDetailModal()" class="text-dark-light hover:text-dark"><i class="fas fa-times text-2xl"></i></button>
+            </div>
+            <div id="userDetailContent" class="space-y-2 text-sm"></div>
+            <button onclick="closeUserDetailModal()" class="mt-6 w-full bg-dark/5 py-2 rounded-xl">إغلاق</button>
         </div>
     </div>
 
@@ -887,6 +893,10 @@
         }
 
         function showOrderModal(product, price, category, productId) {
+            if (!userData) {
+                alert('❌ يرجى تسجيل الدخول أولاً');
+                return;
+            }
             if (userData.balance < price) {
                 alert(
                     `❌ رصيدك غير كافي!\n\nرصيدك الحالي: ${userData.balance.toLocaleString()} ج.س\nسعر المنتج: ${price.toLocaleString()} ج.س\n\nيرجى شحن محفظتك عبر زر "شحن المحفظة"`);
@@ -1085,6 +1095,62 @@
             });
         }
 
+        // ========== عرض جميع المستخدمين ==========
+        function loadAllUsers() {
+            onSnapshot(collection(db, "users"), (snap) => {
+                const list = document.getElementById('usersList');
+                list.innerHTML = '';
+                if (snap.empty) {
+                    list.innerHTML = '<p class="text-dark-light text-center">لا يوجد مستخدمين</p>';
+                    return;
+                }
+                snap.forEach(doc => {
+                    const user = doc.data();
+                    list.innerHTML += `
+                                <div class="user-item flex justify-between items-center p-3 bg-white/50 rounded-xl cursor-pointer" onclick="showUserDetails('${doc.id}')">
+                                    <div class="flex items-center gap-3">
+                                        <img src="${user.img || 'https://via.placeholder.com/40'}" class="w-10 h-10 rounded-full border-2 border-yellow-500">
+                                        <div>
+                                            <p class="text-dark font-bold">${user.name || 'مستخدم'}</p>
+                                            <p class="text-dark-light text-xs">${user.email || 'لا يوجد بريد'}</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-left">
+                                        <p class="text-yellow-dark font-bold">${(user.balance || 0).toLocaleString()} ج.س</p>
+                                        <p class="text-dark-light text-xs">#${user.walletID || '000000'}</p>
+                                    </div>
+                                </div>
+                            `;
+                });
+            });
+        }
+
+        // ========== عرض تفاصيل مستخدم ==========
+        window.showUserDetails = async (userId) => {
+            try {
+                const userDoc = await getDoc(doc(db, "users", userId));
+                if (userDoc.exists()) {
+                    const user = userDoc.data();
+                    document.getElementById('userDetailContent').innerHTML = `
+                                <p><strong>👤 الاسم:</strong> ${user.name || 'غير محدد'}</p>
+                                <p><strong>📧 البريد:</strong> ${user.email || 'غير محدد'}</p>
+                                <p><strong>💰 الرصيد:</strong> ${(user.balance || 0).toLocaleString()} ج.س</p>
+                                <p><strong>📱 رقم المحفظة:</strong> #${user.walletID || '000000'}</p>
+                                <p><strong>🆔 معرف المستخدم:</strong> ${userId}</p>
+                                <p><strong>📅 تاريخ التسجيل:</strong> ${user.createdAt?.toDate ? new Date(user.createdAt.toDate()).toLocaleString() : 'غير محدد'}</p>
+                            `;
+                    document.getElementById('userDetailModal').classList.remove('hidden');
+                }
+            } catch (e) {
+                alert('❌ حدث خطأ في جلب بيانات المستخدم');
+            }
+        };
+
+        window.closeUserDetailModal = () => {
+            document.getElementById('userDetailModal').classList.add('hidden');
+        };
+
+        // ========== إحصائيات ==========
         async function loadAdminStats() {
             try {
                 const usersSnap = await getDocs(collection(db, "users"));
@@ -1392,7 +1458,7 @@
         document.querySelectorAll('.admin-tab').forEach(btn => {
             btn.addEventListener('click', () => {
                 const tab = btn.getAttribute('data-admin-tab');
-                const tabMap = { stats: 'Stats', add: 'Add', manage: 'Manage', orders: 'Orders',
+                const tabMap = { stats: 'Stats', users: 'Users', add: 'Add', manage: 'Manage', orders: 'Orders',
                     recharge: 'Recharge' };
                 switchAdminTab(tabMap[tab]);
             });
@@ -1414,6 +1480,7 @@
                         loadAdminStats();
                         loadAdminOrders();
                         loadManageProducts();
+                        loadAllUsers();
                     } else {
                         document.getElementById('adminPanel').classList.add('hidden');
                     }
@@ -1485,4 +1552,4 @@
         };
     </script>
 </body>
-</html>
+                                                                  </html>
