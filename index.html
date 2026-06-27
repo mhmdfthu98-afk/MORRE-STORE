@@ -414,6 +414,20 @@
         .whatsapp-icon-input input {
             padding-right: 45px;
         }
+        .empty-products {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 1.5rem;
+            border: 2px dashed rgba(0, 0, 0, 0.1);
+        }
+        .empty-products i {
+            font-size: 3rem;
+            color: #cbd5e1;
+            display: block;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -831,94 +845,56 @@
             }
         };
 
-        // ========== المنتجات ==========
+        // ========== متغير المنتجات فارغ تماماً - سيتم جلبها من Firestore فقط ==========
         let allProducts = {
-            pubg: [
-                { id: "pubg_60", name: "🎯 60 شدة", price: 4000, category: "pubg", isActive: true },
-                { id: "pubg_120", name: "🎯 120 شدة", price: 8000, category: "pubg", isActive: true },
-                { id: "pubg_180", name: "🎯 180 شدة", price: 12000, category: "pubg", isActive: true },
-                { id: "pubg_240", name: "🎯 240 شدة", price: 16000, category: "pubg", isActive: true },
-                { id: "pubg_325", name: "🎯 325 شدة", price: 20000, category: "pubg", isActive: true }
-            ],
-            freefire: [
-                { id: "ff_110", name: "💎 110 جوهرة", price: 4500, category: "freefire", isActive: true },
-                { id: "ff_231", name: "💎 231 جوهرة", price: 9000, category: "freefire", isActive: true },
-                { id: "ff_583", name: "💎 583 جوهرة", price: 23000, category: "freefire", isActive: true },
-                { id: "ff_1180", name: "💎 1180 جوهرة", price: 50000, category: "freefire", isActive: true }
-            ],
-            clash: [
-                { id: "clash_gold_first", name: "🎫 التذكرة الذهبية (أول مرة)", price: 10000, category: "clash", isActive: true },
-                { id: "clash_gold", name: "🎫 التذكرة الذهبية", price: 27000, category: "clash", isActive: true }
-            ],
-            efootball: [
-                { id: "ef_130", name: "⚽ 130 كوينز", price: 6500, category: "efootball", isActive: true },
-                { id: "ef_300", name: "⚽ 300 كوينز", price: 15000, category: "efootball", isActive: true },
-                { id: "ef_550", name: "⚽ 550 كوينز", price: 27000, category: "efootball", isActive: true },
-                { id: "ef_750", name: "⚽ 750 كوينز", price: 37000, category: "efootball", isActive: true },
-                { id: "ef_morino", name: "⚽ مجموعة مورينو + 150 كوينز", price: 28000, category: "efootball", isActive: true }
-            ],
-            netflix: [
-                { id: "netflix_standard_ads", name: "🎬 نتفليكس Standard + إعلانات", price: 55000, category: "netflix",
-                    isActive: true },
-                { id: "netflix_standard", name: "🎬 نتفليكس Standard بدون إعلانات", price: 120000, category: "netflix",
-                    isActive: true }
-            ],
-            googleplay: [
-                { id: "gp_5", name: "🛍️ بطاقة جوجل بلاي 5$", price: 30000, category: "googleplay", isActive: true },
-                { id: "gp_10", name: "🛍️ بطاقة جوجل بلاي 10$", price: 60000, category: "googleplay", isActive: true }
-            ],
-            redotpay: [
-                { id: "redot_verified", name: "💳 حساب Redotpay موثق", price: 120000, category: "redotpay", isActive: true },
-                { id: "redot_verified_card", name: "💳 حساب موثق + فيزا Redotpay", price: 180000, category: "redotpay",
-                    isActive: true }
-            ],
-            tiktok: [
-                { id: "tt_114", name: "🎵 114 عملة تيك توك", price: 6000, category: "tiktok", isActive: true },
-                { id: "tt_447", name: "🎵 447 عملة تيك توك", price: 30000, category: "tiktok", isActive: true },
-                { id: "tt_897", name: "🎵 897 عملة تيك توك", price: 60000, category: "tiktok", isActive: true }
-            ],
-            ai: [
-                { id: "ai_chatgpt_plus", name: "🤖 ChatGPT Plus - شهر", price: 120000, category: "ai", isActive: true },
-                { id: "ai_chatgpt_go", name: "🤖 ChatGPT Go - شهر", price: 45000, category: "ai", isActive: true },
-                { id: "ai_gemini", name: "🤖 Gemini Pro - شهر", price: 75000, category: "ai", isActive: true }
-            ]
+            pubg: [],
+            freefire: [],
+            clash: [],
+            efootball: [],
+            netflix: [],
+            googleplay: [],
+            redotpay: [],
+            tiktok: [],
+            ai: []
         };
 
-        async function saveProductsToFirestore() {
-            for (const category in allProducts) {
-                for (const product of allProducts[category]) {
-                    const productRef = doc(db, "products", product.id);
-                    await setDoc(productRef, product, { merge: true });
-                }
-            }
-        }
-
+        // ========== جلب المنتجات من Firestore فقط ==========
         async function loadProductsFromFirestore() {
             try {
                 const productsSnap = await getDocs(collection(db, "products"));
+                
+                // إعادة تعيين allProducts إلى مصفوفات فارغة
+                allProducts = {
+                    pubg: [],
+                    freefire: [],
+                    clash: [],
+                    efootball: [],
+                    netflix: [],
+                    googleplay: [],
+                    redotpay: [],
+                    tiktok: [],
+                    ai: []
+                };
+                
                 if (!productsSnap.empty) {
-                    const newProducts = { pubg: [], freefire: [], clash: [], efootball: [], netflix: [], googleplay: [],
-                        redotpay: [], tiktok: [], ai: [] };
                     productsSnap.forEach(doc => {
                         const p = doc.data();
-                        if (p.isActive !== false && newProducts[p.category]) {
-                            newProducts[p.category].push({ ...p, id: doc.id });
+                        // التحقق من وجود الفئة وأن المنتج نشط
+                        if (p.isActive !== false && allProducts.hasOwnProperty(p.category)) {
+                            allProducts[p.category].push({ ...p, id: doc.id });
                         }
                     });
-                    for (const category in newProducts) {
-                        if (newProducts[category].length > 0) {
-                            allProducts[category] = newProducts[category];
-                        }
-                    }
-                } else {
-                    await saveProductsToFirestore();
                 }
+                
+                renderAllProducts();
+                loadManageProducts();
+                
             } catch (e) {
                 console.error("Error loading products:", e);
             }
-            renderAllProducts();
         }
 
+        // ========== إرسال إشعار تيليجرام ==========
         async function sendTelegramNotification(orderData) {
             const message =
                 `🛒 **طلب جديد في MORRE STORE!**\n━━━━━━━━━━━━━━━━━━\n📦 **المنتج:** ${orderData.product}\n💰 **السعر:** ${orderData.price} ج.س\n🎮 **اللعبة:** ${orderData.game}\n👤 **العميل:** ${orderData.uName}\n🆔 **الأيدي:** ${orderData.gameID}\n🎮 **الاسم:** ${orderData.gameName}\n📱 **واتساب:** ${orderData.whatsapp}\n⏰ **الوقت:** ${new Date().toLocaleString('ar-SD')}`;
@@ -931,6 +907,7 @@
             } catch (e) { console.error(e); }
         }
 
+        // ========== عرض مودال الطلب ==========
         function showOrderModal(product, price, category, productId) {
             if (!userData) {
                 alert('❌ يرجى تسجيل الدخول أولاً');
@@ -947,6 +924,8 @@
             document.getElementById('orderModal').classList.remove('hidden');
         }
 
+        window.showOrderModal = showOrderModal;
+
         window.closeOrderModal = () => {
             document.getElementById('orderModal').classList.add('hidden');
             currentOrder = null;
@@ -956,6 +935,7 @@
             document.getElementById('modalWhatsApp').value = '';
         };
 
+        // ========== تأكيد الطلب ==========
         document.getElementById('confirmOrderBtn').onclick = async () => {
             if (!currentOrder) {
                 alert("❌ لا يوجد طلب نشط");
@@ -972,7 +952,6 @@
                 return;
             }
 
-            // التحقق من رقم واتساب
             if (!whatsapp.match(/^[0-9]{10,15}$/)) {
                 alert("❌ رقم واتساب غير صحيح! يجب أن يكون 10-15 رقم");
                 return;
@@ -1009,25 +988,36 @@
             }
         };
 
+        // ========== عرض جميع المنتجات ==========
         function renderAllProducts() {
-            const categories = ['pubg', 'freefire', 'clash', 'efootball', 'netflix', 'googleplay', 'redotpay', 'tiktok',
-                'ai'
-            ];
+            const categories = ['pubg', 'freefire', 'clash', 'efootball', 'netflix', 'googleplay', 'redotpay', 'tiktok', 'ai'];
+            
             categories.forEach(cat => {
                 const grid = document.getElementById(`${cat}Grid`);
                 if (!grid) return;
+                
                 const products = allProducts[cat]?.filter(p => p.isActive !== false) || [];
+                
+                if (products.length === 0) {
+                    grid.innerHTML = `
+                        <div class="empty-products col-span-full">
+                            <i class="fas fa-box-open"></i>
+                            <p>لا توجد منتجات متاحة حالياً</p>
+                            <p class="text-sm mt-2">سيتم إضافة منتجات جديدة قريباً</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
                 grid.innerHTML = products.map(p => `
-                            <div class="product-card p-5 text-dark text-center" onclick="window.showOrderModal('${p.name}', ${p.price}, '${p.category}', '${p.id}')">
-                                <p class="font-bold text-lg">${p.name}</p>
-                                <p class="text-2xl font-black text-yellow-dark my-2">${p.price.toLocaleString()} ج.س</p>
-                                <button class="w-full action-btn">شراء</button>
-                            </div>
-                        `).join('');
+                    <div class="product-card p-5 text-dark text-center" onclick="window.showOrderModal('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', '${p.id}')">
+                        <p class="font-bold text-lg">${p.name}</p>
+                        <p class="text-2xl font-black text-yellow-dark my-2">${p.price.toLocaleString()} ج.س</p>
+                        <button class="w-full action-btn">شراء</button>
+                    </div>
+                `).join('');
             });
         }
-
-        window.showOrderModal = showOrderModal;
 
         // ========== دوال الأدمن ==========
         window.addNewProduct = async () => {
@@ -1109,36 +1099,45 @@
                 const list = document.getElementById('manageProductsList');
                 list.innerHTML = '';
                 if (productsSnap.empty) {
-                    list.innerHTML = '<p class="text-dark-light text-center">لا توجد منتجات</p>';
+                    list.innerHTML = `
+                        <div class="empty-products">
+                            <i class="fas fa-box-open"></i>
+                            <p>لا توجد منتجات مضافة</p>
+                            <p class="text-sm mt-2">أضف منتجاً جديداً من تبويب "إضافة منتج"</p>
+                        </div>
+                    `;
                     return;
                 }
+                const catNames = {
+                    pubg: '🎮 ببجي',
+                    freefire: '🔥 فري فاير',
+                    clash: '👑 كلاش',
+                    efootball: '⚽ eFootball',
+                    netflix: '🎬 نتفليكس',
+                    googleplay: '🛍️ جوجل بلاي',
+                    redotpay: '💳 فيزا',
+                    tiktok: '🎵 تيك توك',
+                    ai: '🤖 ذكاء اصطناعي'
+                };
+                
+                let html = '';
                 productsSnap.forEach(doc => {
                     const p = doc.data();
-                    const catNames = {
-                        pubg: '🎮 ببجي',
-                        freefire: '🔥 فري فاير',
-                        clash: '👑 كلاش',
-                        efootball: '⚽ eFootball',
-                        netflix: '🎬 نتفليكس',
-                        googleplay: '🛍️ جوجل بلاي',
-                        redotpay: '💳 فيزا',
-                        tiktok: '🎵 تيك توك',
-                        ai: '🤖 ذكاء اصطناعي'
-                    };
-                    list.innerHTML += `
-                                <div class="product-item flex justify-between items-center p-3 bg-white/50 rounded-xl">
-                                    <div>
-                                        <p class="text-dark font-bold">${p.name}</p>
-                                        <p class="text-yellow-dark text-sm">${p.price.toLocaleString()} ج.س</p>
-                                        <p class="text-dark-light text-xs">${catNames[p.category] || p.category}</p>
-                                    </div>
-                                    <div class="flex gap-2">
-                                        <button onclick="window.editProductPrice('${doc.id}', ${p.price})" class="bg-yellow-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-yellow-600">تعديل السعر</button>
-                                        <button onclick="window.deleteProduct('${doc.id}')" class="bg-red-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-600">حذف</button>
-                                    </div>
-                                </div>
-                            `;
+                    html += `
+                        <div class="product-item flex justify-between items-center p-3 bg-white/50 rounded-xl">
+                            <div>
+                                <p class="text-dark font-bold">${p.name}</p>
+                                <p class="text-yellow-dark text-sm">${p.price.toLocaleString()} ج.س</p>
+                                <p class="text-dark-light text-xs">${catNames[p.category] || p.category}</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="window.editProductPrice('${doc.id}', ${p.price})" class="bg-yellow-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-yellow-600">تعديل السعر</button>
+                                <button onclick="window.deleteProduct('${doc.id}')" class="bg-red-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-600">حذف</button>
+                            </div>
+                        </div>
+                    `;
                 });
+                list.innerHTML = html;
             } catch (e) {
                 console.error("Error loading manage products:", e);
                 document.getElementById('manageProductsList').innerHTML =
@@ -1349,6 +1348,7 @@
             }
         };
 
+        // ========== عرض تاريخ الطلبات ==========
         function loadUserHistory(uid) {
             onSnapshot(query(collection(db, "orders"), where("uID", "==", uid), orderBy("timestamp", "desc")), (snap) => {
                 const list = document.getElementById('userOrdersList');
@@ -1368,6 +1368,7 @@
             });
         }
 
+        // ========== السياسات ==========
         const policies = {
             terms: { title: "📜 شروط الخدمة",
             content: "<p>باستخدامك للمنصة توافق على الشروط التالية: جميع عمليات الشحن خلال 24 ساعة، لا نضمن استرجاع الرصيد بعد إتمام الشراء.</p>" },
@@ -1607,4 +1608,4 @@
         };
     </script>
 </body>
-    </html>
+</html>
