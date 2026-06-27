@@ -428,6 +428,20 @@
             display: block;
             margin-bottom: 1rem;
         }
+        .danger-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            font-weight: 800;
+            padding: 0.75rem 1.5rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .danger-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -525,6 +539,7 @@
                         <button class="admin-tab" data-admin-tab="manage">📦 إدارة المنتجات</button>
                         <button class="admin-tab" data-admin-tab="orders">📋 الطلبات</button>
                         <button class="admin-tab" data-admin-tab="recharge">💰 شحن رصيد</button>
+                        <button class="admin-tab" data-admin-tab="deleteall">🗑️ حذف الكل</button>
                     </div>
 
                     <!-- إحصائيات -->
@@ -581,6 +596,15 @@
                             <input type="number" id="amountToAdd" placeholder="المبلغ">
                             <button onclick="adminRecharge()" class="w-full action-btn">💰 شحن الرصيد</button>
                             <button onclick="adminRechargeByEmail()" class="w-full action-btn-outline">🔍 شحن بالبريد الإلكتروني</button>
+                        </div>
+                    </div>
+
+                    <!-- حذف جميع المنتجات -->
+                    <div id="adminDeleteAll" class="admin-tab-content">
+                        <div class="bg-red-50 p-4 rounded-xl border-2 border-red-300">
+                            <h4 class="text-red-700 font-bold text-center text-lg mb-3">⚠️ تحذير: حذف جميع المنتجات</h4>
+                            <p class="text-red-600 text-center mb-4">سيتم حذف جميع المنتجات من قاعدة البيانات نهائياً!</p>
+                            <button onclick="deleteAllProducts()" class="w-full danger-btn">🗑️ حذف جميع المنتجات</button>
                         </div>
                     </div>
                 </div>
@@ -810,7 +834,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, onSnapshot, collection, query, where, getDocs, updateDoc, increment, setDoc, serverTimestamp, orderBy, getDoc, runTransaction, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, onSnapshot, collection, query, where, getDocs, updateDoc, increment, setDoc, serverTimestamp, orderBy, getDoc, runTransaction, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         const firebaseConfig = {
@@ -845,7 +869,57 @@
             }
         };
 
-        // ========== متغير المنتجات فارغ تماماً - سيتم جلبها من Firestore فقط ==========
+        // ========== المنتجات الافتراضية ==========
+        const defaultProducts = {
+            pubg: [
+                { name: "🎯 60 شدة", price: 4000 },
+                { name: "🎯 120 شدة", price: 8000 },
+                { name: "🎯 180 شدة", price: 12000 },
+                { name: "🎯 240 شدة", price: 16000 },
+                { name: "🎯 325 شدة", price: 20000 }
+            ],
+            freefire: [
+                { name: "💎 110 جوهرة", price: 4500 },
+                { name: "💎 231 جوهرة", price: 9000 },
+                { name: "💎 583 جوهرة", price: 23000 },
+                { name: "💎 1180 جوهرة", price: 50000 }
+            ],
+            clash: [
+                { name: "🎫 التذكرة الذهبية (أول مرة)", price: 10000 },
+                { name: "🎫 التذكرة الذهبية", price: 27000 }
+            ],
+            efootball: [
+                { name: "⚽ 130 كوينز", price: 6500 },
+                { name: "⚽ 300 كوينز", price: 15000 },
+                { name: "⚽ 550 كوينز", price: 27000 },
+                { name: "⚽ 750 كوينز", price: 37000 },
+                { name: "⚽ مجموعة مورينو + 150 كوينز", price: 28000 }
+            ],
+            netflix: [
+                { name: "🎬 نتفليكس Standard + إعلانات", price: 55000 },
+                { name: "🎬 نتفليكس Standard بدون إعلانات", price: 120000 }
+            ],
+            googleplay: [
+                { name: "🛍️ بطاقة جوجل بلاي 5$", price: 30000 },
+                { name: "🛍️ بطاقة جوجل بلاي 10$", price: 60000 }
+            ],
+            redotpay: [
+                { name: "💳 حساب Redotpay موثق", price: 120000 },
+                { name: "💳 حساب موثق + فيزا Redotpay", price: 180000 }
+            ],
+            tiktok: [
+                { name: "🎵 114 عملة تيك توك", price: 6000 },
+                { name: "🎵 447 عملة تيك توك", price: 30000 },
+                { name: "🎵 897 عملة تيك توك", price: 60000 }
+            ],
+            ai: [
+                { name: "🤖 ChatGPT Plus - شهر", price: 120000 },
+                { name: "🤖 ChatGPT Go - شهر", price: 45000 },
+                { name: "🤖 Gemini Pro - شهر", price: 75000 }
+            ]
+        };
+
+        // ========== متغير المنتجات ==========
         let allProducts = {
             pubg: [],
             freefire: [],
@@ -858,12 +932,49 @@
             ai: []
         };
 
-        // ========== جلب المنتجات من Firestore فقط ==========
-        async function loadProductsFromFirestore() {
+        // ========== إضافة المنتجات الافتراضية لأول مرة ==========
+        async function seedDefaultProducts() {
             try {
                 const productsSnap = await getDocs(collection(db, "products"));
                 
-                // إعادة تعيين allProducts إلى مصفوفات فارغة
+                // إذا لم توجد منتجات، أضف المنتجات الافتراضية
+                if (productsSnap.empty) {
+                    console.log("📦 جاري إضافة المنتجات الافتراضية...");
+                    const batch = writeBatch(db);
+                    
+                    for (const category in defaultProducts) {
+                        for (const product of defaultProducts[category]) {
+                            const id = `${category}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+                            const docRef = doc(db, "products", id);
+                            batch.set(docRef, {
+                                id: id,
+                                name: product.name,
+                                price: product.price,
+                                category: category,
+                                isActive: true,
+                                createdAt: serverTimestamp()
+                            });
+                        }
+                    }
+                    
+                    await batch.commit();
+                    console.log("✅ تم إضافة المنتجات الافتراضية بنجاح!");
+                }
+            } catch (e) {
+                console.error("❌ خطأ في إضافة المنتجات الافتراضية:", e);
+            }
+        }
+
+        // ========== جلب المنتجات من Firestore ==========
+        async function loadProductsFromFirestore() {
+            try {
+                // أولاً: تأكد من وجود منتجات افتراضية
+                await seedDefaultProducts();
+                
+                // ثم جلب المنتجات
+                const productsSnap = await getDocs(collection(db, "products"));
+                
+                // إعادة تعيين allProducts
                 allProducts = {
                     pubg: [],
                     freefire: [],
@@ -879,7 +990,6 @@
                 if (!productsSnap.empty) {
                     productsSnap.forEach(doc => {
                         const p = doc.data();
-                        // التحقق من وجود الفئة وأن المنتج نشط
                         if (p.isActive !== false && allProducts.hasOwnProperty(p.category)) {
                             allProducts[p.category].push({ ...p, id: doc.id });
                         }
@@ -893,6 +1003,48 @@
                 console.error("Error loading products:", e);
             }
         }
+
+        // ========== حذف جميع المنتجات ==========
+        window.deleteAllProducts = async function() {
+            if (!confirm("⚠️ تحذير: هل أنت متأكد من حذف جميع المنتجات نهائياً؟")) {
+                return;
+            }
+            
+            if (!confirm("⚠️ تأكيد نهائي: لا يمكن التراجع عن هذا الإجراء! هل تريد المتابعة؟")) {
+                return;
+            }
+            
+            try {
+                const productsSnap = await getDocs(collection(db, "products"));
+                const batch = writeBatch(db);
+                
+                productsSnap.forEach(doc => {
+                    batch.delete(doc.ref);
+                });
+                
+                await batch.commit();
+                
+                // إعادة تعيين المصفوفات المحلية
+                allProducts = {
+                    pubg: [],
+                    freefire: [],
+                    clash: [],
+                    efootball: [],
+                    netflix: [],
+                    googleplay: [],
+                    redotpay: [],
+                    tiktok: [],
+                    ai: []
+                };
+                
+                renderAllProducts();
+                loadManageProducts();
+                alert("✅ تم حذف جميع المنتجات بنجاح!");
+            } catch (e) {
+                alert("❌ حدث خطأ في حذف المنتجات: " + e.message);
+                console.error(e);
+            }
+        };
 
         // ========== إرسال إشعار تيليجرام ==========
         async function sendTelegramNotification(orderData) {
@@ -1031,7 +1183,7 @@
             }
 
             const newId = `${game}_${Date.now()}`;
-            const newProduct = { id: newId, name, price, category: game, isActive: true };
+            const newProduct = { id: newId, name, price, category: game, isActive: true, createdAt: serverTimestamp() };
 
             await setDoc(doc(db, "products", newId), newProduct);
 
@@ -1515,7 +1667,7 @@
             btn.addEventListener('click', () => {
                 const tab = btn.getAttribute('data-admin-tab');
                 const tabMap = { stats: 'Stats', users: 'Users', add: 'Add', manage: 'Manage', orders: 'Orders',
-                    recharge: 'Recharge' };
+                    recharge: 'Recharge', deleteall: 'DeleteAll' };
                 switchAdminTab(tabMap[tab]);
             });
         });
@@ -1561,7 +1713,8 @@
                         email: user.email,
                         img: user.photoURL || 'https://via.placeholder.com/100',
                         walletID: walletID,
-                        balance: 0
+                        balance: 0,
+                        createdAt: serverTimestamp()
                     });
                     alert(`✨ مرحباً بك في MORRE STORE!\n📱 رقم محفظتك: #${walletID}\n💰 للشحن اضغط على زر "شحن المحفظة"`);
                 }
@@ -1608,4 +1761,4 @@
         };
     </script>
 </body>
-                            </html>
+</html>
