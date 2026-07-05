@@ -19,6 +19,9 @@
     <script src="https://www.google.com/recaptcha/api.js?render=6LcNqZ4qAAAAAB5m5vP5QVQZb5Q5QVQZb5Q5QVQZ"></script>
     
     <style>
+        /* ============================================
+           ALL STYLES
+           ============================================ */
         * {
             font-family: 'Cairo', sans-serif;
             margin: 0;
@@ -150,9 +153,7 @@
             display: none;
         }
         
-        input,
-        select,
-        textarea {
+        input, select, textarea {
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 1rem;
@@ -162,9 +163,7 @@
             transition: 0.2s;
         }
         
-        input:focus,
-        select:focus,
-        textarea:focus {
+        input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: #f59e0b;
             background: rgba(255, 255, 255, 0.8);
@@ -177,21 +176,13 @@
         }
         
         @media (min-width: 640px) {
-            .service-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .service-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        
         @media (min-width: 768px) {
-            .service-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            .service-grid { grid-template-columns: repeat(3, 1fr); }
         }
-        
         @media (min-width: 1024px) {
-            .service-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
+            .service-grid { grid-template-columns: repeat(4, 1fr); }
         }
         
         .product-grid {
@@ -201,15 +192,10 @@
         }
         
         @media (min-width: 640px) {
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        
         @media (min-width: 1024px) {
-            .product-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            .product-grid { grid-template-columns: repeat(3, 1fr); }
         }
         
         .admin-tab {
@@ -233,27 +219,6 @@
         
         .admin-tab-content.active {
             display: block;
-        }
-        
-        .product-item {
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 1rem;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .user-item {
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 1rem;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-        }
-        
-        .user-item:hover {
-            background: rgba(255, 255, 255, 0.8);
         }
         
         .sidebar {
@@ -319,18 +284,6 @@
             border-bottom: 2px solid rgba(245, 158, 11, 0.3);
         }
         
-        .footer-links a {
-            color: #64748b;
-            margin: 0 0.75rem;
-            text-decoration: none;
-            font-size: 0.75rem;
-            transition: 0.2s;
-        }
-        
-        .footer-links a:hover {
-            color: #d97706;
-        }
-        
         .brand-name {
             background: linear-gradient(135deg, #f59e0b, #d97706);
             -webkit-background-clip: text;
@@ -355,12 +308,8 @@
         }
         
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .action-btn {
@@ -395,115 +344,6 @@
             transform: scale(1.02);
         }
         
-        .quick-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-        
-        .quick-actions .action-btn,
-        .quick-actions .action-btn-outline {
-            text-align: center;
-            font-size: 0.9rem;
-            padding: 0.6rem 0.5rem;
-        }
-        
-        .text-dark {
-            color: #1e293b;
-        }
-        
-        .text-dark-light {
-            color: #475569;
-        }
-        
-        .border-dark {
-            border-color: rgba(0, 0, 0, 0.1);
-        }
-        
-        .bg-dark-light {
-            background: rgba(0, 0, 0, 0.05);
-        }
-        
-        .text-yellow-dark {
-            color: #d97706;
-        }
-        
-        .border-yellow-dark {
-            border-color: #d97706;
-        }
-        
-        .sidebar a {
-            color: #1e293b;
-        }
-        
-        .sidebar a:hover {
-            background: rgba(245, 158, 11, 0.1);
-        }
-        
-        .user-detail-modal {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            max-width: 500px;
-            width: 100%;
-            margin: 1rem;
-        }
-        
-        .whatsapp-input {
-            background: rgba(255, 255, 255, 0.6);
-            border: 2px solid #25D366;
-            border-radius: 1rem;
-            padding: 0.75rem 1rem;
-            width: 100%;
-            color: #1e293b;
-            transition: 0.2s;
-        }
-        
-        .whatsapp-input:focus {
-            outline: none;
-            border-color: #f59e0b;
-            background: rgba(255, 255, 255, 0.8);
-        }
-        
-        .whatsapp-input::placeholder {
-            color: #94a3b8;
-        }
-        
-        .whatsapp-icon-input {
-            position: relative;
-        }
-        
-        .whatsapp-icon-input i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #25D366;
-            font-size: 1.2rem;
-        }
-        
-        .whatsapp-icon-input input {
-            padding-right: 45px;
-        }
-        
-        .empty-products {
-            text-align: center;
-            padding: 2rem;
-            color: #64748b;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 1.5rem;
-            border: 2px dashed rgba(0, 0, 0, 0.1);
-        }
-        
-        .empty-products i {
-            font-size: 3rem;
-            color: #cbd5e1;
-            display: block;
-            margin-bottom: 1rem;
-        }
-        
         .danger-btn {
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
@@ -518,6 +358,20 @@
         .danger-btn:hover {
             transform: scale(1.02);
             box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        .quick-actions .action-btn,
+        .quick-actions .action-btn-outline {
+            text-align: center;
+            font-size: 0.9rem;
+            padding: 0.6rem 0.5rem;
         }
         
         .otp-input {
@@ -556,18 +410,10 @@
             transform: translateX(0);
         }
         
-        .toast-success {
-            background: #22c55e;
-        }
-        .toast-error {
-            background: #ef4444;
-        }
-        .toast-warning {
-            background: #f59e0b;
-        }
-        .toast-info {
-            background: #3b82f6;
-        }
+        .toast-success { background: #22c55e; }
+        .toast-error { background: #ef4444; }
+        .toast-warning { background: #f59e0b; }
+        .toast-info { background: #3b82f6; }
         
         .chat-float {
             position: fixed;
@@ -590,21 +436,58 @@
             transform: scale(1.1);
         }
         
-        .chat-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #ef4444;
-            color: white;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
+        .whatsapp-input {
+            background: rgba(255, 255, 255, 0.6);
+            border: 2px solid #25D366;
+            border-radius: 1rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            color: #1e293b;
+            transition: 0.2s;
         }
+        
+        .whatsapp-input:focus {
+            outline: none;
+            border-color: #f59e0b;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .whatsapp-icon-input {
+            position: relative;
+        }
+        
+        .whatsapp-icon-input i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #25D366;
+            font-size: 1.2rem;
+        }
+        
+        .whatsapp-icon-input input {
+            padding-right: 45px;
+        }
+        
+        .empty-products {
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 1.5rem;
+            border: 2px dashed rgba(0, 0, 0, 0.1);
+        }
+        
+        .empty-products i {
+            font-size: 3rem;
+            color: #cbd5e1;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        
+        .text-dark { color: #1e293b; }
+        .text-dark-light { color: #475569; }
+        .text-yellow-dark { color: #d97706; }
         
         .dark body {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 30%, #1e293b 60%, #0f172a 100%);
@@ -618,25 +501,15 @@
             border-color: rgba(255, 255, 255, 0.1);
         }
         
-        .dark .text-dark {
-            color: #f1f5f9;
-        }
-        .dark .text-dark-light {
-            color: #94a3b8;
-        }
-        .dark .brand-name-white {
-            color: #f1f5f9;
-        }
+        .dark .text-dark { color: #f1f5f9; }
+        .dark .text-dark-light { color: #94a3b8; }
+        .dark .brand-name-white { color: #f1f5f9; }
         .dark .sidebar {
             background: rgba(15, 23, 42, 0.95);
             border-color: rgba(255, 255, 255, 0.05);
         }
-        .dark .sidebar a {
-            color: #f1f5f9;
-        }
-        .dark .sidebar a:hover {
-            background: rgba(245, 158, 11, 0.1);
-        }
+        .dark .sidebar a { color: #f1f5f9; }
+        .dark .sidebar a:hover { background: rgba(245, 158, 11, 0.1); }
         .dark .menu-btn {
             background: rgba(30, 41, 59, 0.6);
             color: #f1f5f9;
@@ -644,60 +517,61 @@
         .dark .simple-banner {
             background: rgba(30, 41, 59, 0.8);
         }
-        .dark .footer-links a {
-            color: #94a3b8;
-        }
-        .dark .footer-links a:hover {
-            color: #f59e0b;
-        }
-        .dark input,
-        .dark select,
-        .dark textarea {
+        .dark input, .dark select, .dark textarea {
             background: rgba(30, 41, 59, 0.6);
             color: #f1f5f9;
             border-color: rgba(255, 255, 255, 0.1);
         }
-        .dark input:focus,
-        .dark select:focus,
-        .dark textarea:focus {
+        .dark input:focus, .dark select:focus, .dark textarea:focus {
             background: rgba(30, 41, 59, 0.8);
             border-color: #f59e0b;
         }
         
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #f59e0b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d97706; }
         
-        .fade-in-up {
-            animation: fadeInUp 0.5s ease forwards;
+        .footer-links a {
+            color: #64748b;
+            margin: 0 0.75rem;
+            text-decoration: none;
+            font-size: 0.75rem;
+            transition: 0.2s;
         }
+        .footer-links a:hover { color: #d97706; }
         
-        ::-webkit-scrollbar {
-            width: 6px;
+        .whatsapp-float {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            z-index: 100;
+            background: #25D366;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            cursor: pointer;
         }
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.05);
-            border-radius: 10px;
+        .whatsapp-float:hover { transform: scale(1.1); }
+        
+        .social-btn {
+            transition: all 0.3s ease;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #f59e0b;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #d97706;
+        .social-btn:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
-    <!-- Maintenance Page -->
+    <!-- ============================================
+    MAINTENANCE PAGE
+    ============================================ -->
     <div id="maintenancePage" class="hidden fixed inset-0 bg-yellow-50 dark:bg-gray-900 flex items-center justify-center z-[999999]">
         <div class="text-center p-8">
             <div class="text-8xl mb-6">🔧</div>
@@ -707,7 +581,9 @@
         </div>
     </div>
 
-    <!-- WebView Warning -->
+    <!-- ============================================
+    WEBVIEW WARNING
+    ============================================ -->
     <div id="webview-warning" style="display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;background:#fef08a;text-align:center;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999999;color:#1e293b;">
         <h2 class="text-2xl font-bold mb-4">⛔ لا يمكن تسجيل الدخول من هذا التطبيق</h2>
         <p class="mb-4">يرجى فتح هذا الرابط في متصفح خارجي مثل Chrome أو Safari.</p>
@@ -715,28 +591,41 @@
         <button id="copy-link-btn" class="action-btn-outline mt-2">نسخ الرابط</button>
     </div>
 
-    <!-- Loading Screen -->
+    <!-- ============================================
+    LOADING SCREEN
+    ============================================ -->
     <div id="loading-screen" class="fixed inset-0 bg-white/70 dark:bg-gray-900/90 backdrop-blur flex items-center justify-center z-50">
         <div class="loader-spin"></div>
     </div>
 
-    <!-- Auth Screen -->
+    <!-- ============================================
+    AUTH SCREEN
+    ============================================ -->
     <div id="auth-screen" class="fixed inset-0 bg-white/60 dark:bg-gray-900/90 backdrop-blur flex items-center justify-center p-6 z-40 hidden">
         <div class="glass w-full max-w-md p-8 rounded-3xl text-dark">
-            <h1 class="text-4xl font-black text-center">
-                <span class="brand-name">MORRE</span> <span class="brand-name-white">STORE</span>
-            </h1>
-            <p class="text-center text-dark-light text-sm mb-6">متجر شامل للخدمات الرقمية</p>
+            <!-- Logo -->
+            <div class="text-center mb-4">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." 
+                     alt="MORRE STORE" 
+                     class="h-20 w-auto mx-auto mb-2">
+                <h1 class="text-3xl font-black text-dark">MORRE STORE</h1>
+                <p class="text-dark-light text-sm">متجر شامل للخدمات الرقمية</p>
+            </div>
+            
             <div class="flex gap-4 border-b border-dark/10 mb-6">
                 <button class="auth-tab flex-1 py-2 text-center font-bold text-dark-light" data-tab="login">تسجيل دخول</button>
                 <button class="auth-tab flex-1 py-2 text-center font-bold text-dark-light" data-tab="register">إنشاء حساب</button>
             </div>
+            
+            <!-- Login Form -->
             <div id="login-form" class="space-y-4">
                 <input type="email" id="login-email" placeholder="البريد الإلكتروني" dir="ltr">
                 <input type="password" id="login-password" placeholder="كلمة المرور" dir="ltr">
                 <button id="email-login-btn" class="w-full action-btn">تسجيل الدخول</button>
                 <button id="forgotPasswordBtn" class="w-full text-sm text-yellow-dark hover:underline">🔑 نسيت كلمة المرور؟</button>
             </div>
+            
+            <!-- Register Form -->
             <div id="register-form" class="space-y-4 hidden">
                 <input type="text" id="reg-name" placeholder="الاسم الكامل">
                 <input type="email" id="reg-email" placeholder="البريد الإلكتروني" dir="ltr">
@@ -751,6 +640,7 @@
                 </div>
                 <button id="email-register-btn" class="w-full action-btn">إنشاء حساب</button>
             </div>
+            
             <div class="relative my-6">
                 <div class="absolute inset-0 flex items-center">
                     <div class="w-full border-t border-dark/10"></div>
@@ -759,13 +649,16 @@
                     <span class="bg-white/60 dark:bg-gray-900/60 px-2 text-dark-light">أو</span>
                 </div>
             </div>
+            
             <button id="google-login-btn" class="w-full bg-white dark:bg-gray-800 text-gray-800 dark:text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-700">
                 <i class="fab fa-google"></i> دخول عبر جوجل
             </button>
         </div>
     </div>
 
-    <!-- OTP Modal -->
+    <!-- ============================================
+    OTP MODAL
+    ============================================ -->
     <div id="otpModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur z-[99999] flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 max-w-md w-full text-center">
             <div class="w-20 h-20 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -783,11 +676,12 @@
             </div>
             <button onclick="verifyOTP()" class="w-full action-btn">تحقق</button>
             <button onclick="resendOTP()" class="w-full text-yellow-dark text-sm mt-3 hover:underline">إعادة إرسال الرمز</button>
-            <p id="otpTimer" class="text-sm text-dark-light mt-2"></p>
         </div>
     </div>
 
-    <!-- Login OTP Modal -->
+    <!-- ============================================
+    LOGIN OTP MODAL
+    ============================================ -->
     <div id="loginOtpModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur z-[99999] flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 max-w-md w-full text-center">
             <div class="w-20 h-20 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -808,28 +702,39 @@
         </div>
     </div>
 
-    <!-- Main App -->
-    <div id="main-app" class="hidden pb-32">
+    <!-- ============================================
+    MAIN APP
+    ============================================ -->
+    <div id="main-app" class="pb-32">
         
-        <!-- Header -->
+        <!-- ============================================
+        HEADER
+        ============================================ -->
         <div class="simple-banner sticky top-0 z-50">
             <button class="menu-btn" id="menuBtn"><i class="fas fa-bars text-xl"></i></button>
-            <div>
-                <span class="brand-name">MORRE</span> <span class="brand-name-white">STORE</span>
+            <div class="flex items-center gap-2">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." 
+                     alt="MORRE STORE" 
+                     class="h-10 w-auto object-contain">
+                <span class="brand-name-white text-xl font-bold">MORRE STORE</span>
             </div>
             <div class="flex items-center gap-3">
                 <button onclick="showCart()" class="relative menu-btn">
                     <i class="fas fa-shopping-cart text-xl"></i>
                     <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
                 </button>
-                <div style="width:10px;"></div>
             </div>
         </div>
 
+        <!-- ============================================
+        MAIN CONTENT
+        ============================================ -->
         <main class="max-w-7xl mx-auto px-4 relative z-10">
             
-            <!-- Wallet Card -->
-            <div class="wallet-card p-5 text-dark mb-6 mt-4">
+            <!-- ============================================
+            WALLET CARD (للمستخدمين المسجلين فقط)
+            ============================================ -->
+            <div id="walletCard" class="wallet-card p-5 text-dark mb-6 mt-4 hidden">
                 <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
                     <div class="flex items-center gap-3 w-full sm:w-auto">
                         <img id="uImg" class="w-12 h-12 rounded-full border-2 border-yellow-dark shadow-lg cursor-pointer" onclick="openSettings()" src="https://via.placeholder.com/100">
@@ -862,22 +767,58 @@
                 </div>
             </div>
 
-            <!-- User Stats -->
-            <div id="userStats" class="mb-6"></div>
+            <!-- ============================================
+            GUEST CARD (لغير المسجلين)
+            ============================================ -->
+            <div id="guestCard" class="wallet-card p-5 text-dark mb-6 mt-4">
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <img class="w-12 h-12 rounded-full border-2 border-yellow-dark" src="https://via.placeholder.com/100">
+                        <div>
+                            <h2 class="font-bold text-lg text-dark">👋 زائر</h2>
+                            <div class="text-xs text-dark-light bg-black/5 dark:bg-white/5 px-2 py-0.5 rounded-full mt-1">مرحباً بك في MORRE STORE</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <button onclick="showAuthScreen()" class="action-btn text-sm py-2 px-4">
+                            <i class="fas fa-user ml-1"></i> تسجيل الدخول
+                        </button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2 mt-4">
+                    <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="action-btn-outline text-center text-sm py-2">
+                        <i class="fas fa-headset ml-1"></i> خدمة العملاء
+                    </a>
+                    <button onclick="openChat()" class="action-btn-outline text-center text-sm py-2">
+                        <i class="fas fa-comment ml-1"></i> دردشة مباشرة
+                    </button>
+                </div>
+            </div>
 
-            <!-- Top Products -->
+            <!-- ============================================
+            USER STATS (للمستخدمين المسجلين)
+            ============================================ -->
+            <div id="userStats" class="mb-6 hidden"></div>
+
+            <!-- ============================================
+            TOP PRODUCTS
+            ============================================ -->
             <div class="mb-6">
                 <h3 class="text-xl font-black text-dark mb-3">🏆 الأكثر مبيعاً</h3>
                 <div id="topProducts" class="space-y-2"></div>
             </div>
 
-            <!-- Recommendations -->
-            <div class="mb-6">
+            <!-- ============================================
+            RECOMMENDATIONS (للمستخدمين المسجلين)
+            ============================================ -->
+            <div id="recommendationsSection" class="mb-6 hidden">
                 <h3 class="text-xl font-black text-dark mb-3">🤖 توصيات لك</h3>
                 <div id="recommendations" class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>
             </div>
 
-            <!-- Admin Panel -->
+            <!-- ============================================
+            ADMIN PANEL
+            ============================================ -->
             <div id="adminPanel" class="hidden mb-6">
                 <div class="glass p-4 rounded-2xl">
                     <h3 class="text-xl font-bold text-dark mb-4 text-center">👑 لوحة تحكم الأدمن</h3>
@@ -960,7 +901,7 @@
                         <div class="space-y-3">
                             <input type="text" id="couponCode" placeholder="كود الخصم (مثال: MORRE20)">
                             <input type="number" id="couponDiscount" placeholder="نسبة الخصم (مثال: 20)">
-                            <input type="number" id="couponMaxUses" placeholder="الحد الأقصى للاستخدام (مثال: 100)">
+                            <input type="number" id="couponMaxUses" placeholder="الحد الأقصى (مثال: 100)">
                             <input type="date" id="couponExpiry">
                             <button onclick="createCoupon()" class="w-full action-btn">🎫 إنشاء كوبون</button>
                         </div>
@@ -990,7 +931,9 @@
                 </div>
             </div>
 
-            <!-- Home Page -->
+            <!-- ============================================
+            HOME PAGE - SERVICES
+            ============================================ -->
             <div id="homePage" class="home-page">
                 <h2 class="text-2xl font-black text-dark mb-6 text-center">🌟 جميع الخدمات</h2>
                 <div class="service-grid">
@@ -1042,7 +985,9 @@
                 </div>
             </div>
 
-            <!-- Category Pages -->
+            <!-- ============================================
+            CATEGORY PAGES
+            ============================================ -->
             <div id="category-pubg" class="category-page">
                 <div class="flex items-center gap-4 mb-6">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -1107,58 +1052,120 @@
                 <div id="aiGrid" class="product-grid"></div>
             </div>
 
-            <!-- User Orders -->
+            <!-- ============================================
+            USER ORDERS
+            ============================================ -->
             <div class="mt-8">
                 <h3 class="text-2xl font-black text-dark mb-4 border-r-4 border-yellow-dark pr-3">📋 تاريخ طلباتي</h3>
                 <div id="userOrdersList" class="space-y-4"></div>
             </div>
         </main>
 
-        <!-- Sidebar -->
+        <!-- ============================================
+        SIDEBAR
+        ============================================ -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <div class="sidebar" id="sidebar">
+            <!-- Profile Section -->
             <div class="text-center py-4 border-b border-dark/10">
-                <img id="sidebarImg" class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-dark cursor-pointer" onclick="openSettings()" src="https://via.placeholder.com/100">
-                <h4 id="sidebarName" class="font-bold text-dark text-lg mt-2"></h4>
-                <p id="sidebarWallet" class="text-sm text-yellow-dark"></p>
-                <button onclick="openSettings()" class="text-xs text-yellow-dark hover:underline mt-1">
-                    <i class="fas fa-edit"></i> تعديل الملف الشخصي
-                </button>
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." 
+                     alt="MORRE STORE" 
+                     class="h-10 w-auto mx-auto mb-3">
+                <img id="sidebarImg" class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-dark cursor-pointer" 
+                     src="https://via.placeholder.com/100" onclick="openSettings()">
+                <h4 id="sidebarName" class="font-bold text-dark text-lg mt-2">زائر</h4>
+                <p id="sidebarWallet" class="text-sm text-yellow-dark">المحفظة: غير مسجل</p>
+                <button id="sidebarLoginBtn" onclick="showAuthScreen()" 
+                        class="mt-2 action-btn text-sm py-1 px-4">🔑 تسجيل الدخول</button>
+                <button id="sidebarLogoutBtn" onclick="logoutUser()" 
+                        class="mt-2 hidden danger-btn text-sm py-1 px-4">🚪 تسجيل الخروج</button>
             </div>
+
+            <!-- Wallet Details (للمستخدمين المسجلين) -->
+            <div id="walletDetails" class="hidden bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-xl mt-2">
+                <p class="text-sm font-bold text-dark text-center">💰 بيانات المحفظة</p>
+                <div class="grid grid-cols-2 gap-2 mt-2 text-sm">
+                    <div class="bg-white/50 dark:bg-gray-800/50 p-2 rounded-lg text-center">
+                        <p class="text-xs text-dark-light">الرصيد</p>
+                        <p class="font-bold text-yellow-dark" id="sidebarBalance">0 ج.س</p>
+                    </div>
+                    <div class="bg-white/50 dark:bg-gray-800/50 p-2 rounded-lg text-center">
+                        <p class="text-xs text-dark-light">رقم المحفظة</p>
+                        <p class="font-bold text-yellow-dark" id="sidebarWalletID">#000000</p>
+                    </div>
+                    <div class="bg-white/50 dark:bg-gray-800/50 p-2 rounded-lg text-center">
+                        <p class="text-xs text-dark-light">💰 الوارد</p>
+                        <p class="font-bold text-green-500" id="sidebarIncome">0 ج.س</p>
+                    </div>
+                    <div class="bg-white/50 dark:bg-gray-800/50 p-2 rounded-lg text-center">
+                        <p class="text-xs text-dark-light">💸 المنصرف</p>
+                        <p class="font-bold text-red-500" id="sidebarExpense">0 ج.س</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
             <a href="#" onclick="goHome(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl">
                 <i class="fas fa-home w-6"></i> الرئيسية
+            </a>
+            <a href="#" onclick="toggleSidebar(false); document.getElementById('userOrdersList').scrollIntoView({behavior:'smooth'});" 
+               class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl">
+                <i class="fas fa-shopping-bag w-6"></i> طلباتي
             </a>
             <a href="#" onclick="openSettings();" class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl">
                 <i class="fas fa-user-cog w-6 text-yellow-dark"></i> إعدادات الحساب
             </a>
-            <a href="#" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl">
-                <i class="fas fa-wallet w-6"></i> محفظتي
-            </a>
-            <a href="#" onclick="toggleSidebar(false); document.getElementById('userOrdersList').scrollIntoView({behavior:'smooth'});" class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl">
-                <i class="fas fa-shopping-bag w-6"></i> طلباتي
-            </a>
-            <a href="#" onclick="openWalletWhatsApp(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl">
-                <i class="fas fa-wallet w-6 text-yellow-dark"></i> شحن المحفظة
-            </a>
-            <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl">
-                <i class="fab fa-whatsapp w-6 text-green-500"></i> خدمة العملاء
-            </a>
             <a href="#" onclick="openChat(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl">
                 <i class="fas fa-comment w-6 text-blue-500"></i> دردشة مباشرة
             </a>
-            <div onclick="toggleSidebar(false); showPolicy('terms');" class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl cursor-pointer">
-                <i class="fas fa-file-alt w-6"></i> السياسات
+
+            <!-- Social Media Section -->
+            <div class="border-t border-dark/10 mt-4 pt-4">
+                <p class="text-sm font-bold text-dark mb-2 text-center">📱 تابعونا على</p>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://whatsapp.com/channel/0029VbDI8o7IiRp1Q4ey5B3T" target="_blank" 
+                       class="social-btn flex items-center gap-2 p-2 bg-green-500/10 rounded-lg hover:bg-green-500/20 text-green-600 text-sm">
+                        <i class="fab fa-whatsapp"></i> قناة واتساب
+                    </a>
+                    <a href="https://chat.whatsapp.com/EQMjHuAmIpEIHvrQqln3RX" target="_blank" 
+                       class="social-btn flex items-center gap-2 p-2 bg-green-500/10 rounded-lg hover:bg-green-500/20 text-green-600 text-sm">
+                        <i class="fas fa-users"></i> جروب واتساب
+                    </a>
+                    <a href="https://www.facebook.com/share/1DLMzAof1K/" target="_blank" 
+                       class="social-btn flex items-center gap-2 p-2 bg-blue-500/10 rounded-lg hover:bg-blue-500/20 text-blue-600 text-sm">
+                        <i class="fab fa-facebook"></i> فيسبوك
+                    </a>
+                    <a href="https://www.tiktok.com/@morre.store2" target="_blank" 
+                       class="social-btn flex items-center gap-2 p-2 bg-black/10 rounded-lg hover:bg-black/20 text-black dark:text-white text-sm">
+                        <i class="fab fa-tiktok"></i> تيك توك
+                    </a>
+                </div>
+            </div>
+
+            <!-- More Links -->
+            <div onclick="toggleSidebar(false); showPolicy('about');" 
+                 class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl cursor-pointer mt-2">
+                <i class="fas fa-store w-6"></i> عن المتجر
+            </div>
+            <div onclick="toggleSidebar(false); showPolicy('terms');" 
+                 class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl cursor-pointer">
+                <i class="fas fa-file-alt w-6"></i> الشروط والأحكام
             </div>
             <div onclick="toggleTheme()" class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl cursor-pointer" id="themeToggleBtn">
                 <i class="fas fa-moon w-6"></i> الوضع الليلي
             </div>
-            <a href="#" onclick="document.getElementById('logout-btn').click(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 rounded-xl">
-                <i class="fas fa-sign-out-alt w-6"></i> تسجيل الخروج
-            </a>
         </div>
 
-        <!-- Footer -->
+        <!-- ============================================
+        FOOTER
+        ============================================ -->
         <footer class="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-t border-dark/10 py-3 text-center text-xs text-dark-light footer-links z-40">
+            <div class="flex items-center justify-center gap-3 mb-1">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." 
+                     alt="MORRE STORE" 
+                     class="h-6 w-auto">
+                <span class="font-bold text-dark">MORRE STORE</span>
+            </div>
             <div class="flex justify-center gap-4 flex-wrap">
                 <a href="#" onclick="showPolicy('terms');return false;">شروط الخدمة</a>
                 <a href="#" onclick="showPolicy('privacy');return false;">سياسة الخصوصية</a>
@@ -1169,7 +1176,9 @@
         </footer>
     </div>
 
-    <!-- Settings Page -->
+    <!-- ============================================
+    SETTINGS PAGE
+    ============================================ -->
     <div id="settingsPage" class="hidden fixed inset-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur z-[99999] overflow-y-auto">
         <div class="max-w-2xl mx-auto p-6 pb-32">
             <div class="flex items-center gap-4 mb-6 sticky top-0 bg-white/95 dark:bg-gray-900/95 py-4 z-10">
@@ -1238,13 +1247,6 @@
                         </label>
                     </div>
                 </div>
-                <div class="bg-white/50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
-                    <label class="text-sm text-dark-light block mb-1">📱 ربط تيليجرام</label>
-                    <div id="telegramStatus"></div>
-                    <button onclick="linkTelegram()" class="text-sm text-yellow-dark font-bold hover:underline">
-                        <i class="fab fa-telegram"></i> ربط حساب تيليجرام
-                    </button>
-                </div>
                 <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-xl border border-yellow-200 dark:border-yellow-800">
                     <p class="text-sm text-dark-light">
                         🆔 <span class="font-bold">رقم المحفظة:</span> 
@@ -1265,7 +1267,9 @@
         </div>
     </div>
 
-    <!-- Chat Modal -->
+    <!-- ============================================
+    CHAT MODAL
+    ============================================ -->
     <div id="chatModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur z-[99999] flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-3xl w-full max-w-md h-[600px] flex flex-col">
             <div class="flex justify-between items-center p-4 border-b dark:border-gray-700">
@@ -1294,7 +1298,9 @@
         </div>
     </div>
 
-    <!-- Cart Modal -->
+    <!-- ============================================
+    CART MODAL
+    ============================================ -->
     <div id="cartModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur z-[99999] flex items-center justify-center p-4">
         <div class="bg-white dark:bg-gray-800 rounded-3xl w-full max-w-md max-h-[80vh] flex flex-col">
             <div class="flex justify-between items-center p-4 border-b dark:border-gray-700">
@@ -1307,29 +1313,9 @@
         </div>
     </div>
 
-    <!-- Feedback Modal -->
-    <div id="feedbackModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur z-[99999] flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 max-w-md w-full">
-            <h3 class="text-2xl font-bold text-dark text-center">📝 تقييم الخدمة</h3>
-            <p class="text-center text-dark-light text-sm mt-2">كيف تقيم تجربتك مع MORRE STORE؟</p>
-            <div class="flex justify-center gap-2 my-6" id="feedbackStars">
-                <button onclick="selectStar(1)" class="star-btn text-5xl hover:scale-110 transition text-gray-300">☆</button>
-                <button onclick="selectStar(2)" class="star-btn text-5xl hover:scale-110 transition text-gray-300">☆</button>
-                <button onclick="selectStar(3)" class="star-btn text-5xl hover:scale-110 transition text-gray-300">☆</button>
-                <button onclick="selectStar(4)" class="star-btn text-5xl hover:scale-110 transition text-gray-300">☆</button>
-                <button onclick="selectStar(5)" class="star-btn text-5xl hover:scale-110 transition text-gray-300">☆</button>
-            </div>
-            <input type="hidden" id="feedbackOrderId">
-            <textarea id="feedbackComment" class="w-full p-3 bg-gray-50 dark:bg-gray-700 rounded-xl border focus:border-yellow-500" 
-                      rows="3" placeholder="شاركنا رأيك... (اختياري)"></textarea>
-            <div class="flex gap-3 mt-4">
-                <button onclick="closeFeedbackModal()" class="flex-1 bg-gray-100 dark:bg-gray-700 py-2 rounded-xl">تخطي</button>
-                <button onclick="submitFeedback()" class="flex-1 action-btn">إرسال</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Order Modal -->
+    <!-- ============================================
+    ORDER MODAL
+    ============================================ -->
     <div id="orderModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-[99999] flex items-center justify-center p-4">
         <div class="glass w-full max-w-md p-6 rounded-3xl text-dark">
             <h2 class="text-xl font-bold text-center text-dark mb-4">🛒 تأكيد بيانات الشحن</h2>
@@ -1354,16 +1340,49 @@
         </div>
     </div>
 
-    <!-- Policy Modal -->
+    <!-- ============================================
+    FEEDBACK MODAL
+    ============================================ -->
+    <div id="feedbackModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur z-[99999] flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 max-w-md w-full">
+            <h3 class="text-2xl font-bold text-dark text-center">📝 تقييم الخدمة</h3>
+            <p class="text-center text-dark-light text-sm mt-2">كيف تقيم تجربتك مع MORRE STORE؟</p>
+            <div class="flex justify-center gap-2 my-6" id="feedbackStars">
+                <button onclick="selectStar(1)" class="star-btn text-5xl hover:scale-110 transition text-gray-300">☆</button>
+                <button onclick="selectStar(2)" class="star-btn text-5xl hover:scale-110 transition text-gray-300">☆</button>
+                <button onclick="selectStar(3)" class="star-btn text-5xl hover:scale-110 transition text-gray-300">☆</button>
+                <button onclick="selectStar(4)" class="star-btn text-5xl hover:scale-110 transition text-gray-300">☆</button>
+                <button onclick="selectStar(5)" class="star-btn text-5xl hover:scale-110 transition text-gray-300">☆</button>
+            </div>
+            <input type="hidden" id="feedbackOrderId">
+            <textarea id="feedbackComment" class="w-full p-3 bg-gray-50 dark:bg-gray-700 rounded-xl border focus:border-yellow-500" 
+                      rows="3" placeholder="شاركنا رأيك... (اختياري)"></textarea>
+            <div class="flex gap-3 mt-4">
+                <button onclick="closeFeedbackModal()" class="flex-1 bg-gray-100 dark:bg-gray-700 py-2 rounded-xl">تخطي</button>
+                <button onclick="submitFeedback()" class="flex-1 action-btn">إرسال</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+    POLICY MODAL
+    ============================================ -->
     <div id="policy-modal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-50 flex items-center justify-center p-4">
         <div class="glass w-full max-w-md p-6 rounded-3xl text-dark">
-            <div class="flex justify-between items-center mb-4"><h3 id="policy-title" class="text-xl font-bold"></h3><button onclick="closePolicyModal()" class="text-dark-light hover:text-dark"><i class="fas fa-times text-2xl"></i></button></div>
-            <div id="policy-content" class="text-dark-light"></div>
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="policy-title" class="text-xl font-bold"></h3>
+                <button onclick="closePolicyModal()" class="text-dark-light hover:text-dark">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div id="policy-content" class="text-dark-light max-h-96 overflow-y-auto"></div>
             <button onclick="closePolicyModal()" class="mt-6 w-full bg-dark/5 py-2 rounded-xl">إغلاق</button>
         </div>
     </div>
 
-    <!-- Order Detail Modal -->
+    <!-- ============================================
+    ORDER DETAIL MODAL
+    ============================================ -->
     <div id="orderDetailModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-50 flex items-center justify-center p-4">
         <div class="glass w-full max-w-md p-6 rounded-3xl text-dark">
             <h3 class="text-xl font-bold mb-4">📄 تفاصيل الطلب</h3>
@@ -1372,7 +1391,9 @@
         </div>
     </div>
 
-    <!-- Edit Price Modal -->
+    <!-- ============================================
+    EDIT PRICE MODAL
+    ============================================ -->
     <div id="editPriceModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-[99999] flex items-center justify-center p-4">
         <div class="glass w-full max-w-sm p-6 rounded-3xl text-dark">
             <h3 class="text-xl font-bold text-center mb-4">💰 تعديل السعر</h3>
@@ -1384,9 +1405,9 @@
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- JAVASCRIPT -->
-    <!-- ============================================================ -->
+    <!-- ============================================
+    JAVASCRIPT - FULL CODE
+    ============================================ -->
     <script type="module">
         // ============================================================
         // IMPORT FIREBASE
@@ -1446,7 +1467,7 @@
         let loginOtpCode = '';
         let tempUserData = {};
         let selectedStars = 0;
-        let appliedCoupon = null;
+        let appliedCoupon = JSON.parse(localStorage.getItem('appliedCoupon')) || null;
         let sessionId = localStorage.getItem('sessionId') || Math.random().toString(36).substring(2, 15);
 
         // ============================================================
@@ -1523,7 +1544,6 @@
             document.body.appendChild(toast);
             
             setTimeout(() => toast.classList.add('show'), 50);
-            
             setTimeout(() => {
                 toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 400);
@@ -1543,65 +1563,93 @@
         }
 
         // ============================================================
-        // SESSION MANAGEMENT
+        // COUPONS SYSTEM
         // ============================================================
-        async function initSessionManagement() {
-            await setDoc(doc(db, "sessions", `${auth.currentUser.uid}_${sessionId}`), {
-                userId: auth.currentUser.uid,
-                sessionId: sessionId,
-                device: navigator.userAgent,
-                lastActivity: serverTimestamp(),
-                createdAt: serverTimestamp(),
-                isActive: true
-            });
+        window.applyCoupon = async function() {
+            const input = document.getElementById('couponInput');
+            if (!input) return;
             
-            setInterval(async () => {
-                await updateDoc(doc(db, "sessions", `${auth.currentUser.uid}_${sessionId}`), {
-                    lastActivity: serverTimestamp()
-                });
-            }, 300000);
-        }
-
-        // ============================================================
-        // NOTIFICATIONS SYSTEM
-        // ============================================================
-        let notifications = JSON.parse(localStorage.getItem('notifications')) || [];
-
-        function addNotification(title, body, type = 'info') {
-            notifications.unshift({ title, body, type, time: Date.now() });
-            if (notifications.length > 50) notifications = notifications.slice(0, 50);
-            localStorage.setItem('notifications', JSON.stringify(notifications));
-            
-            if ('Notification' in window && Notification.permission === 'granted') {
-                new Notification(title, { body });
-            }
-        }
-
-        // ============================================================
-        // COUPONS
-        // ============================================================
-        async function applyCoupon(code) {
-            const couponSnap = await getDocs(query(
-                collection(db, "coupons"),
-                where("code", "==", code.toUpperCase()),
-                where("isActive", "==", true),
-                where("expiryDate", ">=", new Date())
-            ));
-            
-            if (couponSnap.empty) {
-                showToast('❌ كود الخصم غير صحيح أو منتهي الصلاحية', 'error');
-                return false;
+            const code = input.value.trim().toUpperCase();
+            if (!code) {
+                showToast('❌ الرجاء إدخال كود الخصم', 'error');
+                return;
             }
             
-            const coupon = couponSnap.docs[0].data();
-            appliedCoupon = coupon;
-            showToast(`✅ تم تطبيق الخصم ${coupon.discount}%`, 'success');
-            updateCartUI();
-            return true;
-        }
+            try {
+                const couponRef = doc(db, "coupons", code);
+                const couponSnap = await getDoc(couponRef);
+                
+                if (!couponSnap.exists()) {
+                    showToast('❌ كود الخصم غير صحيح', 'error');
+                    return;
+                }
+                
+                const coupon = couponSnap.data();
+                
+                if (!coupon.isActive) {
+                    showToast('❌ كود الخصم غير مفعل', 'error');
+                    return;
+                }
+                
+                if (coupon.expiryDate && coupon.expiryDate.toDate() < new Date()) {
+                    showToast('❌ انتهت صلاحية كود الخصم', 'error');
+                    return;
+                }
+                
+                if (coupon.maxUses && coupon.usedCount >= coupon.maxUses) {
+                    showToast('❌ تم الوصول للحد الأقصى لاستخدام هذا الكود', 'error');
+                    return;
+                }
+                
+                appliedCoupon = coupon;
+                localStorage.setItem('appliedCoupon', JSON.stringify(coupon));
+                
+                showToast(`✅ تم تطبيق الخصم ${coupon.discount}%`, 'success');
+                
+                if (!document.getElementById('cartModal').classList.contains('hidden')) {
+                    showCart();
+                }
+                
+                input.value = '';
+                input.disabled = true;
+                
+                const applyBtn = document.getElementById('applyCouponBtn');
+                if (applyBtn) {
+                    applyBtn.textContent = `✅ خصم ${coupon.discount}%`;
+                    applyBtn.className = 'bg-green-500 text-white px-4 py-2 rounded-xl text-sm';
+                }
+                
+            } catch (e) {
+                console.error('Coupon error:', e);
+                showToast('❌ حدث خطأ في التحقق من الكود', 'error');
+            }
+        };
 
-        async function createCoupon() {
-            const code = document.getElementById('couponCode').value.toUpperCase();
+        window.removeCoupon = function() {
+            appliedCoupon = null;
+            localStorage.removeItem('appliedCoupon');
+            
+            const input = document.getElementById('couponInput');
+            if (input) {
+                input.disabled = false;
+                input.value = '';
+            }
+            
+            const applyBtn = document.getElementById('applyCouponBtn');
+            if (applyBtn) {
+                applyBtn.textContent = '🎫 تطبيق';
+                applyBtn.className = 'action-btn px-4 py-2 rounded-xl text-sm';
+            }
+            
+            showToast('❌ تم إلغاء كود الخصم', 'warning');
+            
+            if (!document.getElementById('cartModal').classList.contains('hidden')) {
+                showCart();
+            }
+        };
+
+        window.createCoupon = async function() {
+            const code = document.getElementById('couponCode').value.trim().toUpperCase();
             const discount = parseInt(document.getElementById('couponDiscount').value);
             const maxUses = parseInt(document.getElementById('couponMaxUses').value) || 999;
             const expiry = document.getElementById('couponExpiry').value;
@@ -1611,82 +1659,384 @@
                 return;
             }
             
-            await setDoc(doc(db, "coupons", code), {
-                code: code,
-                discount: discount,
-                expiryDate: new Date(expiry),
-                isActive: true,
-                usedCount: 0,
-                maxUses: maxUses,
-                createdAt: serverTimestamp()
-            });
+            if (discount < 1 || discount > 100) {
+                showToast('❌ نسبة الخصم يجب أن تكون بين 1 و 100', 'error');
+                return;
+            }
             
-            showToast('✅ تم إنشاء كود الخصم بنجاح', 'success');
-            loadCoupons();
-        }
+            try {
+                const existingCoupon = await getDoc(doc(db, "coupons", code));
+                if (existingCoupon.exists()) {
+                    showToast('❌ هذا الكود موجود مسبقاً', 'error');
+                    return;
+                }
+                
+                await setDoc(doc(db, "coupons", code), {
+                    code: code,
+                    discount: discount,
+                    expiryDate: new Date(expiry),
+                    isActive: true,
+                    usedCount: 0,
+                    maxUses: maxUses,
+                    createdAt: serverTimestamp()
+                });
+                
+                showToast(`✅ تم إنشاء كود الخصم ${code} بنجاح`, 'success');
+                loadCoupons();
+                
+                document.getElementById('couponCode').value = '';
+                document.getElementById('couponDiscount').value = '';
+                document.getElementById('couponMaxUses').value = '';
+                document.getElementById('couponExpiry').value = '';
+                
+            } catch (e) {
+                console.error('Create coupon error:', e);
+                showToast('❌ حدث خطأ في إنشاء الكوبون', 'error');
+            }
+        };
 
         async function loadCoupons() {
-            const couponsSnap = await getDocs(query(collection(db, "coupons"), where("isActive", "==", true)));
-            const list = document.getElementById('couponsList');
-            list.innerHTML = couponsSnap.docs.map(doc => {
-                const c = doc.data();
-                return `
-                    <div class="bg-white/50 dark:bg-gray-800/50 p-3 rounded-xl flex justify-between items-center">
-                        <div>
-                            <p class="font-bold text-dark">${c.code}</p>
-                            <p class="text-sm text-dark-light">خصم ${c.discount}% | استخدم ${c.usedCount}/${c.maxUses}</p>
+            try {
+                const couponsSnap = await getDocs(query(
+                    collection(db, "coupons"),
+                    orderBy("createdAt", "desc")
+                ));
+                
+                const list = document.getElementById('couponsList');
+                if (!list) return;
+                
+                if (couponsSnap.empty) {
+                    list.innerHTML = '<p class="text-dark-light text-center text-sm">لا توجد كوبونات</p>';
+                    return;
+                }
+                
+                let html = '';
+                couponsSnap.forEach(doc => {
+                    const c = doc.data();
+                    const isExpired = c.expiryDate && c.expiryDate.toDate() < new Date();
+                    const isFull = c.maxUses && c.usedCount >= c.maxUses;
+                    
+                    html += `
+                        <div class="bg-white/50 dark:bg-gray-800/50 p-3 rounded-xl flex justify-between items-center">
+                            <div>
+                                <p class="font-bold text-dark">${c.code}</p>
+                                <p class="text-sm text-dark-light">
+                                    خصم ${c.discount}% | استخدم ${c.usedCount}/${c.maxUses || '∞'}
+                                    ${isExpired ? '<span class="text-red-500 text-xs"> (منتهي)</span>' : ''}
+                                    ${isFull ? '<span class="text-red-500 text-xs"> (مكتمل)</span>' : ''}
+                                </p>
+                                <p class="text-xs text-dark-light">ينتهي: ${c.expiryDate ? new Date(c.expiryDate.toDate()).toLocaleDateString() : 'غير محدد'}</p>
+                            </div>
+                            <div>
+                                <button onclick="deleteCoupon('${doc.id}')" class="text-red-500 hover:text-red-700">🗑️</button>
+                            </div>
                         </div>
-                        <button onclick="deleteCoupon('${doc.id}')" class="text-red-500">🗑️</button>
+                    `;
+                });
+                
+                list.innerHTML = html;
+                
+            } catch (e) {
+                console.error('Load coupons error:', e);
+            }
+        }
+
+        window.deleteCoupon = async function(couponId) {
+            if (!confirm('⚠️ هل أنت متأكد من حذف هذا الكوبون؟')) return;
+            
+            try {
+                await deleteDoc(doc(db, "coupons", couponId));
+                showToast('✅ تم حذف الكوبون بنجاح', 'success');
+                loadCoupons();
+            } catch (e) {
+                console.error('Delete coupon error:', e);
+                showToast('❌ حدث خطأ في حذف الكوبون', 'error');
+            }
+        };
+
+        function getDiscountedPrice(originalPrice) {
+            if (!appliedCoupon) return originalPrice;
+            return Math.round(originalPrice * (1 - appliedCoupon.discount / 100));
+        }
+
+        // ============================================================
+        // CART SYSTEM
+        // ============================================================
+        window.showCart = function() {
+            const container = document.getElementById('cartContent');
+            if (!container) return;
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-dark-light">
+                        <i class="fas fa-shopping-cart text-5xl block mb-4 text-gray-300"></i>
+                        <p>سلة التسوق فارغة</p>
+                        <button onclick="closeCart()" class="action-btn mt-4">تصفح المنتجات</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            let total = 0;
+            let html = cart.map(item => {
+                const price = getDiscountedPrice(item.price);
+                const itemTotal = price * item.quantity;
+                total += itemTotal;
+                return `
+                    <div class="flex justify-between items-center border-b dark:border-gray-700 p-3">
+                        <div class="flex-1">
+                            <p class="font-bold text-dark">${item.name}</p>
+                            <p class="text-sm text-dark-light">
+                                ${item.price.toLocaleString()} ج.س × ${item.quantity}
+                                ${appliedCoupon ? `<span class="text-green-500 text-xs"> (خصم ${appliedCoupon.discount}%)</span>` : ''}
+                            </p>
+                        </div>
+                        <div class="text-left">
+                            <p class="font-bold text-yellow-dark">${itemTotal.toLocaleString()} ج.س</p>
+                            <button onclick="window.removeFromCart('${item.id}')" class="text-red-500 text-sm hover:text-red-700">✕</button>
+                        </div>
                     </div>
                 `;
             }).join('');
-        }
-
-        // ============================================================
-        // TELEGRAM LINK
-        // ============================================================
-        async function linkTelegram() {
-            const linkCode = Math.random().toString(36).substring(2, 8).toUpperCase();
             
-            await updateDoc(doc(db, "users", auth.currentUser.uid), {
-                telegramLinkCode: linkCode,
-                telegramLinked: false
-            });
+            html += `
+                <div id="couponSection" class="p-3 mt-2">
+                    ${appliedCoupon ? `
+                        <div class="flex items-center justify-between bg-green-50 dark:bg-green-900/20 p-3 rounded-xl">
+                            <div>
+                                <p class="font-bold text-green-600">✅ خصم ${appliedCoupon.discount}% مفعل</p>
+                                <p class="text-sm text-dark-light">كود: ${appliedCoupon.code}</p>
+                            </div>
+                            <button onclick="removeCoupon()" class="text-red-500 text-sm hover:underline">إلغاء</button>
+                        </div>
+                    ` : `
+                        <div class="flex gap-2">
+                            <input type="text" id="couponInput" placeholder="🎫 أدخل كود الخصم" 
+                                   class="flex-1 p-2 bg-white dark:bg-gray-700 rounded-xl border focus:border-yellow-500 text-sm">
+                            <button onclick="applyCoupon()" id="applyCouponBtn" 
+                                    class="action-btn px-4 py-2 rounded-xl text-sm">🎫 تطبيق</button>
+                        </div>
+                    `}
+                </div>
+            `;
             
-            showToast(`📱 رمز الربط: ${linkCode} (أرسله لبوت التليجرام)`, 'info');
+            html += `
+                <div class="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl mt-3">
+                    <div class="flex justify-between items-center">
+                        <p class="font-bold text-dark">الإجمالي:</p>
+                        <p class="text-2xl font-black text-yellow-dark">${total.toLocaleString()} ج.س</p>
+                    </div>
+                    ${appliedCoupon ? `
+                        <div class="flex justify-between items-center text-sm text-green-600 mt-1">
+                            <p>🔄 الخصم (${appliedCoupon.discount}%)</p>
+                            <p>- ${((cart.reduce((sum, item) => sum + item.price * item.quantity, 0) - total)).toLocaleString()} ج.س</p>
+                        </div>
+                    ` : ''}
+                    <button onclick="checkoutCart()" class="w-full action-btn mt-3">إتمام الشراء</button>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            document.getElementById('cartModal').classList.remove('hidden');
+        };
+
+        window.closeCart = function() {
+            document.getElementById('cartModal').classList.add('hidden');
+        };
+
+        window.addToCart = function(productId) {
+            let product = null;
+            for (const cat in allProducts) {
+                const found = allProducts[cat].find(p => p.id === productId);
+                if (found) { product = found; break; }
+            }
+            if (!product) { showToast('❌ المنتج غير موجود', 'error'); return; }
+            
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+            showToast(`✅ تم إضافة ${product.name} للسلة`, 'success');
+        };
+
+        window.removeFromCart = function(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+            showCart();
+        };
+
+        function updateCartUI() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) cartCount.textContent = count;
         }
+
+        window.checkoutCart = async function() {
+            if (!auth.currentUser) {
+                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                showAuthScreen();
+                return;
+            }
+            
+            if (!userData) {
+                showToast('❌ يرجى تحديث الصفحة', 'error');
+                return;
+            }
+            
+            let total = cart.reduce((sum, item) => {
+                const price = getDiscountedPrice(item.price);
+                return sum + price * item.quantity;
+            }, 0);
+            
+            if (userData.balance < total) {
+                showToast(`❌ رصيدك غير كافي! الرصيد: ${userData.balance.toLocaleString()} ج.س`, 'error');
+                return;
+            }
+            
+            try {
+                for (const item of cart) {
+                    const price = getDiscountedPrice(item.price);
+                    await runTransaction(db, async (transaction) => {
+                        const userRef = doc(db, "users", auth.currentUser.uid);
+                        const userSnap = await transaction.get(userRef);
+                        if (userSnap.data().balance < price) throw "رصيد غير كاف";
+                        transaction.update(userRef, { balance: increment(-price) });
+                        
+                        const orderData = {
+                            uID: auth.currentUser.uid,
+                            uName: userData.name,
+                            product: item.name,
+                            price: price,
+                            game: item.category,
+                            gameID: 'سلة التسوق',
+                            gameName: 'سلة التسوق',
+                            realName: userData.name,
+                            whatsapp: userData.phone || 'غير محدد',
+                            status: 'قيد الانتظار',
+                            isCartOrder: true,
+                            couponUsed: appliedCoupon ? appliedCoupon.code : null,
+                            couponDiscount: appliedCoupon ? appliedCoupon.discount : null,
+                            originalPrice: item.price,
+                            timestamp: serverTimestamp()
+                        };
+                        const orderRef = doc(collection(db, "orders"));
+                        transaction.set(orderRef, orderData);
+                        setTimeout(() => sendTelegramNotification(orderData), 1000);
+                    });
+                }
+                
+                if (appliedCoupon) {
+                    await updateDoc(doc(db, "coupons", appliedCoupon.code), {
+                        usedCount: increment(1)
+                    });
+                }
+                
+                cart = [];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartUI();
+                closeCart();
+                showToast('✅ تم إرسال طلباتك بنجاح!', 'success');
+                
+                setTimeout(() => {
+                    document.getElementById('feedbackModal').classList.remove('hidden');
+                }, 2000);
+                
+            } catch (error) {
+                showToast('❌ حدث خطأ: ' + error.message, 'error');
+            }
+        };
 
         // ============================================================
-        // OTP SYSTEM
+        // ORDER SYSTEM
         // ============================================================
-        function generateOTP() {
-            return Math.floor(100000 + Math.random() * 900000).toString();
-        }
+        window.showOrderModal = function(product, price, category, productId) {
+            if (!auth.currentUser) {
+                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                showAuthScreen();
+                return;
+            }
+            if (!userData) {
+                showToast('❌ يرجى تحديث الصفحة', 'error');
+                return;
+            }
+            if (userData.balance < price) {
+                showToast(`❌ رصيدك غير كافي! الرصيد: ${userData.balance.toLocaleString()} ج.س`, 'error');
+                return;
+            }
+            currentOrder = { product, price, category, productId };
+            document.getElementById('modalProductName').innerHTML = `المنتج: ${product}`;
+            document.getElementById('modalProductPrice').innerHTML = `المبلغ: ${price.toLocaleString()} ج.س`;
+            document.getElementById('orderModal').classList.remove('hidden');
+        };
 
-        function setupOTPInputs(containerId) {
-            const inputs = document.querySelectorAll(`#${containerId} .otp-input`);
-            inputs.forEach((input, index) => {
-                input.addEventListener('input', (e) => {
-                    if (e.target.value && index < inputs.length - 1) {
-                        inputs[index + 1].focus();
-                    }
+        window.closeOrderModal = function() {
+            document.getElementById('orderModal').classList.add('hidden');
+            currentOrder = null;
+            document.getElementById('modalGameID').value = '';
+            document.getElementById('modalGameName').value = '';
+            document.getElementById('modalRealName').value = '';
+            document.getElementById('modalWhatsApp').value = '';
+        };
+
+        document.getElementById('confirmOrderBtn').onclick = async () => {
+            if (!currentOrder) { showToast('❌ لا يوجد طلب نشط', 'error'); return; }
+
+            const gameID = document.getElementById('modalGameID')?.value.trim();
+            const gameName = document.getElementById('modalGameName')?.value.trim();
+            const realName = document.getElementById('modalRealName')?.value.trim();
+            const whatsapp = document.getElementById('modalWhatsApp')?.value.trim();
+
+            if (!gameID || !gameName || !realName || !whatsapp) {
+                showToast('❌ جميع الحقول مطلوبة!', 'error');
+                return;
+            }
+
+            if (!whatsapp.match(/^[0-9]{10,15}$/)) {
+                showToast('❌ رقم واتساب غير صحيح!', 'error');
+                return;
+            }
+
+            try {
+                await runTransaction(db, async (transaction) => {
+                    const userRef = doc(db, "users", auth.currentUser.uid);
+                    const userSnap = await transaction.get(userRef);
+                    if (userSnap.data().balance < currentOrder.price) throw "رصيد غير كاف";
+                    transaction.update(userRef, { balance: increment(-currentOrder.price) });
+
+                    const orderData = {
+                        uID: auth.currentUser.uid,
+                        uName: userData.name,
+                        product: currentOrder.product,
+                        price: currentOrder.price,
+                        game: currentOrder.category,
+                        gameID: gameID,
+                        gameName: gameName,
+                        realName: realName,
+                        whatsapp: whatsapp,
+                        status: 'قيد الانتظار',
+                        timestamp: serverTimestamp()
+                    };
+                    const orderRef = doc(collection(db, "orders"));
+                    transaction.set(orderRef, orderData);
+                    setTimeout(() => sendTelegramNotification(orderData), 1000);
                 });
-                input.addEventListener('keydown', (e) => {
-                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
-                        inputs[index - 1].focus();
-                    }
-                });
-            });
-        }
-
-        function getOTPValue(containerId) {
-            const inputs = document.querySelectorAll(`#${containerId} .otp-input`);
-            return Array.from(inputs).map(inp => inp.value).join('');
-        }
-
-        function clearOTPInputs(containerId) {
-            document.querySelectorAll(`#${containerId} .otp-input`).forEach(inp => inp.value = '');
-        }
+                
+                showToast('✅ تم إرسال طلبك بنجاح!', 'success');
+                closeOrderModal();
+                
+                setTimeout(() => {
+                    document.getElementById('feedbackModal').classList.remove('hidden');
+                }, 2000);
+                
+            } catch (error) {
+                showToast('❌ حدث خطأ: ' + error.message, 'error');
+            }
+        };
 
         // ============================================================
         // TELEGRAM NOTIFICATIONS
@@ -1704,37 +2054,154 @@
         }
 
         // ============================================================
-        // VISITOR COUNTER
+        // USER ORDERS HISTORY
         // ============================================================
-        async function updateVisitorCount() {
-            const today = new Date().toISOString().split('T')[0];
-            const visitorRef = doc(db, "visitors", today);
+        function loadUserHistory(uid) {
+            if (!uid) {
+                document.getElementById('userOrdersList').innerHTML = `
+                    <div class="text-center text-dark-light py-8">
+                        <i class="fas fa-lock text-4xl block mb-3 text-gray-300"></i>
+                        <p>⚠️ يرجى تسجيل الدخول لعرض طلباتك</p>
+                        <button onclick="showAuthScreen()" class="action-btn mt-3 text-sm">🔑 تسجيل الدخول</button>
+                    </div>
+                `;
+                return;
+            }
             
-            await runTransaction(db, async (transaction) => {
-                const docSnap = await transaction.get(visitorRef);
-                if (docSnap.exists()) {
-                    transaction.update(visitorRef, { count: increment(1), lastVisit: serverTimestamp() });
-                } else {
-                    transaction.set(visitorRef, { count: 1, date: today, firstVisit: serverTimestamp() });
+            onSnapshot(query(collection(db, "orders"), where("uID", "==", uid), orderBy("timestamp", "desc")), (snap) => {
+                const list = document.getElementById('userOrdersList');
+                list.innerHTML = '';
+                
+                if (snap.empty) {
+                    list.innerHTML = `
+                        <div class="text-center text-dark-light py-8">
+                            <i class="fas fa-box-open text-4xl block mb-3 text-gray-300"></i>
+                            <p>لا توجد طلبات سابقة</p>
+                            <p class="text-sm mt-2">قم بشراء منتج لتظهر طلباتك هنا</p>
+                        </div>
+                    `;
+                    return;
                 }
+                
+                snap.forEach(d => {
+                    const o = d.data();
+                    const statusConfig = {
+                        'مكتمل': { color: 'text-green-600', bg: 'bg-green-500/10', icon: '✅' },
+                        'فشل': { color: 'text-red-600', bg: 'bg-red-500/10', icon: '❌' },
+                        'قيد الانتظار': { color: 'text-yellow-600', bg: 'bg-yellow-500/10', icon: '⏳' }
+                    };
+                    const config = statusConfig[o.status] || statusConfig['قيد الانتظار'];
+                    
+                    list.innerHTML += `
+                        <div class="glass p-5 rounded-2xl hover:shadow-lg transition">
+                            <div class="flex justify-between items-start">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-2xl">${config.icon}</span>
+                                        <div>
+                                            <p class="font-bold text-dark text-lg">${o.product}</p>
+                                            <p class="text-sm text-dark-light">🆔 ${o.gameID || 'N/A'}</p>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-3 mt-3 text-sm">
+                                        <div class="bg-white/50 dark:bg-gray-800/50 p-2 rounded-lg text-center">
+                                            <p class="text-xs text-dark-light">💰 السعر</p>
+                                            <p class="font-bold text-yellow-dark">${o.price.toLocaleString()} ج.س</p>
+                                        </div>
+                                        <div class="bg-white/50 dark:bg-gray-800/50 p-2 rounded-lg text-center">
+                                            <p class="text-xs text-dark-light">📱 واتساب</p>
+                                            <p class="font-bold text-dark">${o.whatsapp || 'غير محدد'}</p>
+                                        </div>
+                                        <div class="bg-white/50 dark:bg-gray-800/50 p-2 rounded-lg text-center">
+                                            <p class="text-xs text-dark-light">📅 التاريخ</p>
+                                            <p class="font-bold text-dark text-xs">${o.timestamp?.toDate ? new Date(o.timestamp.toDate()).toLocaleString() : ''}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold ${config.color} ${config.bg}">${o.status}</span>
+                                    ${o.status === 'مكتمل' ? `<button onclick="showFeedbackForOrder('${d.id}')" class="block mt-2 text-yellow-500 text-xs hover:underline">📝 تقييم</button>` : ''}
+                                    <button onclick="showOrderDetails('${d.id}')" class="block mt-1 text-blue-500 text-xs hover:underline">📄 تفاصيل</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
             });
         }
 
+        window.showFeedbackForOrder = function(orderId) {
+            document.getElementById('feedbackOrderId').value = orderId;
+            document.getElementById('feedbackModal').classList.remove('hidden');
+        };
+
+        window.showOrderDetails = async function(orderId) {
+            const orderSnap = await getDoc(doc(db, "orders", orderId));
+            if (orderSnap.exists()) {
+                const o = orderSnap.data();
+                document.getElementById('orderDetailContent').innerHTML = `
+                    <p><strong>المنتج:</strong> ${o.product}</p>
+                    <p><strong>السعر:</strong> ${o.price} ج.س</p>
+                    <p><strong>العميل:</strong> ${o.uName}</p>
+                    <p><strong>أيدي اللعبة:</strong> ${o.gameID}</p>
+                    <p><strong>اسم اللاعب:</strong> ${o.gameName}</p>
+                    <p><strong>الاسم الحقيقي:</strong> ${o.realName}</p>
+                    <p><strong>رقم واتساب:</strong> ${o.whatsapp || 'غير محدد'}</p>
+                    <p><strong>الحالة:</strong> ${o.status}</p>
+                    ${o.couponUsed ? `<p><strong>🎫 كود الخصم:</strong> ${o.couponUsed} (${o.couponDiscount}%)</p>` : ''}
+                `;
+                document.getElementById('orderDetailModal').classList.remove('hidden');
+            }
+        };
+
+        window.closeOrderDetailModal = function() {
+            document.getElementById('orderDetailModal').classList.add('hidden');
+        };
+
         // ============================================================
-        // MAINTENANCE MODE
+        // FEEDBACK SYSTEM
         // ============================================================
-        async function checkMaintenanceMode() {
-            try {
-                const maintenance = await getDoc(doc(db, "settings", "maintenance"));
-                if (maintenance.exists() && maintenance.data().isActive) {
-                    document.getElementById('maintenancePage').classList.remove('hidden');
-                    document.getElementById('maintenanceMessage').textContent = maintenance.data().message || 'نعتذر عن الإزعاج، الموقع قيد التطوير';
-                    document.getElementById('main-app').classList.add('hidden');
-                    return true;
-                }
-            } catch (e) { console.error('Maintenance check failed:', e); }
-            return false;
-        }
+        window.selectStar = function(stars) {
+            selectedStars = stars;
+            const btns = document.querySelectorAll('#feedbackStars .star-btn');
+            btns.forEach((btn, index) => {
+                const starNum = index + 1;
+                btn.textContent = starNum <= stars ? '⭐' : '☆';
+                btn.style.color = starNum <= stars ? '#f59e0b' : '#d1d5db';
+            });
+        };
+
+        window.submitFeedback = async function() {
+            if (selectedStars === 0) {
+                showToast('❌ الرجاء اختيار التقييم', 'error');
+                return;
+            }
+            
+            const orderId = document.getElementById('feedbackOrderId').value;
+            const comment = document.getElementById('feedbackComment').value.trim();
+            
+            await addDoc(collection(db, "feedback"), {
+                userId: auth.currentUser.uid,
+                userName: userData.name,
+                orderId: orderId,
+                stars: selectedStars,
+                comment: comment,
+                timestamp: serverTimestamp()
+            });
+            
+            showToast('✅ شكراً لتقييمك!', 'success');
+            closeFeedbackModal();
+        };
+
+        window.closeFeedbackModal = function() {
+            document.getElementById('feedbackModal').classList.add('hidden');
+            selectedStars = 0;
+            document.getElementById('feedbackComment').value = '';
+            document.querySelectorAll('#feedbackStars .star-btn').forEach(btn => {
+                btn.textContent = '☆';
+                btn.style.color = '#d1d5db';
+            });
+        };
 
         // ============================================================
         // PRODUCTS FUNCTIONS
@@ -1823,331 +2290,6 @@
         }
 
         // ============================================================
-        // CART SYSTEM
-        // ============================================================
-        window.addToCart = function(productId) {
-            let product = null;
-            for (const cat in allProducts) {
-                const found = allProducts[cat].find(p => p.id === productId);
-                if (found) { product = found; break; }
-            }
-            if (!product) { showToast('❌ المنتج غير موجود', 'error'); return; }
-            
-            const existing = cart.find(item => item.id === productId);
-            if (existing) {
-                existing.quantity++;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartUI();
-            showToast(`✅ تم إضافة ${product.name} للسلة`, 'success');
-        };
-
-        window.removeFromCart = function(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartUI();
-            showCart();
-        };
-
-        function updateCartUI() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cartCount').textContent = count;
-        }
-
-        window.showCart = function() {
-            if (cart.length === 0) {
-                document.getElementById('cartContent').innerHTML = `
-                    <div class="text-center py-8 text-dark-light">
-                        <i class="fas fa-shopping-cart text-5xl block mb-4 text-gray-300"></i>
-                        <p>سلة التسوق فارغة</p>
-                        <button onclick="closeCart()" class="action-btn mt-4">تصفح المنتجات</button>
-                    </div>
-                `;
-            } else {
-                let total = 0;
-                let html = cart.map(item => {
-                    const price = appliedCoupon ? item.price * (1 - appliedCoupon.discount / 100) : item.price;
-                    total += price * item.quantity;
-                    return `
-                        <div class="flex justify-between items-center border-b dark:border-gray-700 p-3">
-                            <div>
-                                <p class="font-bold text-dark">${item.name}</p>
-                                <p class="text-sm text-dark-light">${item.price.toLocaleString()} ج.س × ${item.quantity}</p>
-                            </div>
-                            <div>
-                                <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700">✕</button>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-                
-                html += `
-                    <div class="p-3">
-                        <div class="flex gap-2">
-                            <input type="text" id="couponInput" placeholder="🎫 كود الخصم" class="flex-1 p-2 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                            <button onclick="applyCouponFromCart()" class="action-btn text-sm">تطبيق</button>
-                        </div>
-                        ${appliedCoupon ? `<p class="text-green-500 text-sm mt-1">✅ خصم ${appliedCoupon.discount}% مفعل</p>` : ''}
-                    </div>
-                `;
-                
-                html += `
-                    <div class="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl mt-3">
-                        <p class="font-bold text-lg text-dark">الإجمالي: ${total.toLocaleString()} ج.س</p>
-                        <button onclick="checkoutCart()" class="w-full action-btn mt-2">إتمام الشراء</button>
-                    </div>
-                `;
-                
-                document.getElementById('cartContent').innerHTML = html;
-            }
-            document.getElementById('cartModal').classList.remove('hidden');
-        };
-
-        window.closeCart = function() {
-            document.getElementById('cartModal').classList.add('hidden');
-        };
-
-        window.applyCouponFromCart = async function() {
-            const code = document.getElementById('couponInput').value;
-            if (code) {
-                await applyCoupon(code);
-                showCart();
-            }
-        };
-
-        window.checkoutCart = async function() {
-            if (!userData) { showToast('❌ يرجى تسجيل الدخول أولاً', 'error'); return; }
-            
-            let total = cart.reduce((sum, item) => {
-                const price = appliedCoupon ? item.price * (1 - appliedCoupon.discount / 100) : item.price;
-                return sum + price * item.quantity;
-            }, 0);
-            
-            if (userData.balance < total) {
-                showToast(`❌ رصيدك غير كافي! الرصيد: ${userData.balance.toLocaleString()} ج.س`, 'error');
-                return;
-            }
-            
-            for (const item of cart) {
-                const price = appliedCoupon ? item.price * (1 - appliedCoupon.discount / 100) : item.price;
-                await runTransaction(db, async (transaction) => {
-                    const userRef = doc(db, "users", auth.currentUser.uid);
-                    const userSnap = await transaction.get(userRef);
-                    if (userSnap.data().balance < price) throw "رصيد غير كاف";
-                    transaction.update(userRef, { balance: increment(-price) });
-                    
-                    const orderData = {
-                        uID: auth.currentUser.uid,
-                        uName: userData.name,
-                        product: item.name,
-                        price: price,
-                        game: item.category,
-                        gameID: 'سلة التسوق',
-                        gameName: 'سلة التسوق',
-                        realName: userData.name,
-                        whatsapp: userData.phone || 'غير محدد',
-                        status: 'قيد الانتظار',
-                        isCartOrder: true,
-                        couponUsed: appliedCoupon ? appliedCoupon.code : null,
-                        timestamp: serverTimestamp()
-                    };
-                    const orderRef = doc(collection(db, "orders"));
-                    transaction.set(orderRef, orderData);
-                    setTimeout(() => sendTelegramNotification(orderData), 1000);
-                });
-            }
-            
-            if (appliedCoupon) {
-                await updateDoc(doc(db, "coupons", appliedCoupon.code), {
-                    usedCount: increment(1)
-                });
-            }
-            
-            cart = [];
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartUI();
-            closeCart();
-            showToast('✅ تم إرسال جميع طلباتك بنجاح!', 'success');
-            appliedCoupon = null;
-        };
-
-        // ============================================================
-        // ORDER SYSTEM
-        // ============================================================
-        window.showOrderModal = function(product, price, category, productId) {
-            if (!userData) {
-                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
-                return;
-            }
-            if (userData.balance < price) {
-                showToast(`❌ رصيدك غير كافي!\nالرصيد: ${userData.balance.toLocaleString()} ج.س`, 'error');
-                return;
-            }
-            currentOrder = { product, price, category, productId };
-            document.getElementById('modalProductName').innerHTML = `المنتج: ${product}`;
-            document.getElementById('modalProductPrice').innerHTML = `المبلغ: ${price.toLocaleString()} ج.س`;
-            document.getElementById('orderModal').classList.remove('hidden');
-        };
-
-        window.closeOrderModal = function() {
-            document.getElementById('orderModal').classList.add('hidden');
-            currentOrder = null;
-            document.getElementById('modalGameID').value = '';
-            document.getElementById('modalGameName').value = '';
-            document.getElementById('modalRealName').value = '';
-            document.getElementById('modalWhatsApp').value = '';
-        };
-
-        document.getElementById('confirmOrderBtn').onclick = async () => {
-            if (!currentOrder) { showToast('❌ لا يوجد طلب نشط', 'error'); return; }
-
-            const gameID = document.getElementById('modalGameID')?.value.trim();
-            const gameName = document.getElementById('modalGameName')?.value.trim();
-            const realName = document.getElementById('modalRealName')?.value.trim();
-            const whatsapp = document.getElementById('modalWhatsApp')?.value.trim();
-
-            if (!gameID || !gameName || !realName || !whatsapp) {
-                showToast('❌ جميع الحقول مطلوبة!', 'error');
-                return;
-            }
-
-            if (!whatsapp.match(/^[0-9]{10,15}$/)) {
-                showToast('❌ رقم واتساب غير صحيح!', 'error');
-                return;
-            }
-
-            try {
-                await runTransaction(db, async (transaction) => {
-                    const userRef = doc(db, "users", auth.currentUser.uid);
-                    const userSnap = await transaction.get(userRef);
-                    if (userSnap.data().balance < currentOrder.price) throw "رصيد غير كاف";
-                    transaction.update(userRef, { balance: increment(-currentOrder.price) });
-
-                    const orderData = {
-                        uID: auth.currentUser.uid,
-                        uName: userData.name,
-                        product: currentOrder.product,
-                        price: currentOrder.price,
-                        game: currentOrder.category,
-                        gameID: gameID,
-                        gameName: gameName,
-                        realName: realName,
-                        whatsapp: whatsapp,
-                        status: 'قيد الانتظار',
-                        timestamp: serverTimestamp()
-                    };
-                    const orderRef = doc(collection(db, "orders"));
-                    transaction.set(orderRef, orderData);
-                    setTimeout(() => sendTelegramNotification(orderData), 1000);
-                    
-                    addNotification('📦 طلب جديد', `تم إرسال طلب "${currentOrder.product}" بنجاح`, 'success');
-                });
-                
-                showToast('✅ تم إرسال طلبك بنجاح!', 'success');
-                closeOrderModal();
-                
-                setTimeout(() => {
-                    document.getElementById('feedbackModal').classList.remove('hidden');
-                }, 2000);
-                
-            } catch (error) {
-                showToast('❌ حدث خطأ: ' + error.message, 'error');
-            }
-        };
-
-        // ============================================================
-        // USER ORDERS HISTORY
-        // ============================================================
-        function loadUserHistory(uid) {
-            onSnapshot(query(collection(db, "orders"), where("uID", "==", uid), orderBy("timestamp", "desc")), (snap) => {
-                const list = document.getElementById('userOrdersList');
-                list.innerHTML = '';
-                if (snap.empty) {
-                    list.innerHTML = '<div class="text-center text-dark-light py-8">لا توجد طلبات سابقة</div>';
-                    return;
-                }
-                snap.forEach(d => {
-                    const o = d.data();
-                    const config = o.status === 'مكتمل' ? { color: 'text-green-600', icon: '✅' } : 
-                                   o.status === 'فشل' ? { color: 'text-red-600', icon: '❌' } : 
-                                   { color: 'text-yellow-dark', icon: '⏳' };
-                    list.innerHTML += `
-                        <div class="glass p-4 rounded-2xl">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-2xl">${config.icon}</span>
-                                    <p class="font-bold text-dark">${o.product}</p>
-                                    <p class="text-xs text-dark-light">🆔 ${o.gameID}</p>
-                                </div>
-                                <div class="text-left">
-                                    <span class="px-2 py-1 rounded-full text-xs ${config.color} bg-black/5 dark:bg-white/5">${o.status}</span>
-                                    <p class="text-xs text-dark-light mt-1">${o.timestamp?.toDate ? new Date(o.timestamp.toDate()).toLocaleString() : ''}</p>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-2 mt-3 text-sm">
-                                <div class="text-dark">💰 ${o.price.toLocaleString()} ج.س</div>
-                                <div class="text-dark">📱 ${o.whatsapp || 'غير محدد'}</div>
-                            </div>
-                            ${o.status === 'مكتمل' ? `<button onclick="showFeedbackForOrder('${d.id}')" class="text-yellow-dark text-sm hover:underline mt-2">📝 تقييم الخدمة</button>` : ''}
-                        </div>
-                    `;
-                });
-            });
-        }
-
-        window.showFeedbackForOrder = function(orderId) {
-            document.getElementById('feedbackOrderId').value = orderId;
-            document.getElementById('feedbackModal').classList.remove('hidden');
-        };
-
-        // ============================================================
-        // FEEDBACK SYSTEM
-        // ============================================================
-        window.selectStar = function(stars) {
-            selectedStars = stars;
-            const btns = document.querySelectorAll('#feedbackStars .star-btn');
-            btns.forEach((btn, index) => {
-                const starNum = index + 1;
-                btn.textContent = starNum <= stars ? '⭐' : '☆';
-                btn.style.color = starNum <= stars ? '#f59e0b' : '#d1d5db';
-            });
-        };
-
-        window.submitFeedback = async function() {
-            if (selectedStars === 0) {
-                showToast('❌ الرجاء اختيار التقييم', 'error');
-                return;
-            }
-            
-            const orderId = document.getElementById('feedbackOrderId').value;
-            const comment = document.getElementById('feedbackComment').value.trim();
-            
-            await addDoc(collection(db, "feedback"), {
-                userId: auth.currentUser.uid,
-                userName: userData.name,
-                orderId: orderId,
-                stars: selectedStars,
-                comment: comment,
-                timestamp: serverTimestamp()
-            });
-            
-            showToast('✅ شكراً لتقييمك!', 'success');
-            closeFeedbackModal();
-        };
-
-        window.closeFeedbackModal = function() {
-            document.getElementById('feedbackModal').classList.add('hidden');
-            selectedStars = 0;
-            document.getElementById('feedbackComment').value = '';
-            document.querySelectorAll('#feedbackStars .star-btn').forEach(btn => {
-                btn.textContent = '☆';
-                btn.style.color = '#d1d5db';
-            });
-        };
-
-        // ============================================================
         // PRODUCT RATINGS
         // ============================================================
         async function loadProductRatings(productId) {
@@ -2194,7 +2336,7 @@
         }
 
         // ============================================================
-        // TOP PRODUCTS
+        // TOP PRODUCTS & RECOMMENDATIONS
         // ============================================================
         async function getTopProducts(limit = 5) {
             const orders = await getDocs(collection(db, "orders"));
@@ -2229,10 +2371,8 @@
             `).join('');
         }
 
-        // ============================================================
-        // RECOMMENDATIONS
-        // ============================================================
         async function getRecommendations(userId) {
+            if (!userId) return [];
             try {
                 const userOrders = await getDocs(query(
                     collection(db, "orders"),
@@ -2270,12 +2410,14 @@
             
             const recommendations = await getRecommendations(auth.currentUser.uid);
             const container = document.getElementById('recommendations');
+            const section = document.getElementById('recommendationsSection');
             
             if (recommendations.length === 0) {
-                container.innerHTML = '<p class="text-dark-light text-sm col-span-full">📦 اشترِ منتجاً لتظهر لك توصيات</p>';
+                section.classList.add('hidden');
                 return;
             }
             
+            section.classList.remove('hidden');
             container.innerHTML = recommendations.map(name => `
                 <div class="bg-white/50 dark:bg-gray-800/50 p-3 rounded-xl text-center">
                     <p class="font-bold text-dark text-sm">${name}</p>
@@ -2530,34 +2672,7 @@
                 await updateDoc(doc(db, "users", userId), { balance: increment(refundAmount) });
             }
             await updateDoc(doc(db, "orders", orderId), { status: status });
-            
-            if (status === 'مكتمل') {
-                addNotification('📦 تم شحن طلبك!', 'تم شحن طلبك بنجاح. شكراً لثقتك في MORRE STORE 💛', 'success');
-            }
-            
             showToast(`✅ تم تحديث الطلب إلى ${status}`, 'success');
-        };
-
-        window.showOrderDetails = async function(orderId) {
-            const orderSnap = await getDoc(doc(db, "orders", orderId));
-            if (orderSnap.exists()) {
-                const o = orderSnap.data();
-                document.getElementById('orderDetailContent').innerHTML = `
-                    <p><strong>المنتج:</strong> ${o.product}</p>
-                    <p><strong>السعر:</strong> ${o.price} ج.س</p>
-                    <p><strong>العميل:</strong> ${o.uName}</p>
-                    <p><strong>أيدي اللعبة:</strong> ${o.gameID}</p>
-                    <p><strong>اسم اللاعب:</strong> ${o.gameName}</p>
-                    <p><strong>الاسم الحقيقي:</strong> ${o.realName}</p>
-                    <p><strong>رقم واتساب:</strong> ${o.whatsapp || 'غير محدد'}</p>
-                    <p><strong>الحالة:</strong> ${o.status}</p>
-                `;
-                document.getElementById('orderDetailModal').classList.remove('hidden');
-            }
-        };
-
-        window.closeOrderDetailModal = function() {
-            document.getElementById('orderDetailModal').classList.add('hidden');
         };
 
         // ============================================================
@@ -2687,6 +2802,7 @@
         window.openChat = function() {
             if (!auth.currentUser) {
                 showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                showAuthScreen();
                 return;
             }
             document.getElementById('chatModal').classList.remove('hidden');
@@ -2753,6 +2869,11 @@
         // SETTINGS
         // ============================================================
         window.openSettings = function() {
+            if (!auth.currentUser) {
+                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                showAuthScreen();
+                return;
+            }
             document.getElementById('settingsPage').classList.remove('hidden');
             loadUserSettings();
             toggleSidebar(false);
@@ -2928,6 +3049,39 @@
         };
 
         // ============================================================
+        // VISITOR COUNTER
+        // ============================================================
+        async function updateVisitorCount() {
+            const today = new Date().toISOString().split('T')[0];
+            const visitorRef = doc(db, "visitors", today);
+            
+            await runTransaction(db, async (transaction) => {
+                const docSnap = await transaction.get(visitorRef);
+                if (docSnap.exists()) {
+                    transaction.update(visitorRef, { count: increment(1), lastVisit: serverTimestamp() });
+                } else {
+                    transaction.set(visitorRef, { count: 1, date: today, firstVisit: serverTimestamp() });
+                }
+            });
+        }
+
+        // ============================================================
+        // MAINTENANCE MODE CHECK
+        // ============================================================
+        async function checkMaintenanceMode() {
+            try {
+                const maintenance = await getDoc(doc(db, "settings", "maintenance"));
+                if (maintenance.exists() && maintenance.data().isActive) {
+                    document.getElementById('maintenancePage').classList.remove('hidden');
+                    document.getElementById('maintenanceMessage').textContent = maintenance.data().message || 'نعتذر عن الإزعاج، الموقع قيد التطوير';
+                    document.getElementById('main-app').classList.add('hidden');
+                    return true;
+                }
+            } catch (e) { console.error('Maintenance check failed:', e); }
+            return false;
+        }
+
+        // ============================================================
         // NAVIGATION
         // ============================================================
         window.showCategory = function(category) {
@@ -2983,17 +3137,112 @@
         // POLICIES
         // ============================================================
         const policies = {
-            terms: { title: "📜 شروط الخدمة", content: "باستخدامك للمنصة توافق على الشروط التالية: جميع عمليات الشحن خلال 24 ساعة، لا نضمن استرجاع الرصيد بعد إتمام الشراء." },
-            privacy: { title: "🔒 سياسة الخصوصية", content: "نلتزم بحماية بياناتك الشخصية ولا نشاركها مع أي طرف ثالث." },
-            refund: { title: "💰 سياسة الاسترجاع", content: "في حال تأخر الشحن أكثر من 48 ساعة، يمكنك طلب استرجاع كامل." },
-            about: { title: "🏢 عن المتجر", content: "MORRE STORE متخصص في شحن الألعاب والخدمات الرقمية في السودان." }
+            terms: { 
+                title: "📜 شروط الخدمة", 
+                content: `
+                    <div class="space-y-3">
+                        <p>باستخدامك للمنصة توافق على الشروط التالية:</p>
+                        <ul class="list-disc pr-4 space-y-1 text-sm">
+                            <li>جميع عمليات الشحن خلال 24 ساعة</li>
+                            <li>لا نضمن استرجاع الرصيد بعد إتمام الشراء</li>
+                            <li>الأسعار قابلة للتغيير دون إشعار مسبق</li>
+                            <li>نحن غير مسؤولين عن أي أخطاء في بيانات المستخدم</li>
+                            <li>يحق لنا حظر أي مستخدم يخالف الشروط</li>
+                        </ul>
+                    </div>
+                `
+            },
+            privacy: { 
+                title: "🔒 سياسة الخصوصية", 
+                content: `
+                    <div class="space-y-3">
+                        <p>نلتزم بحماية بياناتك الشخصية:</p>
+                        <ul class="list-disc pr-4 space-y-1 text-sm">
+                            <li>لا نشارك بياناتك مع أي طرف ثالث</li>
+                            <li>نستخدم بياناتك فقط لتقديم الخدمات</li>
+                            <li>يمكنك طلب حذف بياناتك في أي وقت</li>
+                            <li>نستخدم تشفيراً لحماية معلوماتك</li>
+                        </ul>
+                    </div>
+                `
+            },
+            refund: { 
+                title: "💰 سياسة الاسترجاع", 
+                content: `
+                    <div class="space-y-3">
+                        <p>سياسة الاسترجاع في MORRE STORE:</p>
+                        <ul class="list-disc pr-4 space-y-1 text-sm">
+                            <li>في حال تأخر الشحن أكثر من 48 ساعة، يمكنك طلب استرجاع كامل</li>
+                            <li>الاسترجاع يكون عبر محفظتك في الموقع</li>
+                            <li>لا نسترد المبالغ بعد إتمام عملية الشحن</li>
+                            <li>في حال وجود خطأ من قبلنا، نسترد المبلغ بالكامل</li>
+                        </ul>
+                    </div>
+                `
+            },
+            about: { 
+                title: "🏢 عن المتجر", 
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-dark text-lg">مرحباً بك في MORRE STORE 💛</h4>
+                        <p class="text-dark-light">
+                            <strong>MORRE STORE</strong> هو متجر إلكتروني متخصص في بيع الخدمات الرقمية وشحن الألعاب في السودان.
+                        </p>
+                        
+                        <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-xl">
+                            <h5 class="font-bold text-dark">🎯 رؤيتنا</h5>
+                            <p class="text-dark-light text-sm">تقديم خدمات رقمية سريعة وموثوقة بأسعار تنافسية، مع تجربة تسوق سهلة وآمنة.</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl">
+                            <h5 class="font-bold text-dark">💎 خدماتنا</h5>
+                            <ul class="text-dark-light text-sm space-y-1">
+                                <li>✅ شحن PUBG Mobile</li>
+                                <li>✅ شحن FreeFire</li>
+                                <li>✅ شحن Clash of Clans</li>
+                                <li>✅ شحن eFootball</li>
+                                <li>✅ اشتراكات نتفليكس</li>
+                                <li>✅ بطاقات جوجل بلاي</li>
+                                <li>✅ فيزا Redotpay</li>
+                                <li>✅ عملات تيك توك</li>
+                                <li>✅ اشتراكات الذكاء الاصطناعي</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-xl">
+                            <h5 class="font-bold text-dark">🌟 لماذا تختار MORRE STORE؟</h5>
+                            <ul class="text-dark-light text-sm space-y-1">
+                                <li>⚡ شحن فوري خلال دقائق</li>
+                                <li>🔒 تعامل آمن وموثوق</li>
+                                <li>💬 دعم فني على مدار الساعة</li>
+                                <li>💰 أسعار تنافسية</li>
+                                <li>🎁 عروض وخصومات مستمرة</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-xl">
+                            <h5 class="font-bold text-dark">📞 تواصل معنا</h5>
+                            <p class="text-dark-light text-sm">
+                                <i class="fab fa-whatsapp text-green-500"></i> واتساب: +249 0991305468
+                            </p>
+                        </div>
+                        
+                        <p class="text-dark-light text-sm text-center border-t pt-3">
+                            © 2025 MORRE STORE - جميع الحقوق محفوظة
+                        </p>
+                    </div>
+                `
+            }
         };
+
         window.showPolicy = function(type) {
             const p = policies[type];
+            if (!p) return;
             document.getElementById('policy-title').innerText = p.title;
             document.getElementById('policy-content').innerHTML = p.content;
             document.getElementById('policy-modal').classList.remove('hidden');
         };
+
         window.closePolicyModal = function() {
             document.getElementById('policy-modal').classList.add('hidden');
         };
@@ -3068,9 +3317,81 @@
             showToast('📧 تم إرسال رمز التحقق لبريدك', 'success');
         };
 
+        document.getElementById('forgotPasswordBtn').onclick = async () => {
+            const email = document.getElementById('login-email').value;
+            if (!email) {
+                showToast('❌ أدخل بريدك الإلكتروني أولاً', 'error');
+                return;
+            }
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showToast('✅ تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك', 'success');
+            } catch(e) {
+                showToast('❌ البريد غير موجود أو حدث خطأ', 'error');
+            }
+        };
+
+        document.getElementById('google-login-btn').onclick = async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const userRef = doc(db, "users", result.user.uid);
+                const userSnap = await getDoc(userRef);
+                if (!userSnap.exists()) {
+                    const walletID = Math.floor(100000 + Math.random() * 900000).toString();
+                    await setDoc(userRef, {
+                        name: result.user.displayName || result.user.email.split('@')[0],
+                        email: result.user.email,
+                        img: result.user.photoURL || 'https://via.placeholder.com/100',
+                        walletID: walletID,
+                        balance: 0,
+                        provider: 'google.com',
+                        emailVerified: true,
+                        createdAt: serverTimestamp()
+                    });
+                    showToast(`✅ مرحباً بك!\nرقم محفظتك: #${walletID}`, 'success');
+                }
+            } catch (e) {
+                showToast('❌ خطأ في تسجيل الدخول بجوجل', 'error');
+            }
+        };
+
+        document.getElementById('logout-btn').onclick = async () => {
+            await signOut(auth);
+            location.reload();
+        };
+
         // ============================================================
-        // OTP VERIFICATION
+        // OTP FUNCTIONS
         // ============================================================
+        function generateOTP() {
+            return Math.floor(100000 + Math.random() * 900000).toString();
+        }
+
+        function setupOTPInputs(containerId) {
+            const inputs = document.querySelectorAll(`#${containerId} .otp-input`);
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    if (e.target.value && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                });
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+        }
+
+        function getOTPValue(containerId) {
+            const inputs = document.querySelectorAll(`#${containerId} .otp-input`);
+            return Array.from(inputs).map(inp => inp.value).join('');
+        }
+
+        function clearOTPInputs(containerId) {
+            document.querySelectorAll(`#${containerId} .otp-input`).forEach(inp => inp.value = '');
+        }
+
         window.verifyOTP = async function() {
             const entered = getOTPValue('otpInputs');
             if (entered !== otpCode) {
@@ -3124,69 +3445,79 @@
             showToast('📧 تم إعادة إرسال الرمز', 'success');
         };
 
-        // ============================================================
-        // FORGOT PASSWORD
-        // ============================================================
-        document.getElementById('forgotPasswordBtn').onclick = async () => {
-            const email = document.getElementById('login-email').value;
-            if (!email) {
-                showToast('❌ أدخل بريدك الإلكتروني أولاً', 'error');
-                return;
-            }
-            try {
-                await sendPasswordResetEmail(auth, email);
-                showToast('✅ تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك', 'success');
-            } catch(e) {
-                showToast('❌ البريد غير موجود أو حدث خطأ', 'error');
-            }
-        };
-
-        // ============================================================
-        // GOOGLE LOGIN
-        // ============================================================
-        document.getElementById('google-login-btn').onclick = async () => {
-            try {
-                const result = await signInWithPopup(auth, provider);
-                const userRef = doc(db, "users", result.user.uid);
-                const userSnap = await getDoc(userRef);
-                if (!userSnap.exists()) {
-                    const walletID = Math.floor(100000 + Math.random() * 900000).toString();
-                    await setDoc(userRef, {
-                        name: result.user.displayName || result.user.email.split('@')[0],
-                        email: result.user.email,
-                        img: result.user.photoURL || 'https://via.placeholder.com/100',
-                        walletID: walletID,
-                        balance: 0,
-                        provider: 'google.com',
-                        emailVerified: true,
-                        createdAt: serverTimestamp()
-                    });
-                    showToast(`✅ مرحباً بك!\nرقم محفظتك: #${walletID}`, 'success');
-                }
-            } catch (e) {
-                showToast('❌ خطأ في تسجيل الدخول بجوجل', 'error');
-            }
-        };
-
-        // ============================================================
-        // LOGOUT
-        // ============================================================
-        document.getElementById('logout-btn').onclick = async () => {
-            await signOut(auth);
-            document.getElementById('main-app').classList.add('hidden');
-            document.getElementById('auth-screen').classList.remove('hidden');
-            goHome();
-            cart = [];
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartUI();
-        };
-
-        // ============================================================
-        // EMAIL SENDER (Simulated)
-        // ============================================================
         async function sendOTPEmail(email, code) {
             console.log(`📧 إرسال رمز ${code} إلى ${email}`);
             return true;
+        }
+
+        // ============================================================
+        // LOGIN / LOGOUT FROM SIDEBAR
+        // ============================================================
+        window.showAuthScreen = function() {
+            document.getElementById('auth-screen').classList.remove('hidden');
+            document.getElementById('main-app').classList.add('hidden');
+            toggleSidebar(false);
+        };
+
+        window.logoutUser = async function() {
+            await signOut(auth);
+            location.reload();
+        };
+
+        function updateSidebarUser(userData) {
+            if (!userData) {
+                document.getElementById('sidebarImg').src = 'https://via.placeholder.com/100';
+                document.getElementById('sidebarName').textContent = 'زائر';
+                document.getElementById('sidebarWallet').textContent = 'المحفظة: غير مسجل';
+                document.getElementById('sidebarLoginBtn').classList.remove('hidden');
+                document.getElementById('sidebarLogoutBtn').classList.add('hidden');
+                document.getElementById('walletDetails').classList.add('hidden');
+                return;
+            }
+            
+            document.getElementById('sidebarImg').src = userData.img || 'https://via.placeholder.com/100';
+            document.getElementById('sidebarName').textContent = userData.name || 'مستخدم';
+            document.getElementById('sidebarWallet').textContent = `المحفظة: #${userData.walletID}`;
+            document.getElementById('sidebarBalance').textContent = `${(userData.balance || 0).toLocaleString()} ج.س`;
+            document.getElementById('sidebarWalletID').textContent = `#${userData.walletID}`;
+            
+            document.getElementById('sidebarLoginBtn').classList.add('hidden');
+            document.getElementById('sidebarLogoutBtn').classList.remove('hidden');
+            document.getElementById('walletDetails').classList.remove('hidden');
+        }
+
+        // ============================================================
+        // WALLET WHATSAPP
+        // ============================================================
+        window.openWalletWhatsApp = function() {
+            if (!userData || !userData.walletID) {
+                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                showAuthScreen();
+                return;
+            }
+            const message = `مرحباً أريد شحن محفظتي رقم المحفظة: ${userData.walletID}`;
+            window.open(`https://wa.me/2490991305468?text=${encodeURIComponent(message)}`, '_blank');
+        };
+
+        // ============================================================
+        // SESSION MANAGEMENT
+        // ============================================================
+        async function initSessionManagement() {
+            if (!auth.currentUser) return;
+            await setDoc(doc(db, "sessions", `${auth.currentUser.uid}_${sessionId}`), {
+                userId: auth.currentUser.uid,
+                sessionId: sessionId,
+                device: navigator.userAgent,
+                lastActivity: serverTimestamp(),
+                createdAt: serverTimestamp(),
+                isActive: true
+            });
+            
+            setInterval(async () => {
+                await updateDoc(doc(db, "sessions", `${auth.currentUser.uid}_${sessionId}`), {
+                    lastActivity: serverTimestamp()
+                });
+            }, 300000);
         }
 
         // ============================================================
@@ -3197,50 +3528,57 @@
             const authScr = document.getElementById('auth-screen');
             const appScr = document.getElementById('main-app');
             
+            // Check maintenance mode
             const inMaintenance = await checkMaintenanceMode();
             if (inMaintenance) {
                 loading.classList.add('hidden');
                 return;
             }
             
+            // Hide loading
+            loading.classList.add('hidden');
+            
             if (user) {
+                // User is logged in
+                authScr.classList.add('hidden');
+                appScr.classList.remove('hidden');
+                
+                // Check if user is blocked
                 const userDoc = await getDoc(doc(db, "users", user.uid));
                 if (userDoc.exists() && userDoc.data().isBlocked) {
                     await signOut(auth);
                     showToast('⛔ تم حظر حسابك، تواصل مع الدعم', 'error');
-                    loading.classList.add('hidden');
-                    authScr.classList.remove('hidden');
-                    appScr.classList.add('hidden');
+                    location.reload();
                     return;
                 }
                 
-                if (!userDoc.exists()) {
-                    const walletID = Math.floor(100000 + Math.random() * 900000).toString();
-                    await setDoc(doc(db, "users", user.uid), {
-                        name: user.displayName || user.email?.split('@')[0] || 'مستخدم',
-                        email: user.email,
-                        img: user.photoURL || 'https://via.placeholder.com/100',
-                        walletID: walletID,
-                        balance: 0,
-                        provider: user.providerData[0]?.providerId || 'password',
-                        emailVerified: user.emailVerified || false,
-                        createdAt: serverTimestamp()
-                    });
-                    showToast(`✨ مرحباً بك!\n📱 رقم محفظتك: #${walletID}`, 'success');
-                }
-                
-                loading.classList.add('hidden');
-                authScr.classList.add('hidden');
-                appScr.classList.remove('hidden');
-                
+                // Load user data
                 await startEngine(user);
                 await initSessionManagement();
                 updateVisitorCount();
                 
             } else {
-                loading.classList.add('hidden');
-                authScr.classList.remove('hidden');
-                appScr.classList.add('hidden');
+                // Guest user
+                authScr.classList.add('hidden');
+                appScr.classList.remove('hidden');
+                
+                // Show guest mode
+                document.getElementById('walletCard').classList.add('hidden');
+                document.getElementById('guestCard').classList.remove('hidden');
+                document.getElementById('userStats').classList.add('hidden');
+                document.getElementById('recommendationsSection').classList.add('hidden');
+                document.getElementById('adminPanel').classList.add('hidden');
+                
+                // Load products only
+                await loadProductsFromFirestore();
+                renderTopProducts();
+                
+                // Update sidebar for guest
+                updateSidebarUser(null);
+                updateCartUI();
+                
+                // Load orders (show login message)
+                loadUserHistory(null);
             }
         });
 
@@ -3250,17 +3588,31 @@
         async function startEngine(user) {
             const isAdmin = ADMINS.includes(user.email);
             
+            // Listen to user data changes
             onSnapshot(doc(db, "users", user.uid), (snap) => {
                 if (snap.exists()) {
                     userData = snap.data();
+                    
+                    // Update wallet card
+                    document.getElementById('walletCard').classList.remove('hidden');
+                    document.getElementById('guestCard').classList.add('hidden');
                     document.getElementById('uName').innerText = userData.name;
                     document.getElementById('uImg').src = userData.img || 'https://via.placeholder.com/100';
                     document.getElementById('uBal').innerText = (userData.balance || 0).toLocaleString();
                     document.getElementById('uWallet').innerText = `المحفظة: #${userData.walletID}`;
-                    document.getElementById('sidebarImg').src = userData.img || 'https://via.placeholder.com/100';
-                    document.getElementById('sidebarName').innerText = userData.name;
-                    document.getElementById('sidebarWallet').innerText = `#${userData.walletID}`;
                     
+                    // Update sidebar
+                    updateSidebarUser(userData);
+                    
+                    // Show user stats
+                    document.getElementById('userStats').classList.remove('hidden');
+                    loadUserStats();
+                    
+                    // Show recommendations
+                    document.getElementById('recommendationsSection').classList.remove('hidden');
+                    renderRecommendations();
+                    
+                    // Admin panel
                     if (isAdmin) {
                         document.getElementById('adminPanel').classList.remove('hidden');
                         loadAdminStats();
@@ -3274,33 +3626,16 @@
                 }
             });
             
+            // Load products and orders
             await loadProductsFromFirestore();
             loadUserHistory(user.uid);
-            loadUserStats();
-            renderTopProducts();
-            renderRecommendations();
             updateCartUI();
             
+            // Request notification permission
             if ('Notification' in window && Notification.permission === 'default') {
                 Notification.requestPermission();
             }
         }
-
-        // ============================================================
-        // AUTH TABS
-        // ============================================================
-        document.querySelectorAll('.auth-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active-tab'));
-                tab.classList.add('active-tab');
-                const target = tab.getAttribute('data-tab');
-                document.getElementById('login-form').style.display = target === 'login' ? 'block' : 'none';
-                document.getElementById('register-form').style.display = target === 'register' ? 'block' : 'none';
-            });
-        });
-        document.getElementById('login-form').style.display = 'block';
-        document.getElementById('register-form').style.display = 'none';
-        document.querySelectorAll('.auth-tab')[0].classList.add('active-tab');
 
         // ============================================================
         // ADMIN TABS
@@ -3327,6 +3662,22 @@
         });
 
         // ============================================================
+        // AUTH TABS
+        // ============================================================
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active-tab'));
+                tab.classList.add('active-tab');
+                const target = tab.getAttribute('data-tab');
+                document.getElementById('login-form').style.display = target === 'login' ? 'block' : 'none';
+                document.getElementById('register-form').style.display = target === 'register' ? 'block' : 'none';
+            });
+        });
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('register-form').style.display = 'none';
+        document.querySelectorAll('.auth-tab')[0].classList.add('active-tab');
+
+        // ============================================================
         // WEBVIEW WARNING
         // ============================================================
         function isWebView() {
@@ -3347,22 +3698,15 @@
         };
 
         // ============================================================
-        // WALLET WHATSAPP
-        // ============================================================
-        window.openWalletWhatsApp = function() {
-            if (userData && userData.walletID) {
-                const message = `مرحباً أريد شحن محفظتي رقم المحفظة: ${userData.walletID}`;
-                window.open(`https://wa.me/2490991305468?text=${encodeURIComponent(message)}`, '_blank');
-            } else {
-                showToast('❌ يرجى تسجيل الدخول أولاً للحصول على رقم محفظتك', 'error');
-            }
-        };
-
-        // ============================================================
         // SETUP OTP INPUTS
         // ============================================================
         setupOTPInputs('otpInputs');
         setupOTPInputs('loginOtpInputs');
+
+        // ============================================================
+        // UPDATE CART ON LOAD
+        // ============================================================
+        updateCartUI();
 
         console.log('🚀 MORRE STORE Loaded Successfully!');
         console.log('📦 Features: 56+ Features');
