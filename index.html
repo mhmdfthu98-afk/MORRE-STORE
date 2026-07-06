@@ -3,1658 +3,521 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MORRE STORE | متجر الخدمات الرقمية في السودان</title>
+    <title>MORRE STORE | متجر الخدمات الرقمية</title>
     
-    <!-- SEO -->
-    <meta name="description" content="أسرع متجر للخدمات الرقمية في السودان - شحن ببجي، فري فاير، نتفليكس، جوجل بلاي وفيزا Redotpay">
-    <meta property="og:title" content="MORRE STORE">
-    <meta property="og:description" content="أسرع متجر للخدمات الرقمية في السودان">
-    <meta property="og:image" content="https://i.ibb.co/xqqGvDZ1/Black-And-White-Illustrative-Gaming-Logo-20260610-185928-0000.png">
-    
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
-    <style>
-        /* ============================================================
-           ALL STYLES - مثل Elyonko بالضبط
-           ============================================================ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-        }
-        
-        :root {
-            --primary: #f59e0b;
-            --primary-dark: #d97706;
-            --primary-light: #fbbf24;
-            --primary-50: #fffbeb;
-            --primary-100: #fef3c7;
-            --gray-50: #f8fafc;
-            --gray-100: #f1f5f9;
-            --gray-200: #e2e8f0;
-            --gray-300: #cbd5e1;
-            --gray-400: #94a3b8;
-            --gray-500: #64748b;
-            --gray-600: #475569;
-            --gray-700: #334155;
-            --gray-800: #1e293b;
-            --gray-900: #0f172a;
-            --white: #ffffff;
-            --shadow: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow-hover: 0 10px 40px rgba(0,0,0,0.08);
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            background: var(--gray-50);
-            color: var(--gray-800);
-            min-height: 100vh;
-        }
-        
-        .dark body {
-            background: var(--gray-900);
-            color: var(--gray-100);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-        
-        /* ============================================================
-           NAVBAR - مثل Elyonko
-           ============================================================ */
-        .navbar {
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-200);
-            padding: 0 1.5rem;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: background 0.3s;
-        }
-        
-        .dark .navbar {
-            background: var(--gray-900);
-            border-bottom-color: var(--gray-800);
-        }
-        
-        .navbar .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-        }
-        
-        .navbar .logo img {
-            height: 40px;
-            width: auto;
-            border-radius: 8px;
-        }
-        
-        .navbar .logo span {
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .navbar .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            list-style: none;
-        }
-        
-        .navbar .nav-links a {
-            color: var(--gray-700);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.2s;
-            position: relative;
-            cursor: pointer;
-        }
-        
-        .dark .navbar .nav-links a {
-            color: var(--gray-300);
-        }
-        
-        .navbar .nav-links a:hover,
-        .navbar .nav-links a.active {
-            color: var(--primary);
-        }
-        
-        .navbar .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-        
-        .navbar .nav-links a:hover::after,
-        .navbar .nav-links a.active::after {
-            width: 100%;
-        }
-        
-        .navbar .nav-icons {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        
-        .navbar .nav-icons button,
-        .navbar .nav-icons a {
-            background: none;
-            border: none;
-            color: var(--gray-600);
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-            position: relative;
-            text-decoration: none;
-        }
-        
-        .dark .navbar .nav-icons button,
-        .dark .navbar .nav-icons a {
-            color: var(--gray-400);
-        }
-        
-        .navbar .nav-icons button:hover,
-        .navbar .nav-icons a:hover {
-            background: var(--gray-100);
-            color: var(--primary);
-        }
-        
-        .dark .navbar .nav-icons button:hover,
-        .dark .navbar .nav-icons a:hover {
-            background: var(--gray-800);
-        }
-        
-        .navbar .nav-icons .cart-badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: var(--primary);
-            color: white;
-            font-size: 0.6rem;
-            font-weight: 700;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: translate(25%, -25%);
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--gray-700);
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-        
-        .dark .mobile-menu-btn {
-            color: var(--gray-300);
-        }
-        
-        .theme-toggle {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            color: var(--gray-600);
-            transition: all 0.2s;
-        }
-        
-        .theme-toggle:hover {
-            background: var(--gray-100);
-        }
-        
-        .dark .theme-toggle {
-            color: var(--gray-400);
-        }
-        
-        .dark .theme-toggle:hover {
-            background: var(--gray-800);
-        }
-        
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .navbar .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                right: 0;
-                left: 0;
-                background: var(--white);
-                padding: 1.5rem;
-                gap: 1rem;
-                border-bottom: 1px solid var(--gray-200);
-                box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            }
-            
-            .dark .navbar .nav-links {
-                background: var(--gray-900);
-                border-bottom-color: var(--gray-800);
-            }
-            
-            .navbar .nav-links.open {
-                display: flex;
-            }
-        }
-        
-        /* ============================================================
-           HERO BANNER
-           ============================================================ */
-        .hero-banner {
-            background: linear-gradient(135deg, var(--primary-50), var(--primary-100));
-            padding: 4rem 2rem;
-            border-radius: 1.5rem;
-            margin: 1.5rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .dark .hero-banner {
-            background: linear-gradient(135deg, #1e293b, #2d3748);
-        }
-        
-        .hero-banner h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--gray-900);
-            margin-bottom: 0.5rem;
-        }
-        
-        .dark .hero-banner h1 {
-            color: white;
-        }
-        
-        .hero-banner h1 span {
-            color: var(--primary);
-        }
-        
-        .hero-banner p {
-            font-size: 1.1rem;
-            color: var(--gray-600);
-            max-width: 600px;
-            margin: 0 auto 1.5rem;
-        }
-        
-        .dark .hero-banner p {
-            color: var(--gray-400);
-        }
-        
-        .hero-banner .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        /* ============================================================
-           BUTTONS
-           ============================================================ */
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 0.75rem;
-            border: none;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
-        }
-        
-        .btn-outline {
-            background: transparent;
-            color: var(--gray-700);
-            padding: 0.75rem 2rem;
-            border-radius: 0.75rem;
-            border: 2px solid var(--gray-300);
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .dark .btn-outline {
-            color: var(--gray-300);
-            border-color: var(--gray-600);
-        }
-        
-        .btn-outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn-danger {
-            background: #ef4444;
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 0.75rem;
-            border: none;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .btn-danger:hover {
-            background: #dc2626;
-            transform: translateY(-2px);
-        }
-        
-        .btn-success {
-            background: #22c55e;
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 0.75rem;
-            border: none;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .btn-success:hover {
-            background: #16a34a;
-            transform: translateY(-2px);
-        }
-        
-        /* ============================================================
-           SECTION HEADER
-           ============================================================ */
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .section-header h2 {
-            font-size: 1.5rem;
-            font-weight: 800;
-        }
-        
-        .section-header a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-        }
-        
-        .section-header a:hover {
-            color: var(--primary-dark);
-        }
-        
-        /* ============================================================
-           CATEGORIES GRID
-           ============================================================ */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .category-card {
-            background: var(--white);
-            border-radius: 1rem;
-            padding: 1.5rem 1rem;
-            text-align: center;
-            border: 1px solid var(--gray-200);
-            transition: all 0.3s;
-            cursor: pointer;
-            text-decoration: none;
-            color: var(--gray-700);
-        }
-        
-        .dark .category-card {
-            background: var(--gray-800);
-            border-color: var(--gray-700);
-            color: var(--gray-300);
-        }
-        
-        .category-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-        }
-        
-        .category-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .category-card .name {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        
-        .category-card .count {
-            font-size: 0.75rem;
-            color: var(--gray-400);
-        }
-        
-        /* ============================================================
-           PRODUCTS GRID
-           ============================================================ */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .product-card {
-            background: var(--white);
-            border-radius: 1rem;
-            overflow: hidden;
-            border: 1px solid var(--gray-200);
-            transition: all 0.3s;
-            cursor: pointer;
-            text-decoration: none;
-            color: var(--gray-800);
-        }
-        
-        .dark .product-card {
-            background: var(--gray-800);
-            border-color: var(--gray-700);
-            color: var(--gray-100);
-        }
-        
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-        }
-        
-        .product-card .product-image {
-            aspect-ratio: 1/1;
-            background: var(--gray-100);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: var(--gray-300);
-            overflow: hidden;
-        }
-        
-        .dark .product-card .product-image {
-            background: var(--gray-700);
-        }
-        
-        .product-card .product-info {
-            padding: 1rem;
-            text-align: center;
-        }
-        
-        .product-card .product-info h3 {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-        
-        .product-card .product-info .price {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--primary);
-        }
-        
-        .product-card .product-info .price small {
-            font-weight: 400;
-            font-size: 0.75rem;
-            color: var(--gray-400);
-        }
-        
-        .product-card .product-info .rating {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.25rem;
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
-            color: var(--gray-500);
-        }
-        
-        .product-card .product-info .rating i {
-            color: #fbbf24;
-        }
-        
-        .product-card .product-info .add-btn {
-            margin-top: 0.75rem;
-            width: 100%;
-            background: var(--primary-50);
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .dark .product-card .product-info .add-btn {
-            background: transparent;
-        }
-        
-        .product-card .product-info .add-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        /* ============================================================
-           WALLET CARD
-           ============================================================ */
-        .wallet-card {
-            background: var(--white);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            border: 1px solid var(--gray-200);
-            margin-bottom: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .dark .wallet-card {
-            background: var(--gray-800);
-            border-color: var(--gray-700);
-        }
-        
-        .wallet-card .wallet-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .wallet-card .wallet-user {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .wallet-card .wallet-user img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-        }
-        
-        .wallet-card .wallet-user .name {
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        
-        .wallet-card .wallet-user .wallet-id {
-            font-size: 0.8rem;
-            color: var(--gray-500);
-        }
-        
-        .wallet-card .wallet-balance {
-            text-align: left;
-        }
-        
-        .wallet-card .wallet-balance .label {
-            font-size: 0.75rem;
-            color: var(--gray-500);
-        }
-        
-        .wallet-card .wallet-balance .amount {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--primary);
-        }
-        
-        .wallet-card .wallet-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-        
-        .wallet-card .wallet-actions button,
-        .wallet-card .wallet-actions a {
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            font-size: 0.85rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            border: none;
-        }
-        
-        .wallet-card .wallet-actions .btn-recharge {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .wallet-card .wallet-actions .btn-recharge:hover {
-            background: var(--primary-dark);
-        }
-        
-        .wallet-card .wallet-actions .btn-support {
-            background: #25D366;
-            color: white;
-        }
-        
-        .wallet-card .wallet-actions .btn-support:hover {
-            background: #1da851;
-        }
-        
-        .wallet-card .wallet-actions .btn-settings {
-            background: var(--gray-200);
-            color: var(--gray-700);
-        }
-        
-        .dark .wallet-card .wallet-actions .btn-settings {
-            background: var(--gray-700);
-            color: var(--gray-300);
-        }
-        
-        .wallet-card .wallet-actions .btn-settings:hover {
-            background: var(--gray-300);
-        }
-        
-        /* ============================================================
-           FOOTER
-           ============================================================ */
-        .footer {
-            background: var(--white);
-            border-top: 1px solid var(--gray-200);
-            padding: 3rem 0 1.5rem;
-            margin-top: 3rem;
-        }
-        
-        .dark .footer {
-            background: var(--gray-900);
-            border-top-color: var(--gray-800);
-        }
-        
-        .footer .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .footer .footer-grid h4 {
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        
-        .footer .footer-grid ul {
-            list-style: none;
-        }
-        
-        .footer .footer-grid ul li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .footer .footer-grid ul a {
-            color: var(--gray-500);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-            cursor: pointer;
-        }
-        
-        .footer .footer-grid ul a:hover {
-            color: var(--primary);
-        }
-        
-        .footer .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .footer .social-links a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--gray-100);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-600);
-            transition: all 0.2s;
-            text-decoration: none;
-        }
-        
-        .dark .footer .social-links a {
-            background: var(--gray-800);
-            color: var(--gray-400);
-        }
-        
-        .footer .social-links a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-        
-        .footer .footer-bottom {
-            text-align: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--gray-200);
-            font-size: 0.85rem;
-            color: var(--gray-400);
-        }
-        
-        .dark .footer .footer-bottom {
-            border-top-color: var(--gray-800);
-        }
-        
-        /* ============================================================
-           SCROLL TOP
-           ============================================================ */
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            left: 2rem;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.3);
-            z-index: 999;
-        }
-        
-        .scroll-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .scroll-top:hover {
-            transform: translateY(-3px);
-        }
-        
-        /* ============================================================
-           TOAST
-           ============================================================ */
-        .toast-container {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 999999;
-            direction: rtl;
-        }
-        
-        .toast {
-            background: #22c55e;
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            margin-top: 0.5rem;
-            transform: translateX(120%);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            max-width: 400px;
-        }
-        
-        .toast.show {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        
-        .toast.error {
-            background: #ef4444;
-        }
-        
-        .toast.warning {
-            background: #f59e0b;
-        }
-        
-        /* ============================================================
-           MODAL
-           ============================================================ */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(4px);
-            z-index: 9999;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
-        
-        .modal.active {
-            display: flex;
-        }
-        
-        .modal .modal-content {
-            background: var(--white);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            max-width: 500px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .dark .modal .modal-content {
-            background: var(--gray-800);
-        }
-        
-        .modal .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .modal .modal-header h3 {
-            font-size: 1.5rem;
-            font-weight: 800;
-        }
-        
-        .modal .modal-header .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--gray-400);
-            cursor: pointer;
-        }
-        
-        .modal .modal-header .close-btn:hover {
-            color: var(--gray-600);
-        }
-        
-        /* ============================================================
-           AUTH SCREEN
-           ============================================================ */
-        .auth-screen {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(255,255,255,0.6);
-            backdrop-filter: blur(8px);
-            z-index: 99999;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
-        
-        .dark .auth-screen {
-            background: rgba(15,23,42,0.8);
-        }
-        
-        .auth-screen.active {
-            display: flex;
-        }
-        
-        .auth-screen .auth-box {
-            background: var(--white);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            max-width: 400px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-        }
-        
-        .dark .auth-screen .auth-box {
-            background: var(--gray-800);
-        }
-        
-        .auth-screen .auth-box .auth-logo {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .auth-screen .auth-box .auth-logo img {
-            height: 60px;
-            margin-bottom: 0.5rem;
-        }
-        
-        .auth-screen .auth-box .auth-logo h1 {
-            font-size: 1.8rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .auth-screen .auth-box .auth-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid var(--gray-200);
-        }
-        
-        .dark .auth-screen .auth-box .auth-tabs {
-            border-bottom-color: var(--gray-700);
-        }
-        
-        .auth-screen .auth-box .auth-tabs button {
-            flex: 1;
-            padding: 0.75rem;
-            border: none;
-            background: none;
-            font-weight: 600;
-            color: var(--gray-500);
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-            margin-bottom: -2px;
-        }
-        
-        .auth-screen .auth-box .auth-tabs button.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-        }
-        
-        .auth-screen .auth-box .auth-form {
-            display: none;
-        }
-        
-        .auth-screen .auth-box .auth-form.active {
-            display: block;
-        }
-        
-        .auth-screen .auth-box .auth-form input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--gray-200);
-            border-radius: 0.5rem;
-            margin-bottom: 0.75rem;
-            background: var(--gray-50);
-            transition: border 0.2s;
-        }
-        
-        .dark .auth-screen .auth-box .auth-form input {
-            background: var(--gray-700);
-            border-color: var(--gray-600);
-            color: white;
-        }
-        
-        .auth-screen .auth-box .auth-form input:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-        
-        .auth-screen .auth-box .auth-form .btn-submit {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 0.5rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .auth-screen .auth-box .auth-form .btn-submit:hover {
-            background: var(--primary-dark);
-        }
-        
-        .auth-screen .auth-box .auth-divider {
-            text-align: center;
-            margin: 1rem 0;
-            color: var(--gray-400);
-            position: relative;
-        }
-        
-        .auth-screen .auth-box .auth-divider::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 50%;
-            height: 1px;
-            background: var(--gray-200);
-        }
-        
-        .auth-screen .auth-box .auth-divider span {
-            background: var(--white);
-            padding: 0 0.75rem;
-            position: relative;
-        }
-        
-        .dark .auth-screen .auth-box .auth-divider span {
-            background: var(--gray-800);
-        }
-        
-        .auth-screen .auth-box .btn-google {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--gray-200);
-            border-radius: 0.5rem;
-            background: var(--white);
-            color: var(--gray-700);
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: all 0.2s;
-        }
-        
-        .dark .auth-screen .auth-box .btn-google {
-            background: var(--gray-700);
-            border-color: var(--gray-600);
-            color: var(--gray-300);
-        }
-        
-        .auth-screen .auth-box .btn-google:hover {
-            background: var(--gray-100);
-        }
-        
-        .dark .auth-screen .auth-box .btn-google:hover {
-            background: var(--gray-600);
-        }
-        
-        .auth-screen .auth-box .auth-footer {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: var(--gray-500);
-        }
-        
-        .auth-screen .auth-box .auth-footer a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        
-        /* ============================================================
-           RESPONSIVE
-           ============================================================ */
-        @media (max-width: 640px) {
-            .hero-banner h1 {
-                font-size: 2rem;
-            }
-            
-            .hero-banner {
-                padding: 2rem 1rem;
-            }
-            
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
-            }
-            
-            .categories-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 0.5rem;
-            }
-            
-            .category-card {
-                padding: 1rem 0.5rem;
-            }
-            
-            .category-card .icon {
-                font-size: 1.8rem;
-            }
-            
-            .product-card .product-info h3 {
-                font-size: 0.8rem;
-            }
-            
-            .product-card .product-info .price {
-                font-size: 1rem;
-            }
-            
-            .wallet-card .wallet-header {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .wallet-card .wallet-balance {
-                text-align: center;
-            }
-            
-            .wallet-card .wallet-actions {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        
-        @media (min-width: 641px) and (max-width: 1024px) {
-            .products-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .categories-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-        
-        /* ============================================================
-           DARK MODE OVERRIDES
-           ============================================================ */
-        .dark .bg-white {
-            background: var(--gray-800);
-        }
-        
-        .dark .border-gray-200 {
-            border-color: var(--gray-700);
-        }
-        
-        .dark .text-gray-600 {
-            color: var(--gray-400);
-        }
-        
-        .dark .text-gray-700 {
-            color: var(--gray-300);
-        }
-        
-        .dark .text-gray-500 {
-            color: var(--gray-500);
-        }
-        
-        .dark .bg-gray-50 {
-            background: var(--gray-800);
-        }
-        
-        .dark .bg-gray-100 {
-            background: var(--gray-700);
-        }
-        
-        .dark .bg-gray-200 {
-            background: var(--gray-700);
-        }
-    </style>
-</head>
-<body>
-
-    <!-- ============================================================
-    NAVBAR
-    ============================================================ -->
-    <nav class="navbar" id="navbar">
-        <a href="#" class="logo" onclick="showPage('home')">
-            <img src="https://i.ibb.co/xqqGvDZ1/Black-And-White-Illustrative-Gaming-Logo-20260610-185928-0000.png" alt="MORRE STORE">
-            <span>MORRE</span>
-        </a>
-
-        <ul class="nav-links" id="navLinks">
-            <li><a class="active" onclick="showPage('home')">الرئيسية</a></li>
-            <li><a onclick="showPage('shop')">المتجر</a></li>
-            <li><a onclick="showPage('blog')">المدونة</a></li>
-            <li><a onclick="showPage('about')">عن المتجر</a></li>
-            <li><a onclick="showPage('contact')">تواصل</a></li>
-        </ul>
-
-        <div class="nav-icons">
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="الوضع المظلم">
-                <i class="fas fa-moon" id="themeIcon"></i>
-            </button>
-            <a onclick="showPage('account')" aria-label="حسابي" style="cursor:pointer;">
-                <i class="fas fa-user"></i>
-            </a>
-            <a onclick="showCart()" aria-label="سلة التسوق" style="position:relative;cursor:pointer;">
-                <i class="fas fa-shopping-bag"></i>
-                <span class="cart-badge" id="cartBadge">0</span>
-            </a>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="القائمة">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </nav>
-
-    <!-- ============================================================
-    AUTH SCREEN
-    ============================================================ -->
-    <div class="auth-screen" id="authScreen">
-        <div class="auth-box">
-            <div class="auth-logo">
-                <img src="https://i.ibb.co/xqqGvDZ1/Black-And-White-Illustrative-Gaming-Logo-20260610-185928-0000.png" alt="MORRE STORE">
-                <h1>MORRE STORE</h1>
-                <p style="color:var(--gray-500);font-size:0.85rem;">متجر شامل للخدمات الرقمية</p>
-            </div>
-
-            <div class="auth-tabs">
-                <button class="active" data-tab="login" onclick="switchAuthTab('login')">تسجيل دخول</button>
-                <button data-tab="register" onclick="switchAuthTab('register')">إنشاء حساب</button>
-            </div>
-
-            <!-- Login Form -->
-            <div class="auth-form active" id="loginForm">
-                <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" dir="ltr">
-                <input type="password" id="loginPassword" placeholder="كلمة المرور" dir="ltr">
-                <button class="btn-submit" onclick="handleLogin()">تسجيل الدخول</button>
-                <div style="text-align:center;margin-top:0.5rem;">
-                    <a onclick="forgotPassword()" style="color:var(--primary);cursor:pointer;font-size:0.85rem;text-decoration:none;">🔑 نسيت كلمة المرور؟</a>
-                </div>
-            </div>
-
-            <!-- Register Form -->
-            <div class="auth-form" id="registerForm">
-                <input type="text" id="regName" placeholder="الاسم الكامل">
-                <input type="email" id="regEmail" placeholder="البريد الإلكتروني" dir="ltr">
-                <input type="password" id="regPassword" placeholder="كلمة المرور" dir="ltr">
-                <input type="password" id="regConfirmPassword" placeholder="تأكيد كلمة المرور" dir="ltr">
-                <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;">
-                    <input type="checkbox" id="agreeTerms" style="width:auto;">
-                    <label for="agreeTerms" style="font-size:0.85rem;color:var(--gray-500);">
-                        أوافق على <a onclick="showPolicy('terms')" style="color:var(--primary);cursor:pointer;">الشروط والأحكام</a>
-                    </label>
-                </div>
-                <button class="btn-submit" onclick="handleRegister()">إنشاء حساب</button>
-            </div>
-
-            <div class="auth-divider">
-                <span>أو</span>
-            </div>
-
-            <button class="btn-google" onclick="handleGoogleLogin()">
-                <i class="fab fa-google"></i> دخول عبر جوجل
-            </button>
-
-            <div class="auth-footer">
-                <span id="authToggleText">ليس لديك حساب؟</span>
-                <a onclick="switchAuthTab('register')" id="authToggleLink">إنشاء حساب</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================
-    MAIN CONTENT
-    ============================================================ -->
-    <main>
-        <div class="container">
-
-            <!-- ====== HOME PAGE ====== -->
-            <div id="page-home">
-
-                <!-- HERO BANNER -->
-                <section class="hero-banner">
-                    <h1>مرحباً بك في <span>MORRE STORE</span></h1>
-                    <p>أسرع متجر للخدمات الرقمية في السودان - شحن فوري، أسعار تنافسية، ودعم على مدار الساعة</p>
-                    <div class="btn-group">
-                        <a onclick="showPage('shop')" class="btn-primary">
-                            <i class="fas fa-shopping-bag"></i> تسوق الآن
-                        </a>
-                        <a href="https://wa.me/2490991305468" target="_blank" class="btn-outline">
-                            <i class="fab fa-whatsapp"></i> تواصل معنا
-                        </a>
-                    </div>
-                </section>
-
-                <!-- ====== WALLET CARD ====== -->
-                <div id="walletSection">
-                    <div class="wallet-card">
-                        <div class="wallet-header">
-                            <div class="wallet-user">
-                                <img id="walletAvatar" src="https://via.placeholder.com/50" alt="User">
-                                <div>
-                                    <div class="name" id="walletName">زائر</div>
-                                    <div class="wallet-id" id="walletId">رقم المحفظة: غير مسجل</div>
-                                </div>
-                            </div>
-                            <div class="wallet-balance">
-                                <div class="label">الرصيد</div>
-                                <div class="amount" id="walletBalance">0 ج.س</div>
-                            </div>
-                        </div>
-                        <div class="wallet-actions">
-                            <button class="btn-recharge" onclick="rechargeWallet()">💰 شحن</button>
-                            <button class="btn-support" onclick="openWhatsApp()">📞 الدعم</button>
-                            <button class="btn-settings" onclick="showPage('settings')">⚙️ إعدادات</button>
-                            <button class="btn-settings" id="logoutBtn" onclick="handleLogout()" style="display:none;">🚪 خروج</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ====== CATEGORIES ====== -->
-                <section style="margin-bottom:2rem;">
-                    <div class="section-header">
-                        <h2>📂 التصنيفات</h2>
-                        <a onclick="showPage('shop')">عرض الكل <i class="fas fa-arrow-left"></i></a>
-                    </div>
-                    <div class="categories-grid" id="categoriesGrid"></div>
-                </section>
-
-                <!-- ====== FEATURED PRODUCTS ====== -->
-                <section style="margin-bottom:2rem;">
-                    <div class="section-header">
-                        <h2>⭐ المنتجات المميزة</h2>
-                        <a onclick="showPage('shop')">عرض الكل <i class="fas fa-arrow-left"></i></a>
-                    </div>
-                    <div class="products-grid" id="featuredProducts"></div>
-                </section>
-
-                <!-- ====== TOP SELLERS ====== -->
-                <section style="margin-bottom:2rem;">
-                    <div class="section-header">
-                        <h2>🏆 الأكثر مبيعاً</h2>
-                        <a onclick="showPage('shop')">عرض الكل <i class="fas fa-arrow-left"></i></a>
-                    </div>
-                    <div class="products-grid" id="topProducts"></div>
-                </section>
-
-            </div>
-
-            <!-- ====== SHOP PAGE ====== -->
-            <div id="page-shop" style="display:none;padding:2rem 0;">
-                <h1 style="font-size:2rem;font-weight:900;margin-bottom:0.5rem;">🛍️ جميع المنتجات</h1>
-                <p style="color:var(--gray-500);margin-bottom:1.5rem;">تصفح جميع الخدمات الرقمية المتاحة في MORRE STORE</p>
-                
-                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;" id="filterButtons">
-                    <button class="filter-btn active" data-filter="all" onclick="filterProducts('all')" style="padding:0.5rem 1rem;border-radius:0.5rem;border:1px solid var(--gray-200);background:var(--primary);color:white;font-weight:600;cursor:pointer;">الكل</button>
-                </div>
-                
-                <div class="products-grid" id="allProductsGrid"></div>
-            </div>
-
-            <!-- ====== ABOUT PAGE ====== -->
-            <div id="page-about" style="display:none;padding:2rem 0;">
-                <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;">🏢 عن MORRE STORE</h1>
-                <div style="background:var(--white);padding:2rem;border-radius:1rem;border:1px solid var(--gray-200);">
-                    <h2 style="font-weight:700;margin-bottom:1rem;">مرحباً بك في MORRE STORE 💛</h2>
-                    <p style="color:var(--gray-600);line-height:1.8;">
-                        <strong>MORRE STORE</strong> هو متجر إلكتروني متخصص في بيع الخدمات الرقمية وشحن الألعاب في السودان.
-                    </p>
-                    <div style="background:var(--primary-50);padding:1.5rem;border-radius:0.75rem;margin:1.5rem 0;">
-                        <h3 style="font-weight:700;margin-bottom:0.5rem;">🎯 رؤيتنا</h3>
-                        <p style="color:var(--gray-600);">تقديم خدمات رقمية سريعة وموثوقة بأسعار تنافسية، مع تجربة تسوق سهلة وآمنة.</p>
-                    </div>
-                    <div style="background:var(--gray-50);padding:1.5rem;border-radius:0.75rem;margin:1.5rem 0;">
-                        <h3 style="font-weight:700;margin-bottom:0.5rem;">💎 خدماتنا</h3>
-                        <ul style="list-style:none;color:var(--gray-600);">
-                            <li>✅ شحن PUBG Mobile</li>
-                            <li>✅ شحن FreeFire</li>
-                            <li>✅ اشتراكات نتفليكس</li>
-                            <li>✅ بطاقات جوجل بلاي</li>
-                            <li>✅ فيزا Redotpay</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ====== CONTACT PAGE ====== -->
-            <div id="page-contact" style="display:none;padding:2rem 0;max-width:600px;margin:0 auto;">
-                <h1 style="font-size:2rem;font-weight:900;margin-bottom:0.5rem;text-align:center;">📞 تواصل معنا</h1>
-                <p style="text-align:center;color:var(--gray-500);margin-bottom:2rem;">نحن هنا لمساعدتك، تواصل معنا عبر أي من الطرق التالية</p>
-                
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;">
-                    <a href="https://wa.me/2490991305468" target="_blank" style="background:var(--white);padding:1.5rem;border-radius:1rem;text-align:center;border:1px solid var(--gray-200);text-decoration:none;color:var(--gray-700);">
-                        <i class="fab fa-whatsapp" style="font-size:2rem;color:#25D366;display:block;margin-bottom:0.5rem;"></i>
-                        <span style="font-weight:600;">واتساب</span>
-                    </a>
-                    <a href="mailto:morrestore1@gmail.com" style="background:var(--white);padding:1.5rem;border-radius:1rem;text-align:center;border:1px solid var(--gray-200);text-decoration:none;color:var(--gray-700);">
-                        <i class="fas fa-envelope" style="font-size:2rem;color:var(--primary);display:block;margin-bottom:0.5rem;"></i>
-                        <span style="font-weight:600;">البريد الإلكتروني</span>
-                    </a>
-                </div>
-                
-                <form style="background:var(--white);padding:2rem;border-radius:1rem;border:1px solid var(--gray-200);" onsubmit="sendContactMessage(event)">
-                    <div style="margin-bottom:1rem;">
-                        <input type="text" id="contactName" placeholder="الاسم الكامل" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
-                    </div>
-                    <div style="margin-bottom:1rem;">
-                        <input type="email" id="contactEmail" placeholder="البريد الإلكتروني" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
-                    </div>
-                    <div style="margin-bottom:1rem;">
-                        <textarea id="contactMessage" rows="4" placeholder="رسالتك..." style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);"></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">إرسال</button>
-                </form>
-            </div>
-
-            <!-- ====== BLOG PAGE ====== -->
-            <div id="page-blog" style="display:none;padding:2rem 0;">
-                <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;">📝 المدونة</h1>
-                <div id="blogPosts" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">
-                    <div class="blog-post" style="background:var(--white);border-radius:1rem;overflow:hidden;border:1px solid var(--gray-200);padding:1.5rem;">
-                        <h3 style="font-weight:700;margin-bottom:0.5rem;">🎮 كيفية شحن ببجي بسهولة</h3>
-                        <p style="color:var(--gray-500);font-size:0.9rem;">تعرف على طريقة شحن ببجي في MORRE STORE خطوة بخطوة</p>
-                        <a onclick="showToast('📖 المقال قيد التطوير', 'info')" style="color:var(--primary);text-decoration:none;font-weight:600;display:inline-block;margin-top:0.5rem;cursor:pointer;">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
-                    </div>
-                    <div class="blog-post" style="background:var(--white);border-radius:1rem;overflow:hidden;border:1px solid var(--gray-200);padding:1.5rem;">
-                        <h3 style="font-weight:700;margin-bottom:0.5rem;">🔥 أفضل عروض فري فاير</h3>
-                        <p style="color:var(--gray-500);font-size:0.9rem;">أفضل العروض والخصومات على شحن فري فاير</p>
-                        <a onclick="showToast('📖 المقال قيد التطوير', 'info')" style="color:var(--primary);text-decoration:none;font-weight:600;display:inline-block;margin-top:0.5rem;cursor:pointer;">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
-                    </div>
-                    <div class="blog-post" style="background:var(--white);border-radius:1rem;overflow:hidden;border:1px solid var(--gray-200);padding:1.5rem;">
-                        <h3 style="font-weight:700;margin-bottom:0.5rem;">🎬 نصائح لاختيار اشتراك نتفليكس</h3>
-                        <p style="color:var(--gray-500);font-size:0.9rem;">دليلك لاختيار الاشتراك المناسب لاحتياجاتك</p>
-                        <a onclick="showToast('📖 المقال قيد التطوير', 'info')" style="color:var(--primary);text-decoration:none;font-weight:600;display:inline-block;margin-top:0.5rem;cursor:pointer;">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ====== ACCOUNT PAGE ====== -->
-            <div id="page-account" style="display:none;padding:2rem 0;">
-                <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;">👤 حسابي</h1>
-                <div style="display:grid;grid-template-columns:1fr 2fr;gap:2rem;">
-                    <div style="background:var(--white);padding:1.5rem;border-radius:1rem;border:1px solid var(--gray-200);text-align:center;">
-                        <img id="accountAvatar" src="https://via.placeholder.com/100" style="width:100px;height:100px;border-radius:50%;border:3px solid var(--primary);margin:0 auto 1rem;object-fit:cover;">
-                        <h3 style="font-weight:700;" id="accountName">زائر</h3>
-                        <p style="color:var(--gray-500);font-size:0.9rem;" id="accountEmail">guest@morrestore.com</p>
-                        <div style="margin-top:1rem;padding:0.75rem;background:var(--primary-50);border-radius:0.5rem;">
-                            <span style="font-weight:600;">الرصيد:</span>
-                            <span style="color:var(--primary);font-weight:800;" id="accountBalance">0 ج.س</span>
-                        </div>
-                        <div style="margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;">
-                            <button onclick="showAuthScreen()" class="btn-primary" style="width:100%;justify-content:center;padding:0.75rem;" id="accountLoginBtn">
-                                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
-                            </button>
-                            <button onclick="handleLogout()" style="display:none;padding:0.75rem;border:1px solid #ef4444;color:#ef4444;border-radius:0.5rem;background:transparent;cursor:pointer;font-weight:600;" id="accountLogoutBtn">
-                                <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
-                            </button>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 style="font-weight:700;margin-bottom:1rem;">📋 طلباتي</h3>
-                        <div id="ordersList" style="background:var(--white);padding:1.5rem;border-radius:1rem;border:1px solid var(--gray-200);">
-                            <p style="color:var(--gray-400);text-align:center;padding:1rem;">
-                                <i class="fas fa-box-open" style="display:block;font-size:2rem;margin-bottom:0.5rem;"></i>
-                                لا توجد طلبات
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ====== SETTINGS PAGE ====== -->
-            <div id="page-settings" style="display:none;padding:2rem 0;max-width:600px;margin:0 auto;">
-                <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;">⚙️ إعدادات الحساب</h1>
-                <div style="background:var(--white);padding:2rem;border-radius:1rem;border:1px solid var(--gray-200);">
-                    <div style="text-align:center;margin-bottom:1.5rem;">
-                        <img id="settingsAvatar" src="https://via.placeholder.com/100" style="width:100px;height:100px;border-radius:50%;border:3px solid var(--primary);margin:0 auto 1rem;object-fit:cover;">
-                        <p style="color:var(--gray-500);font-size:0.85rem;">صورة الملف الشخصي</p>
-                    </div>
-                    
-                    <div style="margin-bottom:1rem;">
-                        <label style="display:block;font-weight:600;margin-bottom:0.25rem;">👤 الاسم الكامل</label>
-                        <input type="text" id="settingsName" value="زائر" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
-                    </div>
-                    
-                    <div style="margin-bottom:1rem;">
-                        <label style="display:block;font-weight:600;margin-bottom:0.25rem;">📧 البريد الإلكتروني</label>
-                        <input type="email" id="settingsEmail" value="guest@morrestore.com" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
-                    </div>
-                    
-                    <div style="margin-bottom:1rem;">
-                        <label style="display:block;font-weight:600;margin-bottom:0.25rem;">📱 رقم الهاتف</label>
-                        <input type="tel" id="settingsPhone" placeholder="مثال: 2490991305468" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
-                    </div>
-                    
-                    <div style="margin-bottom:1rem;">
-                        <label style="display:block;font-weight:600;margin-bottom:0.25rem;">💳 طريقة الدفع المفضلة</label>
-                        <select id="settingsPayment" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
-                            <option value="cash">💵 نقدي (عند الاستلام)</option>
-                            <option value="bank">🏦 تحويل بنكي</option>
-                            <option value="usdt">💎 USDT</option>
-                        </select>
-                    </div>
-                    
-                    <button onclick="saveSettings()" class="btn-primary" style="width:100%;justify-content:center;">💾 حفظ التغييرات</button>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- ============================================================
-    FOOTER
-    ============================================================ -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h4>🏢 عن MORRE STORE</h4>
-                    <p style="color:var(--gray-500);font-size:0.9rem;line-height:1.6;">
-                        متجر متخصص في بيع الخدمات الرقمية وشحن الألعاب في السودان.
-                    </p>
-                    <div class="social-links">
-                        <a href="https://wa.me/2490991305468" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://www.facebook.com/morre.store" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.tiktok.com/@morre.store2" target="_blank"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://www.instagram.com/morre.store" target="_blank"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-
-                <div>
-                    <h4>📌 روابط سريعة</h4>
-                    <ul>
-                        <li><a onclick="showPage('home')">الرئيسية</a></li>
-                        <li><a onclick="showPage('shop')">المتجر</a></li>
-                        <li><a onclick="showPage('about')">عن المتجر</a></li>
-                        <li><a onclick="showPage('contact')">تواصل</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4>📜 سياسات</h4>
-                    <ul>
-                        <li><a onclick="showPolicy('terms')">شروط الخدمة</a></li>
-                        <li><a onclick="showPolicy('privacy')">سياسة الخصوصية</a></li>
-                        <li><a onclick="showPolicy('refund')">سياسة الاسترجاع</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4>📞 تواصل معنا</h4>
-                    <ul>
-                        <li><a href="https://wa.me/2490991305468" target="_blank"><i class="fab fa-whatsapp" style="color:#25D366;"></i> +249 0991305468</a></li>
-                        <li><a href="mailto:morrestore1@gmail.com"><i class="fas fa-envelope" style="color:var(--primary);"></i> morrestore1@gmail.com</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>© 2025 MORRE STORE. جميع الحقوق محفوظة. تصميم وتطوير <span style="color:var(--primary);">MORRE</span></p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ============================================================
-    SCROLL TOP
-    ============================================================ -->
-    <button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <i class="fas fa-chevron-up"></i>
-    </button>
-
-    <!-- ============================================================
-    TOAST CONTAINER
-    ============================================================ -->
-    <div class="toast-container" id="toastContainer"></div>
-
-    <!-- ============================================================
-    CART MODAL
-    ============================================================ -->
-    <div class="modal" id="cartModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>🛒 سلة التسوق</h3>
-                <button class="close-btn" onclick="closeCart()"><i class="fas fa-times"></i></button>
-            </div>
-            <div id="cartContent">
-                <p style="text-align:center;color:var(--gray-500);padding:1rem;">السلة فارغة</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================
-    POLICY MODAL
-    ============================================================ -->
-    <div class="modal" id="policyModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="policyTitle">سياسة الخصوصية</h3>
-                <button class="close-btn" onclick="closePolicy()"><i class="fas fa-times"></i></button>
-            </div>
-            <div id="policyContent" style="color:var(--gray-600);line-height:1.8;"></div>
-        </div>
-    </div>
-
-    <script>
+    <!-- Firebase -->
+    <script type="module">
         // ============================================================
-        // DATA - جميع المنتجات من الكود القديم
+        // IMPORT FIREBASE
+        // ============================================================
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { 
+            getFirestore, doc, onSnapshot, collection, query, where, 
+            getDocs, updateDoc, increment, setDoc, serverTimestamp, 
+            orderBy, getDoc, runTransaction, deleteDoc, addDoc,
+            arrayUnion, arrayRemove
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { 
+            getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, 
+            signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+            sendPasswordResetEmail, updatePassword, reauthenticateWithCredential,
+            EmailAuthProvider, sendEmailVerification, updateProfile
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { 
+            getStorage, ref, uploadBytes, getDownloadURL 
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+        // ============================================================
+        // FIREBASE CONFIG - نفس الكود القديم
+        // ============================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyC0jzecEwKgHpxHpTi8Y-_bwwfzVdtgf3E",
+            authDomain: "khasmshop.firebaseapp.com",
+            projectId: "khasmshop",
+            storageBucket: "khasmshop.firebasestorage.app",
+            messagingSenderId: "238182001615",
+            appId: "1:238182001615:web:d77391030a40a481b440ba"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const storage = getStorage(app);
+        const provider = new GoogleAuthProvider();
+
+        // ============================================================
+        // CONSTANTS
+        // ============================================================
+        const ADMINS = ["mhmdfthu98@gmail.com"];
+        const TELEGRAM_TOKEN = '8616731804:AAGjZzVbWV7DXasmlwjjCyhz3AYUmzGbyi8';
+        const TELEGRAM_CHAT_ID = '8539810117';
+        const WHATSAPP_NUMBER = '2490991305468';
+
+        // ============================================================
+        // STATE
+        // ============================================================
+        let userData = null;
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentPage = 'home';
+
+        // ============================================================
+        // DOM REFERENCES
+        // ============================================================
+        const $ = (id) => document.getElementById(id);
+        const authScreen = $('authScreen');
+        const mainApp = $('mainApp');
+        const loadingScreen = $('loadingScreen');
+
+        // ============================================================
+        // TOAST NOTIFICATIONS
+        // ============================================================
+        function showToast(message, type = 'success') {
+            const container = $('toastContainer');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            
+            requestAnimationFrame(() => toast.classList.add('show'));
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // ============================================================
+        // AUTH FUNCTIONS - حقيقية مع Firebase
         // ============================================================
         
-        const categories = [
-            { id: 'pubg', name: 'ببجي PUBG', icon: '🎮' },
-            { id: 'freefire', name: 'فري فاير', icon: '🔥' },
-            { id: 'netflix', name: 'نتفليكس', icon: '🎬' },
-            { id: 'googleplay', name: 'جوجل بلاي', icon: '🛍️' },
-            { id: 'redotpay', name: 'فيزا Redotpay', icon: '💳' }
-        ];
+        // تسجيل الدخول بالبريد وكلمة المرور
+        async function handleLogin() {
+            const email = $('loginEmail').value.trim();
+            const password = $('loginPassword').value.trim();
+            
+            if (!email || !password) {
+                showToast('❌ الرجاء إدخال البريد الإلكتروني وكلمة المرور', 'error');
+                return;
+            }
+            
+            try {
+                loadingScreen.classList.remove('hidden');
+                const userCred = await signInWithEmailAndPassword(auth, email, password);
+                
+                // التحقق من الحظر
+                const userDoc = await getDoc(doc(db, "users", userCred.user.uid));
+                if (userDoc.exists() && userDoc.data().isBlocked) {
+                    await signOut(auth);
+                    showToast('⛔ تم حظر حسابك، تواصل مع الدعم', 'error');
+                    loadingScreen.classList.add('hidden');
+                    return;
+                }
+                
+                showToast('✅ مرحباً بك!', 'success');
+                loadingScreen.classList.add('hidden');
+            } catch (e) {
+                loadingScreen.classList.add('hidden');
+                if (e.code === 'auth/user-not-found') {
+                    showToast('❌ البريد الإلكتروني غير مسجل', 'error');
+                } else if (e.code === 'auth/wrong-password') {
+                    showToast('❌ كلمة المرور غير صحيحة', 'error');
+                } else {
+                    showToast('❌ حدث خطأ: ' + e.message, 'error');
+                }
+            }
+        }
 
+        // إنشاء حساب جديد
+        async function handleRegister() {
+            const name = $('regName').value.trim();
+            const email = $('regEmail').value.trim();
+            const password = $('regPassword').value;
+            const confirm = $('regConfirmPassword').value;
+            const agree = $('agreeTerms').checked;
+            
+            if (!name || !email || !password || !confirm) {
+                showToast('❌ جميع الحقول مطلوبة', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showToast('❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
+                return;
+            }
+            
+            if (password !== confirm) {
+                showToast('❌ كلمة المرور غير متطابقة مع التأكيد', 'error');
+                return;
+            }
+            
+            if (!agree) {
+                showToast('❌ وافق على الشروط والأحكام أولاً', 'error');
+                return;
+            }
+            
+            try {
+                loadingScreen.classList.remove('hidden');
+                
+                // إنشاء المستخدم
+                const userCred = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCred.user;
+                
+                // تحديث الاسم
+                await updateProfile(user, { displayName: name });
+                
+                // إنشاء محفظة للمستخدم
+                const walletID = Math.floor(100000 + Math.random() * 900000).toString();
+                await setDoc(doc(db, "users", user.uid), {
+                    name: name,
+                    email: email,
+                    img: 'https://via.placeholder.com/100',
+                    walletID: walletID,
+                    balance: 0,
+                    provider: 'password',
+                    emailVerified: user.emailVerified || false,
+                    createdAt: serverTimestamp(),
+                    phone: '',
+                    paymentMethod: 'cash',
+                    isBlocked: false,
+                    notifyEmail: true,
+                    notifyWhatsApp: true,
+                    notifyPush: true
+                });
+                
+                // إنشاء سجل المحفظة
+                await setDoc(doc(db, "wallets", walletID), {
+                    userId: user.uid,
+                    walletID: walletID,
+                    balance: 0,
+                    reservedBalance: 0,
+                    status: 'active',
+                    createdAt: serverTimestamp(),
+                    transactions: []
+                });
+                
+                showToast(`✅ مرحباً بك ${name}!\nرقم محفظتك: #${walletID}`, 'success');
+                loadingScreen.classList.add('hidden');
+                
+            } catch (e) {
+                loadingScreen.classList.add('hidden');
+                if (e.code === 'auth/email-already-in-use') {
+                    showToast('❌ البريد الإلكتروني مستخدم بالفعل', 'error');
+                } else {
+                    showToast('❌ حدث خطأ: ' + e.message, 'error');
+                }
+            }
+        }
+
+        // تسجيل الدخول بجوجل
+        async function handleGoogleLogin() {
+            try {
+                loadingScreen.classList.remove('hidden');
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                
+                // التحقق من وجود المستخدم في قاعدة البيانات
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+                
+                if (!userSnap.exists()) {
+                    // إنشاء محفظة للمستخدم الجديد
+                    const walletID = Math.floor(100000 + Math.random() * 900000).toString();
+                    await setDoc(userRef, {
+                        name: user.displayName || user.email.split('@')[0],
+                        email: user.email,
+                        img: user.photoURL || 'https://via.placeholder.com/100',
+                        walletID: walletID,
+                        balance: 0,
+                        provider: 'google.com',
+                        emailVerified: user.emailVerified || false,
+                        createdAt: serverTimestamp(),
+                        phone: '',
+                        paymentMethod: 'cash',
+                        isBlocked: false,
+                        notifyEmail: true,
+                        notifyWhatsApp: true,
+                        notifyPush: true
+                    });
+                    
+                    await setDoc(doc(db, "wallets", walletID), {
+                        userId: user.uid,
+                        walletID: walletID,
+                        balance: 0,
+                        reservedBalance: 0,
+                        status: 'active',
+                        createdAt: serverTimestamp(),
+                        transactions: []
+                    });
+                    
+                    showToast(`✅ مرحباً بك!\nرقم محفظتك: #${walletID}`, 'success');
+                }
+                
+                loadingScreen.classList.add('hidden');
+            } catch (e) {
+                loadingScreen.classList.add('hidden');
+                showToast('❌ خطأ في تسجيل الدخول بجوجل: ' + e.message, 'error');
+            }
+        }
+
+        // تسجيل الخروج
+        async function handleLogout() {
+            try {
+                await signOut(auth);
+                cart = [];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartBadge();
+                showToast('👋 تم تسجيل الخروج', 'info');
+            } catch (e) {
+                showToast('❌ حدث خطأ: ' + e.message, 'error');
+            }
+        }
+
+        // إعادة تعيين كلمة المرور
+        async function forgotPassword() {
+            const email = $('loginEmail').value.trim();
+            if (!email) {
+                showToast('❌ أدخل بريدك الإلكتروني أولاً', 'error');
+                return;
+            }
+            
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showToast('✅ تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك', 'success');
+            } catch (e) {
+                showToast('❌ البريد غير موجود أو حدث خطأ', 'error');
+            }
+        }
+
+        // ============================================================
+        // WALLET FUNCTIONS - حقيقية مع Firebase
+        // ============================================================
+        
+        // شحن المحفظة
+        async function rechargeWallet() {
+            if (!userData) {
+                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                showAuthScreen();
+                return;
+            }
+            
+            const amount = prompt(`💰 أدخل المبلغ المراد شحنه\n\nالرصيد الحالي: ${(userData.balance || 0).toLocaleString()} ج.س\nرقم المحفظة: ${userData.walletID}`);
+            if (!amount) return;
+            
+            const numAmount = parseInt(amount);
+            if (isNaN(numAmount) || numAmount <= 0) {
+                showToast('❌ مبلغ غير صحيح', 'error');
+                return;
+            }
+            
+            if (confirm(`💰 تأكيد شحن الرصيد\n\nالمبلغ: ${numAmount.toLocaleString()} ج.س\nطريقة الدفع: وكيل معتمد\n\nسيتم توجيهك إلى واتساب لإتمام العملية`)) {
+                const message = `مرحباً، أريد شحن محفظتي\nرقم المحفظة: ${userData.walletID}\nالمبلغ: ${numAmount.toLocaleString()} ج.س`;
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+            }
+        }
+
+        // ============================================================
+        // CART FUNCTIONS
+        // ============================================================
+        
+        function addToCart(productId) {
+            const product = getProductById(productId);
+            if (!product) {
+                showToast('❌ المنتج غير موجود', 'error');
+                return;
+            }
+            
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ id: productId, quantity: 1 });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            showToast(`✅ تم إضافة ${product.name} إلى السلة`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            showCart();
+        }
+
+        function updateCartBadge() {
+            const badge = $('cartBadge');
+            if (badge) {
+                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+                badge.textContent = total;
+            }
+        }
+
+        function showCart() {
+            const modal = $('cartModal');
+            const content = $('cartContent');
+            
+            if (cart.length === 0) {
+                content.innerHTML = `
+                    <p style="text-align:center;color:var(--gray-500);padding:1rem;">
+                        <i class="fas fa-shopping-bag" style="display:block;font-size:2rem;margin-bottom:0.5rem;"></i>
+                        السلة فارغة
+                    </p>
+                `;
+            } else {
+                let total = 0;
+                content.innerHTML = cart.map(item => {
+                    const product = getProductById(item.id);
+                    if (!product) return '';
+                    total += product.price * item.quantity;
+                    return `
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:0.75rem;border-bottom:1px solid var(--gray-200);">
+                            <div>
+                                <div style="font-weight:600;">${product.name}</div>
+                                <div style="color:var(--gray-500);font-size:0.85rem;">${product.price.toLocaleString()} ج.س × ${item.quantity}</div>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:0.5rem;">
+                                <button onclick="updateCartQuantity('${item.id}', -1)" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--gray-300);background:transparent;cursor:pointer;">-</button>
+                                <span style="min-width:30px;text-align:center;font-weight:600;">${item.quantity}</span>
+                                <button onclick="updateCartQuantity('${item.id}', 1)" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--gray-300);background:transparent;cursor:pointer;">+</button>
+                                <button onclick="removeFromCart('${item.id}')" style="background:none;border:none;color:#ef4444;cursor:pointer;padding:0.25rem 0.5rem;">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                content.innerHTML += `
+                    <div style="padding:1rem 0;margin-top:0.5rem;border-top:2px solid var(--gray-200);">
+                        <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.2rem;">
+                            <span>الإجمالي:</span>
+                            <span style="color:var(--primary);">${total.toLocaleString()} ج.س</span>
+                        </div>
+                        <button onclick="checkout()" class="btn-primary" style="width:100%;justify-content:center;margin-top:0.75rem;padding:0.75rem;">
+                            <i class="fas fa-credit-card"></i> إتمام الشراء
+                        </button>
+                    </div>
+                `;
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeCart() {
+            $('cartModal').classList.remove('active');
+        }
+
+        function updateCartQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+            
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== productId);
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            showCart();
+        }
+
+        // ============================================================
+        // CHECKOUT - حقيقي مع Firebase
+        // ============================================================
+        
+        async function checkout() {
+            if (cart.length === 0) {
+                showToast('❌ السلة فارغة', 'error');
+                return;
+            }
+            
+            if (!userData) {
+                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                showAuthScreen();
+                return;
+            }
+            
+            // حساب الإجمالي
+            let total = cart.reduce((sum, item) => {
+                const product = getProductById(item.id);
+                return sum + (product ? product.price * item.quantity : 0);
+            }, 0);
+            
+            if (userData.balance < total) {
+                showToast(`❌ رصيدك غير كافي! الرصيد: ${(userData.balance || 0).toLocaleString()} ج.س`, 'error');
+                return;
+            }
+            
+            if (!confirm(`💰 تأكيد الشراء\n\nالإجمالي: ${total.toLocaleString()} ج.س\nالرصيد: ${(userData.balance || 0).toLocaleString()} ج.س`)) {
+                return;
+            }
+            
+            try {
+                loadingScreen.classList.remove('hidden');
+                
+                // تنفيذ المعاملة
+                await runTransaction(db, async (transaction) => {
+                    const userRef = doc(db, "users", auth.currentUser.uid);
+                    const userSnap = await transaction.get(userRef);
+                    
+                    if (userSnap.data().balance < total) {
+                        throw new Error("رصيد غير كاف");
+                    }
+                    
+                    transaction.update(userRef, { balance: increment(-total) });
+                    
+                    // إنشاء طلب لكل منتج
+                    for (const item of cart) {
+                        const product = getProductById(item.id);
+                        if (!product) continue;
+                        
+                        const orderData = {
+                            uID: auth.currentUser.uid,
+                            uName: userData.name,
+                            product: product.name,
+                            price: product.price * item.quantity,
+                            game: product.category,
+                            gameID: 'سلة التسوق',
+                            gameName: 'سلة التسوق',
+                            realName: userData.name,
+                            whatsapp: userData.phone || 'غير محدد',
+                            status: 'قيد الانتظار',
+                            isCartOrder: true,
+                            quantity: item.quantity,
+                            timestamp: serverTimestamp()
+                        };
+                        
+                        const orderRef = doc(collection(db, "orders"));
+                        transaction.set(orderRef, orderData);
+                    }
+                });
+                
+                // تفريغ السلة
+                cart = [];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartBadge();
+                closeCart();
+                
+                // تحديث بيانات المستخدم
+                await loadUserData(auth.currentUser.uid);
+                
+                showToast('✅ تم إتمام الشراء بنجاح!', 'success');
+                loadingScreen.classList.add('hidden');
+                
+            } catch (e) {
+                loadingScreen.classList.add('hidden');
+                showToast('❌ حدث خطأ: ' + e.message, 'error');
+            }
+        }
+
+        // ============================================================
+        // PRODUCT DATA
+        // ============================================================
+        
         const productsData = {
             'pubg-1': { id: 'pubg-1', name: '🎯 60 شدة ببجي', price: 4000, category: 'pubg', categoryName: 'ببجي', image: '🎮', rating: 4.5, reviews: 24 },
             'pubg-2': { id: 'pubg-2', name: '🎯 120 شدة ببجي', price: 8000, category: 'pubg', categoryName: 'ببجي', image: '🎮', rating: 4.8, reviews: 18 },
@@ -1673,65 +536,24 @@
             'redot-2': { id: 'redot-2', name: '💳 حساب موثق + فيزا Redotpay', price: 180000, category: 'redotpay', categoryName: 'فيزا Redotpay', image: '💳', rating: 4.9, reviews: 31 }
         };
 
-        // ============================================================
-        // STATE
-        // ============================================================
-        
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-        let currentFilter = 'all';
+        function getProductById(id) {
+            return productsData[id] || null;
+        }
 
-        // ============================================================
-        // INIT
-        // ============================================================
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            // تطبيق الثيم
-            if (localStorage.getItem('theme') === 'dark') {
-                document.documentElement.classList.add('dark');
-                document.getElementById('themeIcon').className = 'fas fa-sun';
-            }
-            
-            // عرض الصفحة الرئيسية
-            showPage('home');
-            
-            // عرض التصنيفات والمنتجات
-            renderCategories();
-            renderProducts(Object.values(productsData), 'featuredProducts', 8);
-            renderProducts(getTopProducts(4), 'topProducts', 4);
-            
-            // أزرار الفلتر
-            renderFilterButtons();
-            
-            // تحديث السلة
-            updateCartBadge();
-            
-            // التحقق من المستخدم
-            if (currentUser) {
-                updateUIForUser(currentUser);
-            }
-            
-            // مراقبة التمرير لزر الأعلى
-            window.addEventListener('scroll', function() {
-                const btn = document.getElementById('scrollTopBtn');
-                if (window.scrollY > 300) {
-                    btn.classList.add('visible');
-                } else {
-                    btn.classList.remove('visible');
-                }
-            });
-            
-            console.log('🚀 MORRE STORE - تم التحميل بنجاح!');
-            console.log('📦 عدد المنتجات:', Object.keys(productsData).length);
-            console.log('📂 عدد التصنيفات:', categories.length);
-        });
+        const categories = [
+            { id: 'pubg', name: 'ببجي PUBG', icon: '🎮' },
+            { id: 'freefire', name: 'فري فاير', icon: '🔥' },
+            { id: 'netflix', name: 'نتفليكس', icon: '🎬' },
+            { id: 'googleplay', name: 'جوجل بلاي', icon: '🛍️' },
+            { id: 'redotpay', name: 'فيزا Redotpay', icon: '💳' }
+        ];
 
         // ============================================================
         // RENDER FUNCTIONS
         // ============================================================
         
         function renderCategories() {
-            const container = document.getElementById('categoriesGrid');
+            const container = $('categoriesGrid');
             if (!container) return;
             
             container.innerHTML = categories.map(cat => `
@@ -1744,7 +566,7 @@
         }
 
         function renderProducts(productsArray, containerId, limit = 8) {
-            const container = document.getElementById(containerId);
+            const container = $(containerId);
             if (!container) return;
             
             const items = productsArray.slice(0, limit);
@@ -1784,18 +606,14 @@
             const products = Object.values(productsData);
             let filtered = products;
             
-            if (currentFilter !== 'all') {
-                filtered = products.filter(p => p.category === currentFilter);
-            }
-            
-            const container = document.getElementById('allProductsGrid');
+            const container = $('allProductsGrid');
             if (!container) return;
             
             if (filtered.length === 0) {
                 container.innerHTML = `
                     <div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--gray-400);">
                         <i class="fas fa-box-open" style="font-size:3rem;display:block;margin-bottom:1rem;"></i>
-                        <p>لا توجد منتجات في هذا التصنيف</p>
+                        <p>لا توجد منتجات</p>
                     </div>
                 `;
                 return;
@@ -1822,42 +640,12 @@
             `).join('');
         }
 
-        function renderFilterButtons() {
-            const container = document.getElementById('filterButtons');
-            if (!container) return;
-            
-            const allBtn = container.querySelector('.filter-btn');
-            if (allBtn) {
-                allBtn.style.background = 'var(--primary)';
-                allBtn.style.color = 'white';
-            }
-            
-            categories.forEach(cat => {
-                const btn = document.createElement('button');
-                btn.className = 'filter-btn';
-                btn.dataset.filter = cat.id;
-                btn.textContent = `${cat.icon} ${cat.name}`;
-                btn.style.cssText = `
-                    padding: 0.5rem 1rem;
-                    border-radius: 0.5rem;
-                    border: 1px solid var(--gray-200);
-                    background: transparent;
-                    color: var(--gray-700);
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                `;
-                btn.onclick = () => filterProducts(cat.id);
-                container.appendChild(btn);
-            });
-        }
-
         function getTopProducts(limit = 4) {
             return Object.values(productsData).sort((a, b) => b.rating - a.rating).slice(0, limit);
         }
 
         // ============================================================
-        // PRODUCT DETAIL
+        // PRODUCT DETAIL MODAL
         // ============================================================
         
         function showProductDetail(productId) {
@@ -1867,7 +655,6 @@
                 return;
             }
             
-            // إنشاء مودال لعرض المنتج
             const modal = document.createElement('div');
             modal.className = 'modal active';
             modal.innerHTML = `
@@ -1903,7 +690,6 @@
             
             document.body.appendChild(modal);
             
-            // إغلاق بالضغط خارج المحتوى
             modal.addEventListener('click', function(e) {
                 if (e.target === this) {
                     this.classList.remove('active');
@@ -1912,159 +698,16 @@
             });
         }
 
-        // ============================================================
-        // CART FUNCTIONS
-        // ============================================================
-        
-        function addToCart(productId) {
-            const product = productsData[productId];
-            if (!product) {
-                showToast('❌ المنتج غير موجود', 'error');
-                return;
-            }
-            
-            const existing = cart.find(item => item.id === productId);
-            if (existing) {
-                existing.quantity += 1;
-            } else {
-                cart.push({ id: productId, quantity: 1 });
-            }
-            
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartBadge();
-            showToast(`✅ تم إضافة ${product.name} إلى السلة`);
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartBadge();
-            showCart();
-        }
-
-        function updateCartBadge() {
-            const badge = document.getElementById('cartBadge');
-            if (badge) {
-                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-                badge.textContent = total;
-            }
-        }
-
-        function showCart() {
-            const modal = document.getElementById('cartModal');
-            const content = document.getElementById('cartContent');
-            
-            if (cart.length === 0) {
-                content.innerHTML = `
-                    <p style="text-align:center;color:var(--gray-500);padding:1rem;">
-                        <i class="fas fa-shopping-bag" style="display:block;font-size:2rem;margin-bottom:0.5rem;"></i>
-                        السلة فارغة
-                    </p>
-                `;
-            } else {
-                let total = 0;
-                content.innerHTML = cart.map(item => {
-                    const product = productsData[item.id];
-                    if (!product) return '';
-                    total += product.price * item.quantity;
-                    return `
-                        <div style="display:flex;justify-content:space-between;align-items:center;padding:0.75rem;border-bottom:1px solid var(--gray-200);">
-                            <div>
-                                <div style="font-weight:600;">${product.name}</div>
-                                <div style="color:var(--gray-500);font-size:0.85rem;">${product.price.toLocaleString()} ج.س × ${item.quantity}</div>
-                            </div>
-                            <div style="display:flex;align-items:center;gap:0.5rem;">
-                                <button onclick="updateCartQuantity('${item.id}', -1)" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--gray-300);background:transparent;cursor:pointer;">-</button>
-                                <span style="min-width:30px;text-align:center;font-weight:600;">${item.quantity}</span>
-                                <button onclick="updateCartQuantity('${item.id}', 1)" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--gray-300);background:transparent;cursor:pointer;">+</button>
-                                <button onclick="removeFromCart('${item.id}')" style="background:none;border:none;color:#ef4444;cursor:pointer;padding:0.25rem 0.5rem;">🗑️</button>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-                
-                content.innerHTML += `
-                    <div style="padding:1rem 0;margin-top:0.5rem;border-top:2px solid var(--gray-200);">
-                        <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.2rem;">
-                            <span>الإجمالي:</span>
-                            <span style="color:var(--primary);">${total.toLocaleString()} ج.س</span>
-                        </div>
-                        <button onclick="checkout()" class="btn-primary" style="width:100%;justify-content:center;margin-top:0.75rem;padding:0.75rem;">
-                            <i class="fas fa-credit-card"></i> إتمام الشراء
-                        </button>
-                    </div>
-                `;
-            }
-            
-            modal.classList.add('active');
-        }
-
-        function closeCart() {
-            document.getElementById('cartModal').classList.remove('active');
-        }
-
-        function updateCartQuantity(productId, change) {
-            const item = cart.find(i => i.id === productId);
-            if (!item) return;
-            
-            item.quantity += change;
-            if (item.quantity <= 0) {
-                cart = cart.filter(i => i.id !== productId);
-            }
-            
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartBadge();
-            showCart();
-        }
-
         function buyNow(productId) {
             addToCart(productId);
             checkout();
         }
 
-        function checkout() {
-            if (cart.length === 0) {
-                showToast('❌ السلة فارغة', 'error');
-                return;
-            }
-            
-            if (!currentUser) {
-                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
-                showAuthScreen();
-                return;
-            }
-            
-            // حساب الإجمالي
-            let total = cart.reduce((sum, item) => {
-                const product = productsData[item.id];
-                return sum + (product ? product.price * item.quantity : 0);
-            }, 0);
-            
-            if (currentUser.balance < total) {
-                showToast(`❌ رصيدك غير كافي! الرصيد: ${currentUser.balance.toLocaleString()} ج.س`, 'error');
-                return;
-            }
-            
-            // تنفيذ الطلب
-            if (confirm(`💰 تأكيد الشراء\n\nالإجمالي: ${total.toLocaleString()} ج.س\nالرصيد: ${currentUser.balance.toLocaleString()} ج.س`)) {
-                // خصم الرصيد
-                currentUser.balance -= total;
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                updateUIForUser(currentUser);
-                
-                // تفريغ السلة
-                cart = [];
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartBadge();
-                closeCart();
-                
-                showToast('✅ تم إتمام الشراء بنجاح!', 'success');
-            }
-        }
-
         // ============================================================
         // FILTER PRODUCTS
         // ============================================================
+        
+        let currentFilter = 'all';
         
         function filterProducts(category) {
             currentFilter = category;
@@ -2087,37 +730,27 @@
         // ============================================================
         
         function showPage(page) {
-            // إخفاء جميع الصفحات
+            currentPage = page;
+            
             const pages = ['home', 'shop', 'about', 'contact', 'blog', 'account', 'settings'];
             pages.forEach(p => {
-                const el = document.getElementById(`page-${p}`);
+                const el = $(`page-${p}`);
                 if (el) el.style.display = 'none';
             });
             
-            // إظهار الصفحة المطلوبة
-            const target = document.getElementById(`page-${page}`);
+            const target = $(`page-${page}`);
             if (target) {
                 target.style.display = 'block';
-                // إذا كانت صفحة المتجر، عرض المنتجات
                 if (page === 'shop') {
                     renderAllProducts();
                 }
             }
             
-            // تحديث الروابط النشطة
             document.querySelectorAll('.nav-links a').forEach(link => {
                 link.classList.remove('active');
             });
             
-            // تحديث حسب الصفحة
-            const linkMap = {
-                'home': 0,
-                'shop': 1,
-                'blog': 2,
-                'about': 3,
-                'contact': 4
-            };
-            
+            const linkMap = { 'home': 0, 'shop': 1, 'blog': 2, 'about': 3, 'contact': 4 };
             if (linkMap[page] !== undefined) {
                 const links = document.querySelectorAll('.nav-links a');
                 if (links[linkMap[page]]) {
@@ -2125,51 +758,22 @@
                 }
             }
             
-            // تمرير للأعلى
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function toggleMobileMenu() {
-            const links = document.getElementById('navLinks');
+            const links = $('navLinks');
             if (links) {
                 links.classList.toggle('open');
             }
         }
 
-        // ============================================================
-        // AUTH SYSTEM - محاكاة تسجيل الدخول
-        // ============================================================
-        
-        // المستخدمين الافتراضيين (من الكود القديم)
-        const defaultUsers = {
-            'admin@morre.com': {
-                name: 'أحمد محمد',
-                email: 'admin@morre.com',
-                password: 'admin123',
-                walletId: 'WALLET-001',
-                balance: 15000,
-                role: 'admin',
-                phone: '2490991305468',
-                createdAt: '2025-01-15'
-            },
-            'user@morre.com': {
-                name: 'مستخدم عادي',
-                email: 'user@morre.com',
-                password: 'user123',
-                walletId: 'WALLET-002',
-                balance: 5000,
-                role: 'user',
-                phone: '2490991234567',
-                createdAt: '2025-06-01'
-            }
-        };
-
         function showAuthScreen() {
-            document.getElementById('authScreen').classList.add('active');
+            $('authScreen').classList.add('active');
         }
 
         function hideAuthScreen() {
-            document.getElementById('authScreen').classList.remove('active');
+            $('authScreen').classList.remove('active');
         }
 
         function switchAuthTab(tab) {
@@ -2181,269 +785,379 @@
             
             if (tab === 'login') {
                 tabs[0].classList.add('active');
-                document.getElementById('loginForm').classList.add('active');
-                document.getElementById('authToggleText').textContent = 'ليس لديك حساب؟';
-                document.getElementById('authToggleLink').textContent = 'إنشاء حساب';
-                document.getElementById('authToggleLink').onclick = () => switchAuthTab('register');
+                $('loginForm').classList.add('active');
+                $('authToggleText').textContent = 'ليس لديك حساب؟';
+                $('authToggleLink').textContent = 'إنشاء حساب';
+                $('authToggleLink').onclick = () => switchAuthTab('register');
             } else {
                 tabs[1].classList.add('active');
-                document.getElementById('registerForm').classList.add('active');
-                document.getElementById('authToggleText').textContent = 'لديك حساب بالفعل؟';
-                document.getElementById('authToggleLink').textContent = 'تسجيل الدخول';
-                document.getElementById('authToggleLink').onclick = () => switchAuthTab('login');
+                $('registerForm').classList.add('active');
+                $('authToggleText').textContent = 'لديك حساب بالفعل؟';
+                $('authToggleLink').textContent = 'تسجيل الدخول';
+                $('authToggleLink').onclick = () => switchAuthTab('login');
             }
-        }
-
-        function handleLogin() {
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-            
-            if (!email || !password) {
-                showToast('❌ الرجاء إدخال البريد الإلكتروني وكلمة المرور', 'error');
-                return;
-            }
-            
-            const user = defaultUsers[email];
-            if (!user || user.password !== password) {
-                showToast('❌ البريد الإلكتروني أو كلمة المرور غير صحيحة', 'error');
-                return;
-            }
-            
-            // تسجيل الدخول
-            currentUser = { ...user };
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            updateUIForUser(currentUser);
-            hideAuthScreen();
-            showToast(`✅ مرحباً بك ${user.name}!`, 'success');
-        }
-
-        function handleRegister() {
-            const name = document.getElementById('regName').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value;
-            const confirm = document.getElementById('regConfirmPassword').value;
-            const agree = document.getElementById('agreeTerms').checked;
-            
-            if (!name || !email || !password || !confirm) {
-                showToast('❌ جميع الحقول مطلوبة', 'error');
-                return;
-            }
-            
-            if (password.length < 6) {
-                showToast('❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
-                return;
-            }
-            
-            if (password !== confirm) {
-                showToast('❌ كلمة المرور غير متطابقة مع التأكيد', 'error');
-                return;
-            }
-            
-            if (!agree) {
-                showToast('❌ وافق على الشروط والأحكام أولاً', 'error');
-                return;
-            }
-            
-            if (defaultUsers[email]) {
-                showToast('❌ البريد الإلكتروني مستخدم بالفعل', 'error');
-                return;
-            }
-            
-            // إنشاء مستخدم جديد
-            const walletId = 'WALLET-' + String(Math.floor(100000 + Math.random() * 900000));
-            const newUser = {
-                name: name,
-                email: email,
-                password: password,
-                walletId: walletId,
-                balance: 0,
-                role: 'user',
-                phone: '',
-                createdAt: new Date().toISOString()
-            };
-            
-            defaultUsers[email] = newUser;
-            
-            // تسجيل الدخول تلقائياً
-            currentUser = { ...newUser };
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            updateUIForUser(currentUser);
-            hideAuthScreen();
-            showToast(`✅ مرحباً بك ${name}! رقم محفظتك: #${walletId}`, 'success');
-        }
-
-        function handleGoogleLogin() {
-            showToast('🔑 جاري تسجيل الدخول عبر جوجل...', 'info');
-            setTimeout(() => {
-                // محاكاة دخول جوجل
-                const googleUser = {
-                    name: 'مستخدم جوجل',
-                    email: 'google.user@gmail.com',
-                    walletId: 'WALLET-G-' + String(Math.floor(100000 + Math.random() * 900000)),
-                    balance: 1000,
-                    role: 'user',
-                    phone: '',
-                    createdAt: new Date().toISOString(),
-                    isGoogle: true
-                };
-                defaultUsers[googleUser.email] = googleUser;
-                currentUser = { ...googleUser };
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                updateUIForUser(currentUser);
-                hideAuthScreen();
-                showToast(`✅ مرحباً بك ${googleUser.name}!`, 'success');
-            }, 1000);
-        }
-
-        function forgotPassword() {
-            const email = document.getElementById('loginEmail').value.trim();
-            if (!email) {
-                showToast('❌ أدخل بريدك الإلكتروني أولاً', 'error');
-                return;
-            }
-            
-            if (!defaultUsers[email]) {
-                showToast('❌ البريد الإلكتروني غير موجود', 'error');
-                return;
-            }
-            
-            showToast(`📧 تم إرسال رابط إعادة تعيين كلمة المرور إلى ${email}`, 'success');
-        }
-
-        function handleLogout() {
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            updateUIForUser(null);
-            showToast('👋 تم تسجيل الخروج بنجاح', 'info');
-            showPage('home');
         }
 
         // ============================================================
-        // UPDATE UI
+        // UPDATE UI - حقيقي مع Firebase
         // ============================================================
         
         function updateUIForUser(user) {
             const avatar = user?.img || 'https://via.placeholder.com/50';
             const name = user?.name || 'زائر';
-            const walletId = user?.walletId ? `#${user.walletId}` : 'غير مسجل';
+            const walletId = user?.walletID ? `#${user.walletID}` : 'غير مسجل';
             const balance = user?.balance ? `${user.balance.toLocaleString()} ج.س` : '0 ج.س';
             
             // واجهة المحفظة
-            document.getElementById('walletAvatar').src = avatar;
-            document.getElementById('walletName').textContent = name;
-            document.getElementById('walletId').textContent = `رقم المحفظة: ${walletId}`;
-            document.getElementById('walletBalance').textContent = balance;
+            const walletAvatar = $('walletAvatar');
+            const walletName = $('walletName');
+            const walletIdEl = $('walletId');
+            const walletBalance = $('walletBalance');
+            
+            if (walletAvatar) walletAvatar.src = avatar;
+            if (walletName) walletName.textContent = name;
+            if (walletIdEl) walletIdEl.textContent = `رقم المحفظة: ${walletId}`;
+            if (walletBalance) walletBalance.textContent = balance;
             
             // صفحة الحساب
-            document.getElementById('accountAvatar').src = avatar;
-            document.getElementById('accountName').textContent = name;
-            document.getElementById('accountEmail').textContent = user?.email || 'guest@morrestore.com';
-            document.getElementById('accountBalance').textContent = balance;
+            const accountAvatar = $('accountAvatar');
+            const accountName = $('accountName');
+            const accountEmail = $('accountEmail');
+            const accountBalance = $('accountBalance');
             
-            // إعدادات
-            document.getElementById('settingsAvatar').src = avatar;
-            document.getElementById('settingsName').value = name;
-            document.getElementById('settingsEmail').value = user?.email || 'guest@morrestore.com';
-            document.getElementById('settingsPhone').value = user?.phone || '';
+            if (accountAvatar) accountAvatar.src = avatar;
+            if (accountName) accountName.textContent = name;
+            if (accountEmail) accountEmail.textContent = user?.email || 'guest@morrestore.com';
+            if (accountBalance) accountBalance.textContent = balance;
+            
+            // إعدادات            const settingsAvatar = $('settingsAvatar');
+            const settingsName = $('settingsName');
+            const settingsEmail = $('settingsEmail');
+            const settingsPhone = $('settingsPhone');
+            
+            if (settingsAvatar) settingsAvatar.src = avatar;
+            if (settingsName) settingsName.value = name;
+            if (settingsEmail) settingsEmail.value = user?.email || 'guest@morrestore.com';
+            if (settingsPhone) settingsPhone.value = user?.phone || '';
             
             // أزرار تسجيل الدخول/الخروج
+            const accountLoginBtn = $('accountLoginBtn');
+            const accountLogoutBtn = $('accountLogoutBtn');
+            const logoutBtn = $('logoutBtn');
+            
             if (user) {
-                document.getElementById('accountLoginBtn').style.display = 'none';
-                document.getElementById('accountLogoutBtn').style.display = 'block';
-                document.getElementById('logoutBtn').style.display = 'block';
+                if (accountLoginBtn) accountLoginBtn.style.display = 'none';
+                if (accountLogoutBtn) accountLogoutBtn.style.display = 'block';
+                if (logoutBtn) logoutBtn.style.display = 'block';
             } else {
-                document.getElementById('accountLoginBtn').style.display = 'block';
-                document.getElementById('accountLogoutBtn').style.display = 'none';
-                document.getElementById('logoutBtn').style.display = 'none';
+                if (accountLoginBtn) accountLoginBtn.style.display = 'block';
+                if (accountLogoutBtn) accountLogoutBtn.style.display = 'none';
+                if (logoutBtn) logoutBtn.style.display = 'none';
             }
         }
 
         // ============================================================
-        // WALLET FUNCTIONS
+        // LOAD USER DATA - حقيقي من Firebase
         // ============================================================
         
-        function rechargeWallet() {
-            if (!currentUser) {
-                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
-                showAuthScreen();
+        async function loadUserData(uid) {
+            try {
+                const userDoc = await getDoc(doc(db, "users", uid));
+                if (userDoc.exists()) {
+                    userData = userDoc.data();
+                    userData.uid = uid;
+                    updateUIForUser(userData);
+                    loadUserOrders(uid);
+                    return userData;
+                }
+                return null;
+            } catch (e) {
+                console.error('Error loading user data:', e);
+                return null;
+            }
+        }
+
+        // ============================================================
+        // LOAD USER ORDERS - حقيقي من Firebase
+        // ============================================================
+        
+        function loadUserOrders(uid) {
+            const ordersList = $('ordersList');
+            if (!ordersList) return;
+            
+            onSnapshot(query(collection(db, "orders"), where("uID", "==", uid), orderBy("timestamp", "desc")), (snap) => {
+                if (snap.empty) {
+                    ordersList.innerHTML = `
+                        <p style="color:var(--gray-400);text-align:center;padding:1rem;">
+                            <i class="fas fa-box-open" style="display:block;font-size:2rem;margin-bottom:0.5rem;"></i>
+                            لا توجد طلبات
+                        </p>
+                    `;
+                    return;
+                }
+                
+                let html = '';
+                snap.forEach(doc => {
+                    const o = doc.data();
+                    const statusColor = o.status === 'مكتمل' ? 'green' : 
+                                      o.status === 'فشل' ? 'red' : 'orange';
+                    html += `
+                        <div style="padding:0.75rem;border-bottom:1px solid var(--gray-200);">
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <div>
+                                    <div style="font-weight:600;">${o.product}</div>
+                                    <div style="color:var(--gray-500);font-size:0.85rem;">${o.price.toLocaleString()} ج.س</div>
+                                </div>
+                                <span style="color:${statusColor};font-weight:600;font-size:0.85rem;">${o.status}</span>
+                            </div>
+                            <div style="color:var(--gray-400);font-size:0.75rem;margin-top:0.25rem;">
+                                ${o.timestamp?.toDate ? new Date(o.timestamp.toDate()).toLocaleString() : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                ordersList.innerHTML = html;
+            });
+        }
+
+        // ============================================================
+        // ADMIN PANEL - حقيقي مع Firebase
+        // ============================================================
+        
+        function loadAdminPanel() {
+            if (!userData || !ADMINS.includes(userData.email)) {
+                const adminPanel = $('adminPanel');
+                if (adminPanel) adminPanel.style.display = 'none';
                 return;
             }
             
-            const amount = prompt(`💰 أدخل المبلغ المراد شحنه\n\nالرصيد الحالي: ${currentUser.balance.toLocaleString()} ج.س\nرقم المحفظة: ${currentUser.walletId}`);
-            if (!amount) return;
+            const adminPanel = $('adminPanel');
+            if (adminPanel) adminPanel.style.display = 'block';
             
-            const numAmount = parseInt(amount);
-            if (isNaN(numAmount) || numAmount <= 0) {
-                showToast('❌ مبلغ غير صحيح', 'error');
-                return;
-            }
-            
-            if (confirm(`💰 تأكيد شحن الرصيد\n\nالمبلغ: ${numAmount.toLocaleString()} ج.س\nطريقة الدفع: وكيل معتمد\n\nسيتم توجيهك إلى واتساب لإتمام العملية`)) {
-                const message = `مرحباً، أريد شحن محفظتي\nرقم المحفظة: ${currentUser.walletId}\nالمبلغ: ${numAmount.toLocaleString()} ج.س`;
-                window.open(`https://wa.me/2490991305468?text=${encodeURIComponent(message)}`, '_blank');
+            // إحصائيات
+            loadAdminStats();
+            loadAdminOrders();
+            loadAllUsers();
+            loadCoupons();
+        }
+
+        async function loadAdminStats() {
+            try {
+                const usersSnap = await getDocs(collection(db, "users"));
+                const totalUsers = usersSnap.size;
+                
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const todayOrders = await getDocs(query(collection(db, "orders"), where("timestamp", ">=", today)));
+                const todaySales = todayOrders.docs.reduce((sum, doc) => sum + (doc.data().price || 0), 0);
+                
+                const pendingSnap = await getDocs(query(collection(db, "orders"), where("status", "==", "قيد الانتظار")));
+                const pendingOrders = pendingSnap.size;
+                
+                const allOrders = await getDocs(collection(db, "orders"));
+                const totalOrders = allOrders.size;
+                const totalSales = allOrders.docs.reduce((sum, doc) => sum + (doc.data().price || 0), 0);
+                
+                // تحديث الـ UI
+                const totalUsersEl = $('totalUsers');
+                const todaySalesEl = $('todaySales');
+                const pendingOrdersEl = $('pendingOrders');
+                const totalOrdersEl = $('totalOrders');
+                const totalSalesEl = $('totalSales');
+                
+                if (totalUsersEl) totalUsersEl.textContent = totalUsers;
+                if (todaySalesEl) todaySalesEl.textContent = todaySales.toLocaleString();
+                if (pendingOrdersEl) pendingOrdersEl.textContent = pendingOrders;
+                if (totalOrdersEl) totalOrdersEl.textContent = totalOrders;
+                if (totalSalesEl) totalSalesEl.textContent = totalSales.toLocaleString();
+                
+            } catch (e) {
+                console.error('Error loading admin stats:', e);
             }
         }
 
-        function openWhatsApp() {
-            window.open('https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة', '_blank');
+        function loadAdminOrders() {
+            const container = $('adminOrdersList');
+            if (!container) return;
+            
+            onSnapshot(query(collection(db, "orders"), where("status", "==", "قيد الانتظار"), orderBy("timestamp", "desc")), (snap) => {
+                if (snap.empty) {
+                    container.innerHTML = '<p style="color:var(--gray-400);text-align:center;padding:1rem;">لا توجد طلبات معلقة</p>';
+                    return;
+                }
+                
+                let html = '';
+                snap.forEach(doc => {
+                    const o = doc.data();
+                    html += `
+                        <div style="padding:0.75rem;background:var(--gray-50);border-radius:0.5rem;margin-bottom:0.5rem;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <div>
+                                    <div style="font-weight:600;">${o.product}</div>
+                                    <div style="color:var(--gray-500);font-size:0.85rem;">👤 ${o.uName} | 🆔 ${o.gameID || 'N/A'}</div>
+                                    <div style="color:var(--gray-500);font-size:0.85rem;">📱 ${o.whatsapp || 'غير محدد'}</div>
+                                </div>
+                                <div style="text-align:left;">
+                                    <div style="font-weight:700;color:var(--primary);">${o.price.toLocaleString()} ج.س</div>
+                                    <div style="display:flex;gap:0.5rem;margin-top:0.25rem;">
+                                        <button onclick="updateOrderStatus('${doc.id}', '${o.uID}', 'مكتمل', ${o.price})" 
+                                            style="background:#22c55e;color:white;border:none;padding:0.25rem 0.5rem;border-radius:0.25rem;cursor:pointer;font-size:0.75rem;">✅ قبول</button>
+                                        <button onclick="updateOrderStatus('${doc.id}', '${o.uID}', 'فشل', ${o.price})" 
+                                            style="background:#ef4444;color:white;border:none;padding:0.25rem 0.5rem;border-radius:0.25rem;cursor:pointer;font-size:0.75rem;">❌ رفض</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            });
         }
 
-        // ============================================================
-        // CONTACT FORM
-        // ============================================================
-        
-        function sendContactMessage(event) {
-            event.preventDefault();
-            const name = document.getElementById('contactName').value.trim();
-            const email = document.getElementById('contactEmail').value.trim();
-            const message = document.getElementById('contactMessage').value.trim();
+        async function updateOrderStatus(orderId, userId, status, price) {
+            if (status === 'فشل' && price > 0) {
+                await updateDoc(doc(db, "users", userId), { balance: increment(price) });
+            }
+            await updateDoc(doc(db, "orders", orderId), { status: status });
+            showToast(`✅ تم تحديث الطلب إلى ${status}`, 'success');
+        }
+
+        function loadAllUsers() {
+            const container = $('usersList');
+            if (!container) return;
             
-            if (!name || !email || !message) {
+            onSnapshot(collection(db, "users"), (snap) => {
+                if (snap.empty) {
+                    container.innerHTML = '<p style="color:var(--gray-400);text-align:center;padding:1rem;">لا يوجد مستخدمين</p>';
+                    return;
+                }
+                
+                let html = '';
+                snap.forEach(doc => {
+                    const u = doc.data();
+                    html += `
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem;background:var(--gray-50);border-radius:0.5rem;margin-bottom:0.25rem;">
+                            <div>
+                                <div style="font-weight:600;">${u.name || 'مستخدم'}</div>
+                                <div style="color:var(--gray-500);font-size:0.75rem;">${u.email}</div>
+                            </div>
+                            <div style="text-align:left;">
+                                <div style="color:var(--primary);font-weight:700;">${(u.balance || 0).toLocaleString()} ج.س</div>
+                                <div style="color:var(--gray-400);font-size:0.75rem;">#${u.walletID}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            });
+        }
+
+        function loadCoupons() {
+            const container = $('couponsList');
+            if (!container) return;
+            
+            onSnapshot(query(collection(db, "coupons"), orderBy("createdAt", "desc")), (snap) => {
+                if (snap.empty) {
+                    container.innerHTML = '<p style="color:var(--gray-400);text-align:center;padding:0.5rem;">لا توجد كوبونات</p>';
+                    return;
+                }
+                
+                let html = '';
+                snap.forEach(doc => {
+                    const c = doc.data();
+                    html += `
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:0.5rem;background:var(--gray-50);border-radius:0.5rem;margin-bottom:0.25rem;">
+                            <div>
+                                <div style="font-weight:600;">${c.code}</div>
+                                <div style="color:var(--gray-500);font-size:0.75rem;">خصم ${c.discount}% | استخدم ${c.usedCount || 0}/${c.maxUses || '∞'}</div>
+                            </div>
+                            <button onclick="deleteCoupon('${doc.id}')" style="background:none;border:none;color:#ef4444;cursor:pointer;">🗑️</button>
+                        </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+            });
+        }
+
+        async function createCoupon() {
+            const code = $('couponCode').value.toUpperCase();
+            const discount = parseInt($('couponDiscount').value);
+            const maxUses = parseInt($('couponMaxUses').value) || 999;
+            const expiry = $('couponExpiry').value;
+            
+            if (!code || !discount || !expiry) {
                 showToast('❌ جميع الحقول مطلوبة', 'error');
                 return;
             }
             
-            const fullMessage = `📩 رسالة جديدة من ${name}\n📧 البريد: ${email}\n📝 الرسالة: ${message}`;
-            window.open(`https://wa.me/2490991305468?text=${encodeURIComponent(fullMessage)}`, '_blank');
-            showToast('✅ تم إرسال رسالتك!', 'success');
-            event.target.reset();
+            try {
+                await setDoc(doc(db, "coupons", code), {
+                    code: code,
+                    discount: discount,
+                    maxUses: maxUses,
+                    usedCount: 0,
+                    isActive: true,
+                    expiryDate: new Date(expiry),
+                    createdAt: serverTimestamp()
+                });
+                
+                showToast('✅ تم إنشاء الكوبون بنجاح', 'success');
+                $('couponCode').value = '';
+                $('couponDiscount').value = '';
+                $('couponMaxUses').value = '';
+                $('couponExpiry').value = '';
+            } catch (e) {
+                showToast('❌ حدث خطأ: ' + e.message, 'error');
+            }
+        }
+
+        async function deleteCoupon(couponId) {
+            if (!confirm('⚠️ هل أنت متأكد من حذف هذا الكوبون؟')) return;
+            
+            try {
+                await deleteDoc(doc(db, "coupons", couponId));
+                showToast('✅ تم حذف الكوبون', 'success');
+            } catch (e) {
+                showToast('❌ حدث خطأ: ' + e.message, 'error');
+            }
         }
 
         // ============================================================
-        // SETTINGS
+        // SETTINGS - حقيقي مع Firebase
         // ============================================================
         
-        function saveSettings() {
-            if (!currentUser) {
+        async function saveSettings() {
+            if (!userData) {
                 showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
                 showAuthScreen();
                 return;
             }
             
-            const name = document.getElementById('settingsName').value.trim();
-            const phone = document.getElementById('settingsPhone').value.trim();
-            const payment = document.getElementById('settingsPayment').value;
+            const name = $('settingsName').value.trim();
+            const phone = $('settingsPhone').value.trim();
+            const payment = $('settingsPayment').value;
             
             if (!name) {
                 showToast('❌ الاسم مطلوب', 'error');
                 return;
             }
             
-            // تحديث بيانات المستخدم
-            currentUser.name = name;
-            currentUser.phone = phone;
-            currentUser.paymentMethod = payment;
-            
-            // تحديث في قاعدة البيانات المحاكاة
-            if (defaultUsers[currentUser.email]) {
-                defaultUsers[currentUser.email].name = name;
-                defaultUsers[currentUser.email].phone = phone;
-                defaultUsers[currentUser.email].paymentMethod = payment;
+            try {
+                await updateDoc(doc(db, "users", auth.currentUser.uid), {
+                    name: name,
+                    phone: phone || '',
+                    paymentMethod: payment,
+                    updatedAt: serverTimestamp()
+                });
+                
+                showToast('✅ تم حفظ التغييرات بنجاح', 'success');
+            } catch (e) {
+                showToast('❌ حدث خطأ: ' + e.message, 'error');
             }
-            
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            updateUIForUser(currentUser);
-            showToast('✅ تم حفظ التغييرات بنجاح', 'success');
         }
 
         // ============================================================
@@ -2455,11 +1169,13 @@
             if (isDark) {
                 document.documentElement.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
-                document.getElementById('themeIcon').className = 'fas fa-moon';
+                const icon = $('themeIcon');
+                if (icon) icon.className = 'fas fa-moon';
             } else {
                 document.documentElement.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
-                document.getElementById('themeIcon').className = 'fas fa-sun';
+                const icon = $('themeIcon');
+                if (icon) icon.className = 'fas fa-sun';
             }
         }
 
@@ -2491,7 +1207,6 @@
                         <li>لا نشارك بياناتك مع أي طرف ثالث</li>
                         <li>نستخدم بياناتك فقط لتقديم الخدمات</li>
                         <li>يمكنك طلب حذف بياناتك في أي وقت</li>
-                        <li>نستخدم تشفيراً لحماية معلوماتك</li>
                     </ul>
                     <p style="color:var(--gray-500);font-size:0.9rem;">آخر تحديث: يناير 2025</p>
                 `
@@ -2505,7 +1220,6 @@
                         <li>في حال تأخر الشحن أكثر من 48 ساعة، يمكنك طلب استرجاع كامل</li>
                         <li>الاسترجاع يكون عبر محفظتك في الموقع</li>
                         <li>لا نسترد المبالغ بعد إتمام عملية الشحن</li>
-                        <li>في حال وجود خطأ من قبلنا، نسترد المبلغ بالكامل</li>
                     </ul>
                     <p style="color:var(--gray-500);font-size:0.9rem;">آخر تحديث: يناير 2025</p>
                 `
@@ -2514,38 +1228,131 @@
 
         function showPolicy(type) {
             const policy = policiesData[type] || policiesData.privacy;
-            document.getElementById('policyTitle').textContent = policy.title;
-            document.getElementById('policyContent').innerHTML = policy.content;
-            document.getElementById('policyModal').classList.add('active');
+            const titleEl = $('policyTitle');
+            const contentEl = $('policyContent');
+            const modal = $('policyModal');
+            
+            if (titleEl) titleEl.textContent = policy.title;
+            if (contentEl) contentEl.innerHTML = policy.content;
+            if (modal) modal.classList.add('active');
         }
 
         function closePolicy() {
-            document.getElementById('policyModal').classList.remove('active');
+            const modal = $('policyModal');
+            if (modal) modal.classList.remove('active');
         }
 
         // ============================================================
-        // TOAST
+        // CONTACT FORM
         // ============================================================
         
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.textContent = message;
-            container.appendChild(toast);
+        function sendContactMessage(event) {
+            event.preventDefault();
+            const name = $('contactName').value.trim();
+            const email = $('contactEmail').value.trim();
+            const message = $('contactMessage').value.trim();
             
-            requestAnimationFrame(() => {
-                toast.classList.add('show');
-            });
+            if (!name || !email || !message) {
+                showToast('❌ جميع الحقول مطلوبة', 'error');
+                return;
+            }
             
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 400);
-            }, 3000);
+            const fullMessage = `📩 رسالة جديدة من ${name}\n📧 البريد: ${email}\n📝 الرسالة: ${message}`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(fullMessage)}`, '_blank');
+            showToast('✅ تم إرسال رسالتك!', 'success');
+            event.target.reset();
         }
 
         // ============================================================
-        // EXPOSE FUNCTIONS TO GLOBAL
+        // AUTH STATE OBSERVER - حقيقي
+        // ============================================================
+        
+        onAuthStateChanged(auth, async (user) => {
+            const loading = $('loadingScreen');
+            const authScr = $('authScreen');
+            const appScr = $('mainApp');
+            
+            if (loading) loading.classList.remove('hidden');
+            
+            if (user) {
+                // التحقق من الحظر
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists() && userDoc.data().isBlocked) {
+                    await signOut(auth);
+                    showToast('⛔ تم حظر حسابك، تواصل مع الدعم', 'error');
+                    if (authScr) authScr.classList.add('active');
+                    if (appScr) appScr.style.display = 'none';
+                    if (loading) loading.classList.add('hidden');
+                    return;
+                }
+                
+                // تحميل بيانات المستخدم
+                await loadUserData(user.uid);
+                
+                // إظهار التطبيق
+                if (authScr) authScr.classList.remove('active');
+                if (appScr) appScr.style.display = 'block';
+                
+                // تحميل لوحة التحكم
+                loadAdminPanel();
+                
+                // تحديث واجهة المستخدم
+                if (userData) {
+                    updateUIForUser(userData);
+                }
+                
+                if (loading) loading.classList.add('hidden');
+                
+            } else {
+                // مستخدم غير مسجل
+                if (authScr) authScr.classList.add('active');
+                if (appScr) appScr.style.display = 'none';
+                if (loading) loading.classList.add('hidden');
+                
+                userData = null;
+                updateUIForUser(null);
+            }
+        });
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // تطبيق الثيم
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+                const icon = $('themeIcon');
+                if (icon) icon.className = 'fas fa-sun';
+            }
+            
+            // عرض التصنيفات والمنتجات
+            renderCategories();
+            renderProducts(Object.values(productsData), 'featuredProducts', 8);
+            renderProducts(getTopProducts(4), 'topProducts', 4);
+            
+            // تحديث السلة
+            updateCartBadge();
+            
+            // مراقبة التمرير
+            window.addEventListener('scroll', function() {
+                const btn = $('scrollTopBtn');
+                if (btn) {
+                    if (window.scrollY > 300) {
+                        btn.classList.add('visible');
+                    } else {
+                        btn.classList.remove('visible');
+                    }
+                }
+            });
+            
+            console.log('🚀 MORRE STORE - نظام حقيقي مع Firebase!');
+            console.log('📦 عدد المنتجات:', Object.keys(productsData).length);
+            console.log('📂 عدد التصنيفات:', categories.length);
+        });
+
+        // ============================================================
+        // EXPOSE FUNCTIONS
         // ============================================================
         
         window.showPage = showPage;
@@ -2567,15 +1374,16 @@
         window.forgotPassword = forgotPassword;
         window.handleLogout = handleLogout;
         window.rechargeWallet = rechargeWallet;
-        window.openWhatsApp = openWhatsApp;
-        window.sendContactMessage = sendContactMessage;
         window.saveSettings = saveSettings;
         window.toggleTheme = toggleTheme;
         window.showPolicy = showPolicy;
         window.closePolicy = closePolicy;
         window.showToast = showToast;
         window.toggleMobileMenu = toggleMobileMenu;
+        window.sendContactMessage = sendContactMessage;
+        window.createCoupon = createCoupon;
+        window.deleteCoupon = deleteCoupon;
+        window.updateOrderStatus = updateOrderStatus;
     </script>
-
 </body>
-                    </html>
+</html>
