@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MORRE STORE | متجر الخدمات الرقمية في السودان</title>
     
+    <!-- SEO -->
     <meta name="description" content="أسرع متجر للخدمات الرقمية في السودان - شحن ببجي، فري فاير، نتفليكس، جوجل بلاي وفيزا Redotpay">
     <meta property="og:title" content="MORRE STORE">
     <meta property="og:description" content="أسرع متجر للخدمات الرقمية في السودان">
     <meta property="og:image" content="https://i.ibb.co/xqqGvDZ1/Black-And-White-Illustrative-Gaming-Logo-20260610-185928-0000.png">
     
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
@@ -17,7 +19,6 @@
         /* ============================================================
            ALL STYLES - مثل Elyonko بالضبط
            ============================================================ */
-        
         * {
             margin: 0;
             padding: 0;
@@ -99,6 +100,7 @@
         .navbar .logo img {
             height: 40px;
             width: auto;
+            border-radius: 8px;
         }
         
         .navbar .logo span {
@@ -123,13 +125,15 @@
             font-size: 0.95rem;
             transition: color 0.2s;
             position: relative;
+            cursor: pointer;
         }
         
         .dark .navbar .nav-links a {
             color: var(--gray-300);
         }
         
-        .navbar .nav-links a:hover {
+        .navbar .nav-links a:hover,
+        .navbar .nav-links a.active {
             color: var(--primary);
         }
         
@@ -144,14 +148,7 @@
             transition: width 0.3s;
         }
         
-        .navbar .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .navbar .nav-links a.active {
-            color: var(--primary);
-        }
-        
+        .navbar .nav-links a:hover::after,
         .navbar .nav-links a.active::after {
             width: 100%;
         }
@@ -276,7 +273,7 @@
         }
         
         /* ============================================================
-           HERO BANNER - مثل Elyonko
+           HERO BANNER
            ============================================================ */
         .hero-banner {
             background: linear-gradient(135deg, var(--primary-50), var(--primary-100));
@@ -375,6 +372,40 @@
             color: var(--primary);
         }
         
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: #22c55e;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 0.75rem;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-success:hover {
+            background: #16a34a;
+            transform: translateY(-2px);
+        }
+        
         /* ============================================================
            SECTION HEADER
            ============================================================ */
@@ -398,6 +429,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            cursor: pointer;
         }
         
         .section-header a:hover {
@@ -560,152 +592,122 @@
         }
         
         /* ============================================================
-           PRODUCT DETAIL PAGE
+           WALLET CARD
            ============================================================ */
-        .product-detail {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            padding: 2rem 0;
-        }
-        
-        .product-detail .detail-image {
-            background: var(--gray-100);
+        .wallet-card {
+            background: var(--white);
             border-radius: 1rem;
-            aspect-ratio: 1/1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 8rem;
+            padding: 1.5rem;
+            border: 1px solid var(--gray-200);
+            margin-bottom: 1.5rem;
+            margin-top: 1.5rem;
         }
         
-        .dark .product-detail .detail-image {
+        .dark .wallet-card {
             background: var(--gray-800);
+            border-color: var(--gray-700);
         }
         
-        .product-detail .detail-name {
-            font-size: 2rem;
-            font-weight: 900;
+        .wallet-card .wallet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
         
-        .product-detail .detail-price {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--primary);
-            margin: 1rem 0;
-        }
-        
-        .product-detail .detail-rating {
+        .wallet-card .wallet-user {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin: 0.5rem 0;
+            gap: 1rem;
         }
         
-        .product-detail .detail-rating i {
-            color: #fbbf24;
+        .wallet-card .wallet-user img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
         }
         
-        .product-detail .detail-category {
+        .wallet-card .wallet-user .name {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .wallet-card .wallet-user .wallet-id {
+            font-size: 0.8rem;
             color: var(--gray-500);
         }
         
-        .product-detail .detail-description {
-            color: var(--gray-600);
-            margin: 1rem 0;
-            line-height: 1.8;
+        .wallet-card .wallet-balance {
+            text-align: left;
         }
         
-        .product-detail .detail-actions {
-            display: flex;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
+        .wallet-card .wallet-balance .label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
         }
         
-        .product-detail .detail-share {
-            display: flex;
+        .wallet-card .wallet-balance .amount {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+        }
+        
+        .wallet-card .wallet-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 0.5rem;
             margin-top: 1rem;
         }
         
-        .product-detail .detail-share a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--gray-100);
-            color: var(--gray-600);
-            text-decoration: none;
+        .wallet-card .wallet-actions button,
+        .wallet-card .wallet-actions a {
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-align: center;
+            cursor: pointer;
             transition: all 0.2s;
+            text-decoration: none;
+            border: none;
         }
         
-        .dark .product-detail .detail-share a {
-            background: var(--gray-800);
-            color: var(--gray-400);
-        }
-        
-        .product-detail .detail-share a:hover {
+        .wallet-card .wallet-actions .btn-recharge {
             background: var(--primary);
             color: white;
-            transform: translateY(-2px);
         }
         
-        .product-detail .detail-guarantee {
-            background: var(--primary-50);
-            padding: 1rem;
-            border-radius: 0.75rem;
-            text-align: center;
-            color: var(--gray-600);
-            font-size: 0.9rem;
+        .wallet-card .wallet-actions .btn-recharge:hover {
+            background: var(--primary-dark);
         }
         
-        .dark .product-detail .detail-guarantee {
-            background: #1e293b;
+        .wallet-card .wallet-actions .btn-support {
+            background: #25D366;
+            color: white;
         }
         
-        @media (max-width: 768px) {
-            .product-detail {
-                grid-template-columns: 1fr;
-            }
-            
-            .product-detail .detail-image {
-                font-size: 5rem;
-            }
+        .wallet-card .wallet-actions .btn-support:hover {
+            background: #1da851;
         }
         
-        /* ============================================================
-           BREADCRUMB
-           ============================================================ */
-        .breadcrumb {
-            padding: 1rem 0;
-            font-size: 0.9rem;
-            color: var(--gray-400);
-        }
-        
-        .breadcrumb a {
-            color: var(--gray-400);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        
-        .breadcrumb a:hover {
-            color: var(--primary);
-        }
-        
-        .breadcrumb .current {
+        .wallet-card .wallet-actions .btn-settings {
+            background: var(--gray-200);
             color: var(--gray-700);
-            font-weight: 600;
         }
         
-        .dark .breadcrumb .current {
-            color: var(--gray-200);
+        .dark .wallet-card .wallet-actions .btn-settings {
+            background: var(--gray-700);
+            color: var(--gray-300);
+        }
+        
+        .wallet-card .wallet-actions .btn-settings:hover {
+            background: var(--gray-300);
         }
         
         /* ============================================================
-           FOOTER - مثل Elyonko
+           FOOTER
            ============================================================ */
         .footer {
             background: var(--white);
@@ -744,6 +746,7 @@
             text-decoration: none;
             font-size: 0.9rem;
             transition: color 0.2s;
+            cursor: pointer;
         }
         
         .footer .footer-grid ul a:hover {
@@ -793,7 +796,7 @@
         }
         
         /* ============================================================
-           SCROLL TOP BUTTON
+           SCROLL TOP
            ============================================================ */
         .scroll-top {
             position: fixed;
@@ -824,7 +827,7 @@
         }
         
         /* ============================================================
-           TOAST NOTIFICATIONS
+           TOAST
            ============================================================ */
         .toast-container {
             position: fixed;
@@ -862,148 +865,259 @@
         }
         
         /* ============================================================
-           NEWSLETTER
+           MODAL
            ============================================================ */
-        .newsletter {
-            background: var(--primary-50);
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal .modal-content {
+            background: var(--white);
+            border-radius: 1.5rem;
             padding: 2rem;
-            border-radius: 1rem;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .dark .modal .modal-content {
+            background: var(--gray-800);
+        }
+        
+        .modal .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal .modal-header h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        
+        .modal .modal-header .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray-400);
+            cursor: pointer;
+        }
+        
+        .modal .modal-header .close-btn:hover {
+            color: var(--gray-600);
+        }
+        
+        /* ============================================================
+           AUTH SCREEN
+           ============================================================ */
+        .auth-screen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        
+        .dark .auth-screen {
+            background: rgba(15,23,42,0.8);
+        }
+        
+        .auth-screen.active {
+            display: flex;
+        }
+        
+        .auth-screen .auth-box {
+            background: var(--white);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        
+        .dark .auth-screen .auth-box {
+            background: var(--gray-800);
+        }
+        
+        .auth-screen .auth-box .auth-logo {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
         
-        .dark .newsletter {
-            background: #1e293b;
-        }
-        
-        .newsletter h3 {
-            font-weight: 700;
+        .auth-screen .auth-box .auth-logo img {
+            height: 60px;
             margin-bottom: 0.5rem;
         }
         
-        .newsletter p {
-            color: var(--gray-500);
-            margin-bottom: 1rem;
+        .auth-screen .auth-box .auth-logo h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
-        .newsletter .newsletter-form {
+        .auth-screen .auth-box .auth-tabs {
             display: flex;
-            max-width: 400px;
-            margin: 0 auto;
             gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--gray-200);
         }
         
-        .newsletter .newsletter-form input {
+        .dark .auth-screen .auth-box .auth-tabs {
+            border-bottom-color: var(--gray-700);
+        }
+        
+        .auth-screen .auth-box .auth-tabs button {
             flex: 1;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--gray-300);
-            border-radius: 0.5rem;
-            outline: none;
-            background: var(--white);
+            padding: 0.75rem;
+            border: none;
+            background: none;
+            font-weight: 600;
+            color: var(--gray-500);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            margin-bottom: -2px;
         }
         
-        .dark .newsletter .newsletter-form input {
-            background: var(--gray-800);
-            border-color: var(--gray-700);
+        .auth-screen .auth-box .auth-tabs button.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .auth-screen .auth-box .auth-form {
+            display: none;
+        }
+        
+        .auth-screen .auth-box .auth-form.active {
+            display: block;
+        }
+        
+        .auth-screen .auth-box .auth-form input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            background: var(--gray-50);
+            transition: border 0.2s;
+        }
+        
+        .dark .auth-screen .auth-box .auth-form input {
+            background: var(--gray-700);
+            border-color: var(--gray-600);
             color: white;
         }
         
-        .newsletter .newsletter-form input:focus {
+        .auth-screen .auth-box .auth-form input:focus {
             border-color: var(--primary);
+            outline: none;
         }
         
-        .newsletter .newsletter-form button {
-            padding: 0.75rem 1.5rem;
+        .auth-screen .auth-box .auth-form .btn-submit {
+            width: 100%;
+            padding: 0.75rem;
             background: var(--primary);
             color: white;
             border: none;
             border-radius: 0.5rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
         
-        .newsletter .newsletter-form button:hover {
+        .auth-screen .auth-box .auth-form .btn-submit:hover {
             background: var(--primary-dark);
         }
         
-        /* ============================================================
-           SEARCH OVERLAY
-           ============================================================ */
-        .search-overlay {
-            display: none;
-            position: fixed;
-            top: 70px;
+        .auth-screen .auth-box .auth-divider {
+            text-align: center;
+            margin: 1rem 0;
+            color: var(--gray-400);
+            position: relative;
+        }
+        
+        .auth-screen .auth-box .auth-divider::before {
+            content: '';
+            position: absolute;
             left: 0;
             right: 0;
+            top: 50%;
+            height: 1px;
+            background: var(--gray-200);
+        }
+        
+        .auth-screen .auth-box .auth-divider span {
             background: var(--white);
-            padding: 1.5rem;
-            z-index: 999;
-            border-bottom: 1px solid var(--gray-200);
+            padding: 0 0.75rem;
+            position: relative;
         }
         
-        .dark .search-overlay {
-            background: var(--gray-900);
-            border-bottom-color: var(--gray-800);
-        }
-        
-        .search-overlay .search-box {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-        
-        .search-overlay .search-box input {
-            flex: 1;
-            border: none;
-            outline: none;
-            font-size: 1rem;
-            background: transparent;
-            color: var(--gray-700);
-        }
-        
-        .dark .search-overlay .search-box input {
-            color: var(--gray-100);
-        }
-        
-        .search-overlay .search-box input::placeholder {
-            color: var(--gray-400);
-        }
-        
-        .search-overlay .search-results {
-            margin-top: 1rem;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        .search-overlay .search-results a {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            color: var(--gray-700);
-            transition: background 0.2s;
-            border-bottom: 1px solid var(--gray-100);
-        }
-        
-        .dark .search-overlay .search-results a {
-            color: var(--gray-300);
-            border-bottom-color: var(--gray-800);
-        }
-        
-        .search-overlay .search-results a:hover {
-            background: var(--gray-50);
-        }
-        
-        .dark .search-overlay .search-results a:hover {
+        .dark .auth-screen .auth-box .auth-divider span {
             background: var(--gray-800);
         }
         
-        .search-overlay .search-results a .result-price {
+        .auth-screen .auth-box .btn-google {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 0.5rem;
+            background: var(--white);
+            color: var(--gray-700);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+        
+        .dark .auth-screen .auth-box .btn-google {
+            background: var(--gray-700);
+            border-color: var(--gray-600);
+            color: var(--gray-300);
+        }
+        
+        .auth-screen .auth-box .btn-google:hover {
+            background: var(--gray-100);
+        }
+        
+        .dark .auth-screen .auth-box .btn-google:hover {
+            background: var(--gray-600);
+        }
+        
+        .auth-screen .auth-box .auth-footer {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--gray-500);
+        }
+        
+        .auth-screen .auth-box .auth-footer a {
             color: var(--primary);
-            font-weight: 700;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
         }
         
         /* ============================================================
@@ -1044,22 +1158,17 @@
                 font-size: 1rem;
             }
             
-            .footer .footer-grid {
-                grid-template-columns: 1fr;
+            .wallet-card .wallet-header {
+                flex-direction: column;
                 text-align: center;
             }
             
-            .footer .social-links {
-                justify-content: center;
+            .wallet-card .wallet-balance {
+                text-align: center;
             }
             
-            .newsletter .newsletter-form {
-                flex-direction: column;
-            }
-            
-            .btn-primary, .btn-outline {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
+            .wallet-card .wallet-actions {
+                grid-template-columns: 1fr 1fr;
             }
         }
         
@@ -1112,33 +1221,30 @@
 <body>
 
     <!-- ============================================================
-    NAVBAR - مثل Elyonko
+    NAVBAR
     ============================================================ -->
     <nav class="navbar" id="navbar">
-        <a href="index.html" class="logo">
+        <a href="#" class="logo" onclick="showPage('home')">
             <img src="https://i.ibb.co/xqqGvDZ1/Black-And-White-Illustrative-Gaming-Logo-20260610-185928-0000.png" alt="MORRE STORE">
             <span>MORRE</span>
         </a>
 
         <ul class="nav-links" id="navLinks">
-            <li><a href="index.html" class="active">الرئيسية</a></li>
-            <li><a href="#shop" onclick="showShop()">المتجر</a></li>
-            <li><a href="#blog" onclick="showBlog()">المدونة</a></li>
-            <li><a href="#about" onclick="showAbout()">عن المتجر</a></li>
-            <li><a href="#contact" onclick="showContact()">تواصل</a></li>
+            <li><a class="active" onclick="showPage('home')">الرئيسية</a></li>
+            <li><a onclick="showPage('shop')">المتجر</a></li>
+            <li><a onclick="showPage('blog')">المدونة</a></li>
+            <li><a onclick="showPage('about')">عن المتجر</a></li>
+            <li><a onclick="showPage('contact')">تواصل</a></li>
         </ul>
 
         <div class="nav-icons">
-            <button onclick="toggleSearch()" aria-label="بحث">
-                <i class="fas fa-search"></i>
-            </button>
             <button class="theme-toggle" onclick="toggleTheme()" aria-label="الوضع المظلم">
                 <i class="fas fa-moon" id="themeIcon"></i>
             </button>
-            <a href="#account" onclick="showAccount()" aria-label="حسابي">
+            <a onclick="showPage('account')" aria-label="حسابي" style="cursor:pointer;">
                 <i class="fas fa-user"></i>
             </a>
-            <a href="#cart" onclick="showCart()" aria-label="سلة التسوق" style="position:relative;">
+            <a onclick="showCart()" aria-label="سلة التسوق" style="position:relative;cursor:pointer;">
                 <i class="fas fa-shopping-bag"></i>
                 <span class="cart-badge" id="cartBadge">0</span>
             </a>
@@ -1149,17 +1255,59 @@
     </nav>
 
     <!-- ============================================================
-    SEARCH OVERLAY
+    AUTH SCREEN
     ============================================================ -->
-    <div class="search-overlay" id="searchOverlay">
-        <div class="search-box">
-            <i class="fas fa-search" style="color:var(--gray-400);"></i>
-            <input type="text" id="searchInput" placeholder="ابحث عن منتج..." oninput="searchProducts(this.value)">
-            <button onclick="toggleSearch()" style="background:none;border:none;font-size:1.2rem;color:var(--gray-400);cursor:pointer;">
-                <i class="fas fa-times"></i>
+    <div class="auth-screen" id="authScreen">
+        <div class="auth-box">
+            <div class="auth-logo">
+                <img src="https://i.ibb.co/xqqGvDZ1/Black-And-White-Illustrative-Gaming-Logo-20260610-185928-0000.png" alt="MORRE STORE">
+                <h1>MORRE STORE</h1>
+                <p style="color:var(--gray-500);font-size:0.85rem;">متجر شامل للخدمات الرقمية</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="active" data-tab="login" onclick="switchAuthTab('login')">تسجيل دخول</button>
+                <button data-tab="register" onclick="switchAuthTab('register')">إنشاء حساب</button>
+            </div>
+
+            <!-- Login Form -->
+            <div class="auth-form active" id="loginForm">
+                <input type="email" id="loginEmail" placeholder="البريد الإلكتروني" dir="ltr">
+                <input type="password" id="loginPassword" placeholder="كلمة المرور" dir="ltr">
+                <button class="btn-submit" onclick="handleLogin()">تسجيل الدخول</button>
+                <div style="text-align:center;margin-top:0.5rem;">
+                    <a onclick="forgotPassword()" style="color:var(--primary);cursor:pointer;font-size:0.85rem;text-decoration:none;">🔑 نسيت كلمة المرور؟</a>
+                </div>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-form" id="registerForm">
+                <input type="text" id="regName" placeholder="الاسم الكامل">
+                <input type="email" id="regEmail" placeholder="البريد الإلكتروني" dir="ltr">
+                <input type="password" id="regPassword" placeholder="كلمة المرور" dir="ltr">
+                <input type="password" id="regConfirmPassword" placeholder="تأكيد كلمة المرور" dir="ltr">
+                <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem;">
+                    <input type="checkbox" id="agreeTerms" style="width:auto;">
+                    <label for="agreeTerms" style="font-size:0.85rem;color:var(--gray-500);">
+                        أوافق على <a onclick="showPolicy('terms')" style="color:var(--primary);cursor:pointer;">الشروط والأحكام</a>
+                    </label>
+                </div>
+                <button class="btn-submit" onclick="handleRegister()">إنشاء حساب</button>
+            </div>
+
+            <div class="auth-divider">
+                <span>أو</span>
+            </div>
+
+            <button class="btn-google" onclick="handleGoogleLogin()">
+                <i class="fab fa-google"></i> دخول عبر جوجل
             </button>
+
+            <div class="auth-footer">
+                <span id="authToggleText">ليس لديك حساب؟</span>
+                <a onclick="switchAuthTab('register')" id="authToggleLink">إنشاء حساب</a>
+            </div>
         </div>
-        <div class="search-results" id="searchResults"></div>
     </div>
 
     <!-- ============================================================
@@ -1168,9 +1316,7 @@
     <main>
         <div class="container">
 
-            <!-- ============================================================
-            الصفحة الرئيسية
-            ============================================================ -->
+            <!-- ====== HOME PAGE ====== -->
             <div id="page-home">
 
                 <!-- HERO BANNER -->
@@ -1178,7 +1324,7 @@
                     <h1>مرحباً بك في <span>MORRE STORE</span></h1>
                     <p>أسرع متجر للخدمات الرقمية في السودان - شحن فوري، أسعار تنافسية، ودعم على مدار الساعة</p>
                     <div class="btn-group">
-                        <a href="#shop" onclick="showShop()" class="btn-primary">
+                        <a onclick="showPage('shop')" class="btn-primary">
                             <i class="fas fa-shopping-bag"></i> تسوق الآن
                         </a>
                         <a href="https://wa.me/2490991305468" target="_blank" class="btn-outline">
@@ -1187,385 +1333,216 @@
                     </div>
                 </section>
 
-                <!-- التصنيفات -->
-                <section class="mb-8" style="margin-bottom:2rem;">
+                <!-- ====== WALLET CARD ====== -->
+                <div id="walletSection">
+                    <div class="wallet-card">
+                        <div class="wallet-header">
+                            <div class="wallet-user">
+                                <img id="walletAvatar" src="https://via.placeholder.com/50" alt="User">
+                                <div>
+                                    <div class="name" id="walletName">زائر</div>
+                                    <div class="wallet-id" id="walletId">رقم المحفظة: غير مسجل</div>
+                                </div>
+                            </div>
+                            <div class="wallet-balance">
+                                <div class="label">الرصيد</div>
+                                <div class="amount" id="walletBalance">0 ج.س</div>
+                            </div>
+                        </div>
+                        <div class="wallet-actions">
+                            <button class="btn-recharge" onclick="rechargeWallet()">💰 شحن</button>
+                            <button class="btn-support" onclick="openWhatsApp()">📞 الدعم</button>
+                            <button class="btn-settings" onclick="showPage('settings')">⚙️ إعدادات</button>
+                            <button class="btn-settings" id="logoutBtn" onclick="handleLogout()" style="display:none;">🚪 خروج</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ====== CATEGORIES ====== -->
+                <section style="margin-bottom:2rem;">
                     <div class="section-header">
                         <h2>📂 التصنيفات</h2>
-                        <a href="#shop" onclick="showShop()">عرض الكل <i class="fas fa-arrow-left"></i></a>
+                        <a onclick="showPage('shop')">عرض الكل <i class="fas fa-arrow-left"></i></a>
                     </div>
-                    <div class="categories-grid" id="categoriesGrid">
-                        <!-- سيتم تعبئتها بواسطة JavaScript -->
-                    </div>
+                    <div class="categories-grid" id="categoriesGrid"></div>
                 </section>
 
-                <!-- المنتجات المميزة -->
-                <section class="mb-8" style="margin-bottom:2rem;">
+                <!-- ====== FEATURED PRODUCTS ====== -->
+                <section style="margin-bottom:2rem;">
                     <div class="section-header">
                         <h2>⭐ المنتجات المميزة</h2>
-                        <a href="#shop" onclick="showShop()">عرض الكل <i class="fas fa-arrow-left"></i></a>
+                        <a onclick="showPage('shop')">عرض الكل <i class="fas fa-arrow-left"></i></a>
                     </div>
-                    <div class="products-grid" id="featuredProducts">
-                        <!-- سيتم تعبئتها بواسطة JavaScript -->
-                    </div>
+                    <div class="products-grid" id="featuredProducts"></div>
                 </section>
 
-                <!-- الأكثر مبيعاً -->
-                <section class="mb-8" style="margin-bottom:2rem;">
+                <!-- ====== TOP SELLERS ====== -->
+                <section style="margin-bottom:2rem;">
                     <div class="section-header">
                         <h2>🏆 الأكثر مبيعاً</h2>
-                        <a href="#shop" onclick="showShop()">عرض الكل <i class="fas fa-arrow-left"></i></a>
+                        <a onclick="showPage('shop')">عرض الكل <i class="fas fa-arrow-left"></i></a>
                     </div>
-                    <div class="products-grid" id="topProducts">
-                        <!-- سيتم تعبئتها بواسطة JavaScript -->
-                    </div>
-                </section>
-
-                <!-- النشرة البريدية -->
-                <section class="newsletter">
-                    <h3>📧 اشترك في النشرة البريدية</h3>
-                    <p>احصل على أحدث العروض والخصومات أول بأول</p>
-                    <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-                        <input type="email" placeholder="أدخل بريدك الإلكتروني" required>
-                        <button type="submit">اشتراك</button>
-                    </form>
+                    <div class="products-grid" id="topProducts"></div>
                 </section>
 
             </div>
 
-            <!-- ============================================================
-            صفحة المتجر
-            ============================================================ -->
-            <div id="page-shop" style="display:none;">
-                <div style="padding:2rem 0;">
-                    <div class="breadcrumb">
-                        <a href="#" onclick="showHome()">الرئيسية</a>
-                        <span> / </span>
-                        <span class="current">المتجر</span>
+            <!-- ====== SHOP PAGE ====== -->
+            <div id="page-shop" style="display:none;padding:2rem 0;">
+                <h1 style="font-size:2rem;font-weight:900;margin-bottom:0.5rem;">🛍️ جميع المنتجات</h1>
+                <p style="color:var(--gray-500);margin-bottom:1.5rem;">تصفح جميع الخدمات الرقمية المتاحة في MORRE STORE</p>
+                
+                <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;" id="filterButtons">
+                    <button class="filter-btn active" data-filter="all" onclick="filterProducts('all')" style="padding:0.5rem 1rem;border-radius:0.5rem;border:1px solid var(--gray-200);background:var(--primary);color:white;font-weight:600;cursor:pointer;">الكل</button>
+                </div>
+                
+                <div class="products-grid" id="allProductsGrid"></div>
+            </div>
+
+            <!-- ====== ABOUT PAGE ====== -->
+            <div id="page-about" style="display:none;padding:2rem 0;">
+                <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;">🏢 عن MORRE STORE</h1>
+                <div style="background:var(--white);padding:2rem;border-radius:1rem;border:1px solid var(--gray-200);">
+                    <h2 style="font-weight:700;margin-bottom:1rem;">مرحباً بك في MORRE STORE 💛</h2>
+                    <p style="color:var(--gray-600);line-height:1.8;">
+                        <strong>MORRE STORE</strong> هو متجر إلكتروني متخصص في بيع الخدمات الرقمية وشحن الألعاب في السودان.
+                    </p>
+                    <div style="background:var(--primary-50);padding:1.5rem;border-radius:0.75rem;margin:1.5rem 0;">
+                        <h3 style="font-weight:700;margin-bottom:0.5rem;">🎯 رؤيتنا</h3>
+                        <p style="color:var(--gray-600);">تقديم خدمات رقمية سريعة وموثوقة بأسعار تنافسية، مع تجربة تسوق سهلة وآمنة.</p>
                     </div>
-                    
-                    <h1 style="font-size:2rem;font-weight:900;margin-bottom:0.5rem;">🛍️ جميع المنتجات</h1>
-                    <p style="color:var(--gray-500);margin-bottom:1.5rem;">تصفح جميع الخدمات الرقمية المتاحة في MORRE STORE</p>
-                    
-                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;" id="filterButtons">
-                        <button class="filter-btn active" data-filter="all" onclick="filterProducts('all')" style="padding:0.5rem 1rem;border-radius:0.5rem;border:1px solid var(--gray-200);background:var(--primary);color:white;font-weight:600;cursor:pointer;">الكل</button>
-                        <!-- سيتم إضافة باقي التصنيفات بواسطة JS -->
-                    </div>
-                    
-                    <div class="products-grid" id="allProductsGrid">
-                        <!-- سيتم تعبئتها بواسطة JavaScript -->
+                    <div style="background:var(--gray-50);padding:1.5rem;border-radius:0.75rem;margin:1.5rem 0;">
+                        <h3 style="font-weight:700;margin-bottom:0.5rem;">💎 خدماتنا</h3>
+                        <ul style="list-style:none;color:var(--gray-600);">
+                            <li>✅ شحن PUBG Mobile</li>
+                            <li>✅ شحن FreeFire</li>
+                            <li>✅ اشتراكات نتفليكس</li>
+                            <li>✅ بطاقات جوجل بلاي</li>
+                            <li>✅ فيزا Redotpay</li>
+                        </ul>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================
-            صفحة المنتج
-            ============================================================ -->
-            <div id="page-product" style="display:none;">
-                <div style="padding:2rem 0;">
-                    <div class="breadcrumb" id="productBreadcrumb">
-                        <a href="#" onclick="showHome()">الرئيسية</a>
-                        <span> / </span>
-                        <a href="#shop" onclick="showShop()">المتجر</a>
-                        <span> / </span>
-                        <span class="current" id="productBreadcrumbName">المنتج</span>
-                    </div>
-                    
-                    <div class="product-detail" id="productDetail">
-                        <div class="detail-image" id="productImage">🎮</div>
-                        <div>
-                            <h1 class="detail-name" id="productName">اسم المنتج</h1>
-                            <div class="detail-rating" id="productRating">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                <span style="color:var(--gray-500);">(4.5)</span>
-                            </div>
-                            <div class="detail-price" id="productPrice">0 ج.س</div>
-                            <p class="detail-category" id="productCategory">التصنيف: ببجي</p>
-                            <p class="detail-description" id="productDescription">خدمة شحن فوري لببجي، يتم التسليم خلال دقائق.</p>
-                            <div class="detail-actions">
-                                <button onclick="addToCartFromDetail()" class="btn-primary" style="padding:1rem 2rem;font-size:1.1rem;">
-                                    🛒 أضف للسلة
-                                </button>
-                                <button onclick="buyNow()" class="btn-outline" style="padding:1rem 2rem;font-size:1.1rem;">
-                                    <i class="fas fa-bolt"></i> شراء الآن
-                                </button>
-                            </div>
-                            <div class="detail-share">
-                                <span style="color:var(--gray-500);font-weight:600;display:flex;align-items:center;">شارك المنتج:</span>
-                                <a href="#" onclick="shareProduct('whatsapp')"><i class="fab fa-whatsapp"></i></a>
-                                <a href="#" onclick="shareProduct('facebook')"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" onclick="shareProduct('twitter')"><i class="fab fa-x-twitter"></i></a>
-                                <a href="#" onclick="shareProduct('copy')"><i class="fas fa-link"></i></a>
-                            </div>
-                            <div class="detail-guarantee" style="margin-top:1rem;">
-                                ✅ شحن فوري • دعم على مدار الساعة • ضمان الجودة
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- منتجات ذات صلة -->
-                    <section style="margin:3rem 0;">
-                        <div class="section-header">
-                            <h2>🔄 منتجات ذات صلة</h2>
-                            <a href="#shop" onclick="showShop()">عرض الكل <i class="fas fa-arrow-left"></i></a>
-                        </div>
-                        <div class="products-grid" id="relatedProducts">
-                            <!-- سيتم تعبئتها بواسطة JavaScript -->
-                        </div>
-                    </section>
+            <!-- ====== CONTACT PAGE ====== -->
+            <div id="page-contact" style="display:none;padding:2rem 0;max-width:600px;margin:0 auto;">
+                <h1 style="font-size:2rem;font-weight:900;margin-bottom:0.5rem;text-align:center;">📞 تواصل معنا</h1>
+                <p style="text-align:center;color:var(--gray-500);margin-bottom:2rem;">نحن هنا لمساعدتك، تواصل معنا عبر أي من الطرق التالية</p>
+                
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;">
+                    <a href="https://wa.me/2490991305468" target="_blank" style="background:var(--white);padding:1.5rem;border-radius:1rem;text-align:center;border:1px solid var(--gray-200);text-decoration:none;color:var(--gray-700);">
+                        <i class="fab fa-whatsapp" style="font-size:2rem;color:#25D366;display:block;margin-bottom:0.5rem;"></i>
+                        <span style="font-weight:600;">واتساب</span>
+                    </a>
+                    <a href="mailto:morrestore1@gmail.com" style="background:var(--white);padding:1.5rem;border-radius:1rem;text-align:center;border:1px solid var(--gray-200);text-decoration:none;color:var(--gray-700);">
+                        <i class="fas fa-envelope" style="font-size:2rem;color:var(--primary);display:block;margin-bottom:0.5rem;"></i>
+                        <span style="font-weight:600;">البريد الإلكتروني</span>
+                    </a>
                 </div>
+                
+                <form style="background:var(--white);padding:2rem;border-radius:1rem;border:1px solid var(--gray-200);" onsubmit="sendContactMessage(event)">
+                    <div style="margin-bottom:1rem;">
+                        <input type="text" id="contactName" placeholder="الاسم الكامل" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <input type="email" id="contactEmail" placeholder="البريد الإلكتروني" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
+                    </div>
+                    <div style="margin-bottom:1rem;">
+                        <textarea id="contactMessage" rows="4" placeholder="رسالتك..." style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">إرسال</button>
+                </form>
             </div>
 
-            <!-- ============================================================
-            صفحة السلة
-            ============================================================ -->
-            <div id="page-cart" style="display:none;">
-                <div style="padding:2rem 0;">
-                    <div class="breadcrumb">
-                        <a href="#" onclick="showHome()">الرئيسية</a>
-                        <span> / </span>
-                        <span class="current">سلة التسوق</span>
+            <!-- ====== BLOG PAGE ====== -->
+            <div id="page-blog" style="display:none;padding:2rem 0;">
+                <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;">📝 المدونة</h1>
+                <div id="blogPosts" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">
+                    <div class="blog-post" style="background:var(--white);border-radius:1rem;overflow:hidden;border:1px solid var(--gray-200);padding:1.5rem;">
+                        <h3 style="font-weight:700;margin-bottom:0.5rem;">🎮 كيفية شحن ببجي بسهولة</h3>
+                        <p style="color:var(--gray-500);font-size:0.9rem;">تعرف على طريقة شحن ببجي في MORRE STORE خطوة بخطوة</p>
+                        <a onclick="showToast('📖 المقال قيد التطوير', 'info')" style="color:var(--primary);text-decoration:none;font-weight:600;display:inline-block;margin-top:0.5rem;cursor:pointer;">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
                     </div>
-                    
-                    <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;">🛒 سلة التسوق</h1>
-                    <div id="cartItems" style="margin-bottom:1.5rem;"></div>
-                    <div id="cartSummary" style="padding:1.5rem;background:var(--white);border-radius:1rem;border:1px solid var(--gray-200);">
-                        <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.2rem;">
-                            <span>الإجمالي:</span>
-                            <span id="cartTotal" style="color:var(--primary);">0 ج.س</span>
-                        </div>
-                        <button onclick="checkout()" class="btn-primary" style="width:100%;justify-content:center;margin-top:1rem;padding:1rem;">
-                            <i class="fas fa-credit-card"></i> إتمام الشراء
-                        </button>
+                    <div class="blog-post" style="background:var(--white);border-radius:1rem;overflow:hidden;border:1px solid var(--gray-200);padding:1.5rem;">
+                        <h3 style="font-weight:700;margin-bottom:0.5rem;">🔥 أفضل عروض فري فاير</h3>
+                        <p style="color:var(--gray-500);font-size:0.9rem;">أفضل العروض والخصومات على شحن فري فاير</p>
+                        <a onclick="showToast('📖 المقال قيد التطوير', 'info')" style="color:var(--primary);text-decoration:none;font-weight:600;display:inline-block;margin-top:0.5rem;cursor:pointer;">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
+                    </div>
+                    <div class="blog-post" style="background:var(--white);border-radius:1rem;overflow:hidden;border:1px solid var(--gray-200);padding:1.5rem;">
+                        <h3 style="font-weight:700;margin-bottom:0.5rem;">🎬 نصائح لاختيار اشتراك نتفليكس</h3>
+                        <p style="color:var(--gray-500);font-size:0.9rem;">دليلك لاختيار الاشتراك المناسب لاحتياجاتك</p>
+                        <a onclick="showToast('📖 المقال قيد التطوير', 'info')" style="color:var(--primary);text-decoration:none;font-weight:600;display:inline-block;margin-top:0.5rem;cursor:pointer;">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================
-            صفحة الدفع
-            ============================================================ -->
-            <div id="page-checkout" style="display:none;">
-                <div style="padding:2rem 0;max-width:600px;margin:0 auto;">
-                    <div class="breadcrumb">
-                        <a href="#" onclick="showHome()">الرئيسية</a>
-                        <span> / </span>
-                        <a href="#cart" onclick="showCart()">السلة</a>
-                        <span> / </span>
-                        <span class="current">الدفع</span>
+            <!-- ====== ACCOUNT PAGE ====== -->
+            <div id="page-account" style="display:none;padding:2rem 0;">
+                <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;">👤 حسابي</h1>
+                <div style="display:grid;grid-template-columns:1fr 2fr;gap:2rem;">
+                    <div style="background:var(--white);padding:1.5rem;border-radius:1rem;border:1px solid var(--gray-200);text-align:center;">
+                        <img id="accountAvatar" src="https://via.placeholder.com/100" style="width:100px;height:100px;border-radius:50%;border:3px solid var(--primary);margin:0 auto 1rem;object-fit:cover;">
+                        <h3 style="font-weight:700;" id="accountName">زائر</h3>
+                        <p style="color:var(--gray-500);font-size:0.9rem;" id="accountEmail">guest@morrestore.com</p>
+                        <div style="margin-top:1rem;padding:0.75rem;background:var(--primary-50);border-radius:0.5rem;">
+                            <span style="font-weight:600;">الرصيد:</span>
+                            <span style="color:var(--primary);font-weight:800;" id="accountBalance">0 ج.س</span>
+                        </div>
+                        <div style="margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;">
+                            <button onclick="showAuthScreen()" class="btn-primary" style="width:100%;justify-content:center;padding:0.75rem;" id="accountLoginBtn">
+                                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                            </button>
+                            <button onclick="handleLogout()" style="display:none;padding:0.75rem;border:1px solid #ef4444;color:#ef4444;border-radius:0.5rem;background:transparent;cursor:pointer;font-weight:600;" id="accountLogoutBtn">
+                                <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                            </button>
+                        </div>
                     </div>
-                    
-                    <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;text-align:center;">💳 إتمام الدفع</h1>
-                    <form id="checkoutForm" style="background:var(--white);padding:2rem;border-radius:1rem;border:1px solid var(--gray-200);">
-                        <div style="margin-bottom:1rem;">
-                            <label style="display:block;font-weight:600;margin-bottom:0.25rem;">الاسم الكامل</label>
-                            <input type="text" required placeholder="أدخل اسمك الكامل" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
-                        </div>
-                        <div style="margin-bottom:1rem;">
-                            <label style="display:block;font-weight:600;margin-bottom:0.25rem;">رقم واتساب</label>
-                            <input type="tel" required placeholder="مثال: 2490991305468" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
-                        </div>
-                        <div style="margin-bottom:1rem;">
-                            <label style="display:block;font-weight:600;margin-bottom:0.25rem;">أيدي اللعبة</label>
-                            <input type="text" required placeholder="أدخل أيدي اللعبة" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
-                        </div>
-                        <div style="margin-bottom:1rem;">
-                            <label style="display:block;font-weight:600;margin-bottom:0.25rem;">طريقة الدفع</label>
-                            <select style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
-                                <option value="cash">💵 نقدي (عند الاستلام)</option>
-                                <option value="bank">🏦 تحويل بنكي</option>
-                                <option value="usdt">💎 USDT</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;padding:1rem;">
-                            <i class="fas fa-check"></i> تأكيد الطلب
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- ============================================================
-            صفحة الحساب
-            ============================================================ -->
-            <div id="page-account" style="display:none;">
-                <div style="padding:2rem 0;">
-                    <div class="breadcrumb">
-                        <a href="#" onclick="showHome()">الرئيسية</a>
-                        <span> / </span>
-                        <span class="current">حسابي</span>
-                    </div>
-                    
-                    <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;">👤 حسابي</h1>
-                    <div style="display:grid;grid-template-columns:1fr 2fr;gap:2rem;">
-                        <div style="background:var(--white);padding:1.5rem;border-radius:1rem;border:1px solid var(--gray-200);text-align:center;">
-                            <img src="https://i.ibb.co/xqqGvDZ1/Black-And-White-Illustrative-Gaming-Logo-20260610-185928-0000.png" style="width:100px;height:100px;border-radius:50%;border:3px solid var(--primary);margin:0 auto 1rem;object-fit:cover;">
-                            <h3 style="font-weight:700;" id="accountName">زائر</h3>
-                            <p style="color:var(--gray-500);font-size:0.9rem;" id="accountEmail">guest@morrestore.com</p>
-                            <div style="margin-top:1rem;padding:0.75rem;background:var(--primary-50);border-radius:0.5rem;">
-                                <span style="font-weight:600;">الرصيد:</span>
-                                <span style="color:var(--primary);font-weight:800;" id="accountBalance">0 ج.س</span>
-                            </div>
-                            <div style="margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;">
-                                <button onclick="showLogin()" class="btn-primary" style="width:100%;justify-content:center;padding:0.75rem;">
-                                    <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
-                                </button>
-                                <button onclick="showRegister()" class="btn-outline" style="width:100%;justify-content:center;padding:0.75rem;">
-                                    <i class="fas fa-user-plus"></i> إنشاء حساب
-                                </button>
-                                <button onclick="logoutUser()" style="display:none;padding:0.75rem;border:1px solid #ef4444;color:#ef4444;border-radius:0.5rem;background:transparent;cursor:pointer;font-weight:600;" id="logoutBtn">
-                                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
-                                </button>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 style="font-weight:700;margin-bottom:1rem;">📋 طلباتي</h3>
-                            <div id="ordersList">
-                                <p style="color:var(--gray-400);text-align:center;padding:2rem;">
-                                    <i class="fas fa-box-open" style="display:block;font-size:2rem;margin-bottom:0.5rem;"></i>
-                                    لا توجد طلبات
-                                </p>
-                            </div>
+                    <div>
+                        <h3 style="font-weight:700;margin-bottom:1rem;">📋 طلباتي</h3>
+                        <div id="ordersList" style="background:var(--white);padding:1.5rem;border-radius:1rem;border:1px solid var(--gray-200);">
+                            <p style="color:var(--gray-400);text-align:center;padding:1rem;">
+                                <i class="fas fa-box-open" style="display:block;font-size:2rem;margin-bottom:0.5rem;"></i>
+                                لا توجد طلبات
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ============================================================
-            صفحة عن المتجر
-            ============================================================ -->
-            <div id="page-about" style="display:none;">
-                <div style="padding:2rem 0;">
-                    <div class="breadcrumb">
-                        <a href="#" onclick="showHome()">الرئيسية</a>
-                        <span> / </span>
-                        <span class="current">عن المتجر</span>
+            <!-- ====== SETTINGS PAGE ====== -->
+            <div id="page-settings" style="display:none;padding:2rem 0;max-width:600px;margin:0 auto;">
+                <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;">⚙️ إعدادات الحساب</h1>
+                <div style="background:var(--white);padding:2rem;border-radius:1rem;border:1px solid var(--gray-200);">
+                    <div style="text-align:center;margin-bottom:1.5rem;">
+                        <img id="settingsAvatar" src="https://via.placeholder.com/100" style="width:100px;height:100px;border-radius:50%;border:3px solid var(--primary);margin:0 auto 1rem;object-fit:cover;">
+                        <p style="color:var(--gray-500);font-size:0.85rem;">صورة الملف الشخصي</p>
                     </div>
                     
-                    <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;">🏢 عن MORRE STORE</h1>
-                    <div style="background:var(--white);padding:2rem;border-radius:1rem;border:1px solid var(--gray-200);">
-                        <h2 style="font-weight:700;margin-bottom:1rem;">مرحباً بك في MORRE STORE 💛</h2>
-                        <p style="color:var(--gray-600);line-height:1.8;">
-                            <strong>MORRE STORE</strong> هو متجر إلكتروني متخصص في بيع الخدمات الرقمية وشحن الألعاب في السودان.
-                        </p>
-                        
-                        <div style="background:var(--primary-50);padding:1.5rem;border-radius:0.75rem;margin:1.5rem 0;">
-                            <h3 style="font-weight:700;margin-bottom:0.5rem;">🎯 رؤيتنا</h3>
-                            <p style="color:var(--gray-600);">تقديم خدمات رقمية سريعة وموثوقة بأسعار تنافسية، مع تجربة تسوق سهلة وآمنة.</p>
-                        </div>
-                        
-                        <div style="background:var(--gray-50);padding:1.5rem;border-radius:0.75rem;margin:1.5rem 0;">
-                            <h3 style="font-weight:700;margin-bottom:0.5rem;">💎 خدماتنا</h3>
-                            <ul style="list-style:none;color:var(--gray-600);">
-                                <li>✅ شحن PUBG Mobile</li>
-                                <li>✅ شحن FreeFire</li>
-                                <li>✅ اشتراكات نتفليكس</li>
-                                <li>✅ بطاقات جوجل بلاي</li>
-                                <li>✅ فيزا Redotpay</li>
-                            </ul>
-                        </div>
-                        
-                        <div style="background:var(--primary-50);padding:1.5rem;border-radius:0.75rem;margin:1.5rem 0;">
-                            <h3 style="font-weight:700;margin-bottom:0.5rem;">🌟 لماذا تختار MORRE STORE؟</h3>
-                            <ul style="list-style:none;color:var(--gray-600);">
-                                <li>⚡ شحن فوري خلال دقائق</li>
-                                <li>🔒 تعامل آمن وموثوق</li>
-                                <li>💬 دعم فني على مدار الساعة</li>
-                                <li>💰 أسعار تنافسية</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ============================================================
-            صفحة التواصل
-            ============================================================ -->
-            <div id="page-contact" style="display:none;">
-                <div style="padding:2rem 0;max-width:600px;margin:0 auto;">
-                    <div class="breadcrumb">
-                        <a href="#" onclick="showHome()">الرئيسية</a>
-                        <span> / </span>
-                        <span class="current">تواصل معنا</span>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block;font-weight:600;margin-bottom:0.25rem;">👤 الاسم الكامل</label>
+                        <input type="text" id="settingsName" value="زائر" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
                     </div>
                     
-                    <h1 style="font-size:2rem;font-weight:900;margin-bottom:0.5rem;text-align:center;">📞 تواصل معنا</h1>
-                    <p style="text-align:center;color:var(--gray-500);margin-bottom:2rem;">نحن هنا لمساعدتك، تواصل معنا عبر أي من الطرق التالية</p>
-                    
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;">
-                        <a href="https://wa.me/2490991305468" target="_blank" style="background:var(--white);padding:1.5rem;border-radius:1rem;text-align:center;border:1px solid var(--gray-200);text-decoration:none;color:var(--gray-700);">
-                            <i class="fab fa-whatsapp" style="font-size:2rem;color:#25D366;display:block;margin-bottom:0.5rem;"></i>
-                            <span style="font-weight:600;">واتساب</span>
-                        </a>
-                        <a href="mailto:morrestore1@gmail.com" style="background:var(--white);padding:1.5rem;border-radius:1rem;text-align:center;border:1px solid var(--gray-200);text-decoration:none;color:var(--gray-700);">
-                            <i class="fas fa-envelope" style="font-size:2rem;color:var(--primary);display:block;margin-bottom:0.5rem;"></i>
-                            <span style="font-weight:600;">البريد الإلكتروني</span>
-                        </a>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block;font-weight:600;margin-bottom:0.25rem;">📧 البريد الإلكتروني</label>
+                        <input type="email" id="settingsEmail" value="guest@morrestore.com" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
                     </div>
                     
-                    <form style="background:var(--white);padding:2rem;border-radius:1rem;border:1px solid var(--gray-200);">
-                        <div style="margin-bottom:1rem;">
-                            <input type="text" placeholder="الاسم الكامل" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
-                        </div>
-                        <div style="margin-bottom:1rem;">
-                            <input type="email" placeholder="البريد الإلكتروني" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
-                        </div>
-                        <div style="margin-bottom:1rem;">
-                            <textarea rows="4" placeholder="رسالتك..." style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);"></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">إرسال</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- ============================================================
-            صفحة المدونة
-            ============================================================ -->
-            <div id="page-blog" style="display:none;">
-                <div style="padding:2rem 0;">
-                    <div class="breadcrumb">
-                        <a href="#" onclick="showHome()">الرئيسية</a>
-                        <span> / </span>
-                        <span class="current">المدونة</span>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block;font-weight:600;margin-bottom:0.25rem;">📱 رقم الهاتف</label>
+                        <input type="tel" id="settingsPhone" placeholder="مثال: 2490991305468" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
                     </div>
                     
-                    <h1 style="font-size:2rem;font-weight:900;margin-bottom:1.5rem;">📝 المدونة</h1>
-                    <div id="blogPosts" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">
-                        <div class="blog-post" style="background:var(--white);border-radius:1rem;overflow:hidden;border:1px solid var(--gray-200);">
-                            <div style="padding:1.5rem;">
-                                <h3 style="font-weight:700;margin-bottom:0.5rem;">🎮 كيفية شحن ببجي بسهولة</h3>
-                                <p style="color:var(--gray-500);font-size:0.9rem;">تعرف على طريقة شحن ببجي في MORRE STORE خطوة بخطوة</p>
-                                <a href="#" style="color:var(--primary);text-decoration:none;font-weight:600;display:inline-block;margin-top:0.5rem;">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="blog-post" style="background:var(--white);border-radius:1rem;overflow:hidden;border:1px solid var(--gray-200);">
-                            <div style="padding:1.5rem;">
-                                <h3 style="font-weight:700;margin-bottom:0.5rem;">🔥 أفضل عروض فري فاير</h3>
-                                <p style="color:var(--gray-500);font-size:0.9rem;">أفضل العروض والخصومات على شحن فري فاير</p>
-                                <a href="#" style="color:var(--primary);text-decoration:none;font-weight:600;display:inline-block;margin-top:0.5rem;">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
-                            </div>
-                        </div>
-                        <div class="blog-post" style="background:var(--white);border-radius:1rem;overflow:hidden;border:1px solid var(--gray-200);">
-                            <div style="padding:1.5rem;">
-                                <h3 style="font-weight:700;margin-bottom:0.5rem;">🎬 نصائح لاختيار اشتراك نتفليكس</h3>
-                                <p style="color:var(--gray-500);font-size:0.9rem;">دليلك لاختيار الاشتراك المناسب لاحتياجاتك</p>
-                                <a href="#" style="color:var(--primary);text-decoration:none;font-weight:600;display:inline-block;margin-top:0.5rem;">اقرأ المزيد <i class="fas fa-arrow-left"></i></a>
-                            </div>
-                        </div>
+                    <div style="margin-bottom:1rem;">
+                        <label style="display:block;font-weight:600;margin-bottom:0.25rem;">💳 طريقة الدفع المفضلة</label>
+                        <select id="settingsPayment" style="width:100%;padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.5rem;background:var(--gray-50);">
+                            <option value="cash">💵 نقدي (عند الاستلام)</option>
+                            <option value="bank">🏦 تحويل بنكي</option>
+                            <option value="usdt">💎 USDT</option>
+                        </select>
                     </div>
-                </div>
-            </div>
-
-            <!-- ============================================================
-            صفحات السياسات
-            ============================================================ -->
-            <div id="page-policy" style="display:none;">
-                <div style="padding:2rem 0;max-width:800px;margin:0 auto;">
-                    <div class="breadcrumb">
-                        <a href="#" onclick="showHome()">الرئيسية</a>
-                        <span> / </span>
-                        <span class="current" id="policyTitle">سياسة الخصوصية</span>
-                    </div>
-                    <div style="background:var(--white);padding:2rem;border-radius:1rem;border:1px solid var(--gray-200);" id="policyContent">
-                        <!-- سيتم تعبئتها بواسطة JavaScript -->
-                    </div>
+                    
+                    <button onclick="saveSettings()" class="btn-primary" style="width:100%;justify-content:center;">💾 حفظ التغييرات</button>
                 </div>
             </div>
 
@@ -1573,7 +1550,7 @@
     </main>
 
     <!-- ============================================================
-    FOOTER - مثل Elyonko
+    FOOTER
     ============================================================ -->
     <footer class="footer">
         <div class="container">
@@ -1582,7 +1559,6 @@
                     <h4>🏢 عن MORRE STORE</h4>
                     <p style="color:var(--gray-500);font-size:0.9rem;line-height:1.6;">
                         متجر متخصص في بيع الخدمات الرقمية وشحن الألعاب في السودان.
-                        نقدم خدمات سريعة وموثوقة بأسعار تنافسية.
                     </p>
                     <div class="social-links">
                         <a href="https://wa.me/2490991305468" target="_blank"><i class="fab fa-whatsapp"></i></a>
@@ -1595,20 +1571,19 @@
                 <div>
                     <h4>📌 روابط سريعة</h4>
                     <ul>
-                        <li><a href="#" onclick="showHome()">الرئيسية</a></li>
-                        <li><a href="#" onclick="showShop()">المتجر</a></li>
-                        <li><a href="#" onclick="showAbout()">عن المتجر</a></li>
-                        <li><a href="#" onclick="showContact()">تواصل</a></li>
-                        <li><a href="#" onclick="showBlog()">المدونة</a></li>
+                        <li><a onclick="showPage('home')">الرئيسية</a></li>
+                        <li><a onclick="showPage('shop')">المتجر</a></li>
+                        <li><a onclick="showPage('about')">عن المتجر</a></li>
+                        <li><a onclick="showPage('contact')">تواصل</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4>📜 سياسات</h4>
                     <ul>
-                        <li><a href="#" onclick="showPolicy('terms')">شروط الخدمة</a></li>
-                        <li><a href="#" onclick="showPolicy('privacy')">سياسة الخصوصية</a></li>
-                        <li><a href="#" onclick="showPolicy('refund')">سياسة الاسترجاع</a></li>
+                        <li><a onclick="showPolicy('terms')">شروط الخدمة</a></li>
+                        <li><a onclick="showPolicy('privacy')">سياسة الخصوصية</a></li>
+                        <li><a onclick="showPolicy('refund')">سياسة الاسترجاع</a></li>
                     </ul>
                 </div>
 
@@ -1628,7 +1603,7 @@
     </footer>
 
     <!-- ============================================================
-    SCROLL TOP BUTTON
+    SCROLL TOP
     ============================================================ -->
     <button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
         <i class="fas fa-chevron-up"></i>
@@ -1640,187 +1615,116 @@
     <div class="toast-container" id="toastContainer"></div>
 
     <!-- ============================================================
-    JAVASCRIPT - الكود الكامل
+    CART MODAL
     ============================================================ -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🛒 سلة التسوق</h3>
+                <button class="close-btn" onclick="closeCart()"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="cartContent">
+                <p style="text-align:center;color:var(--gray-500);padding:1rem;">السلة فارغة</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    POLICY MODAL
+    ============================================================ -->
+    <div class="modal" id="policyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="policyTitle">سياسة الخصوصية</h3>
+                <button class="close-btn" onclick="closePolicy()"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="policyContent" style="color:var(--gray-600);line-height:1.8;"></div>
+        </div>
+    </div>
+
     <script>
         // ============================================================
-        // DATA - المنتجات والتصنيفات
+        // DATA - جميع المنتجات من الكود القديم
         // ============================================================
         
         const categories = [
-            { id: 'pubg', name: 'ببجي PUBG', icon: '🎮', count: 0 },
-            { id: 'freefire', name: 'فري فاير', icon: '🔥', count: 0 },
-            { id: 'netflix', name: 'نتفليكس', icon: '🎬', count: 0 },
-            { id: 'googleplay', name: 'جوجل بلاي', icon: '🛍️', count: 0 },
-            { id: 'redotpay', name: 'فيزا Redotpay', icon: '💳', count: 0 }
+            { id: 'pubg', name: 'ببجي PUBG', icon: '🎮' },
+            { id: 'freefire', name: 'فري فاير', icon: '🔥' },
+            { id: 'netflix', name: 'نتفليكس', icon: '🎬' },
+            { id: 'googleplay', name: 'جوجل بلاي', icon: '🛍️' },
+            { id: 'redotpay', name: 'فيزا Redotpay', icon: '💳' }
         ];
 
         const productsData = {
             'pubg-1': { id: 'pubg-1', name: '🎯 60 شدة ببجي', price: 4000, category: 'pubg', categoryName: 'ببجي', image: '🎮', rating: 4.5, reviews: 24 },
             'pubg-2': { id: 'pubg-2', name: '🎯 120 شدة ببجي', price: 8000, category: 'pubg', categoryName: 'ببجي', image: '🎮', rating: 4.8, reviews: 18 },
+            'pubg-3': { id: 'pubg-3', name: '🎯 180 شدة ببجي', price: 12000, category: 'pubg', categoryName: 'ببجي', image: '🎮', rating: 4.7, reviews: 31 },
+            'pubg-4': { id: 'pubg-4', name: '🎯 240 شدة ببجي', price: 16000, category: 'pubg', categoryName: 'ببجي', image: '🎮', rating: 4.9, reviews: 42 },
+            'pubg-5': { id: 'pubg-5', name: '🎯 325 شدة ببجي', price: 20000, category: 'pubg', categoryName: 'ببجي', image: '🎮', rating: 4.6, reviews: 27 },
             'ff-1': { id: 'ff-1', name: '💎 110 جوهرة فري فاير', price: 4500, category: 'freefire', categoryName: 'فري فاير', image: '🔥', rating: 4.5, reviews: 15 },
-            'netflix-1': { id: 'netflix-1', name: '🎬 اشتراك نتفليكس شهر', price: 55000, category: 'netflix', categoryName: 'نتفليكس', image: '🎬', rating: 4.3, reviews: 56 },
+            'ff-2': { id: 'ff-2', name: '💎 231 جوهرة فري فاير', price: 9000, category: 'freefire', categoryName: 'فري فاير', image: '🔥', rating: 4.7, reviews: 22 },
+            'ff-3': { id: 'ff-3', name: '💎 583 جوهرة فري فاير', price: 23000, category: 'freefire', categoryName: 'فري فاير', image: '🔥', rating: 4.8, reviews: 19 },
+            'ff-4': { id: 'ff-4', name: '💎 1180 جوهرة فري فاير', price: 50000, category: 'freefire', categoryName: 'فري فاير', image: '🔥', rating: 4.9, reviews: 33 },
+            'netflix-1': { id: 'netflix-1', name: '🎬 نتفليكس Standard + إعلانات', price: 55000, category: 'netflix', categoryName: 'نتفليكس', image: '🎬', rating: 4.3, reviews: 56 },
+            'netflix-2': { id: 'netflix-2', name: '🎬 نتفليكس Standard بدون إعلانات', price: 120000, category: 'netflix', categoryName: 'نتفليكس', image: '🎬', rating: 4.7, reviews: 41 },
             'gp-1': { id: 'gp-1', name: '🛍️ بطاقة جوجل بلاي 5$', price: 30000, category: 'googleplay', categoryName: 'جوجل بلاي', image: '🛍️', rating: 4.5, reviews: 28 },
-            'redot-1': { id: 'redot-1', name: '💳 حساب Redotpay موثق', price: 120000, category: 'redotpay', categoryName: 'فيزا Redotpay', image: '💳', rating: 4.6, reviews: 42 }
+            'gp-2': { id: 'gp-2', name: '🛍️ بطاقة جوجل بلاي 10$', price: 60000, category: 'googleplay', categoryName: 'جوجل بلاي', image: '🛍️', rating: 4.8, reviews: 35 },
+            'redot-1': { id: 'redot-1', name: '💳 حساب Redotpay موثق', price: 120000, category: 'redotpay', categoryName: 'فيزا Redotpay', image: '💳', rating: 4.6, reviews: 42 },
+            'redot-2': { id: 'redot-2', name: '💳 حساب موثق + فيزا Redotpay', price: 180000, category: 'redotpay', categoryName: 'فيزا Redotpay', image: '💳', rating: 4.9, reviews: 31 }
         };
-
-        // حساب عدد المنتجات لكل تصنيف
-        categories.forEach(cat => {
-            cat.count = Object.values(productsData).filter(p => p.category === cat.id).length;
-        });
 
         // ============================================================
         // STATE
         // ============================================================
         
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let currentProductId = null;
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
         let currentFilter = 'all';
-        let isLoggedIn = false;
 
         // ============================================================
-        // NAVIGATION FUNCTIONS
+        // INIT
         // ============================================================
         
-        function showHome() {
-            hideAllPages();
-            document.getElementById('page-home').style.display = 'block';
-            updateActiveLink('الرئيسية');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showShop() {
-            hideAllPages();
-            document.getElementById('page-shop').style.display = 'block';
-            updateActiveLink('المتجر');
-            renderAllProducts();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showProduct(productId) {
-            hideAllPages();
-            document.getElementById('page-product').style.display = 'block';
-            updateActiveLink('المنتج');
-            currentProductId = productId;
-            renderProductDetail(productId);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showCart() {
-            hideAllPages();
-            document.getElementById('page-cart').style.display = 'block';
-            updateActiveLink('السلة');
-            renderCart();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showCheckout() {
-            hideAllPages();
-            document.getElementById('page-checkout').style.display = 'block';
-            updateActiveLink('الدفع');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showAccount() {
-            hideAllPages();
-            document.getElementById('page-account').style.display = 'block';
-            updateActiveLink('الحساب');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showAbout() {
-            hideAllPages();
-            document.getElementById('page-about').style.display = 'block';
-            updateActiveLink('عن المتجر');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showContact() {
-            hideAllPages();
-            document.getElementById('page-contact').style.display = 'block';
-            updateActiveLink('تواصل');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showBlog() {
-            hideAllPages();
-            document.getElementById('page-blog').style.display = 'block';
-            updateActiveLink('المدونة');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showPolicy(type) {
-            hideAllPages();
-            document.getElementById('page-policy').style.display = 'block';
-            updateActiveLink('سياسات');
+        document.addEventListener('DOMContentLoaded', function() {
+            // تطبيق الثيم
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.getElementById('themeIcon').className = 'fas fa-sun';
+            }
             
-            const policies = {
-                privacy: {
-                    title: '🔒 سياسة الخصوصية',
-                    content: `
-                        <h2 style="font-weight:700;margin-bottom:1rem;">سياسة الخصوصية</h2>
-                        <p style="color:var(--gray-600);line-height:1.8;">نلتزم بحماية بياناتك الشخصية:</p>
-                        <ul style="list-style:disc;padding-right:1.5rem;margin:1rem 0;color:var(--gray-600);">
-                            <li>لا نشارك بياناتك مع أي طرف ثالث</li>
-                            <li>نستخدم بياناتك فقط لتقديم الخدمات</li>
-                            <li>يمكنك طلب حذف بياناتك في أي وقت</li>
-                            <li>نستخدم تشفيراً لحماية معلوماتك</li>
-                        </ul>
-                        <p style="color:var(--gray-500);font-size:0.9rem;">آخر تحديث: يناير 2025</p>
-                    `
-                },
-                terms: {
-                    title: '📜 شروط الخدمة',
-                    content: `
-                        <h2 style="font-weight:700;margin-bottom:1rem;">شروط الخدمة</h2>
-                        <p style="color:var(--gray-600);line-height:1.8;">باستخدامك للمنصة توافق على الشروط التالية:</p>
-                        <ul style="list-style:disc;padding-right:1.5rem;margin:1rem 0;color:var(--gray-600);">
-                            <li>جميع عمليات الشحن خلال 24 ساعة</li>
-                            <li>لا نضمن استرجاع الرصيد بعد إتمام الشراء</li>
-                            <li>الأسعار قابلة للتغيير دون إشعار مسبق</li>
-                            <li>نحن غير مسؤولين عن أي أخطاء في بيانات المستخدم</li>
-                        </ul>
-                        <p style="color:var(--gray-500);font-size:0.9rem;">آخر تحديث: يناير 2025</p>
-                    `
-                },
-                refund: {
-                    title: '💰 سياسة الاسترجاع',
-                    content: `
-                        <h2 style="font-weight:700;margin-bottom:1rem;">سياسة الاسترجاع</h2>
-                        <p style="color:var(--gray-600);line-height:1.8;">سياسة الاسترجاع في MORRE STORE:</p>
-                        <ul style="list-style:disc;padding-right:1.5rem;margin:1rem 0;color:var(--gray-600);">
-                            <li>في حال تأخر الشحن أكثر من 48 ساعة، يمكنك طلب استرجاع كامل</li>
-                            <li>الاسترجاع يكون عبر محفظتك في الموقع</li>
-                            <li>لا نسترد المبالغ بعد إتمام عملية الشحن</li>
-                            <li>في حال وجود خطأ من قبلنا، نسترد المبلغ بالكامل</li>
-                        </ul>
-                        <p style="color:var(--gray-500);font-size:0.9rem;">آخر تحديث: يناير 2025</p>
-                    `
-                }
-            };
+            // عرض الصفحة الرئيسية
+            showPage('home');
             
-            const policy = policies[type] || policies.privacy;
-            document.getElementById('policyTitle').textContent = policy.title;
-            document.getElementById('policyContent').innerHTML = policy.content;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function hideAllPages() {
-            const pages = ['page-home', 'page-shop', 'page-product', 'page-cart', 'page-checkout', 
-                          'page-account', 'page-about', 'page-contact', 'page-blog', 'page-policy'];
-            pages.forEach(id => {
-                document.getElementById(id).style.display = 'none';
-            });
-        }
-
-        function updateActiveLink(page) {
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-                if (link.textContent.trim() === page) {
-                    link.classList.add('active');
+            // عرض التصنيفات والمنتجات
+            renderCategories();
+            renderProducts(Object.values(productsData), 'featuredProducts', 8);
+            renderProducts(getTopProducts(4), 'topProducts', 4);
+            
+            // أزرار الفلتر
+            renderFilterButtons();
+            
+            // تحديث السلة
+            updateCartBadge();
+            
+            // التحقق من المستخدم
+            if (currentUser) {
+                updateUIForUser(currentUser);
+            }
+            
+            // مراقبة التمرير لزر الأعلى
+            window.addEventListener('scroll', function() {
+                const btn = document.getElementById('scrollTopBtn');
+                if (window.scrollY > 300) {
+                    btn.classList.add('visible');
+                } else {
+                    btn.classList.remove('visible');
                 }
             });
-        }
+            
+            console.log('🚀 MORRE STORE - تم التحميل بنجاح!');
+            console.log('📦 عدد المنتجات:', Object.keys(productsData).length);
+            console.log('📂 عدد التصنيفات:', categories.length);
+        });
 
         // ============================================================
         // RENDER FUNCTIONS
@@ -1831,11 +1735,11 @@
             if (!container) return;
             
             container.innerHTML = categories.map(cat => `
-                <a href="#" onclick="filterProducts('${cat.id}'); showShop();" class="category-card">
+                <div class="category-card" onclick="filterProducts('${cat.id}'); showPage('shop');">
                     <div class="icon">${cat.icon}</div>
                     <div class="name">${cat.name}</div>
-                    <div class="count">${cat.count} منتج</div>
-                </a>
+                    <div class="count">${Object.values(productsData).filter(p => p.category === cat.id).length} منتج</div>
+                </div>
             `).join('');
         }
 
@@ -1856,7 +1760,7 @@
             }
             
             container.innerHTML = items.map(p => `
-                <a href="#" onclick="showProduct('${p.id}')" class="product-card">
+                <div class="product-card" onclick="showProductDetail('${p.id}')">
                     <div class="product-image">
                         <span style="font-size:4rem;">${p.image}</span>
                     </div>
@@ -1872,7 +1776,7 @@
                             <i class="fas fa-plus"></i> أضف للسلة
                         </button>
                     </div>
-                </a>
+                </div>
             `).join('');
         }
 
@@ -1898,7 +1802,7 @@
             }
             
             container.innerHTML = filtered.map(p => `
-                <a href="#" onclick="showProduct('${p.id}')" class="product-card">
+                <div class="product-card" onclick="showProductDetail('${p.id}')">
                     <div class="product-image">
                         <span style="font-size:4rem;">${p.image}</span>
                     </div>
@@ -1914,389 +1818,10 @@
                             <i class="fas fa-plus"></i> أضف للسلة
                         </button>
                     </div>
-                </a>
+                </div>
             `).join('');
         }
 
-        function renderProductDetail(productId) {
-            const product = productsData[productId];
-            if (!product) {
-                document.getElementById('productDetail').innerHTML = `
-                    <div style="grid-column:1/-1;text-align:center;padding:4rem;">
-                        <i class="fas fa-exclamation-triangle" style="font-size:4rem;color:var(--primary);display:block;margin-bottom:1rem;"></i>
-                        <h2 style="font-size:1.5rem;font-weight:800;">المنتج غير موجود</h2>
-                        <p style="color:var(--gray-400);margin:1rem 0;">قد يكون المنتج قد تم حذفه أو الرابط غير صحيح</p>
-                        <button onclick="showShop()" class="btn-primary">العودة إلى المتجر</button>
-                    </div>
-                `;
-                return;
-            }
-            
-            document.title = `MORRE STORE | ${product.name}`;
-            document.getElementById('productBreadcrumbName').textContent = product.name;
-            document.getElementById('productImage').textContent = product.image;
-            document.getElementById('productName').textContent = product.name;
-            document.getElementById('productPrice').textContent = `${product.price.toLocaleString()} ج.س`;
-            document.getElementById('productCategory').textContent = `التصنيف: ${product.categoryName}`;
-            
-            // التقييم
-            const rating = product.rating;
-            const fullStars = Math.floor(rating);
-            const halfStar = rating % 1 >= 0.5 ? 1 : 0;
-            const emptyStars = 5 - fullStars - halfStar;
-            document.getElementById('productRating').innerHTML = 
-                '⭐'.repeat(fullStars) + (halfStar ? '⭐' : '') + '☆'.repeat(emptyStars) +
-                `<span style="color:var(--gray-500);"> (${product.rating})</span>`;
-            
-            // منتجات ذات صلة
-            renderRelatedProducts(product);
-        }
-
-        function renderRelatedProducts(currentProduct) {
-            const container = document.getElementById('relatedProducts');
-            const related = Object.values(productsData)
-                .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
-                .slice(0, 4);
-            
-            if (related.length === 0) {
-                container.innerHTML = `
-                    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--gray-400);">
-                        <p>لا توجد منتجات ذات صلة</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            container.innerHTML = related.map(p => `
-                <a href="#" onclick="showProduct('${p.id}')" class="product-card">
-                    <div class="product-image">
-                        <span style="font-size:4rem;">${p.image}</span>
-                    </div>
-                    <div class="product-info">
-                        <h3>${p.name}</h3>
-                        <div class="price">${p.price.toLocaleString()} <small>ج.س</small></div>
-                    </div>
-                </a>
-            `).join('');
-        }
-
-        function renderCart() {
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('cartTotal');
-            
-            if (cart.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align:center;padding:3rem;color:var(--gray-400);">
-                        <i class="fas fa-shopping-bag" style="font-size:3rem;display:block;margin-bottom:1rem;"></i>
-                        <p>سلة التسوق فارغة</p>
-                        <button onclick="showShop()" class="btn-primary" style="margin-top:1rem;">تسوق الآن</button>
-                    </div>
-                `;
-                totalEl.textContent = '0 ج.س';
-                return;
-            }
-            
-            let total = 0;
-            container.innerHTML = cart.map((item, index) => {
-                const product = productsData[item.id];
-                if (!product) return '';
-                const itemTotal = product.price * item.quantity;
-                total += itemTotal;
-                return `
-                    <div style="display:flex;justify-content:space-between;align-items:center;padding:1rem;background:var(--gray-50);border-radius:0.75rem;margin-bottom:0.5rem;">
-                        <div>
-                            <h4 style="font-weight:600;">${product.name}</h4>
-                            <p style="color:var(--gray-500);font-size:0.9rem;">${product.price.toLocaleString()} ج.س × ${item.quantity}</p>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:0.5rem;">
-                            <button onclick="updateCartQuantity('${item.id}', -1)" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--gray-300);background:transparent;cursor:pointer;font-size:1.2rem;">-</button>
-                            <span style="font-weight:700;min-width:30px;text-align:center;">${item.quantity}</span>
-                            <button onclick="updateCartQuantity('${item.id}', 1)" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--gray-300);background:transparent;cursor:pointer;font-size:1.2rem;">+</button>
-                            <button onclick="removeFromCart('${item.id}')" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:1.2rem;padding:0.5rem;">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            
-            totalEl.textContent = `${total.toLocaleString()} ج.س`;
-        }
-
-        // ============================================================
-        // CART FUNCTIONS
-        // ============================================================
-        
-        function addToCart(productId) {
-            const product = productsData[productId];
-            if (!product) {
-                showToast('المنتج غير موجود', 'error');
-                return;
-            }
-            
-            const existing = cart.find(item => item.id === productId);
-            if (existing) {
-                existing.quantity += 1;
-            } else {
-                cart.push({ id: productId, quantity: 1 });
-            }
-            
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartBadge();
-            showToast(`✅ تم إضافة ${product.name} إلى السلة`);
-        }
-
-        function addToCartFromDetail() {
-            if (currentProductId) {
-                addToCart(currentProductId);
-            }
-        }
-
-        function updateCartQuantity(productId, change) {
-            const item = cart.find(i => i.id === productId);
-            if (!item) return;
-            
-            item.quantity += change;
-            if (item.quantity <= 0) {
-                cart = cart.filter(i => i.id !== productId);
-            }
-            
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartBadge();
-            renderCart();
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(i => i.id !== productId);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartBadge();
-            renderCart();
-            showToast('🗑️ تم حذف المنتج من السلة');
-        }
-
-        function updateCartBadge() {
-            const badge = document.getElementById('cartBadge');
-            if (badge) {
-                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-                badge.textContent = total;
-            }
-        }
-
-        function checkout() {
-            if (cart.length === 0) {
-                showToast('❌ السلة فارغة', 'error');
-                return;
-            }
-            showCheckout();
-        }
-
-        // ============================================================
-        // FILTER PRODUCTS
-        // ============================================================
-        
-        function filterProducts(category) {
-            currentFilter = category;
-            
-            // تحديث الأزرار
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-                btn.style.background = 'transparent';
-                btn.style.color = 'var(--gray-700)';
-                if (btn.dataset.filter === category) {
-                    btn.classList.add('active');
-                    btn.style.background = 'var(--primary)';
-                    btn.style.color = 'white';
-                }
-            });
-            
-            renderAllProducts();
-        }
-
-        // ============================================================
-        // SEARCH
-        // ============================================================
-        
-        function toggleSearch() {
-            const overlay = document.getElementById('searchOverlay');
-            if (overlay) {
-                overlay.style.display = overlay.style.display === 'none' ? 'block' : 'none';
-                if (overlay.style.display === 'block') {
-                    document.getElementById('searchInput').focus();
-                }
-            }
-        }
-
-        function searchProducts(query) {
-            const results = document.getElementById('searchResults');
-            if (!query.trim()) {
-                results.innerHTML = '';
-                return;
-            }
-            
-            const found = Object.values(productsData).filter(p => 
-                p.name.toLowerCase().includes(query.toLowerCase())
-            );
-            
-            if (found.length === 0) {
-                results.innerHTML = `
-                    <p style="text-align:center;color:var(--gray-400);padding:1rem;">
-                        <i class="fas fa-search" style="display:block;font-size:2rem;margin-bottom:0.5rem;"></i>
-                        لا توجد نتائج
-                    </p>
-                `;
-                return;
-            }
-            
-            results.innerHTML = found.slice(0, 8).map(p => `
-                <a href="#" onclick="showProduct('${p.id}'); toggleSearch();">
-                    <span>${p.name}</span>
-                    <span class="result-price">${p.price.toLocaleString()} ج.س</span>
-                </a>
-            `).join('');
-        }
-
-        // ============================================================
-        // SHARE PRODUCT
-        // ============================================================
-        
-        function shareProduct(platform) {
-            const product = productsData[currentProductId];
-            if (!product) return;
-            
-            const url = window.location.href;
-            const text = `🛍️ ${product.name} - ${product.price.toLocaleString()} ج.س\nاشتر الآن من MORRE STORE`;
-            
-            const shareUrls = {
-                whatsapp: `https://wa.me/?text=${encodeURIComponent(text + '\n' + url)}`,
-                facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-                twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
-                copy: null
-            };
-            
-            if (platform === 'copy') {
-                navigator.clipboard.writeText(url).then(() => {
-                    showToast('✅ تم نسخ الرابط');
-                });
-                return;
-            }
-            
-            if (shareUrls[platform]) {
-                window.open(shareUrls[platform], '_blank');
-            }
-        }
-
-        function buyNow() {
-            if (currentProductId) {
-                addToCart(currentProductId);
-                showCheckout();
-            }
-        }
-
-        // ============================================================
-        // AUTH FUNCTIONS (محاكاة)
-        // ============================================================
-        
-        function showLogin() {
-            showToast('🔑 صفحة تسجيل الدخول قيد التطوير');
-        }
-
-        function showRegister() {
-            showToast('📝 صفحة إنشاء حساب قيد التطوير');
-        }
-
-        function logoutUser() {
-            isLoggedIn = false;
-            document.getElementById('accountName').textContent = 'زائر';
-            document.getElementById('accountEmail').textContent = 'guest@morrestore.com';
-            document.getElementById('accountBalance').textContent = '0 ج.س';
-            document.getElementById('logoutBtn').style.display = 'none';
-            document.querySelectorAll('#page-account .btn-primary, #page-account .btn-outline').forEach(btn => {
-                btn.style.display = 'inline-flex';
-            });
-            showToast('👋 تم تسجيل الخروج');
-        }
-
-        // ============================================================
-        // THEME
-        // ============================================================
-        
-        function toggleTheme() {
-            const isDark = document.documentElement.classList.contains('dark');
-            if (isDark) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-                document.getElementById('themeIcon').className = 'fas fa-moon';
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-                document.getElementById('themeIcon').className = 'fas fa-sun';
-            }
-        }
-
-        // ============================================================
-        // NEWSLETTER
-        // ============================================================
-        
-        function subscribeNewsletter(event) {
-            event.preventDefault();
-            const email = event.target.querySelector('input').value;
-            if (email) {
-                showToast('✅ تم الاشتراك بنجاح!');
-                event.target.reset();
-            }
-        }
-
-        // ============================================================
-        // TOAST NOTIFICATIONS
-        // ============================================================
-        
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.textContent = message;
-            container.appendChild(toast);
-            
-            requestAnimationFrame(() => {
-                toast.classList.add('show');
-            });
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 400);
-            }, 3000);
-        }
-
-        // ============================================================
-        // MOBILE MENU
-        // ============================================================
-        
-        function toggleMobileMenu() {
-            const links = document.getElementById('navLinks');
-            if (links) {
-                links.classList.toggle('open');
-            }
-        }
-
-        // ============================================================
-        // SCROLL TOP
-        // ============================================================
-        
-        window.addEventListener('scroll', function() {
-            const btn = document.getElementById('scrollTopBtn');
-            if (btn) {
-                if (window.scrollY > 300) {
-                    btn.classList.add('visible');
-                } else {
-                    btn.classList.remove('visible');
-                }
-            }
-        });
-
-        // ============================================================
-        // FILTER BUTTONS
-        // ============================================================
-        
         function renderFilterButtons() {
             const container = document.getElementById('filterButtons');
             if (!container) return;
@@ -2327,71 +1852,730 @@
             });
         }
 
+        function getTopProducts(limit = 4) {
+            return Object.values(productsData).sort((a, b) => b.rating - a.rating).slice(0, limit);
+        }
+
         // ============================================================
-        // INIT
+        // PRODUCT DETAIL
         // ============================================================
         
-        document.addEventListener('DOMContentLoaded', function() {
-            // تطبيق الثيم
-            if (localStorage.getItem('theme') === 'dark') {
-                document.documentElement.classList.add('dark');
-                document.getElementById('themeIcon').className = 'fas fa-sun';
+        function showProductDetail(productId) {
+            const product = productsData[productId];
+            if (!product) {
+                showToast('❌ المنتج غير موجود', 'error');
+                return;
             }
             
-            // عرض الصفحة الرئيسية
-            showHome();
+            // إنشاء مودال لعرض المنتج
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>${product.name}</h3>
+                        <button class="close-btn" onclick="this.closest('.modal').classList.remove('active')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div style="text-align:center;padding:1rem;">
+                        <div style="font-size:6rem;background:var(--gray-100);border-radius:1rem;padding:2rem;margin-bottom:1rem;">${product.image}</div>
+                        <h2 style="font-size:2rem;font-weight:900;">${product.price.toLocaleString()} ج.س</h2>
+                        <div style="color:var(--gray-500);margin:0.5rem 0;">التصنيف: ${product.categoryName}</div>
+                        <div style="display:flex;justify-content:center;gap:0.25rem;color:#fbbf24;margin:0.5rem 0;">
+                            ${'⭐'.repeat(Math.floor(product.rating))}${product.rating % 1 >= 0.5 ? '⭐' : ''}${'☆'.repeat(5 - Math.ceil(product.rating))}
+                            <span style="color:var(--gray-500);">(${product.rating})</span>
+                        </div>
+                        <div style="display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap;justify-content:center;">
+                            <button onclick="addToCart('${product.id}');this.closest('.modal').classList.remove('active')" class="btn-primary">
+                                🛒 أضف للسلة
+                            </button>
+                            <button onclick="buyNow('${product.id}');this.closest('.modal').classList.remove('active')" class="btn-outline">
+                                <i class="fas fa-bolt"></i> شراء الآن
+                            </button>
+                        </div>
+                        <div style="margin-top:1rem;padding:0.75rem;background:var(--primary-50);border-radius:0.5rem;color:var(--gray-600);font-size:0.85rem;">
+                            ✅ شحن فوري • دعم على مدار الساعة • ضمان الجودة
+                        </div>
+                    </div>
+                </div>
+            `;
             
-            // عرض التصنيفات
-            renderCategories();
+            document.body.appendChild(modal);
             
-            // عرض المنتجات المميزة
-            const allProducts = Object.values(productsData);
-            renderProducts(allProducts, 'featuredProducts', 8);
-            
-            // عرض الأكثر مبيعاً
-            const topProducts = allProducts.sort((a, b) => b.rating - a.rating).slice(0, 4);
-            renderProducts(topProducts, 'topProducts', 4);
-            
-            // عرض أزرار التصنيفات
-            renderFilterButtons();
-            
-            // تحديث عداد السلة
-            updateCartBadge();
-            
-            console.log('🚀 MORRE STORE - مثل Elyonko بالضبط!');
-            console.log('📦 عدد المنتجات:', Object.keys(productsData).length);
-            console.log('📂 عدد التصنيفات:', categories.length);
-            console.log('🛒 عدد المنتجات في السلة:', cart.length);
-        });
+            // إغلاق بالضغط خارج المحتوى
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    setTimeout(() => this.remove(), 300);
+                }
+            });
+        }
 
-        // تصدير الدوال للنطاق العام
-        window.showHome = showHome;
-        window.showShop = showShop;
-        window.showProduct = showProduct;
-        window.showCart = showCart;
-        window.showCheckout = showCheckout;
-        window.showAccount = showAccount;
-        window.showAbout = showAbout;
-        window.showContact = showContact;
-        window.showBlog = showBlog;
-        window.showPolicy = showPolicy;
-        window.filterProducts = filterProducts;
+        // ============================================================
+        // CART FUNCTIONS
+        // ============================================================
+        
+        function addToCart(productId) {
+            const product = productsData[productId];
+            if (!product) {
+                showToast('❌ المنتج غير موجود', 'error');
+                return;
+            }
+            
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ id: productId, quantity: 1 });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            showToast(`✅ تم إضافة ${product.name} إلى السلة`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            showCart();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            if (badge) {
+                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+                badge.textContent = total;
+            }
+        }
+
+        function showCart() {
+            const modal = document.getElementById('cartModal');
+            const content = document.getElementById('cartContent');
+            
+            if (cart.length === 0) {
+                content.innerHTML = `
+                    <p style="text-align:center;color:var(--gray-500);padding:1rem;">
+                        <i class="fas fa-shopping-bag" style="display:block;font-size:2rem;margin-bottom:0.5rem;"></i>
+                        السلة فارغة
+                    </p>
+                `;
+            } else {
+                let total = 0;
+                content.innerHTML = cart.map(item => {
+                    const product = productsData[item.id];
+                    if (!product) return '';
+                    total += product.price * item.quantity;
+                    return `
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:0.75rem;border-bottom:1px solid var(--gray-200);">
+                            <div>
+                                <div style="font-weight:600;">${product.name}</div>
+                                <div style="color:var(--gray-500);font-size:0.85rem;">${product.price.toLocaleString()} ج.س × ${item.quantity}</div>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:0.5rem;">
+                                <button onclick="updateCartQuantity('${item.id}', -1)" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--gray-300);background:transparent;cursor:pointer;">-</button>
+                                <span style="min-width:30px;text-align:center;font-weight:600;">${item.quantity}</span>
+                                <button onclick="updateCartQuantity('${item.id}', 1)" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--gray-300);background:transparent;cursor:pointer;">+</button>
+                                <button onclick="removeFromCart('${item.id}')" style="background:none;border:none;color:#ef4444;cursor:pointer;padding:0.25rem 0.5rem;">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                
+                content.innerHTML += `
+                    <div style="padding:1rem 0;margin-top:0.5rem;border-top:2px solid var(--gray-200);">
+                        <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1.2rem;">
+                            <span>الإجمالي:</span>
+                            <span style="color:var(--primary);">${total.toLocaleString()} ج.س</span>
+                        </div>
+                        <button onclick="checkout()" class="btn-primary" style="width:100%;justify-content:center;margin-top:0.75rem;padding:0.75rem;">
+                            <i class="fas fa-credit-card"></i> إتمام الشراء
+                        </button>
+                    </div>
+                `;
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').classList.remove('active');
+        }
+
+        function updateCartQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+            
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== productId);
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            showCart();
+        }
+
+        function buyNow(productId) {
+            addToCart(productId);
+            checkout();
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showToast('❌ السلة فارغة', 'error');
+                return;
+            }
+            
+            if (!currentUser) {
+                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                showAuthScreen();
+                return;
+            }
+            
+            // حساب الإجمالي
+            let total = cart.reduce((sum, item) => {
+                const product = productsData[item.id];
+                return sum + (product ? product.price * item.quantity : 0);
+            }, 0);
+            
+            if (currentUser.balance < total) {
+                showToast(`❌ رصيدك غير كافي! الرصيد: ${currentUser.balance.toLocaleString()} ج.س`, 'error');
+                return;
+            }
+            
+            // تنفيذ الطلب
+            if (confirm(`💰 تأكيد الشراء\n\nالإجمالي: ${total.toLocaleString()} ج.س\nالرصيد: ${currentUser.balance.toLocaleString()} ج.س`)) {
+                // خصم الرصيد
+                currentUser.balance -= total;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                updateUIForUser(currentUser);
+                
+                // تفريغ السلة
+                cart = [];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartBadge();
+                closeCart();
+                
+                showToast('✅ تم إتمام الشراء بنجاح!', 'success');
+            }
+        }
+
+        // ============================================================
+        // FILTER PRODUCTS
+        // ============================================================
+        
+        function filterProducts(category) {
+            currentFilter = category;
+            
+            // تحديث الأزرار
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.style.background = 'transparent';
+                btn.style.color = 'var(--gray-700)';
+                if (btn.dataset.filter === category) {
+                    btn.style.background = 'var(--primary)';
+                    btn.style.color = 'white';
+                }
+            });
+            
+            renderAllProducts();
+        }
+
+        // ============================================================
+        // NAVIGATION
+        // ============================================================
+        
+        function showPage(page) {
+            // إخفاء جميع الصفحات
+            const pages = ['home', 'shop', 'about', 'contact', 'blog', 'account', 'settings'];
+            pages.forEach(p => {
+                const el = document.getElementById(`page-${p}`);
+                if (el) el.style.display = 'none';
+            });
+            
+            // إظهار الصفحة المطلوبة
+            const target = document.getElementById(`page-${page}`);
+            if (target) {
+                target.style.display = 'block';
+                // إذا كانت صفحة المتجر، عرض المنتجات
+                if (page === 'shop') {
+                    renderAllProducts();
+                }
+            }
+            
+            // تحديث الروابط النشطة
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // تحديث حسب الصفحة
+            const linkMap = {
+                'home': 0,
+                'shop': 1,
+                'blog': 2,
+                'about': 3,
+                'contact': 4
+            };
+            
+            if (linkMap[page] !== undefined) {
+                const links = document.querySelectorAll('.nav-links a');
+                if (links[linkMap[page]]) {
+                    links[linkMap[page]].classList.add('active');
+                }
+            }
+            
+            // تمرير للأعلى
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const links = document.getElementById('navLinks');
+            if (links) {
+                links.classList.toggle('open');
+            }
+        }
+
+        // ============================================================
+        // AUTH SYSTEM - محاكاة تسجيل الدخول
+        // ============================================================
+        
+        // المستخدمين الافتراضيين (من الكود القديم)
+        const defaultUsers = {
+            'admin@morre.com': {
+                name: 'أحمد محمد',
+                email: 'admin@morre.com',
+                password: 'admin123',
+                walletId: 'WALLET-001',
+                balance: 15000,
+                role: 'admin',
+                phone: '2490991305468',
+                createdAt: '2025-01-15'
+            },
+            'user@morre.com': {
+                name: 'مستخدم عادي',
+                email: 'user@morre.com',
+                password: 'user123',
+                walletId: 'WALLET-002',
+                balance: 5000,
+                role: 'user',
+                phone: '2490991234567',
+                createdAt: '2025-06-01'
+            }
+        };
+
+        function showAuthScreen() {
+            document.getElementById('authScreen').classList.add('active');
+        }
+
+        function hideAuthScreen() {
+            document.getElementById('authScreen').classList.remove('active');
+        }
+
+        function switchAuthTab(tab) {
+            const tabs = document.querySelectorAll('.auth-tabs button');
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            const forms = document.querySelectorAll('.auth-form');
+            forms.forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                tabs[0].classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+                document.getElementById('authToggleText').textContent = 'ليس لديك حساب؟';
+                document.getElementById('authToggleLink').textContent = 'إنشاء حساب';
+                document.getElementById('authToggleLink').onclick = () => switchAuthTab('register');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+                document.getElementById('authToggleText').textContent = 'لديك حساب بالفعل؟';
+                document.getElementById('authToggleLink').textContent = 'تسجيل الدخول';
+                document.getElementById('authToggleLink').onclick = () => switchAuthTab('login');
+            }
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            
+            if (!email || !password) {
+                showToast('❌ الرجاء إدخال البريد الإلكتروني وكلمة المرور', 'error');
+                return;
+            }
+            
+            const user = defaultUsers[email];
+            if (!user || user.password !== password) {
+                showToast('❌ البريد الإلكتروني أو كلمة المرور غير صحيحة', 'error');
+                return;
+            }
+            
+            // تسجيل الدخول
+            currentUser = { ...user };
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateUIForUser(currentUser);
+            hideAuthScreen();
+            showToast(`✅ مرحباً بك ${user.name}!`, 'success');
+        }
+
+        function handleRegister() {
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirm = document.getElementById('regConfirmPassword').value;
+            const agree = document.getElementById('agreeTerms').checked;
+            
+            if (!name || !email || !password || !confirm) {
+                showToast('❌ جميع الحقول مطلوبة', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showToast('❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
+                return;
+            }
+            
+            if (password !== confirm) {
+                showToast('❌ كلمة المرور غير متطابقة مع التأكيد', 'error');
+                return;
+            }
+            
+            if (!agree) {
+                showToast('❌ وافق على الشروط والأحكام أولاً', 'error');
+                return;
+            }
+            
+            if (defaultUsers[email]) {
+                showToast('❌ البريد الإلكتروني مستخدم بالفعل', 'error');
+                return;
+            }
+            
+            // إنشاء مستخدم جديد
+            const walletId = 'WALLET-' + String(Math.floor(100000 + Math.random() * 900000));
+            const newUser = {
+                name: name,
+                email: email,
+                password: password,
+                walletId: walletId,
+                balance: 0,
+                role: 'user',
+                phone: '',
+                createdAt: new Date().toISOString()
+            };
+            
+            defaultUsers[email] = newUser;
+            
+            // تسجيل الدخول تلقائياً
+            currentUser = { ...newUser };
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateUIForUser(currentUser);
+            hideAuthScreen();
+            showToast(`✅ مرحباً بك ${name}! رقم محفظتك: #${walletId}`, 'success');
+        }
+
+        function handleGoogleLogin() {
+            showToast('🔑 جاري تسجيل الدخول عبر جوجل...', 'info');
+            setTimeout(() => {
+                // محاكاة دخول جوجل
+                const googleUser = {
+                    name: 'مستخدم جوجل',
+                    email: 'google.user@gmail.com',
+                    walletId: 'WALLET-G-' + String(Math.floor(100000 + Math.random() * 900000)),
+                    balance: 1000,
+                    role: 'user',
+                    phone: '',
+                    createdAt: new Date().toISOString(),
+                    isGoogle: true
+                };
+                defaultUsers[googleUser.email] = googleUser;
+                currentUser = { ...googleUser };
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                updateUIForUser(currentUser);
+                hideAuthScreen();
+                showToast(`✅ مرحباً بك ${googleUser.name}!`, 'success');
+            }, 1000);
+        }
+
+        function forgotPassword() {
+            const email = document.getElementById('loginEmail').value.trim();
+            if (!email) {
+                showToast('❌ أدخل بريدك الإلكتروني أولاً', 'error');
+                return;
+            }
+            
+            if (!defaultUsers[email]) {
+                showToast('❌ البريد الإلكتروني غير موجود', 'error');
+                return;
+            }
+            
+            showToast(`📧 تم إرسال رابط إعادة تعيين كلمة المرور إلى ${email}`, 'success');
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateUIForUser(null);
+            showToast('👋 تم تسجيل الخروج بنجاح', 'info');
+            showPage('home');
+        }
+
+        // ============================================================
+        // UPDATE UI
+        // ============================================================
+        
+        function updateUIForUser(user) {
+            const avatar = user?.img || 'https://via.placeholder.com/50';
+            const name = user?.name || 'زائر';
+            const walletId = user?.walletId ? `#${user.walletId}` : 'غير مسجل';
+            const balance = user?.balance ? `${user.balance.toLocaleString()} ج.س` : '0 ج.س';
+            
+            // واجهة المحفظة
+            document.getElementById('walletAvatar').src = avatar;
+            document.getElementById('walletName').textContent = name;
+            document.getElementById('walletId').textContent = `رقم المحفظة: ${walletId}`;
+            document.getElementById('walletBalance').textContent = balance;
+            
+            // صفحة الحساب
+            document.getElementById('accountAvatar').src = avatar;
+            document.getElementById('accountName').textContent = name;
+            document.getElementById('accountEmail').textContent = user?.email || 'guest@morrestore.com';
+            document.getElementById('accountBalance').textContent = balance;
+            
+            // إعدادات
+            document.getElementById('settingsAvatar').src = avatar;
+            document.getElementById('settingsName').value = name;
+            document.getElementById('settingsEmail').value = user?.email || 'guest@morrestore.com';
+            document.getElementById('settingsPhone').value = user?.phone || '';
+            
+            // أزرار تسجيل الدخول/الخروج
+            if (user) {
+                document.getElementById('accountLoginBtn').style.display = 'none';
+                document.getElementById('accountLogoutBtn').style.display = 'block';
+                document.getElementById('logoutBtn').style.display = 'block';
+            } else {
+                document.getElementById('accountLoginBtn').style.display = 'block';
+                document.getElementById('accountLogoutBtn').style.display = 'none';
+                document.getElementById('logoutBtn').style.display = 'none';
+            }
+        }
+
+        // ============================================================
+        // WALLET FUNCTIONS
+        // ============================================================
+        
+        function rechargeWallet() {
+            if (!currentUser) {
+                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                showAuthScreen();
+                return;
+            }
+            
+            const amount = prompt(`💰 أدخل المبلغ المراد شحنه\n\nالرصيد الحالي: ${currentUser.balance.toLocaleString()} ج.س\nرقم المحفظة: ${currentUser.walletId}`);
+            if (!amount) return;
+            
+            const numAmount = parseInt(amount);
+            if (isNaN(numAmount) || numAmount <= 0) {
+                showToast('❌ مبلغ غير صحيح', 'error');
+                return;
+            }
+            
+            if (confirm(`💰 تأكيد شحن الرصيد\n\nالمبلغ: ${numAmount.toLocaleString()} ج.س\nطريقة الدفع: وكيل معتمد\n\nسيتم توجيهك إلى واتساب لإتمام العملية`)) {
+                const message = `مرحباً، أريد شحن محفظتي\nرقم المحفظة: ${currentUser.walletId}\nالمبلغ: ${numAmount.toLocaleString()} ج.س`;
+                window.open(`https://wa.me/2490991305468?text=${encodeURIComponent(message)}`, '_blank');
+            }
+        }
+
+        function openWhatsApp() {
+            window.open('https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة', '_blank');
+        }
+
+        // ============================================================
+        // CONTACT FORM
+        // ============================================================
+        
+        function sendContactMessage(event) {
+            event.preventDefault();
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+            
+            if (!name || !email || !message) {
+                showToast('❌ جميع الحقول مطلوبة', 'error');
+                return;
+            }
+            
+            const fullMessage = `📩 رسالة جديدة من ${name}\n📧 البريد: ${email}\n📝 الرسالة: ${message}`;
+            window.open(`https://wa.me/2490991305468?text=${encodeURIComponent(fullMessage)}`, '_blank');
+            showToast('✅ تم إرسال رسالتك!', 'success');
+            event.target.reset();
+        }
+
+        // ============================================================
+        // SETTINGS
+        // ============================================================
+        
+        function saveSettings() {
+            if (!currentUser) {
+                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                showAuthScreen();
+                return;
+            }
+            
+            const name = document.getElementById('settingsName').value.trim();
+            const phone = document.getElementById('settingsPhone').value.trim();
+            const payment = document.getElementById('settingsPayment').value;
+            
+            if (!name) {
+                showToast('❌ الاسم مطلوب', 'error');
+                return;
+            }
+            
+            // تحديث بيانات المستخدم
+            currentUser.name = name;
+            currentUser.phone = phone;
+            currentUser.paymentMethod = payment;
+            
+            // تحديث في قاعدة البيانات المحاكاة
+            if (defaultUsers[currentUser.email]) {
+                defaultUsers[currentUser.email].name = name;
+                defaultUsers[currentUser.email].phone = phone;
+                defaultUsers[currentUser.email].paymentMethod = payment;
+            }
+            
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateUIForUser(currentUser);
+            showToast('✅ تم حفظ التغييرات بنجاح', 'success');
+        }
+
+        // ============================================================
+        // THEME
+        // ============================================================
+        
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                document.getElementById('themeIcon').className = 'fas fa-moon';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                document.getElementById('themeIcon').className = 'fas fa-sun';
+            }
+        }
+
+        // ============================================================
+        // POLICIES
+        // ============================================================
+        
+        const policiesData = {
+            terms: {
+                title: '📜 شروط الخدمة',
+                content: `
+                    <h2 style="font-weight:700;margin-bottom:1rem;">شروط الخدمة</h2>
+                    <p style="color:var(--gray-600);line-height:1.8;">باستخدامك للمنصة توافق على الشروط التالية:</p>
+                    <ul style="list-style:disc;padding-right:1.5rem;margin:1rem 0;color:var(--gray-600);">
+                        <li>جميع عمليات الشحن خلال 24 ساعة</li>
+                        <li>لا نضمن استرجاع الرصيد بعد إتمام الشراء</li>
+                        <li>الأسعار قابلة للتغيير دون إشعار مسبق</li>
+                        <li>نحن غير مسؤولين عن أي أخطاء في بيانات المستخدم</li>
+                    </ul>
+                    <p style="color:var(--gray-500);font-size:0.9rem;">آخر تحديث: يناير 2025</p>
+                `
+            },
+            privacy: {
+                title: '🔒 سياسة الخصوصية',
+                content: `
+                    <h2 style="font-weight:700;margin-bottom:1rem;">سياسة الخصوصية</h2>
+                    <p style="color:var(--gray-600);line-height:1.8;">نلتزم بحماية بياناتك الشخصية:</p>
+                    <ul style="list-style:disc;padding-right:1.5rem;margin:1rem 0;color:var(--gray-600);">
+                        <li>لا نشارك بياناتك مع أي طرف ثالث</li>
+                        <li>نستخدم بياناتك فقط لتقديم الخدمات</li>
+                        <li>يمكنك طلب حذف بياناتك في أي وقت</li>
+                        <li>نستخدم تشفيراً لحماية معلوماتك</li>
+                    </ul>
+                    <p style="color:var(--gray-500);font-size:0.9rem;">آخر تحديث: يناير 2025</p>
+                `
+            },
+            refund: {
+                title: '💰 سياسة الاسترجاع',
+                content: `
+                    <h2 style="font-weight:700;margin-bottom:1rem;">سياسة الاسترجاع</h2>
+                    <p style="color:var(--gray-600);line-height:1.8;">سياسة الاسترجاع في MORRE STORE:</p>
+                    <ul style="list-style:disc;padding-right:1.5rem;margin:1rem 0;color:var(--gray-600);">
+                        <li>في حال تأخر الشحن أكثر من 48 ساعة، يمكنك طلب استرجاع كامل</li>
+                        <li>الاسترجاع يكون عبر محفظتك في الموقع</li>
+                        <li>لا نسترد المبالغ بعد إتمام عملية الشحن</li>
+                        <li>في حال وجود خطأ من قبلنا، نسترد المبلغ بالكامل</li>
+                    </ul>
+                    <p style="color:var(--gray-500);font-size:0.9rem;">آخر تحديث: يناير 2025</p>
+                `
+            }
+        };
+
+        function showPolicy(type) {
+            const policy = policiesData[type] || policiesData.privacy;
+            document.getElementById('policyTitle').textContent = policy.title;
+            document.getElementById('policyContent').innerHTML = policy.content;
+            document.getElementById('policyModal').classList.add('active');
+        }
+
+        function closePolicy() {
+            document.getElementById('policyModal').classList.remove('active');
+        }
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // ============================================================
+        // EXPOSE FUNCTIONS TO GLOBAL
+        // ============================================================
+        
+        window.showPage = showPage;
+        window.showProductDetail = showProductDetail;
         window.addToCart = addToCart;
-        window.addToCartFromDetail = addToCartFromDetail;
-        window.updateCartQuantity = updateCartQuantity;
         window.removeFromCart = removeFromCart;
-        window.toggleSearch = toggleSearch;
-        window.searchProducts = searchProducts;
-        window.shareProduct = shareProduct;
+        window.showCart = showCart;
+        window.closeCart = closeCart;
+        window.updateCartQuantity = updateCartQuantity;
         window.buyNow = buyNow;
-        window.showLogin = showLogin;
-        window.showRegister = showRegister;
-        window.logoutUser = logoutUser;
+        window.checkout = checkout;
+        window.filterProducts = filterProducts;
+        window.showAuthScreen = showAuthScreen;
+        window.hideAuthScreen = hideAuthScreen;
+        window.switchAuthTab = switchAuthTab;
+        window.handleLogin = handleLogin;
+        window.handleRegister = handleRegister;
+        window.handleGoogleLogin = handleGoogleLogin;
+        window.forgotPassword = forgotPassword;
+        window.handleLogout = handleLogout;
+        window.rechargeWallet = rechargeWallet;
+        window.openWhatsApp = openWhatsApp;
+        window.sendContactMessage = sendContactMessage;
+        window.saveSettings = saveSettings;
         window.toggleTheme = toggleTheme;
-        window.toggleMobileMenu = toggleMobileMenu;
-        window.subscribeNewsletter = subscribeNewsletter;
+        window.showPolicy = showPolicy;
+        window.closePolicy = closePolicy;
         window.showToast = showToast;
+        window.toggleMobileMenu = toggleMobileMenu;
     </script>
 
 </body>
-                            </html>
+                    </html>
