@@ -53,34 +53,94 @@
             transform: scale(1.05);
         }
         .product-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: white;
             border-radius: 1.5rem;
-            transition: all 0.3s ease;
-            cursor: default;
             padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         .product-card:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        .product-card .product-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        .product-card .product-price {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #d97706;
+            margin-bottom: 0.75rem;
+        }
+        .product-card .product-rating {
+            color: #f59e0b;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+        .product-card .product-reviews {
+            color: #94a3b8;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .product-card .btn-add-cart {
+            background: #f59e0b;
+            color: white;
+            font-weight: 700;
+            padding: 0.6rem 1.5rem;
+            border-radius: 2rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .product-card .btn-add-cart:hover {
+            background: #d97706;
+            transform: scale(1.02);
+        }
+        .product-card .btn-buy-now {
+            background: #1e293b;
+            color: white;
+            font-weight: 700;
+            padding: 0.6rem 1.5rem;
+            border-radius: 2rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-size: 0.95rem;
+        }
+        .product-card .btn-buy-now:hover {
+            background: #0f172a;
+            transform: scale(1.02);
+        }
+        .product-card .product-badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #d97706;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.8rem;
+            border-radius: 1rem;
+            margin-bottom: 0.5rem;
         }
         .share-buttons {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.4rem;
             flex-wrap: wrap;
             justify-content: center;
             margin-top: 0.75rem;
         }
         .share-btn {
-            padding: 0.4rem 0.8rem;
+            padding: 0.3rem 0.7rem;
             border-radius: 2rem;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             border: none;
             transition: all 0.2s;
@@ -450,22 +510,11 @@
             margin: 1rem;
         }
         .share-product-title {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             font-weight: 600;
-            color: #475569;
-            margin-top: 0.4rem;
+            color: #94a3b8;
+            margin-top: 0.5rem;
             margin-bottom: 0.3rem;
-        }
-        .product-price {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #d97706;
-            margin: 0.5rem 0;
-        }
-        .product-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #1e293b;
         }
         .category-header {
             display: flex;
@@ -482,21 +531,42 @@
                 font-size: 1.3rem;
             }
             .product-card {
-                padding: 1rem;
+                padding: 1.2rem;
             }
-            .product-price {
-                font-size: 1.4rem;
+            .product-card .product-name {
+                font-size: 1.2rem;
+            }
+            .product-card .product-price {
+                font-size: 1.3rem;
             }
         }
+        /* Dark mode */
         .dark .product-card {
-            background: rgba(30, 41, 59, 0.7);
-            border-color: rgba(255, 255, 255, 0.1);
+            background: #1e293b;
+            border-color: rgba(255, 255, 255, 0.05);
         }
         .dark .product-card .product-name {
             color: #f1f5f9;
         }
         .dark .product-card .product-price {
             color: #fbbf24;
+        }
+        .dark .product-card .product-reviews {
+            color: #94a3b8;
+        }
+        .dark .product-card .btn-buy-now {
+            background: #f59e0b;
+            color: #1e293b;
+        }
+        .dark .product-card .btn-buy-now:hover {
+            background: #d97706;
+        }
+        .dark .product-card .btn-add-cart {
+            background: #334155;
+            color: #f1f5f9;
+        }
+        .dark .product-card .btn-add-cart:hover {
+            background: #475569;
         }
         .dark .wallet-card {
             background: rgba(30, 41, 59, 0.7);
@@ -552,6 +622,23 @@
         .dark footer {
             background: rgba(30, 41, 59, 0.8);
             border-top-color: rgba(255, 255, 255, 0.1);
+        }
+        .dark input, .dark select, .dark textarea {
+            background: rgba(30, 41, 59, 0.6);
+            color: #f1f5f9;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .dark input:focus, .dark select:focus, .dark textarea:focus {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: #f59e0b;
+        }
+        .dark .empty-products {
+            background: rgba(30, 41, 59, 0.4);
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .dark .empty-products i {
+            color: #475569;
         }
     </style>
 </head>
@@ -983,54 +1070,51 @@
         // ========== المنتجات الافتراضية ==========
         const defaultProducts = {
             pubg: [
-                { name: "🎯 60 شدة", price: 4000 },
-                { name: "🎯 120 شدة", price: 8000 },
-                { name: "🎯 180 شدة", price: 12000 },
-                { name: "🎯 240 شدة", price: 16000 },
-                { name: "🎯 325 شدة", price: 20000 },
-                { name: "🎯 660 شدة", price: 38000 },
-                { name: "🎯 1800 شدة", price: 100000 },
-                { name: "🎯 3850 شدة", price: 210000 },
-                { name: "🎯 8100 شدة", price: 430000 }
+                { name: "325 شدة", price: 20000 },
+                { name: "60 شدة", price: 4000 },
+                { name: "1800 شدة", price: 100000 },
+                { name: "660 شدة", price: 38000 },
+                { name: "8100 شدة", price: 430000 },
+                { name: "3850 شدة", price: 210000 }
             ],
             freefire: [
-                { name: "💎 110 جوهرة", price: 4500 },
-                { name: "💎 231 جوهرة", price: 9000 },
-                { name: "💎 583 جوهرة", price: 23000 },
-                { name: "💎 1180 جوهرة", price: 50000 }
+                { name: "110 جوهرة", price: 4500 },
+                { name: "231 جوهرة", price: 9000 },
+                { name: "583 جوهرة", price: 23000 },
+                { name: "1180 جوهرة", price: 50000 }
             ],
             clash: [
-                { name: "🎫 التذكرة الذهبية (أول مرة)", price: 10000 },
-                { name: "🎫 التذكرة الذهبية", price: 27000 }
+                { name: "التذكرة الذهبية (أول مرة)", price: 10000 },
+                { name: "التذكرة الذهبية", price: 27000 }
             ],
             efootball: [
-                { name: "⚽ 130 كوينز", price: 6500 },
-                { name: "⚽ 300 كوينز", price: 15000 },
-                { name: "⚽ 550 كوينز", price: 27000 },
-                { name: "⚽ 750 كوينز", price: 37000 },
-                { name: "⚽ مجموعة مورينو + 150 كوينز", price: 28000 }
+                { name: "130 كوينز", price: 6500 },
+                { name: "300 كوينز", price: 15000 },
+                { name: "550 كوينز", price: 27000 },
+                { name: "750 كوينز", price: 37000 },
+                { name: "مجموعة مورينو + 150 كوينز", price: 28000 }
             ],
             netflix: [
-                { name: "🎬 نتفليكس Standard + إعلانات", price: 55000 },
-                { name: "🎬 نتفليكس Standard بدون إعلانات", price: 120000 }
+                { name: "نتفليكس Standard + إعلانات", price: 55000 },
+                { name: "نتفليكس Standard بدون إعلانات", price: 120000 }
             ],
             googleplay: [
-                { name: "🛍️ بطاقة جوجل بلاي 5$", price: 30000 },
-                { name: "🛍️ بطاقة جوجل بلاي 10$", price: 60000 }
+                { name: "بطاقة جوجل بلاي 5$", price: 30000 },
+                { name: "بطاقة جوجل بلاي 10$", price: 60000 }
             ],
             redotpay: [
-                { name: "💳 حساب Redotpay موثق", price: 120000 },
-                { name: "💳 حساب موثق + فيزا Redotpay", price: 180000 }
+                { name: "حساب Redotpay موثق", price: 120000 },
+                { name: "حساب موثق + فيزا Redotpay", price: 180000 }
             ],
             tiktok: [
-                { name: "🎵 114 عملة تيك توك", price: 6000 },
-                { name: "🎵 447 عملة تيك توك", price: 30000 },
-                { name: "🎵 897 عملة تيك توك", price: 60000 }
+                { name: "114 عملة تيك توك", price: 6000 },
+                { name: "447 عملة تيك توك", price: 30000 },
+                { name: "897 عملة تيك توك", price: 60000 }
             ],
             ai: [
-                { name: "🤖 ChatGPT Plus - شهر", price: 120000 },
-                { name: "🤖 ChatGPT Go - شهر", price: 45000 },
-                { name: "🤖 Gemini Pro - شهر", price: 75000 }
+                { name: "ChatGPT Plus - شهر", price: 120000 },
+                { name: "ChatGPT Go - شهر", price: 45000 },
+                { name: "Gemini Pro - شهر", price: 75000 }
             ]
         };
 
@@ -1258,7 +1342,7 @@
             }
         };
 
-        // ========== عرض جميع المنتجات مع أزرار المشاركة ==========
+        // ========== عرض جميع المنتجات ==========
         function renderAllProducts() {
             const categories = ['pubg', 'freefire', 'clash', 'efootball', 'netflix', 'googleplay', 'redotpay', 'tiktok',
                 'ai'
@@ -1282,24 +1366,35 @@
                 }
 
                 grid.innerHTML = products.map(p => {
-                    const shareText = getShareText(p.name, p.price, cat);
-                    const encodedShareText = encodeURIComponent(shareText + ' ' + window.location.href);
                     return `
                                 <div class="product-card">
-                                    <p class="product-name">${p.name}</p>
-                                    <p class="product-price">${p.price.toLocaleString()} ج.س</p>
-                                    <button onclick="window.showOrderModal('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', '${p.id}')" class="w-full action-btn mb-2">شراء</button>
+                                    <span class="product-badge">⭐ الأكثر مبيعاً</span>
+                                    <div class="product-name">${p.name}</div>
+                                    <div class="product-price">${p.price.toLocaleString()} ج.س</div>
+                                    <div class="product-rating">★★★★★</div>
+                                    <div class="product-reviews">(131 مراجعة)</div>
+                                    <button onclick="addToCart('${p.id}')" class="btn-add-cart">
+                                        <i class="fas fa-cart-plus ml-1"></i> إضافة إلى السلة
+                                    </button>
+                                    <button onclick="window.showOrderModal('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', '${p.id}')" class="btn-buy-now">
+                                        <i class="fas fa-bolt ml-1"></i> اشترى الآن
+                                    </button>
                                     <div class="share-product-title">مشاركة المنتج</div>
                                     <div class="share-buttons">
-                                        <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'whatsapp')" class="share-btn share-btn-whatsapp"><i class="fab fa-whatsapp"></i> واتساب</button>
-                                        <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'facebook')" class="share-btn share-btn-facebook"><i class="fab fa-facebook-f"></i> فيسبوك</button>
-                                        <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'tiktok')" class="share-btn share-btn-tiktok"><i class="fab fa-tiktok"></i> تيك توك</button>
+                                        <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'whatsapp')" class="share-btn share-btn-whatsapp"><i class="fab fa-whatsapp"></i></button>
+                                        <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'facebook')" class="share-btn share-btn-facebook"><i class="fab fa-facebook-f"></i></button>
+                                        <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'tiktok')" class="share-btn share-btn-tiktok"><i class="fab fa-tiktok"></i></button>
                                     </div>
                                 </div>
                             `;
                 }).join('');
             });
         }
+
+        // دالة إضافة إلى السلة (سيتم تفعيلها لاحقاً)
+        window.addToCart = function(productId) {
+            alert('🛒 تم إضافة المنتج إلى السلة!');
+        };
 
         // ========== دوال الأدمن ==========
         window.addNewProduct = async () => {
@@ -1683,47 +1778,10 @@
             const target = document.getElementById(`category-${category}`);
             if (target) {
                 target.classList.add('active');
-                // التأكد من عرض المنتجات في هذه الفئة
-                renderCategoryProducts(category);
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
-
-        // دالة لعرض منتجات فئة معينة
-        function renderCategoryProducts(category) {
-            const grid = document.getElementById(`${category}Grid`);
-            if (!grid) return;
-
-            const products = allProducts[category]?.filter(p => p.isActive !== false) || [];
-
-            if (products.length === 0) {
-                grid.innerHTML = `
-                            <div class="empty-products col-span-full">
-                                <i class="fas fa-box-open"></i>
-                                <p>لا توجد منتجات متاحة في هذه الفئة</p>
-                                <p class="text-sm mt-2">سيتم إضافة منتجات جديدة قريباً</p>
-                            </div>
-                        `;
-                return;
-            }
-
-            grid.innerHTML = products.map(p => {
-                return `
-                            <div class="product-card">
-                                <p class="product-name">${p.name}</p>
-                                <p class="product-price">${p.price.toLocaleString()} ج.س</p>
-                                <button onclick="window.showOrderModal('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', '${p.id}')" class="w-full action-btn mb-2">شراء</button>
-                                <div class="share-product-title">مشاركة المنتج</div>
-                                <div class="share-buttons">
-                                    <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'whatsapp')" class="share-btn share-btn-whatsapp"><i class="fab fa-whatsapp"></i> واتساب</button>
-                                    <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'facebook')" class="share-btn share-btn-facebook"><i class="fab fa-facebook-f"></i> فيسبوك</button>
-                                    <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'tiktok')" class="share-btn share-btn-tiktok"><i class="fab fa-tiktok"></i> تيك توك</button>
-                                </div>
-                            </div>
-                        `;
-            }).join('');
-        }
 
         window.goHome = () => {
             document.getElementById('homePage').classList.remove('hidden');
@@ -1942,4 +2000,4 @@
         };
     </script>
 </body>
-    </html>
+</html>
