@@ -1620,6 +1620,14 @@
 
     <!-- ====== سكريبت Firebase ====== -->
     <script type="module">
+        // ====== إخفاء شاشة التحميل بعد 5 ثواني حتى لو فشل Firebase ======
+setTimeout(() => {
+    const loading = document.getElementById('loading-screen');
+    if (loading) {
+        loading.style.display = 'none';
+        document.getElementById('auth-screen').classList.remove('hidden');
+    }
+}, 5000);
         // ====== معالج الأخطاء العام ======
         window.onerror = function(msg, url, line, col, error) {
             console.log('❌ خطأ:', msg);
