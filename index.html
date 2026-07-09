@@ -456,6 +456,103 @@
             margin-top: 0.4rem;
             margin-bottom: 0.3rem;
         }
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #d97706;
+            margin: 0.5rem 0;
+        }
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .category-header .page-title {
+            font-size: 1.8rem;
+        }
+        @media (max-width: 480px) {
+            .category-header .page-title {
+                font-size: 1.3rem;
+            }
+            .product-card {
+                padding: 1rem;
+            }
+            .product-price {
+                font-size: 1.4rem;
+            }
+        }
+        .dark .product-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .dark .product-card .product-name {
+            color: #f1f5f9;
+        }
+        .dark .product-card .product-price {
+            color: #fbbf24;
+        }
+        .dark .wallet-card {
+            background: rgba(30, 41, 59, 0.7);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+        }
+        .dark .glass-card h3 {
+            color: #f1f5f9;
+        }
+        .dark .glass-card p {
+            color: #94a3b8;
+        }
+        .dark body {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        .dark .simple-banner {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-bottom-color: #f59e0b;
+        }
+        .dark .brand-name-white {
+            color: #f1f5f9;
+        }
+        .dark .text-dark {
+            color: #f1f5f9;
+        }
+        .dark .text-dark-light {
+            color: #94a3b8;
+        }
+        .dark .back-btn {
+            background: rgba(30, 41, 59, 0.6);
+            color: #f1f5f9;
+        }
+        .dark .back-btn:hover {
+            background: rgba(30, 41, 59, 0.8);
+        }
+        .dark .menu-btn {
+            background: rgba(30, 41, 59, 0.6);
+            color: #f1f5f9;
+        }
+        .dark .menu-btn:hover {
+            background: rgba(30, 41, 59, 0.8);
+        }
+        .dark .glass {
+            background: rgba(30, 41, 59, 0.7);
+        }
+        .dark .footer-links a {
+            color: #94a3b8;
+        }
+        .dark .footer-links a:hover {
+            color: #fbbf24;
+        }
+        .dark footer {
+            background: rgba(30, 41, 59, 0.8);
+            border-top-color: rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -678,63 +775,63 @@
 
             <!-- صفحات الخدمات -->
             <div id="category-pubg" class="category-page">
-                <div class="flex items-center gap-4 mb-6">
+                <div class="category-header">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
                     <h2 class="page-title">🎮 شحن ببجي PUBG</h2>
                 </div>
                 <div id="pubgGrid" class="product-grid"></div>
             </div>
             <div id="category-freefire" class="category-page">
-                <div class="flex items-center gap-4 mb-6">
+                <div class="category-header">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
                     <h2 class="page-title">🔥 شحن فري فاير FreeFire</h2>
                 </div>
                 <div id="freefireGrid" class="product-grid"></div>
             </div>
             <div id="category-efootball" class="category-page">
-                <div class="flex items-center gap-4 mb-6">
+                <div class="category-header">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
                     <h2 class="page-title">⚽ شحن eFootball</h2>
                 </div>
                 <div id="efootballGrid" class="product-grid"></div>
             </div>
             <div id="category-clash" class="category-page">
-                <div class="flex items-center gap-4 mb-6">
+                <div class="category-header">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
                     <h2 class="page-title">👑 شحن كلاش أوف كلانس</h2>
                 </div>
                 <div id="clashGrid" class="product-grid"></div>
             </div>
             <div id="category-netflix" class="category-page">
-                <div class="flex items-center gap-4 mb-6">
+                <div class="category-header">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
                     <h2 class="page-title">🎬 اشتراك نتفليكس</h2>
                 </div>
                 <div id="netflixGrid" class="product-grid"></div>
             </div>
             <div id="category-googleplay" class="category-page">
-                <div class="flex items-center gap-4 mb-6">
+                <div class="category-header">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
                     <h2 class="page-title">🛍️ بطاقات جوجل بلاي</h2>
                 </div>
                 <div id="googleplayGrid" class="product-grid"></div>
             </div>
             <div id="category-redotpay" class="category-page">
-                <div class="flex items-center gap-4 mb-6">
+                <div class="category-header">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
                     <h2 class="page-title">💳 فيزا Redotpay الافتراضية</h2>
                 </div>
                 <div id="redotpayGrid" class="product-grid"></div>
             </div>
             <div id="category-tiktok" class="category-page">
-                <div class="flex items-center gap-4 mb-6">
+                <div class="category-header">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
                     <h2 class="page-title">🎵 عملات تيك توك</h2>
                 </div>
                 <div id="tiktokGrid" class="product-grid"></div>
             </div>
             <div id="category-ai" class="category-page">
-                <div class="flex items-center gap-4 mb-6">
+                <div class="category-header">
                     <button onclick="goHome()" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
                     <h2 class="page-title">🤖 اشتراكات الذكاء الاصطناعي</h2>
                 </div>
@@ -890,7 +987,11 @@
                 { name: "🎯 120 شدة", price: 8000 },
                 { name: "🎯 180 شدة", price: 12000 },
                 { name: "🎯 240 شدة", price: 16000 },
-                { name: "🎯 325 شدة", price: 20000 }
+                { name: "🎯 325 شدة", price: 20000 },
+                { name: "🎯 660 شدة", price: 38000 },
+                { name: "🎯 1800 شدة", price: 100000 },
+                { name: "🎯 3850 شدة", price: 210000 },
+                { name: "🎯 8100 شدة", price: 430000 }
             ],
             freefire: [
                 { name: "💎 110 جوهرة", price: 4500 },
@@ -1146,7 +1247,6 @@
                     shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
                     break;
                 case 'tiktok':
-                    // TikTok uses a general share link, we use the text and url
                     shareUrl =
                     `https://www.tiktok.com/share?text=${encodeURIComponent(text + ' ' + url)}`;
                     break;
@@ -1186,8 +1286,8 @@
                     const encodedShareText = encodeURIComponent(shareText + ' ' + window.location.href);
                     return `
                                 <div class="product-card">
-                                    <p class="font-bold text-lg text-dark">${p.name}</p>
-                                    <p class="text-2xl font-black text-yellow-dark my-2">${p.price.toLocaleString()} ج.س</p>
+                                    <p class="product-name">${p.name}</p>
+                                    <p class="product-price">${p.price.toLocaleString()} ج.س</p>
                                     <button onclick="window.showOrderModal('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', '${p.id}')" class="w-full action-btn mb-2">شراء</button>
                                     <div class="share-product-title">مشاركة المنتج</div>
                                     <div class="share-buttons">
@@ -1571,16 +1671,65 @@
 
         // ========== التنقل بين الصفحات ==========
         window.showCategory = (category) => {
+            // إخفاء الصفحة الرئيسية
             document.getElementById('homePage').classList.add('hidden');
-            document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
+
+            // إخفاء جميع صفحات الفئات
+            document.querySelectorAll('.category-page').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // إظهار الصفحة المطلوبة
             const target = document.getElementById(`category-${category}`);
-            if (target) target.classList.add('active');
+            if (target) {
+                target.classList.add('active');
+                // التأكد من عرض المنتجات في هذه الفئة
+                renderCategoryProducts(category);
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
+        // دالة لعرض منتجات فئة معينة
+        function renderCategoryProducts(category) {
+            const grid = document.getElementById(`${category}Grid`);
+            if (!grid) return;
+
+            const products = allProducts[category]?.filter(p => p.isActive !== false) || [];
+
+            if (products.length === 0) {
+                grid.innerHTML = `
+                            <div class="empty-products col-span-full">
+                                <i class="fas fa-box-open"></i>
+                                <p>لا توجد منتجات متاحة في هذه الفئة</p>
+                                <p class="text-sm mt-2">سيتم إضافة منتجات جديدة قريباً</p>
+                            </div>
+                        `;
+                return;
+            }
+
+            grid.innerHTML = products.map(p => {
+                return `
+                            <div class="product-card">
+                                <p class="product-name">${p.name}</p>
+                                <p class="product-price">${p.price.toLocaleString()} ج.س</p>
+                                <button onclick="window.showOrderModal('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', '${p.id}')" class="w-full action-btn mb-2">شراء</button>
+                                <div class="share-product-title">مشاركة المنتج</div>
+                                <div class="share-buttons">
+                                    <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'whatsapp')" class="share-btn share-btn-whatsapp"><i class="fab fa-whatsapp"></i> واتساب</button>
+                                    <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'facebook')" class="share-btn share-btn-facebook"><i class="fab fa-facebook-f"></i> فيسبوك</button>
+                                    <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'tiktok')" class="share-btn share-btn-tiktok"><i class="fab fa-tiktok"></i> تيك توك</button>
+                                </div>
+                            </div>
+                        `;
+            }).join('');
+        }
+
         window.goHome = () => {
             document.getElementById('homePage').classList.remove('hidden');
-            document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.category-page').forEach(el => {
+                el.classList.remove('active');
+            });
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
@@ -1661,6 +1810,7 @@
         }
         menuBtn.onclick = () => toggleSidebar(true);
         overlay.onclick = () => toggleSidebar(false);
+        window.toggleSidebar = toggleSidebar;
 
         // ========== الثيم ==========
         function toggleTheme() {
@@ -1675,6 +1825,7 @@
                 document.getElementById('themeToggleBtn').innerHTML = '<i class="fas fa-sun w-6"></i> الوضع النهاري';
             }
         }
+        window.toggleTheme = toggleTheme;
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
             document.getElementById('themeToggleBtn').innerHTML = '<i class="fas fa-sun w-6"></i> الوضع النهاري';
