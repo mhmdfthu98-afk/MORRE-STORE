@@ -53,18 +53,50 @@
             transform: scale(1.05);
         }
         .product-card {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 1.5rem;
             transition: all 0.3s ease;
-            cursor: pointer;
+            cursor: default;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
         .product-card:hover {
-            background: rgba(255, 255, 255, 0.8);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
+        .share-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 0.75rem;
+        }
+        .share-btn {
+            padding: 0.4rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: white;
+            text-decoration: none;
+        }
+        .share-btn:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .share-btn-whatsapp { background: #25D366; }
+        .share-btn-facebook { background: #1877F2; }
+        .share-btn-tiktok { background: #000000; }
         .back-btn {
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -162,7 +194,7 @@
         .product-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 1.2rem;
         }
         @media (min-width: 640px) {
             .product-grid {
@@ -297,12 +329,8 @@
             animation: spin 1s linear infinite;
         }
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         .action-btn {
             background: linear-gradient(135deg, #f59e0b, #d97706);
@@ -350,69 +378,25 @@
         .text-dark-light {
             color: #475569;
         }
-        .border-dark {
-            border-color: rgba(0, 0, 0, 0.1);
-        }
-        .bg-dark-light {
-            background: rgba(0, 0, 0, 0.05);
-        }
         .text-yellow-dark {
             color: #d97706;
         }
         .border-yellow-dark {
             border-color: #d97706;
         }
-        .sidebar a {
-            color: #1e293b;
-        }
-        .sidebar a:hover {
-            background: rgba(245, 158, 11, 0.1);
-        }
-        .sidebar .text-yellow-300 {
-            color: #d97706;
-        }
-        .sidebar .border-yellow-500 {
-            border-color: #d97706;
-        }
-        .user-detail-modal {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            max-width: 500px;
-            width: 100%;
-            margin: 1rem;
-        }
-        .whatsapp-input {
-            background: rgba(255, 255, 255, 0.6);
-            border: 2px solid #25D366;
+        .danger-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            font-weight: 800;
+            padding: 0.75rem 1.5rem;
             border-radius: 1rem;
-            padding: 0.75rem 1rem;
-            width: 100%;
-            color: #1e293b;
-            transition: 0.2s;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
-        .whatsapp-input:focus {
-            outline: none;
-            border-color: #f59e0b;
-            background: rgba(255, 255, 255, 0.8);
-        }
-        .whatsapp-input::placeholder {
-            color: #94a3b8;
-        }
-        .whatsapp-icon-input {
-            position: relative;
-        }
-        .whatsapp-icon-input i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #25D366;
-            font-size: 1.2rem;
-        }
-        .whatsapp-icon-input input {
-            padding-right: 45px;
+        .danger-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
         }
         .empty-products {
             text-align: center;
@@ -428,19 +412,49 @@
             display: block;
             margin-bottom: 1rem;
         }
-        .danger-btn {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-            font-weight: 800;
-            padding: 0.75rem 1.5rem;
-            border-radius: 1rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+        .whatsapp-icon-input {
+            position: relative;
         }
-        .danger-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        .whatsapp-icon-input i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #25D366;
+            font-size: 1.2rem;
+        }
+        .whatsapp-icon-input input {
+            padding-right: 45px;
+        }
+        .whatsapp-input {
+            background: rgba(255, 255, 255, 0.6);
+            border: 2px solid #25D366;
+            border-radius: 1rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            color: #1e293b;
+            transition: 0.2s;
+        }
+        .whatsapp-input:focus {
+            outline: none;
+            border-color: #f59e0b;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .user-detail-modal {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            max-width: 500px;
+            width: 100%;
+            margin: 1rem;
+        }
+        .share-product-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #475569;
+            margin-top: 0.4rem;
+            margin-bottom: 0.3rem;
         }
     </style>
 </head>
@@ -936,12 +950,9 @@
         async function seedDefaultProducts() {
             try {
                 const productsSnap = await getDocs(collection(db, "products"));
-                
-                // إذا لم توجد منتجات، أضف المنتجات الافتراضية
                 if (productsSnap.empty) {
                     console.log("📦 جاري إضافة المنتجات الافتراضية...");
                     const batch = writeBatch(db);
-                    
                     for (const category in defaultProducts) {
                         for (const product of defaultProducts[category]) {
                             const id = `${category}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
@@ -956,7 +967,6 @@
                             });
                         }
                     }
-                    
                     await batch.commit();
                     console.log("✅ تم إضافة المنتجات الافتراضية بنجاح!");
                 }
@@ -968,13 +978,8 @@
         // ========== جلب المنتجات من Firestore ==========
         async function loadProductsFromFirestore() {
             try {
-                // أولاً: تأكد من وجود منتجات افتراضية
                 await seedDefaultProducts();
-                
-                // ثم جلب المنتجات
                 const productsSnap = await getDocs(collection(db, "products"));
-                
-                // إعادة تعيين allProducts
                 allProducts = {
                     pubg: [],
                     freefire: [],
@@ -986,7 +991,6 @@
                     tiktok: [],
                     ai: []
                 };
-                
                 if (!productsSnap.empty) {
                     productsSnap.forEach(doc => {
                         const p = doc.data();
@@ -995,10 +999,8 @@
                         }
                     });
                 }
-                
                 renderAllProducts();
                 loadManageProducts();
-                
             } catch (e) {
                 console.error("Error loading products:", e);
             }
@@ -1006,25 +1008,13 @@
 
         // ========== حذف جميع المنتجات ==========
         window.deleteAllProducts = async function() {
-            if (!confirm("⚠️ تحذير: هل أنت متأكد من حذف جميع المنتجات نهائياً؟")) {
-                return;
-            }
-            
-            if (!confirm("⚠️ تأكيد نهائي: لا يمكن التراجع عن هذا الإجراء! هل تريد المتابعة؟")) {
-                return;
-            }
-            
+            if (!confirm("⚠️ تحذير: هل أنت متأكد من حذف جميع المنتجات نهائياً؟")) return;
+            if (!confirm("⚠️ تأكيد نهائي: لا يمكن التراجع عن هذا الإجراء! هل تريد المتابعة؟")) return;
             try {
                 const productsSnap = await getDocs(collection(db, "products"));
                 const batch = writeBatch(db);
-                
-                productsSnap.forEach(doc => {
-                    batch.delete(doc.ref);
-                });
-                
+                productsSnap.forEach(doc => batch.delete(doc.ref));
                 await batch.commit();
-                
-                // إعادة تعيين المصفوفات المحلية
                 allProducts = {
                     pubg: [],
                     freefire: [],
@@ -1036,7 +1026,6 @@
                     tiktok: [],
                     ai: []
                 };
-                
                 renderAllProducts();
                 loadManageProducts();
                 alert("✅ تم حذف جميع المنتجات بنجاح!");
@@ -1140,34 +1129,75 @@
             }
         };
 
-        // ========== عرض جميع المنتجات ==========
+        // ========== دالة المشاركة ==========
+        function getShareText(productName, price, category) {
+            return `🛒 منتج: ${productName}\n💰 السعر: ${price.toLocaleString()} ج.س\n🎮 الفئة: ${category}\n🛍️ من متجر MORRE STORE`;
+        }
+
+        window.shareProduct = function(productName, price, category, platform) {
+            const text = getShareText(productName, price, category);
+            const url = window.location.href;
+            let shareUrl = '';
+            switch (platform) {
+                case 'whatsapp':
+                    shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + '\n' + url)}`;
+                    break;
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
+                    break;
+                case 'tiktok':
+                    // TikTok uses a general share link, we use the text and url
+                    shareUrl =
+                    `https://www.tiktok.com/share?text=${encodeURIComponent(text + ' ' + url)}`;
+                    break;
+                default:
+                    return;
+            }
+            if (shareUrl) {
+                window.open(shareUrl, '_blank');
+            }
+        };
+
+        // ========== عرض جميع المنتجات مع أزرار المشاركة ==========
         function renderAllProducts() {
-            const categories = ['pubg', 'freefire', 'clash', 'efootball', 'netflix', 'googleplay', 'redotpay', 'tiktok', 'ai'];
-            
+            const categories = ['pubg', 'freefire', 'clash', 'efootball', 'netflix', 'googleplay', 'redotpay', 'tiktok',
+                'ai'
+            ];
+
             categories.forEach(cat => {
                 const grid = document.getElementById(`${cat}Grid`);
                 if (!grid) return;
-                
+
                 const products = allProducts[cat]?.filter(p => p.isActive !== false) || [];
-                
+
                 if (products.length === 0) {
                     grid.innerHTML = `
-                        <div class="empty-products col-span-full">
-                            <i class="fas fa-box-open"></i>
-                            <p>لا توجد منتجات متاحة حالياً</p>
-                            <p class="text-sm mt-2">سيتم إضافة منتجات جديدة قريباً</p>
-                        </div>
-                    `;
+                                <div class="empty-products col-span-full">
+                                    <i class="fas fa-box-open"></i>
+                                    <p>لا توجد منتجات متاحة حالياً</p>
+                                    <p class="text-sm mt-2">سيتم إضافة منتجات جديدة قريباً</p>
+                                </div>
+                            `;
                     return;
                 }
-                
-                grid.innerHTML = products.map(p => `
-                    <div class="product-card p-5 text-dark text-center" onclick="window.showOrderModal('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', '${p.id}')">
-                        <p class="font-bold text-lg">${p.name}</p>
-                        <p class="text-2xl font-black text-yellow-dark my-2">${p.price.toLocaleString()} ج.س</p>
-                        <button class="w-full action-btn">شراء</button>
-                    </div>
-                `).join('');
+
+                grid.innerHTML = products.map(p => {
+                    const shareText = getShareText(p.name, p.price, cat);
+                    const encodedShareText = encodeURIComponent(shareText + ' ' + window.location.href);
+                    return `
+                                <div class="product-card">
+                                    <p class="font-bold text-lg text-dark">${p.name}</p>
+                                    <p class="text-2xl font-black text-yellow-dark my-2">${p.price.toLocaleString()} ج.س</p>
+                                    <button onclick="window.showOrderModal('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', '${p.id}')" class="w-full action-btn mb-2">شراء</button>
+                                    <div class="share-product-title">مشاركة المنتج</div>
+                                    <div class="share-buttons">
+                                        <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'whatsapp')" class="share-btn share-btn-whatsapp"><i class="fab fa-whatsapp"></i> واتساب</button>
+                                        <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'facebook')" class="share-btn share-btn-facebook"><i class="fab fa-facebook-f"></i> فيسبوك</button>
+                                        <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'tiktok')" class="share-btn share-btn-tiktok"><i class="fab fa-tiktok"></i> تيك توك</button>
+                                    </div>
+                                </div>
+                            `;
+                }).join('');
             });
         }
 
@@ -1252,12 +1282,12 @@
                 list.innerHTML = '';
                 if (productsSnap.empty) {
                     list.innerHTML = `
-                        <div class="empty-products">
-                            <i class="fas fa-box-open"></i>
-                            <p>لا توجد منتجات مضافة</p>
-                            <p class="text-sm mt-2">أضف منتجاً جديداً من تبويب "إضافة منتج"</p>
-                        </div>
-                    `;
+                                <div class="empty-products">
+                                    <i class="fas fa-box-open"></i>
+                                    <p>لا توجد منتجات مضافة</p>
+                                    <p class="text-sm mt-2">أضف منتجاً جديداً من تبويب "إضافة منتج"</p>
+                                </div>
+                            `;
                     return;
                 }
                 const catNames = {
@@ -1271,29 +1301,29 @@
                     tiktok: '🎵 تيك توك',
                     ai: '🤖 ذكاء اصطناعي'
                 };
-                
+
                 let html = '';
                 productsSnap.forEach(doc => {
                     const p = doc.data();
                     html += `
-                        <div class="product-item flex justify-between items-center p-3 bg-white/50 rounded-xl">
-                            <div>
-                                <p class="text-dark font-bold">${p.name}</p>
-                                <p class="text-yellow-dark text-sm">${p.price.toLocaleString()} ج.س</p>
-                                <p class="text-dark-light text-xs">${catNames[p.category] || p.category}</p>
-                            </div>
-                            <div class="flex gap-2">
-                                <button onclick="window.editProductPrice('${doc.id}', ${p.price})" class="bg-yellow-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-yellow-600">تعديل السعر</button>
-                                <button onclick="window.deleteProduct('${doc.id}')" class="bg-red-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-600">حذف</button>
-                            </div>
-                        </div>
-                    `;
+                                <div class="product-item flex justify-between items-center p-3 bg-white/50 rounded-xl">
+                                    <div>
+                                        <p class="text-dark font-bold">${p.name}</p>
+                                        <p class="text-yellow-dark text-sm">${p.price.toLocaleString()} ج.س</p>
+                                        <p class="text-dark-light text-xs">${catNames[p.category] || p.category}</p>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <button onclick="window.editProductPrice('${doc.id}', ${p.price})" class="bg-yellow-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-yellow-600">تعديل السعر</button>
+                                        <button onclick="window.deleteProduct('${doc.id}')" class="bg-red-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-600">حذف</button>
+                                    </div>
+                                </div>
+                            `;
                 });
                 list.innerHTML = html;
             } catch (e) {
                 console.error("Error loading manage products:", e);
                 document.getElementById('manageProductsList').innerHTML =
-                '<p class="text-red-500 text-center">❌ حدث خطأ في تحميل المنتجات</p>';
+                    '<p class="text-red-500 text-center">❌ حدث خطأ في تحميل المنتجات</p>';
             }
         }
 
@@ -1459,7 +1489,7 @@
 
             if (confirm(
                     `💰 تأكيد شحن الرصيد\n\nالمستخدم: ${userName}\nالمبلغ: ${amount.toLocaleString()} ج.س\nالرصيد الحالي: ${currentBalance.toLocaleString()} ج.س\n\nهل تريد المتابعة؟`
-                    )) {
+                )) {
                 await updateDoc(doc(db, "users", userDoc.id), { balance: increment(amount) });
                 alert(`✅ تم شحن ${amount.toLocaleString()} ج.س بنجاح للمستخدم ${userName}`);
                 document.getElementById('targetWallet').value = '';
@@ -1493,7 +1523,7 @@
 
             if (confirm(
                     `💰 تأكيد شحن الرصيد\n\nالمستخدم: ${userName}\nالمبلغ: ${amount.toLocaleString()} ج.س\nالرصيد الحالي: ${currentBalance.toLocaleString()} ج.س\n\nهل تريد المتابعة؟`
-                    )) {
+                )) {
                 await updateDoc(doc(db, "users", userDoc.id), { balance: increment(amount) });
                 alert(`✅ تم شحن ${amount.toLocaleString()} ج.س بنجاح للمستخدم ${userName}`);
                 loadAdminStats();
@@ -1513,7 +1543,7 @@
                     const o = d.data();
                     const config = o.status === 'مكتمل' ? { color: 'text-green-600', icon: '✅' } : o.status ===
                         'فشل' ? { color: 'text-red-600', icon: '❌' } : { color: 'text-yellow-dark',
-                        icon: '⏳' };
+                            icon: '⏳' };
                     list.innerHTML +=
                         `<div class="glass p-4 rounded-2xl"><div class="flex justify-between"><div><span class="text-2xl">${config.icon}</span><p class="font-bold text-dark">${o.product}</p><p class="text-xs text-dark-light">🆔 ${o.gameID}</p></div><span class="px-2 py-1 rounded-full text-xs ${config.color} bg-black/5">${o.status}</span></div><div class="grid grid-cols-2 gap-2 mt-3 text-sm"><div class="text-dark">💰 ${o.price.toLocaleString()} ج.س</div><div class="text-dark">📱 ${o.whatsapp || 'غير محدد'}</div></div></div>`;
                 });
@@ -1568,11 +1598,11 @@
             const email = document.getElementById('reg-email').value.trim();
             const pwd = document.getElementById('reg-password').value;
             const confirmPwd = document.getElementById('reg-confirm-password').value;
-            
+
             if (!name || !email || !pwd || !confirmPwd) { alert('❌ جميع الحقول مطلوبة'); return; }
             if (pwd.length < 6) { alert('❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل'); return; }
             if (pwd !== confirmPwd) { alert('❌ كلمة المرور غير متطابقة مع التأكيد'); return; }
-            
+
             try {
                 const cred = await createUserWithEmailAndPassword(auth, email, pwd);
                 const walletID = Math.floor(100000 + Math.random() * 900000).toString();
