@@ -42,15 +42,14 @@
         }
         .service-icon {
             width: 100%;
-            height: 140px;
+            height: 180px;
             object-fit: contain;
-            background: white;
             border-radius: 1rem;
             padding: 0.5rem;
             transition: all 0.3s ease;
         }
         .service-card:hover .service-icon {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
         .product-card {
             background: rgba(255, 255, 255, 0.7);
@@ -122,25 +121,6 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 1.5rem;
         }
-        .whatsapp-float {
-            position: fixed;
-            bottom: 80px;
-            left: 20px;
-            z-index: 100;
-            background: #25D366;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-        }
         .category-page {
             display: none;
         }
@@ -188,7 +168,7 @@
         }
         @media (min-width: 1024px) {
             .service-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
             }
         }
         .product-grid {
@@ -456,6 +436,28 @@
             margin-top: 0.4rem;
             margin-bottom: 0.3rem;
         }
+        /* تنسيقات البطاقات الجديدة */
+        .service-card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 1rem;
+        }
+        @media (max-width: 640px) {
+            .service-card-img {
+                height: 160px;
+            }
+        }
+        .service-card {
+            padding: 0.75rem;
+        }
+        .service-card h3 {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        .service-card p {
+            font-size: 0.7rem;
+        }
     </style>
 </head>
 <body>
@@ -628,49 +630,240 @@
             <div id="homePage" class="home-page">
                 <h2 class="text-2xl font-black text-dark mb-6 text-center">🌟 جميع الخدمات</h2>
                 <div class="service-grid">
-                    <div class="glass-card p-4 text-center service-card" onclick="showCategory('pubg')">
-                        <img src="https://i.ibb.co/20tqyP6s/4ff592f1-0de2-421f-bd99-514dd525d512.png" alt="PUBG" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">ببجي PUBG</h3>
+                    <!-- PUBG -->
+                    <div class="glass-card p-3 text-center service-card" onclick="showCategory('pubg')">
+                        <div dir="rtl" class="w-full">
+                            <div class="rounded-[1.5rem] bg-[#F7E08A] p-2 shadow-lg">
+                                <div class="relative rounded-[1.2rem] bg-[#F5C518] p-3">
+                                    <div class="rounded-[1rem] border-2 border-white/90 px-4 py-6">
+                                        <div class="flex flex-col items-center gap-4">
+                                            <div class="relative w-full">
+                                                <div class="relative rounded-md border-[4px] border-white px-3 py-4">
+                                                    <span class="block text-center text-3xl font-extrabold italic tracking-tight text-white" dir="ltr">PUBG</span>
+                                                    <span class="absolute -left-[7px] top-3 h-2 w-1.5 bg-white"></span>
+                                                    <span class="absolute -left-[7px] bottom-3 h-2 w-1.5 bg-white"></span>
+                                                    <span class="absolute -right-[7px] top-3 h-2 w-1.5 bg-white"></span>
+                                                    <span class="absolute -right-[7px] bottom-3 h-2 w-1.5 bg-white"></span>
+                                                </div>
+                                            </div>
+                                            <div class="h-8 w-full rounded-full border-2 border-dotted border-white/95"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-dark font-bold mt-2 text-sm">ببجي PUBG</h3>
                         <p class="text-dark-light text-xs">شحن فوري</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="showCategory('freefire')">
-                        <img src="https://i.ibb.co/LMh98T2/4bf2c240-db85-47c5-b211-3d0a5cf192df.png" alt="FreeFire" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">فري فاير FreeFire</h3>
+
+                    <!-- FreeFire -->
+                    <div class="glass-card p-3 text-center service-card" onclick="showCategory('freefire')">
+                        <div dir="rtl" class="w-full">
+                            <div class="rounded-[1.5rem] bg-[#F7E08A] p-2 shadow-lg">
+                                <div class="relative rounded-[1.2rem] bg-[#F5B60F] p-3">
+                                    <div class="rounded-[1rem] border-2 border-white/90 px-4 py-6">
+                                        <div class="flex flex-col items-center gap-3">
+                                            <div class="flex flex-col items-center gap-2">
+                                                <div class="flex items-baseline text-white" dir="ltr">
+                                                    <span class="text-2xl font-extrabold tracking-tight" style="font-family: Impact, 'Arial Black', sans-serif;">FREE&nbsp;F</span>
+                                                    <span class="relative mx-[1px] flex flex-col items-center">
+                                                        <span class="h-4 w-[7px] rounded-t-sm bg-[#F26A1B]"></span>
+                                                        <span class="h-3 w-[7px] bg-[#F26A1B]" style="clip-path: polygon(0 0,100% 0,50% 100%);"></span>
+                                                    </span>
+                                                    <span class="text-2xl font-extrabold tracking-tight" style="font-family: Impact, 'Arial Black', sans-serif;">RE</span>
+                                                </div>
+                                                <span class="text-base font-bold text-white">شحن فري فاير</span>
+                                            </div>
+                                            <div class="h-8 w-full rounded-full border-2 border-dotted border-white/95"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-dark font-bold mt-2 text-sm">فري فاير FreeFire</h3>
                         <p class="text-dark-light text-xs">شحن فوري</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="showCategory('efootball')">
-                        <img src="https://i.ibb.co/RkCSn7yX/a7934c4c-ed36-4662-b9cc-7bc04c57abf3.png" alt="eFootball" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">eFootball شحن</h3>
+
+                    <!-- eFootball -->
+                    <div class="glass-card p-3 text-center service-card" onclick="showCategory('efootball')">
+                        <div dir="rtl" class="w-full">
+                            <div class="rounded-[1.5rem] bg-[#F7E08A] p-2 shadow-lg">
+                                <div class="relative rounded-[1.2rem] bg-[#F5B60F] p-3">
+                                    <div class="rounded-[1rem] border-2 border-white/90 px-4 py-6">
+                                        <div class="flex flex-col items-center gap-4">
+                                            <div class="flex flex-col items-center gap-2">
+                                                <svg viewBox="0 0 100 100" class="h-16 w-16 text-white" fill="currentColor">
+                                                    <path d="M50 6a44 44 0 1 0 0 88 44 44 0 0 0 0-88Zm0 12a32 32 0 0 1 31 25H19A32 32 0 0 1 50 18ZM19 57h62a32 32 0 0 1-62 0Z"/>
+                                                </svg>
+                                                <div class="relative" dir="ltr">
+                                                    <span class="text-xl font-extrabold tracking-widest text-white" style="font-family: 'Arial Black', Impact, sans-serif;">FOOTBALL</span>
+                                                    <span class="absolute -top-1 -right-3 text-[8px] font-bold text-white">TM</span>
+                                                </div>
+                                            </div>
+                                            <div class="h-8 w-full rounded-full border-2 border-dotted border-white/95"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-dark font-bold mt-2 text-sm">eFootball شحن</h3>
                         <p class="text-dark-light text-xs">كوينز وباقات</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="showCategory('clash')">
-                        <img src="https://i.ibb.co/ZpS1L23Z/71ce3435-2342-43ff-aad3-0f65c7e6e837.png" alt="Clash of Clans" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">كلاش أوف كلانس</h3>
+
+                    <!-- Clash of Clans -->
+                    <div class="glass-card p-3 text-center service-card" onclick="showCategory('clash')">
+                        <div dir="rtl" class="w-full">
+                            <div class="rounded-[1.5rem] bg-[#F7E08A] p-2 shadow-lg">
+                                <div class="relative rounded-[1.2rem] bg-[#F5B60F] p-3">
+                                    <div class="rounded-[1rem] border-2 border-white/90 px-4 py-6">
+                                        <div class="flex flex-col items-center gap-3">
+                                            <div class="flex flex-col items-center gap-2">
+                                                <img
+                                                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/file_0000000019f87246a34879d95dafc72f-EBttJvykMHCxsAqPv2sbs99QG3PpPS.png"
+                                                    alt="Clash of Clans"
+                                                    class="w-40 object-contain"
+                                                    crossorigin="anonymous"
+                                                />
+                                                <span class="text-base font-bold text-white">Clash of Clans شحن</span>
+                                            </div>
+                                            <div class="h-8 w-full rounded-full border-2 border-dotted border-white/95"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-dark font-bold mt-2 text-sm">كلاش أوف كلانس</h3>
                         <p class="text-dark-light text-xs">تذاكر وجواهر</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="showCategory('netflix')">
-                        <img src="https://i.ibb.co/HTqk43z8/4054fb24-7c84-445b-b62e-c15d5ed4fe8b.png" alt="Netflix" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">نتفليكس Netflix</h3>
+
+                    <!-- Netflix -->
+                    <div class="glass-card p-3 text-center service-card" onclick="showCategory('netflix')">
+                        <div dir="rtl" class="w-full">
+                            <div class="rounded-[1.5rem] bg-[#F7E08A] p-2 shadow-lg">
+                                <div class="relative rounded-[1.2rem] bg-[#F5B60F] p-3">
+                                    <div class="rounded-[1rem] border-2 border-white/90 px-4 py-6">
+                                        <div class="flex flex-col items-center gap-3">
+                                            <div class="flex flex-col items-center gap-1">
+                                                <svg viewBox="0 0 60 110" class="h-20 w-auto">
+                                                    <path fill="#B1060F" d="M6 0h16l32 110H38L6 0z"/>
+                                                    <path fill="#B1060F" d="M54 110H38L6 0h16l32 110z"/>
+                                                    <path fill="#E50914" d="M6 0h16v110H6V0zM38 0h16v110H38V0z"/>
+                                                </svg>
+                                                <span class="text-xl font-semibold text-white" dir="ltr" style="font-family: 'Arial', sans-serif;">Netflix</span>
+                                            </div>
+                                            <div class="h-8 w-full rounded-full border-2 border-dotted border-white/95"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-dark font-bold mt-2 text-sm">نتفليكس Netflix</h3>
                         <p class="text-dark-light text-xs">اشتراكات شهرية</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="showCategory('googleplay')">
-                        <img src="https://i.ibb.co/LhNr3W7Y/f0bf22d7-2b70-419a-8c74-898d8a251e56.png" alt="Google Play" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">جوجل بلاي</h3>
+
+                    <!-- Google Play -->
+                    <div class="glass-card p-3 text-center service-card" onclick="showCategory('googleplay')">
+                        <div dir="rtl" class="w-full">
+                            <div class="rounded-[1.5rem] bg-[#FBE38E] p-2 shadow-lg">
+                                <div class="relative rounded-[1.2rem] bg-[#F5B815] p-3">
+                                    <div class="rounded-[1rem] border-2 border-white/90 px-4 py-6">
+                                        <div class="flex flex-col items-center gap-3">
+                                            <svg viewBox="0 0 512 512" class="h-20 w-20">
+                                                <path fill="#00C3FF" d="M63 32c-4 3-6 8-6 15v418c0 7 2 12 6 15l236-224L63 32z"/>
+                                                <path fill="#00D95F" d="M63 32l236 224 66-63L110 20C93 11 76 22 63 32z"/>
+                                                <path fill="#FF3A44" d="M63 480c13 10 30 11 47 2l255-145-66-63L63 480z"/>
+                                                <path fill="#FFC700" d="M365 193l-66 63 66 63 84-48c19-11 19-38 0-49l-84-29z"/>
+                                            </svg>
+                                            <span class="text-xl font-medium text-white tracking-tight" dir="ltr">Google Play</span>
+                                            <div class="h-8 w-full rounded-full border-2 border-dotted border-white/95"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-dark font-bold mt-2 text-sm">جوجل بلاي</h3>
                         <p class="text-dark-light text-xs">بطاقات شحن</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="showCategory('redotpay')">
-                        <img src="https://i.ibb.co/ksqdJcgH/e96c9669-6446-4942-b760-a507d492a2b8.png" alt="Redotpay" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">فيزا Redotpay</h3>
+
+                    <!-- Redotpay VISA -->
+                    <div class="glass-card p-3 text-center service-card" onclick="showCategory('redotpay')">
+                        <div dir="rtl" class="w-full">
+                            <div class="rounded-[1.5rem] bg-[#F7E08A] p-2 shadow-lg">
+                                <div class="relative rounded-[1.2rem] bg-[#F5B60F] p-3">
+                                    <div class="rounded-[1rem] border-2 border-white/90 px-4 py-6">
+                                        <div class="flex flex-col items-center gap-3">
+                                            <div class="flex flex-col items-center gap-1">
+                                                <div class="relative" dir="ltr">
+                                                    <span class="absolute -top-2 left-0.5 h-4 w-6 bg-[#F26A1B]" style="clip-path: polygon(0 0, 100% 0, 30% 100%);"></span>
+                                                    <span class="text-3xl font-extrabold italic tracking-tight text-white" style="font-family: 'Arial', sans-serif;">VISA</span>
+                                                </div>
+                                                <span class="text-base font-bold text-white">فيزا كارد افتراضية</span>
+                                            </div>
+                                            <div class="h-8 w-full rounded-full border-2 border-dotted border-white/95"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-dark font-bold mt-2 text-sm">فيزا Redotpay</h3>
                         <p class="text-dark-light text-xs">بطاقة افتراضية</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="showCategory('tiktok')">
-                        <img src="https://i.ibb.co/j93NWK9T/f74413af-29eb-4da4-917d-e347c7698ed7.png" alt="TikTok" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">تيك توك TikTok</h3>
+
+                    <!-- TikTok -->
+                    <div class="glass-card p-3 text-center service-card" onclick="showCategory('tiktok')">
+                        <div dir="rtl" class="w-full">
+                            <div class="rounded-[1.5rem] bg-[#F7E08A] p-2 shadow-lg">
+                                <div class="relative rounded-[1.2rem] bg-[#F5C518] p-3">
+                                    <div class="rounded-[1rem] border-2 border-white/90 px-4 py-6">
+                                        <div class="flex flex-col items-center gap-3">
+                                            <div class="flex flex-col items-center gap-1">
+                                                <svg viewBox="0 0 48 48" class="h-16 w-16">
+                                                    <path transform="translate(-1.5,1.5)" fill="#25F4EE" d="M33 4c1 5 5 8 10 8v7c-3 0-6-1-9-3v14a13 13 0 1 1-13-13c1 0 2 0 3 .2v7.4a6 6 0 1 0 3 5.4V4h5z"/>
+                                                    <path transform="translate(1.5,-1.5)" fill="#FE2C55" d="M33 4c1 5 5 8 10 8v7c-3 0-6-1-9-3v14a13 13 0 1 1-13-13c1 0 2 0 3 .2v7.4a6 6 0 1 0 3 5.4V4h5z"/>
+                                                    <path fill="#000000" d="M33 4c1 5 5 8 10 8v7c-3 0-6-1-9-3v14a13 13 0 1 1-13-13c1 0 2 0 3 .2v7.4a6 6 0 1 0 3 5.4V4h5z"/>
+                                                </svg>
+                                                <div class="relative" dir="ltr">
+                                                    <span class="absolute -left-[1.5px] top-[1.5px] text-xl font-extrabold tracking-tight text-[#25F4EE]" style="font-family: 'Arial Black', Impact, sans-serif;">TikTok</span>
+                                                    <span class="absolute left-[1.5px] -top-[1.5px] text-xl font-extrabold tracking-tight text-[#FE2C55]" style="font-family: 'Arial Black', Impact, sans-serif;">TikTok</span>
+                                                    <span class="relative text-xl font-extrabold tracking-tight text-black" style="font-family: 'Arial Black', Impact, sans-serif;">TikTok</span>
+                                                </div>
+                                            </div>
+                                            <div class="h-8 w-full rounded-full border-2 border-dotted border-white/95"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-dark font-bold mt-2 text-sm">تيك توك TikTok</h3>
                         <p class="text-dark-light text-xs">عملات تيك توك</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="showCategory('ai')">
-                        <img src="https://i.ibb.co/zVDbcgnW/c8f040a9-48ad-4e5e-8203-f941fbf94ad6.png" alt="AI" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">الذكاء الاصطناعي</h3>
+
+                    <!-- AI -->
+                    <div class="glass-card p-3 text-center service-card" onclick="showCategory('ai')">
+                        <div dir="rtl" class="w-full">
+                            <div class="rounded-[1.5rem] bg-[#F7E08A] p-2 shadow-lg">
+                                <div class="relative rounded-[1.2rem] bg-[#F5B60F] p-3">
+                                    <div class="rounded-[1rem] border-2 border-white/90 px-4 py-6">
+                                        <div class="flex flex-col items-center gap-4">
+                                            <div class="flex items-center justify-center gap-3">
+                                                <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white">
+                                                    <svg viewBox="0 0 24 24" class="h-12 w-12 text-[#F5B60F]" fill="currentColor">
+                                                        <path d="M22.28 9.82a5.98 5.98 0 0 0-.52-4.91 6.05 6.05 0 0 0-6.51-2.9A6 6 0 0 0 4.98 4.18a5.98 5.98 0 0 0-4 2.9 6.05 6.05 0 0 0 .74 7.1 5.98 5.98 0 0 0 .52 4.9 6.05 6.05 0 0 0 6.51 2.9A5.98 5.98 0 0 0 13.26 22a6.05 6.05 0 0 0 5.77-4.2 5.98 5.98 0 0 0 4-2.9 6.05 6.05 0 0 0-.75-7.09Zm-9 12.6a4.48 4.48 0 0 1-2.88-1.04l.14-.08 4.78-2.76a.78.78 0 0 0 .4-.68v-6.74l2.02 1.17.02.05v5.58a4.5 4.5 0 0 1-4.5 4.5ZM3.6 18.3a4.47 4.47 0 0 1-.54-3.01l.14.08 4.78 2.76a.78.78 0 0 0 .78 0l5.84-3.37v2.33a.07.07 0 0 1-.03.06l-4.83 2.79a4.5 4.5 0 0 1-6.14-1.65ZM2.34 7.9a4.48 4.48 0 0 1 2.34-1.97v5.68a.78.78 0 0 0 .39.68l5.82 3.36-2.02 1.17a.07.07 0 0 1-.07 0l-4.83-2.79A4.5 4.5 0 0 1 2.34 7.9Zm16.6 3.86-5.83-3.4L15.13 7.2a.07.07 0 0 1 .07 0l4.83 2.78a4.5 4.5 0 0 1-.68 8.11v-5.68a.78.78 0 0 0-.4-.67Zm2.01-3.03-.14-.08-4.77-2.79a.78.78 0 0 0-.79 0L9.42 9.23V6.9a.07.07 0 0 1 .03-.06l4.83-2.79a4.5 4.5 0 0 1 6.68 4.66ZM8.32 12.87 6.3 11.7a.07.07 0 0 1-.03-.05V6.07a4.5 4.5 0 0 1 7.38-3.45l-.14.08L8.72 5.46a.78.78 0 0 0-.4.68v6.73Zm1.1-2.36L12 9.01l2.6 1.5v3l-2.6 1.5-2.6-1.5v-3Z"/>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white">
+                                                    <svg viewBox="0 0 24 24" class="h-14 w-14 text-[#F5B60F]" fill="currentColor">
+                                                        <path d="M12 1.5c.4 4.7 3.8 8.1 8.5 8.5v4c-4.7.4-8.1 3.8-8.5 8.5h-4c-.4-4.7-3.8-8.1-8.5-8.5v-4c4.7-.4 8.1-3.8 8.5-8.5h4Z"/>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="h-8 w-full rounded-full border-2 border-dotted border-white/95"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-dark font-bold mt-2 text-sm">الذكاء الاصطناعي</h3>
                         <p class="text-dark-light text-xs">ChatGPT - Gemini</p>
                     </div>
                 </div>
@@ -1146,9 +1339,7 @@
                     shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
                     break;
                 case 'tiktok':
-                    // TikTok uses a general share link, we use the text and url
-                    shareUrl =
-                    `https://www.tiktok.com/share?text=${encodeURIComponent(text + ' ' + url)}`;
+                    shareUrl = `https://www.tiktok.com/share?text=${encodeURIComponent(text + ' ' + url)}`;
                     break;
                 default:
                     return;
