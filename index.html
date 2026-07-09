@@ -8,6 +8,7 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* --- نفس الأنماط الأساسية السابقة مع تعديلات على بطاقات المنتج --- */
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
         * {
             font-family: 'Cairo', sans-serif;
@@ -20,6 +21,7 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
+        /* --- الأنماط العامة (glass, cards, buttons...) كما هي من الكود السابق --- */
         .glass {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(16px);
@@ -52,111 +54,123 @@
         .service-card:hover .service-icon {
             transform: scale(1.05);
         }
+        /* --- التصميم الجديد لبطاقات المنتج (على شكل اليونكو) --- */
         .product-card {
             background: white;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 0.75rem;
         }
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border-color: #f59e0b;
+        }
+        .product-card .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background: #f8fafc;
+            padding: 0.5rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .product-card .product-info {
+            padding: 0.75rem 1rem 0.5rem;
+            flex: 1;
         }
         .product-card .product-name {
-            font-size: 1.4rem;
-            font-weight: 800;
+            font-size: 0.95rem;
+            font-weight: 700;
             color: #1e293b;
             margin-bottom: 0.25rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.6rem;
         }
         .product-card .product-price {
-            font-size: 1.6rem;
+            font-size: 1.1rem;
             font-weight: 900;
             color: #d97706;
-            margin-bottom: 0.75rem;
+            margin: 0.25rem 0;
         }
         .product-card .product-rating {
-            color: #f59e0b;
-            font-size: 0.9rem;
-            margin-bottom: 0.75rem;
-        }
-        .product-card .product-reviews {
-            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
             font-size: 0.75rem;
-            margin-bottom: 1rem;
+            color: #f59e0b;
+            margin: 0.25rem 0;
+        }
+        .product-card .product-rating span {
+            color: #94a3b8;
+            margin-right: 0.25rem;
+        }
+        .product-card .product-actions {
+            padding: 0 1rem 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
         }
         .product-card .btn-add-cart {
             background: #f59e0b;
             color: white;
             font-weight: 700;
-            padding: 0.6rem 1.5rem;
-            border-radius: 2rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
             border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
+            font-size: 0.85rem;
             width: 100%;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
         }
         .product-card .btn-add-cart:hover {
             background: #d97706;
-            transform: scale(1.02);
         }
         .product-card .btn-buy-now {
             background: #1e293b;
             color: white;
             font-weight: 700;
-            padding: 0.6rem 1.5rem;
-            border-radius: 2rem;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
             border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
+            font-size: 0.85rem;
             width: 100%;
-            font-size: 0.95rem;
         }
         .product-card .btn-buy-now:hover {
             background: #0f172a;
-            transform: scale(1.02);
         }
-        .product-card .product-badge {
-            display: inline-block;
-            background: #fef3c7;
-            color: #d97706;
-            font-size: 0.65rem;
-            font-weight: 700;
-            padding: 0.2rem 0.8rem;
-            border-radius: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        .share-buttons {
+        .product-card .share-buttons {
+            padding: 0 1rem 0.5rem;
             display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 0.75rem;
+            gap: 0.3rem;
+            justify-content: flex-start;
         }
-        .share-btn {
-            padding: 0.3rem 0.7rem;
-            border-radius: 2rem;
-            font-size: 0.65rem;
+        .product-card .share-btn {
+            padding: 0.2rem 0.6rem;
+            border-radius: 1.5rem;
+            font-size: 0.6rem;
             font-weight: 700;
             border: none;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.2rem;
             color: white;
             text-decoration: none;
-        }
-        .share-btn:hover {
-            transform: scale(1.05);
-            opacity: 0.9;
         }
         .share-btn-whatsapp { background: #25D366; }
         .share-btn-facebook { background: #1877F2; }
         .share-btn-tiktok { background: #000000; }
+        /* --- باقي الأنماط (شبكة المنتجات، الأزرار، الوضع الليلي...) من الكود السابق --- */
         .back-btn {
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -253,17 +267,22 @@
         }
         .product-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.2rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
         }
         @media (min-width: 640px) {
             .product-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        @media (min-width: 1024px) {
+        @media (min-width: 768px) {
             .product-grid {
                 grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
         .admin-tab {
@@ -465,6 +484,7 @@
             background: rgba(255, 255, 255, 0.4);
             border-radius: 1.5rem;
             border: 2px dashed rgba(0, 0, 0, 0.1);
+            grid-column: 1 / -1;
         }
         .empty-products i {
             font-size: 3rem;
@@ -509,13 +529,6 @@
             width: 100%;
             margin: 1rem;
         }
-        .share-product-title {
-            font-size: 0.65rem;
-            font-weight: 600;
-            color: #94a3b8;
-            margin-top: 0.5rem;
-            margin-bottom: 0.3rem;
-        }
         .category-header {
             display: flex;
             align-items: center;
@@ -526,24 +539,13 @@
         .category-header .page-title {
             font-size: 1.8rem;
         }
-        @media (max-width: 480px) {
-            .category-header .page-title {
-                font-size: 1.3rem;
-            }
-            .product-card {
-                padding: 1.2rem;
-            }
-            .product-card .product-name {
-                font-size: 1.2rem;
-            }
-            .product-card .product-price {
-                font-size: 1.3rem;
-            }
-        }
-        /* Dark mode */
+        /* --- الوضع الليلي --- */
         .dark .product-card {
             background: #1e293b;
-            border-color: rgba(255, 255, 255, 0.05);
+            border-color: #334155;
+        }
+        .dark .product-card .product-image {
+            background: #0f172a;
         }
         .dark .product-card .product-name {
             color: #f1f5f9;
@@ -551,7 +553,7 @@
         .dark .product-card .product-price {
             color: #fbbf24;
         }
-        .dark .product-card .product-reviews {
+        .dark .product-card .product-rating span {
             color: #94a3b8;
         }
         .dark .product-card .btn-buy-now {
@@ -639,6 +641,21 @@
         }
         .dark .empty-products i {
             color: #475569;
+        }
+        @media (max-width: 480px) {
+            .category-header .page-title {
+                font-size: 1.3rem;
+            }
+            .product-card .product-image {
+                height: 150px;
+            }
+            .product-card .product-name {
+                font-size: 0.85rem;
+                height: 2.2rem;
+            }
+            .product-card .product-price {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -1031,6 +1048,10 @@
     </div>
 
     <script type="module">
+        // ... (نفس الكود الخاص بـ Firebase وإدارة المنتجات والطلبات من الإصدار السابق) ...
+        // تم الحفاظ على جميع الوظائف كما هي دون تغيير
+        // فقط تم تعديل شكل بطاقات المنتج في دالة renderAllProducts و renderCategoryProducts
+
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, onSnapshot, collection, query, where, getDocs, updateDoc, increment, setDoc, serverTimestamp, orderBy, getDoc, runTransaction, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -1056,7 +1077,6 @@
         let currentOrder = null;
         let editingProductId = null;
 
-        // ========== دالة فتح واتساب مع رقم المحفظة ==========
         window.openWalletWhatsApp = function() {
             if (userData && userData.walletID) {
                 const walletNumber = userData.walletID;
@@ -1118,7 +1138,6 @@
             ]
         };
 
-        // ========== متغير المنتجات ==========
         let allProducts = {
             pubg: [],
             freefire: [],
@@ -1131,7 +1150,6 @@
             ai: []
         };
 
-        // ========== إضافة المنتجات الافتراضية لأول مرة ==========
         async function seedDefaultProducts() {
             try {
                 const productsSnap = await getDocs(collection(db, "products"));
@@ -1160,7 +1178,6 @@
             }
         }
 
-        // ========== جلب المنتجات من Firestore ==========
         async function loadProductsFromFirestore() {
             try {
                 await seedDefaultProducts();
@@ -1191,7 +1208,6 @@
             }
         }
 
-        // ========== حذف جميع المنتجات ==========
         window.deleteAllProducts = async function() {
             if (!confirm("⚠️ تحذير: هل أنت متأكد من حذف جميع المنتجات نهائياً؟")) return;
             if (!confirm("⚠️ تأكيد نهائي: لا يمكن التراجع عن هذا الإجراء! هل تريد المتابعة؟")) return;
@@ -1220,7 +1236,6 @@
             }
         };
 
-        // ========== إرسال إشعار تيليجرام ==========
         async function sendTelegramNotification(orderData) {
             const message =
                 `🛒 **طلب جديد في MORRE STORE!**\n━━━━━━━━━━━━━━━━━━\n📦 **المنتج:** ${orderData.product}\n💰 **السعر:** ${orderData.price} ج.س\n🎮 **اللعبة:** ${orderData.game}\n👤 **العميل:** ${orderData.uName}\n🆔 **الأيدي:** ${orderData.gameID}\n🎮 **الاسم:** ${orderData.gameName}\n📱 **واتساب:** ${orderData.whatsapp}\n⏰ **الوقت:** ${new Date().toLocaleString('ar-SD')}`;
@@ -1233,7 +1248,6 @@
             } catch (e) { console.error(e); }
         }
 
-        // ========== عرض مودال الطلب ==========
         function showOrderModal(product, price, category, productId) {
             if (!userData) {
                 alert('❌ يرجى تسجيل الدخول أولاً');
@@ -1249,7 +1263,6 @@
             document.getElementById('modalProductPrice').innerHTML = `المبلغ: ${price.toLocaleString()} ج.س`;
             document.getElementById('orderModal').classList.remove('hidden');
         }
-
         window.showOrderModal = showOrderModal;
 
         window.closeOrderModal = () => {
@@ -1261,35 +1274,29 @@
             document.getElementById('modalWhatsApp').value = '';
         };
 
-        // ========== تأكيد الطلب ==========
         document.getElementById('confirmOrderBtn').onclick = async () => {
             if (!currentOrder) {
                 alert("❌ لا يوجد طلب نشط");
                 return;
             }
-
             const gameID = document.getElementById('modalGameID')?.value.trim();
             const gameName = document.getElementById('modalGameName')?.value.trim();
             const realName = document.getElementById('modalRealName')?.value.trim();
             const whatsapp = document.getElementById('modalWhatsApp')?.value.trim();
-
             if (!gameID || !gameName || !realName || !whatsapp) {
                 alert("❌ جميع الحقول مطلوبة!");
                 return;
             }
-
             if (!whatsapp.match(/^[0-9]{10,15}$/)) {
                 alert("❌ رقم واتساب غير صحيح! يجب أن يكون 10-15 رقم");
                 return;
             }
-
             try {
                 await runTransaction(db, async (transaction) => {
                     const userRef = doc(db, "users", auth.currentUser.uid);
                     const userSnap = await transaction.get(userRef);
                     if (userSnap.data().balance < currentOrder.price) throw "رصيد غير كاف";
                     transaction.update(userRef, { balance: increment(-currentOrder.price) });
-
                     const orderData = {
                         uID: auth.currentUser.uid,
                         uName: userData.name,
@@ -1314,7 +1321,6 @@
             }
         };
 
-        // ========== دالة المشاركة ==========
         function getShareText(productName, price, category) {
             return `🛒 منتج: ${productName}\n💰 السعر: ${price.toLocaleString()} ج.س\n🎮 الفئة: ${category}\n🛍️ من متجر MORRE STORE`;
         }
@@ -1342,7 +1348,7 @@
             }
         };
 
-        // ========== عرض جميع المنتجات ==========
+        // ========== دالة عرض المنتجات (التصميم الجديد على شكل اليونكو) ==========
         function renderAllProducts() {
             const categories = ['pubg', 'freefire', 'clash', 'efootball', 'netflix', 'googleplay', 'redotpay', 'tiktok',
                 'ai'
@@ -1368,18 +1374,23 @@
                 grid.innerHTML = products.map(p => {
                     return `
                                 <div class="product-card">
-                                    <span class="product-badge">⭐ الأكثر مبيعاً</span>
-                                    <div class="product-name">${p.name}</div>
-                                    <div class="product-price">${p.price.toLocaleString()} ج.س</div>
-                                    <div class="product-rating">★★★★★</div>
-                                    <div class="product-reviews">(131 مراجعة)</div>
-                                    <button onclick="addToCart('${p.id}')" class="btn-add-cart">
-                                        <i class="fas fa-cart-plus ml-1"></i> إضافة إلى السلة
-                                    </button>
-                                    <button onclick="window.showOrderModal('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', '${p.id}')" class="btn-buy-now">
-                                        <i class="fas fa-bolt ml-1"></i> اشترى الآن
-                                    </button>
-                                    <div class="share-product-title">مشاركة المنتج</div>
+                                    <img src="https://i.ibb.co/20tqyP6s/4ff592f1-0de2-421f-bd99-514dd525d512.png" alt="${p.name}" class="product-image" loading="lazy">
+                                    <div class="product-info">
+                                        <div class="product-name">${p.name}</div>
+                                        <div class="product-price">${p.price.toLocaleString()} ج.س</div>
+                                        <div class="product-rating">
+                                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                            <span>(131 مراجعة)</span>
+                                        </div>
+                                    </div>
+                                    <div class="product-actions">
+                                        <button onclick="window.addToCart('${p.id}')" class="btn-add-cart">
+                                            <i class="fas fa-cart-plus ml-1"></i> إضافة إلى السلة
+                                        </button>
+                                        <button onclick="window.showOrderModal('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', '${p.id}')" class="btn-buy-now">
+                                            <i class="fas fa-bolt ml-1"></i> اشترى الآن
+                                        </button>
+                                    </div>
                                     <div class="share-buttons">
                                         <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'whatsapp')" class="share-btn share-btn-whatsapp"><i class="fab fa-whatsapp"></i></button>
                                         <button onclick="window.shareProduct('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'facebook')" class="share-btn share-btn-facebook"><i class="fab fa-facebook-f"></i></button>
@@ -1391,33 +1402,26 @@
             });
         }
 
-        // دالة إضافة إلى السلة (سيتم تفعيلها لاحقاً)
         window.addToCart = function(productId) {
             alert('🛒 تم إضافة المنتج إلى السلة!');
         };
 
-        // ========== دوال الأدمن ==========
+        // ========== دوال الأدمن (نفس الكود السابق) ==========
         window.addNewProduct = async () => {
             const game = document.getElementById('productGame').value;
             const name = document.getElementById('productName').value.trim();
             const price = parseInt(document.getElementById('productPrice').value);
-
             if (!name || !price) {
                 alert("❌ اسم المنتج والسعر مطلوبين");
                 return;
             }
-
             const newId = `${game}_${Date.now()}`;
             const newProduct = { id: newId, name, price, category: game, isActive: true, createdAt: serverTimestamp() };
-
             await setDoc(doc(db, "products", newId), newProduct);
-
             if (!allProducts[game]) allProducts[game] = [];
             allProducts[game].push(newProduct);
-
             renderAllProducts();
             loadManageProducts();
-
             document.getElementById('productName').value = '';
             document.getElementById('productPrice').value = '';
             alert("✅ تم إضافة المنتج");
@@ -1441,9 +1445,7 @@
                 alert("❌ سعر غير صحيح");
                 return;
             }
-
             await updateDoc(doc(db, "products", editingProductId), { price: newPrice });
-
             for (const category in allProducts) {
                 const product = allProducts[category].find(p => p.id === editingProductId);
                 if (product) {
@@ -1451,7 +1453,6 @@
                     break;
                 }
             }
-
             renderAllProducts();
             loadManageProducts();
             closeEditModal();
@@ -1496,7 +1497,6 @@
                     tiktok: '🎵 تيك توك',
                     ai: '🤖 ذكاء اصطناعي'
                 };
-
                 let html = '';
                 productsSnap.forEach(doc => {
                     const p = doc.data();
@@ -1522,7 +1522,7 @@
             }
         }
 
-        // ========== عرض جميع المستخدمين ==========
+        // ========== باقي الدوال (المستخدمين، الإحصائيات، الطلبات، التنقل) ==========
         function loadAllUsers() {
             onSnapshot(collection(db, "users"), (snap) => {
                 const list = document.getElementById('usersList');
@@ -1552,7 +1552,6 @@
             });
         }
 
-        // ========== عرض تفاصيل مستخدم ==========
         window.showUserDetails = async (userId) => {
             try {
                 const userDoc = await getDoc(doc(db, "users", userId));
@@ -1577,18 +1576,15 @@
             document.getElementById('userDetailModal').classList.add('hidden');
         };
 
-        // ========== إحصائيات ==========
         async function loadAdminStats() {
             try {
                 const usersSnap = await getDocs(collection(db, "users"));
                 document.getElementById('totalUsers').innerText = usersSnap.size;
-
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
                 const todayOrders = await getDocs(query(collection(db, "orders"), where("timestamp", ">=", today)));
                 const todayTotal = todayOrders.docs.reduce((sum, doc) => sum + (doc.data().price || 0), 0);
                 document.getElementById('todaySales').innerText = todayTotal.toLocaleString();
-
                 const pendingSnap = await getDocs(query(collection(db, "orders"), where("status", "==", "قيد الانتظار")));
                 document.getElementById('pendingOrders').innerText = pendingSnap.size;
             } catch (e) { console.error("Error loading stats:", e); }
@@ -1653,35 +1649,28 @@
         window.adminRecharge = async () => {
             const walletId = document.getElementById('targetWallet').value.trim();
             const amount = parseInt(document.getElementById('amountToAdd').value);
-
             if (!walletId || !amount) {
                 alert("❌ أدخل رقم المحفظة والمبلغ");
                 return;
             }
-
             if (isNaN(amount) || amount <= 0) {
                 alert("❌ المبلغ غير صحيح");
                 return;
             }
-
             const usersRef = collection(db, "users");
             let q = query(usersRef, where("walletID", "==", walletId));
             let querySnapshot = await getDocs(q);
-
             if (querySnapshot.empty) {
                 q = query(usersRef, where("walletID", "==", walletId.replace('#', '')));
                 querySnapshot = await getDocs(q);
-
                 if (querySnapshot.empty) {
                     alert("❌ رقم المحفظة غير موجود");
                     return;
                 }
             }
-
             const userDoc = querySnapshot.docs[0];
             const userName = userDoc.data().name;
             const currentBalance = userDoc.data().balance || 0;
-
             if (confirm(
                     `💰 تأكيد شحن الرصيد\n\nالمستخدم: ${userName}\nالمبلغ: ${amount.toLocaleString()} ج.س\nالرصيد الحالي: ${currentBalance.toLocaleString()} ج.س\n\nهل تريد المتابعة؟`
                 )) {
@@ -1696,26 +1685,20 @@
         window.adminRechargeByEmail = async () => {
             const email = prompt("📧 أدخل البريد الإلكتروني للمستخدم:");
             if (!email) return;
-
             const q = query(collection(db, "users"), where("email", "==", email));
             const snap = await getDocs(q);
-
             if (snap.empty) {
                 alert("❌ البريد الإلكتروني غير موجود");
                 return;
             }
-
             const userDoc = snap.docs[0];
             const amount = parseInt(prompt("💰 أدخل المبلغ المراد شحنه:"));
-
             if (!amount || amount <= 0) {
                 alert("❌ مبلغ غير صحيح");
                 return;
             }
-
             const userName = userDoc.data().name;
             const currentBalance = userDoc.data().balance || 0;
-
             if (confirm(
                     `💰 تأكيد شحن الرصيد\n\nالمستخدم: ${userName}\nالمبلغ: ${amount.toLocaleString()} ج.س\nالرصيد الحالي: ${currentBalance.toLocaleString()} ج.س\n\nهل تريد المتابعة؟`
                 )) {
@@ -1725,7 +1708,6 @@
             }
         };
 
-        // ========== عرض تاريخ الطلبات ==========
         function loadUserHistory(uid) {
             onSnapshot(query(collection(db, "orders"), where("uID", "==", uid), orderBy("timestamp", "desc")), (snap) => {
                 const list = document.getElementById('userOrdersList');
@@ -1745,7 +1727,6 @@
             });
         }
 
-        // ========== السياسات ==========
         const policies = {
             terms: { title: "📜 شروط الخدمة",
             content: "<p>باستخدامك للمنصة توافق على الشروط التالية: جميع عمليات الشحن خلال 24 ساعة، لا نضمن استرجاع الرصيد بعد إتمام الشراء.</p>" },
@@ -1766,20 +1747,14 @@
 
         // ========== التنقل بين الصفحات ==========
         window.showCategory = (category) => {
-            // إخفاء الصفحة الرئيسية
             document.getElementById('homePage').classList.add('hidden');
-
-            // إخفاء جميع صفحات الفئات
             document.querySelectorAll('.category-page').forEach(el => {
                 el.classList.remove('active');
             });
-
-            // إظهار الصفحة المطلوبة
             const target = document.getElementById(`category-${category}`);
             if (target) {
                 target.classList.add('active');
             }
-
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
@@ -1805,11 +1780,9 @@
             const email = document.getElementById('reg-email').value.trim();
             const pwd = document.getElementById('reg-password').value;
             const confirmPwd = document.getElementById('reg-confirm-password').value;
-
             if (!name || !email || !pwd || !confirmPwd) { alert('❌ جميع الحقول مطلوبة'); return; }
             if (pwd.length < 6) { alert('❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل'); return; }
             if (pwd !== confirmPwd) { alert('❌ كلمة المرور غير متطابقة مع التأكيد'); return; }
-
             try {
                 const cred = await createUserWithEmailAndPassword(auth, email, pwd);
                 const walletID = Math.floor(100000 + Math.random() * 900000).toString();
