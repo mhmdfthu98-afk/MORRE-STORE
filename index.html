@@ -2304,5 +2304,101 @@
             handleRoute();
         });
     </script>
+    <!-- زر إعادة تعيين المنتجات -->
+<div style="position:fixed;bottom:80px;right:15px;z-index:99999;">
+    <button onclick="resetProducts()" style="background:#f59e0b;color:white;border:none;border-radius:50%;width:60px;height:60px;font-size:28px;box-shadow:0 4px 20px rgba(0,0,0,0.3);cursor:pointer;display:flex;align-items:center;justify-content:center;border:2px solid white;">
+        🔄
+    </button>
+</div>
+
+<script>
+async function resetProducts() {
+    if (!confirm('⚠️ سيتم حذف جميع المنتجات وإعادة تعيينها.\nهل أنت متأكد؟')) return;
+    
+    const btn = document.querySelector('button[onclick="resetProducts()"]');
+    btn.textContent = '⏳';
+    btn.disabled = true;
+    
+    try {
+        const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js");
+        const { getFirestore, collection, getDocs, writeBatch, doc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyC0jzecEwKgHpxHpTi8Y-_bwwfzVdtgf3E",
+            authDomain: "khasmshop.firebaseapp.com",
+            projectId: "khasmshop",
+            storageBucket: "khasmshop.firebasestorage.app",
+            messagingSenderId: "238182001615",
+            appId: "1:238182001615:web:d77391030a40a481b440ba"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        const products = [
+            { name: "325 شدة", price: 20000, category: "pubg" },
+            { name: "60 شدة", price: 4000, category: "pubg" },
+            { name: "1800 شدة", price: 100000, category: "pubg" },
+            { name: "660 شدة", price: 38000, category: "pubg" },
+            { name: "8100 شدة", price: 430000, category: "pubg" },
+            { name: "3850 شدة", price: 210000, category: "pubg" },
+            { name: "110 جوهرة", price: 4500, category: "freefire" },
+            { name: "231 جوهرة", price: 9000, category: "freefire" },
+            { name: "583 جوهرة", price: 23000, category: "freefire" },
+            { name: "1180 جوهرة", price: 50000, category: "freefire" },
+            { name: "التذكرة الذهبية (أول مرة)", price: 10000, category: "clash" },
+            { name: "التذكرة الذهبية", price: 27000, category: "clash" },
+            { name: "130 كوينز", price: 6500, category: "efootball" },
+            { name: "300 كوينز", price: 15000, category: "efootball" },
+            { name: "550 كوينز", price: 27000, category: "efootball" },
+            { name: "750 كوينز", price: 37000, category: "efootball" },
+            { name: "مجموعة مورينو + 150 كوينز", price: 28000, category: "efootball" },
+            { name: "نتفليكس Standard + إعلانات", price: 55000, category: "netflix" },
+            { name: "نتفليكس Standard بدون إعلانات", price: 120000, category: "netflix" },
+            { name: "بطاقة جوجل بلاي 5$", price: 30000, category: "googleplay" },
+            { name: "بطاقة جوجل بلاي 10$", price: 60000, category: "googleplay" },
+            { name: "حساب Redotpay موثق", price: 120000, category: "redotpay" },
+            { name: "حساب موثق + فيزا Redotpay", price: 180000, category: "redotpay" },
+            { name: "114 عملة تيك توك", price: 6000, category: "tiktok" },
+            { name: "447 عملة تيك توك", price: 30000, category: "tiktok" },
+            { name: "897 عملة تيك توك", price: 60000, category: "tiktok" },
+            { name: "ChatGPT Plus - شهر", price: 120000, category: "ai" },
+            { name: "ChatGPT Go - شهر", price: 45000, category: "ai" },
+            { name: "Gemini Pro - شهر", price: 75000, category: "ai" }
+        ];
+        
+        // حذف القديم
+        const snapshot = await getDocs(collection(db, "products"));
+        const batch = writeBatch(db);
+        snapshot.forEach(doc => batch.delete(doc.ref));
+        await batch.commit();
+        
+        // إضافة الجديد
+        const newBatch = writeBatch(db);
+        for (const product of products) {
+            const docRef = doc(collection(db, "products"));
+            newBatch.set(docRef, {
+                id: docRef.id,
+                name: product.name,
+                price: product.price,
+                category: product.category,
+                isActive: true,
+                createdAt: serverTimestamp()
+            });
+        }
+        await newBatch.commit();
+        
+        btn.textContent = '✅';
+        alert(`✅ تم إضافة ${products.length} منتج بنجاح!`);
+        setTimeout(() => window.location.reload(), 1500);
+        
+    } catch (error) {
+        alert('❌ حدث خطأ: ' + error.message);
+        console.error(error);
+        btn.textContent = '🔄';
+        btn.disabled = false;
+    }
+}
+</script>
 </body>
                                                                                                                                    </html>
