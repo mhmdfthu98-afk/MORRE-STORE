@@ -1276,7 +1276,7 @@
             }
         };
 
-        // ========== دالة البحث عن المنتج ==========
+        // ========== 🔥 دالة البحث عن المنتج (المعدلة) ==========
         function findProductById(productId) {
             console.log("🔍 البحث عن المنتج:", productId);
             for (const category in allProducts) {
@@ -1286,7 +1286,7 @@
                     return { product, category };
                 }
             }
-            console.log("❌ المنتج غير موجود");
+            console.log("❌ المنتج غير موجود في allProducts");
             return null;
         }
 
@@ -1319,11 +1319,14 @@
             }
         }
 
-        // ========== جلب المنتجات من Firebase ==========
+        // ========== 🔥 جلب المنتجات من Firebase (المعدل) ==========
         async function loadProductsFromFirestore() {
             try {
                 await seedDefaultProducts();
                 const productsSnap = await getDocs(collection(db, "products"));
+                
+                console.log("📦 عدد المنتجات في Firebase:", productsSnap.size);
+                
                 allProducts = {
                     pubg: [],
                     freefire: [],
@@ -1335,24 +1338,32 @@
                     tiktok: [],
                     ai: []
                 };
+                
                 if (!productsSnap.empty) {
                     productsSnap.forEach(doc => {
                         const p = doc.data();
-                        const productData = { 
-                            ...p, 
-                            id: doc.id // 🔥 استخدام المعرف الصحيح من Firebase
+                        // 🔥 استخدام doc.id كمعرف رئيسي
+                        const productData = {
+                            id: doc.id,
+                            name: p.name || "منتج بدون اسم",
+                            price: p.price || 0,
+                            category: p.category || "pubg",
+                            isActive: p.isActive !== false
                         };
-                        if (productData.isActive !== false && allProducts.hasOwnProperty(productData.category)) {
+                        console.log("✅ تم تحميل:", productData.name, "معرف:", productData.id);
+                        if (allProducts.hasOwnProperty(productData.category)) {
                             allProducts[productData.category].push(productData);
                         }
                     });
                 }
-                console.log("✅ تم تحميل المنتجات:", allProducts);
+                
+                console.log("✅ allProducts:", allProducts);
                 renderAllProducts();
                 loadManageProducts();
                 handleRoute();
             } catch (e) {
-                console.error("Error loading products:", e);
+                console.error("❌ خطأ في تحميل المنتجات:", e);
+                alert("❌ فشل تحميل المنتجات: " + e.message);
             }
         }
 
@@ -1504,7 +1515,7 @@
             }
         };
 
-        // ========== زر النسخ - نسخ رابط المنتج الصحيح ==========
+        // ========== 🔥 زر النسخ - نسخ رابط المنتج الصحيح (المعدل) ==========
         window.copyProductLink = function() {
             if (!currentProductId) {
                 alert('❌ لا يوجد منتج محدد');
@@ -1527,18 +1538,16 @@
             }
         };
 
-        // ========== زر النسخ في بطاقات المنتجات ==========
+        // ========== 🔥 زر النسخ في بطاقات المنتجات (المعدل) ==========
         window.copyProductLinkFromCard = function(productId) {
             console.log("🔍 جاري نسخ رابط المنتج:", productId);
             
-            // البحث عن المنتج في allProducts
             const result = findProductById(productId);
             if (!result) {
                 alert('❌ المنتج غير موجود في قاعدة البيانات');
                 return;
             }
             
-            // استخدام المعرف الصحيح من Firebase
             const correctId = result.product.id;
             const shareUrl = window.location.origin + window.location.pathname + '#product/' + correctId;
             
@@ -1566,7 +1575,7 @@
             alert('✅ تم نسخ رابط المنتج بنجاح!\n' + text);
         }
 
-        // ========== صفحة تفاصيل المنتج ==========
+        // ========== 🔥 صفحة تفاصيل المنتج (المعدلة) ==========
         function showProductDetail(productId) {
             console.log("🔍 جاري عرض المنتج:", productId);
             
@@ -1720,7 +1729,7 @@
         }
         window.navigateTo = navigateTo;
 
-        // ========== معالج الروابط ==========
+        // ========== 🔥 معالج الروابط (المعدل) ==========
         function handleRoute() {
             const hash = window.location.hash || '#home';
             console.log("📍 الرابط الحالي:", hash);
