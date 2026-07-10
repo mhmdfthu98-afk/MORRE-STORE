@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -21,7 +22,43 @@
             overflow-x: hidden;
         }
         
-        /* ========== الشريط العائم السفلي (زي الصورة) ========== */
+        /* ========== شاشة التحميل ========== */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity 0.5s ease;
+        }
+        #loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader-spin {
+            border: 5px solid rgba(245, 158, 11, 0.2);
+            border-top: 5px solid #f59e0b;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #loading-screen p {
+            margin-top: 1rem;
+            color: #1e293b;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* ========== الشريط العائم السفلي ========== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -33,7 +70,7 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 8px 0;
+            padding: 6px 0;
             z-index: 9999;
             box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
         }
@@ -41,23 +78,23 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
+            gap: 1px;
             color: #94a3b8;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             padding: 4px 12px;
             border-radius: 12px;
-            position: relative;
             text-decoration: none;
+            position: relative;
         }
         .bottom-nav .nav-item i {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             transition: all 0.3s ease;
         }
         .bottom-nav .nav-item span {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 700;
         }
         .bottom-nav .nav-item.active {
@@ -69,40 +106,22 @@
         .bottom-nav .nav-item:hover {
             color: #d97706;
         }
-        .bottom-nav .nav-item .badge {
-            position: absolute;
-            top: -2px;
-            right: 2px;
-            background: #ef4444;
-            color: white;
-            font-size: 0.5rem;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-        }
-        /* أيقونة المحفظة مميزة */
         .bottom-nav .nav-item.wallet-item i {
             color: #d97706;
         }
-        .bottom-nav .nav-item.wallet-item.active i {
-            color: #d97706;
-        }
-        /* تنسيق للشاشات الصغيرة */
         @media (max-width: 480px) {
             .bottom-nav .nav-item {
                 padding: 4px 8px;
-                font-size: 0.5rem;
             }
             .bottom-nav .nav-item i {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
+            }
+            .bottom-nav .nav-item span {
+                font-size: 0.5rem;
             }
         }
 
-        /* ========== باقي الأنماط من الكود السابق ========== */
+        /* ========== باقي الأنماط ========== */
         .glass {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(16px);
@@ -503,14 +522,6 @@
             padding: 0 1.5rem;
             border-bottom: 2px solid rgba(245, 158, 11, 0.3);
         }
-        .footer-links a {
-            color: #64748b;
-            margin: 0 0.75rem;
-            text-decoration: none;
-            font-size: 0.75rem;
-            transition: 0.2s;
-        }
-        .footer-links a:hover { color: #d97706; }
         .brand-name {
             background: linear-gradient(135deg, #f59e0b, #d97706);
             -webkit-background-clip: text;
@@ -522,18 +533,6 @@
             color: #1e293b;
             font-weight: 900;
             font-size: 1.5rem;
-        }
-        .loader-spin {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-top: 4px solid #f59e0b;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
         .action-btn {
             background: linear-gradient(135deg, #f59e0b, #d97706);
@@ -724,27 +723,6 @@
         }
         .dark .menu-btn:hover { background: rgba(30, 41, 59, 0.8); }
         .dark .glass { background: rgba(30, 41, 59, 0.7); }
-        .dark .footer-links a { color: #94a3b8; }
-        .dark .footer-links a:hover { color: #fbbf24; }
-        .dark footer {
-            background: rgba(30, 41, 59, 0.8);
-            border-top-color: rgba(255, 255, 255, 0.1);
-        }
-        .dark input, .dark select, .dark textarea {
-            background: rgba(30, 41, 59, 0.6);
-            color: #f1f5f9;
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-        .dark input:focus, .dark select:focus, .dark textarea:focus {
-            background: rgba(30, 41, 59, 0.8);
-            border-color: #f59e0b;
-        }
-        .dark .empty-products {
-            background: rgba(30, 41, 59, 0.4);
-            color: #94a3b8;
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-        .dark .empty-products i { color: #475569; }
         .dark .section-title {
             color: #f1f5f9;
         }
@@ -775,17 +753,18 @@
 </head>
 <body>
 
+    <!-- ========== شاشة التحميل ========== -->
+    <div id="loading-screen">
+        <div class="loader-spin"></div>
+        <p>⏳ جاري تحميل المتجر...</p>
+    </div>
+
     <!-- شاشة تحذير WebView -->
     <div id="webview-warning" style="display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: #fef08a; text-align: center; position: fixed; top:0;left:0;right:0;bottom:0;z-index:20000; color: #1e293b;">
         <h2 class="text-2xl font-bold mb-4">⛔ لا يمكن تسجيل الدخول من هذا التطبيق</h2>
         <p class="mb-4">يرجى فتح هذا الرابط في متصفح خارجي مثل Chrome أو Safari.</p>
         <button id="open-browser-btn" class="action-btn">فتح في المتصفح</button>
         <button id="copy-link-btn" class="action-btn-outline mt-2">نسخ الرابط</button>
-    </div>
-
-    <!-- شاشة التحميل -->
-    <div id="loading-screen" class="fixed inset-0 bg-white/70 backdrop-blur flex items-center justify-center z-50">
-        <div class="loader-spin"></div>
     </div>
 
     <!-- شاشة تسجيل الدخول -->
@@ -1087,7 +1066,7 @@
             </div>
         </main>
 
-        <!-- ========== الشريط العائم السفلي (الحساب، الدعم، المحفظة، الرئيسية) ========== -->
+        <!-- ========== الشريط العائم السفلي ========== -->
         <div class="bottom-nav">
             <a href="#" onclick="navigateTo('home'); setActiveNav('home')" class="nav-item active" id="nav-home">
                 <i class="fas fa-home"></i>
@@ -1106,17 +1085,6 @@
                 <span>الحساب</span>
             </a>
         </div>
-
-        <!-- الفوتر (تم إلغاؤه لأنه موجود في الشريط العائم) -->
-        <footer class="hidden fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur border-t border-dark/10 py-3 text-center text-xs text-dark-light footer-links">
-            <div class="flex justify-center gap-4 flex-wrap">
-                <a href="#" onclick="showPolicy('terms');return false;">شروط الخدمة</a>
-                <a href="#" onclick="showPolicy('privacy');return false;">سياسة الخصوصية</a>
-                <a href="#" onclick="showPolicy('refund');return false;">سياسة الاسترجاع</a>
-                <a href="#" onclick="showPolicy('about');return false;">عن المتجر</a>
-            </div>
-            <div class="mt-1">© 2025 MORRE STORE - جميع الحقوق محفوظة</div>
-        </footer>
     </div>
 
     <!-- المودالات -->
@@ -1183,6 +1151,12 @@
     </div>
 
     <script type="module">
+        // ========== تأخير تحميل Firebase عشان الموقع ما يعلق ==========
+        console.log("⏳ جاري تحميل MORRE STORE...");
+        
+        // تأخير 0.5 ثانية عشان الصفحة تتحمل
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
         // ========== استيراد Firebase ==========
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, onSnapshot, collection, query, where, getDocs, updateDoc, increment, setDoc, serverTimestamp, orderBy, getDoc, runTransaction, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -1307,9 +1281,7 @@
         };
 
         window.openWallet = function() {
-            // التمرير إلى محفظة المستخدم
             document.querySelector('.wallet-card').scrollIntoView({ behavior: 'smooth' });
-            // إذا كان المستخدم مسجل، نفتح المحفظة
             if (userData) {
                 alert(`💰 رصيدك الحالي: ${userData.balance?.toLocaleString() || 0} ج.س\n📱 رقم المحفظة: #${userData.walletID || '000000'}`);
             } else {
@@ -1322,7 +1294,6 @@
         };
 
         window.openAccount = function() {
-            // فتح الشريط الجانبي أو صفحة الحساب
             toggleSidebar(true);
         };
 
@@ -1597,7 +1568,6 @@
                 hash = '#home';
             }
             window.location.hash = hash;
-            // تحديث الشريط العائم
             if (page === 'home') setActiveNav('home');
         }
         window.navigateTo = navigateTo;
@@ -2181,6 +2151,17 @@
             });
         });
 
+        // ========== إخفاء شاشة التحميل ==========
+        function hideLoadingScreen() {
+            const loading = document.getElementById('loading-screen');
+            if (loading) {
+                loading.classList.add('hidden');
+                setTimeout(() => {
+                    loading.style.display = 'none';
+                }, 500);
+            }
+        }
+
         // ========== بدء التشغيل ==========
         function startEngine(user) {
             const isAdmin = ADMINS.includes(user.email);
@@ -2201,6 +2182,7 @@
                     } else {
                         document.getElementById('adminPanel').classList.add('hidden');
                     }
+                    hideLoadingScreen();
                 }
             });
             loadProductsFromFirestore();
@@ -2209,7 +2191,6 @@
         }
 
         onAuthStateChanged(auth, async (user) => {
-            const loading = document.getElementById('loading-screen');
             const authScr = document.getElementById('auth-screen');
             const appScr = document.getElementById('main-app');
             if (user) {
@@ -2227,14 +2208,14 @@
                     });
                     alert(`✨ مرحباً بك في MORRE STORE!\n📱 رقم محفظتك: #${walletID}\n💰 للشحن اضغط على زر "شحن المحفظة"`);
                 }
-                loading.classList.add('hidden');
                 authScr.classList.add('hidden');
                 appScr.classList.remove('hidden');
+                hideLoadingScreen();
                 startEngine(user);
             } else {
-                loading.classList.add('hidden');
                 authScr.classList.remove('hidden');
                 appScr.classList.add('hidden');
+                hideLoadingScreen();
             }
         });
 
@@ -2259,7 +2240,7 @@
             return false;
         }
         if (isWebView()) {
-            document.getElementById('loading-screen').classList.add('hidden');
+            document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('main-app').classList.add('hidden');
             document.getElementById('webview-warning').style.display = 'flex';
@@ -2271,7 +2252,10 @@
 
         window.addEventListener('load', () => {
             handleRoute();
+            // تأكد من إخفاء شاشة التحميل بعد 5 ثواني كحد أقصى
+            setTimeout(hideLoadingScreen, 5000);
         });
     </script>
 </body>
-                            </html>
+</html>
+```
