@@ -8,7 +8,7 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* ========== جميع الأنماط السابقة ========== */
+        /* ========== جميع الأنماط ========== */
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
         * {
             font-family: 'Cairo', sans-serif;
@@ -53,7 +53,7 @@
         .service-card:hover .service-icon {
             transform: scale(1.05);
         }
-        /* ========== تصميم بطاقات المنتج ========== */
+        /* ========== بطاقات المنتج ========== */
         .product-card {
             background: white;
             border-radius: 0.75rem;
@@ -183,7 +183,7 @@
             transition: 0.2s;
         }
         .copy-link-btn:hover { background: #cbd5e1; }
-        /* ========== تصميم صفحة المنتج التفصيلية ========== */
+        /* ========== صفحة تفاصيل المنتج ========== */
         .product-detail-page {
             display: none;
             background: white;
@@ -287,20 +287,6 @@
             font-size: 0.85rem;
             color: #64748b;
         }
-        .product-detail-page .detail-share .share-btn {
-            padding: 0.3rem 0.8rem;
-            border-radius: 1.5rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            border: none;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            color: white;
-            text-decoration: none;
-            cursor: pointer;
-        }
         .product-detail-page .back-to-category {
             display: inline-block;
             margin-bottom: 1rem;
@@ -312,7 +298,7 @@
         .product-detail-page .back-to-category:hover {
             color: #d97706;
         }
-        /* ========== أنماط الأقسام ========== */
+        /* ========== الأقسام ========== */
         .section-title {
             font-size: 1.5rem;
             font-weight: 800;
@@ -327,7 +313,7 @@
         .section-title .section-icon {
             font-size: 1.5rem;
         }
-        /* ========== باقي الأنماط العامة ========== */
+        /* ========== الأنماط العامة ========== */
         .back-btn {
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -808,7 +794,7 @@
         </div>
 
         <main class="max-w-7xl mx-auto px-4 relative z-10">
-            <!-- محفظة المستخدم والأزرار السريعة -->
+            <!-- محفظة المستخدم -->
             <div class="wallet-card p-5 text-dark mb-6 mt-4">
                 <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
                     <div class="flex items-center gap-3 w-full sm:w-auto">
@@ -904,11 +890,11 @@
                 </div>
             </div>
 
-            <!-- ========== الصفحة الرئيسية (مقسمة إلى أقسام) ========== -->
+            <!-- ========== الصفحة الرئيسية ========== -->
             <div id="homePage" class="home-page">
                 <h2 class="text-2xl font-black text-dark mb-6 text-center">🌟 جميع الخدمات</h2>
 
-                <!-- ===== قسم الألعاب ===== -->
+                <!-- قسم الألعاب -->
                 <div class="section-title">
                     <span class="section-icon">🎮</span> الألعاب
                 </div>
@@ -935,7 +921,7 @@
                     </div>
                 </div>
 
-                <!-- ===== قسم الاشتراكات ===== -->
+                <!-- قسم الاشتراكات -->
                 <div class="section-title">
                     <span class="section-icon">📺</span> الاشتراكات
                 </div>
@@ -957,7 +943,7 @@
                     </div>
                 </div>
 
-                <!-- ===== قسم البطاقات ===== -->
+                <!-- قسم البطاقات -->
                 <div class="section-title">
                     <span class="section-icon">💳</span> البطاقات
                 </div>
@@ -1105,7 +1091,7 @@
         </footer>
     </div>
 
-    <!-- مودال السياسات -->
+    <!-- المودالات -->
     <div id="policy-modal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-50 flex items-center justify-center p-4">
         <div class="glass w-full max-w-md p-6 rounded-3xl text-dark">
             <div class="flex justify-between items-center mb-4"><h3 id="policy-title" class="text-xl font-bold"></h3><button onclick="closePolicyModal()" class="text-dark-light hover:text-dark"><i class="fas fa-times text-2xl"></i></button></div>
@@ -1114,7 +1100,6 @@
         </div>
     </div>
 
-    <!-- مودال تفاصيل الطلب -->
     <div id="orderDetailModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-50 flex items-center justify-center p-4">
         <div class="glass w-full max-w-md p-6 rounded-3xl text-dark">
             <h3 class="text-xl font-bold mb-4">📄 تفاصيل الطلب</h3>
@@ -1123,7 +1108,6 @@
         </div>
     </div>
 
-    <!-- مودال تفاصيل المستخدم -->
     <div id="userDetailModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-50 flex items-center justify-center p-4">
         <div class="user-detail-modal text-dark">
             <div class="flex justify-between items-center mb-4">
@@ -1135,7 +1119,6 @@
         </div>
     </div>
 
-    <!-- مودال تعديل السعر -->
     <div id="editPriceModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-[99999] flex items-center justify-center p-4">
         <div class="glass w-full max-w-sm p-6 rounded-3xl text-dark">
             <h3 class="text-xl font-bold text-center mb-4">💰 تعديل السعر</h3>
@@ -1147,7 +1130,6 @@
         </div>
     </div>
 
-    <!-- مودال تأكيد الطلب -->
     <div id="orderModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-[99999] flex items-center justify-center p-4">
         <div class="glass w-full max-w-md p-6 rounded-3xl text-dark">
             <h2 class="text-xl font-bold text-center text-dark mb-4">🛒 تأكيد بيانات الشحن</h2>
@@ -1213,7 +1195,7 @@
             ai: 'https://i.ibb.co/zVDbcgnW/c8f040a9-48ad-4e5e-8203-f941fbf94ad6.png'
         };
 
-        // ========== أسماء الفئات للعرض ==========
+        // ========== أسماء الفئات ==========
         const categoryNames = {
             pubg: '🎮 ببجي PUBG',
             freefire: '🔥 فري فاير FreeFire',
@@ -1309,10 +1291,10 @@
                     const batch = writeBatch(db);
                     for (const category in defaultProducts) {
                         for (const product of defaultProducts[category]) {
-                            const id = `${category}_${Date.now()}_${Math.random().toString(36).substring(7)}`;
-                            const docRef = doc(db, "products", id);
+                            const docRef = doc(collection(db, "products"));
+                            const newId = docRef.id;
                             batch.set(docRef, {
-                                id: id,
+                                id: newId,
                                 name: product.name,
                                 price: product.price,
                                 category: category,
@@ -1329,7 +1311,7 @@
             }
         }
 
-        // ========== جلب المنتجات ==========
+        // ========== جلب المنتجات من Firebase ==========
         async function loadProductsFromFirestore() {
             try {
                 await seedDefaultProducts();
@@ -1348,8 +1330,13 @@
                 if (!productsSnap.empty) {
                     productsSnap.forEach(doc => {
                         const p = doc.data();
-                        if (p.isActive !== false && allProducts.hasOwnProperty(p.category)) {
-                            allProducts[p.category].push({ ...p, id: doc.id });
+                        // 🔥 استخدام doc.id من Firebase
+                        const productData = { 
+                            ...p, 
+                            id: doc.id
+                        };
+                        if (productData.isActive !== false && allProducts.hasOwnProperty(productData.category)) {
+                            allProducts[productData.category].push(productData);
                         }
                     });
                 }
@@ -1359,6 +1346,17 @@
             } catch (e) {
                 console.error("Error loading products:", e);
             }
+        }
+
+        // ========== 🔥 دالة البحث عن المنتج ==========
+        function findProductById(productId) {
+            for (const category in allProducts) {
+                const product = allProducts[category].find(p => p.id === productId);
+                if (product) {
+                    return { product, category };
+                }
+            }
+            return null;
         }
 
         // ========== حذف جميع المنتجات ==========
@@ -1543,41 +1541,34 @@
             });
         };
 
-        // ========== صفحة تفاصيل المنتج ==========
+        // ========== 🔥 صفحة تفاصيل المنتج المعدلة ==========
         function showProductDetail(productId) {
-            let foundProduct = null;
-            let foundCategory = '';
-            for (const category in allProducts) {
-                const product = allProducts[category].find(p => p.id === productId);
-                if (product) {
-                    foundProduct = product;
-                    foundCategory = category;
-                    break;
-                }
-            }
-
-            if (!foundProduct) {
-                alert('❌ المنتج غير موجود');
+            const result = findProductById(productId);
+            
+            if (!result) {
+                alert('❌ المنتج غير موجود أو تم حذفه');
                 navigateTo('home');
                 return;
             }
 
+            const { product, category } = result;
             currentProductId = productId;
 
-            const categoryImage = categoryImages[foundCategory] || 'https://via.placeholder.com/200';
+            const categoryImage = categoryImages[category] || 'https://via.placeholder.com/200';
             document.getElementById('detailImage').src = categoryImage;
-            document.getElementById('detailName').textContent = foundProduct.name;
-            document.getElementById('detailName2').textContent = foundProduct.name;
-            document.getElementById('detailPrice').textContent = foundProduct.price.toLocaleString() + ' ج.س';
+            document.getElementById('detailName').textContent = product.name;
+            document.getElementById('detailName2').textContent = product.name;
+            document.getElementById('detailPrice').textContent = product.price.toLocaleString() + ' ج.س';
 
-            document.getElementById('productDetailPage').dataset.productId = foundProduct.id;
-            document.getElementById('productDetailPage').dataset.productName = foundProduct.name;
-            document.getElementById('productDetailPage').dataset.productPrice = foundProduct.price;
-            document.getElementById('productDetailPage').dataset.productCategory = foundCategory;
+            const detailPage = document.getElementById('productDetailPage');
+            detailPage.dataset.productId = product.id;
+            detailPage.dataset.productName = product.name;
+            detailPage.dataset.productPrice = product.price;
+            detailPage.dataset.productCategory = category;
 
             document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
             document.getElementById('homePage').classList.add('hidden');
-            document.getElementById('productDetailPage').classList.add('active');
+            detailPage.classList.add('active');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -1651,6 +1642,7 @@
                 }
 
                 grid.innerHTML = products.map(p => {
+                    // 🔥 استخدام p.id من Firebase
                     return `
                                 <div class="product-card" onclick="navigateTo('product', '${p.id}')">
                                     <img src="${categoryImage}" alt="${p.name}" class="product-image" loading="lazy">
@@ -1686,7 +1678,7 @@
             alert('🛒 تم إضافة المنتج إلى السلة!');
         };
 
-        // ========== نظام التنقل ==========
+        // ========== 🔥 نظام التنقل المعدل ==========
         function navigateTo(page, param) {
             let hash = '';
             if (page === 'home') {
@@ -1702,9 +1694,11 @@
         }
         window.navigateTo = navigateTo;
 
+        // ========== 🔥 معالج الروابط المعدل ==========
         function handleRoute() {
             const hash = window.location.hash || '#home';
-
+            
+            // إخفاء كل الصفحات
             document.getElementById('homePage').classList.add('hidden');
             document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
             document.getElementById('productDetailPage').classList.remove('active');
@@ -1727,20 +1721,13 @@
                     navigateTo('home');
                 }
             } else if (page === 'product' && param) {
-                let found = false;
-                for (const category in allProducts) {
-                    if (allProducts[category].find(p => p.id === param)) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (found) {
-                    showProductDetail(param);
-                    const detailPage = document.getElementById('productDetailPage');
-                    const name = detailPage.dataset.productName || 'المنتج';
-                    document.title = `${name} - MORRE STORE`;
+                // 🔥 استخدام دالة البحث الجديدة
+                const result = findProductById(param);
+                if (result) {
+                    showProductDetail(result.product.id);
+                    document.title = `${result.product.name} - MORRE STORE`;
                 } else {
-                    alert('❌ المنتج غير موجود');
+                    alert('❌ المنتج غير موجود أو تم حذفه');
                     navigateTo('home');
                 }
             } else {
@@ -1750,25 +1737,41 @@
 
         window.addEventListener('hashchange', handleRoute);
 
-        // ========== دوال الأدمن ==========
+        // ========== 🔥 دوال الأدمن المعدلة ==========
         window.addNewProduct = async () => {
             const game = document.getElementById('productGame').value;
             const name = document.getElementById('productName').value.trim();
             const price = parseInt(document.getElementById('productPrice').value);
+            
             if (!name || !price) {
                 alert("❌ اسم المنتج والسعر مطلوبين");
                 return;
             }
-            const newId = `${game}_${Date.now()}`;
-            const newProduct = { id: newId, name, price, category: game, isActive: true, createdAt: serverTimestamp() };
-            await setDoc(doc(db, "products", newId), newProduct);
+            
+            // 🔥 استخدام docRef.id من Firebase
+            const docRef = doc(collection(db, "products"));
+            const newId = docRef.id;
+            
+            const newProduct = { 
+                id: newId,
+                name, 
+                price, 
+                category: game, 
+                isActive: true, 
+                createdAt: serverTimestamp() 
+            };
+            
+            await setDoc(docRef, newProduct);
+            
             if (!allProducts[game]) allProducts[game] = [];
-            allProducts[game].push(newProduct);
+            allProducts[game].push({ ...newProduct, id: newId });
+            
             renderAllProducts();
             loadManageProducts();
+            
             document.getElementById('productName').value = '';
             document.getElementById('productPrice').value = '';
-            alert("✅ تم إضافة المنتج");
+            alert(`✅ تم إضافة المنتج بنجاح!\nرابط المنتج: #product/${newId}`);
         };
 
         window.editProductPrice = (productId, currentPrice) => {
@@ -2302,4 +2305,4 @@
         });
     </script>
 </body>
-            </html>
+                                                                                                                                   </html>
