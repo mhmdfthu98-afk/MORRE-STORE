@@ -20,6 +20,89 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
+        
+        /* ========== الشريط العائم السفلي (زي الصورة) ========== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            z-index: 9999;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            color: #94a3b8;
+            font-size: 0.6rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 4px 12px;
+            border-radius: 12px;
+            position: relative;
+            text-decoration: none;
+        }
+        .bottom-nav .nav-item i {
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+        }
+        .bottom-nav .nav-item span {
+            font-size: 0.6rem;
+            font-weight: 700;
+        }
+        .bottom-nav .nav-item.active {
+            color: #d97706;
+        }
+        .bottom-nav .nav-item.active i {
+            transform: translateY(-2px);
+        }
+        .bottom-nav .nav-item:hover {
+            color: #d97706;
+        }
+        .bottom-nav .nav-item .badge {
+            position: absolute;
+            top: -2px;
+            right: 2px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.5rem;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        /* أيقونة المحفظة مميزة */
+        .bottom-nav .nav-item.wallet-item i {
+            color: #d97706;
+        }
+        .bottom-nav .nav-item.wallet-item.active i {
+            color: #d97706;
+        }
+        /* تنسيق للشاشات الصغيرة */
+        @media (max-width: 480px) {
+            .bottom-nav .nav-item {
+                padding: 4px 8px;
+                font-size: 0.5rem;
+            }
+            .bottom-nav .nav-item i {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* ========== باقي الأنماط من الكود السابق ========== */
         .glass {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(16px);
@@ -566,6 +649,18 @@
             flex-wrap: wrap;
         }
         .category-header .page-title { font-size: 1.8rem; }
+        
+        /* ========== الوضع الليلي ========== */
+        .dark .bottom-nav {
+            background: rgba(30, 41, 59, 0.95);
+            border-top-color: rgba(255, 255, 255, 0.05);
+        }
+        .dark .bottom-nav .nav-item {
+            color: #94a3b8;
+        }
+        .dark .bottom-nav .nav-item.active {
+            color: #fbbf24;
+        }
         .dark .product-card {
             background: #1e293b;
             border-color: #334155;
@@ -722,7 +817,7 @@
     </div>
 
     <!-- المحتوى الرئيسي -->
-    <div id="main-app" class="hidden pb-32">
+    <div id="main-app" class="hidden pb-28">
         <!-- الهيدر -->
         <div class="simple-banner">
             <button class="menu-btn" id="menuBtn"><i class="fas fa-bars text-xl"></i></button>
@@ -981,7 +1076,6 @@
                             <button onclick="window.addToCartDetail()" class="btn-add-cart"><i class="fas fa-cart-plus ml-1"></i> إضافة إلى السلة</button>
                             <button onclick="window.buyNowDetail()" class="btn-buy-now"><i class="fas fa-bolt ml-1"></i> اشترى الآن</button>
                         </div>
-                        <!-- تم حذف قسم المشاركة -->
                     </div>
                 </div>
             </div>
@@ -993,27 +1087,28 @@
             </div>
         </main>
 
-        <!-- الشريط الجانبي -->
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
-        <div class="sidebar" id="sidebar">
-            <div class="text-center py-4 border-b border-dark/10">
-                <img id="sidebarImg" class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-dark" src="https://via.placeholder.com/100">
-                <h4 id="sidebarName" class="font-bold text-dark text-lg mt-2"></h4>
-                <p id="sidebarWallet" class="text-sm text-yellow-dark"></p>
-            </div>
-            <a href="#" onclick="navigateTo('home'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-home w-6"></i> الرئيسية</a>
-            <a href="#" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-user w-6"></i> حسابي</a>
-            <a href="#" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6"></i> محفظتي</a>
-            <a href="#" onclick="toggleSidebar(false); document.getElementById('userOrdersList').scrollIntoView({behavior:'smooth'});" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-shopping-bag w-6"></i> طلباتي</a>
-            <a href="#" onclick="openWalletWhatsApp(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6 text-yellow-dark"></i> شحن المحفظة</a>
-            <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fab fa-whatsapp w-6 text-green-500"></i> خدمة العملاء</a>
-            <div onclick="toggleSidebar(false); showPolicy('terms');" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer"><i class="fas fa-file-alt w-6"></i> السياسات</div>
-            <div onclick="toggleTheme()" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer" id="themeToggleBtn"><i class="fas fa-moon w-6"></i> الوضع الليلي</div>
-            <a href="#" onclick="document.getElementById('logout-btn').click(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-sign-out-alt w-6"></i> تسجيل الخروج</a>
+        <!-- ========== الشريط العائم السفلي (الحساب، الدعم، المحفظة، الرئيسية) ========== -->
+        <div class="bottom-nav">
+            <a href="#" onclick="navigateTo('home'); setActiveNav('home')" class="nav-item active" id="nav-home">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="#" onclick="openWallet(); setActiveNav('wallet')" class="nav-item wallet-item" id="nav-wallet">
+                <i class="fas fa-wallet"></i>
+                <span>المحفظة</span>
+            </a>
+            <a href="#" onclick="openSupport(); setActiveNav('support')" class="nav-item" id="nav-support">
+                <i class="fas fa-headset"></i>
+                <span>الدعم</span>
+            </a>
+            <a href="#" onclick="openAccount(); setActiveNav('account')" class="nav-item" id="nav-account">
+                <i class="fas fa-user"></i>
+                <span>الحساب</span>
+            </a>
         </div>
 
-        <!-- الفوتر -->
-        <footer class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur border-t border-dark/10 py-3 text-center text-xs text-dark-light footer-links">
+        <!-- الفوتر (تم إلغاؤه لأنه موجود في الشريط العائم) -->
+        <footer class="hidden fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur border-t border-dark/10 py-3 text-center text-xs text-dark-light footer-links">
             <div class="flex justify-center gap-4 flex-wrap">
                 <a href="#" onclick="showPolicy('terms');return false;">شروط الخدمة</a>
                 <a href="#" onclick="showPolicy('privacy');return false;">سياسة الخصوصية</a>
@@ -1202,6 +1297,33 @@
             redotpay: [],
             tiktok: [],
             ai: []
+        };
+
+        // ========== دوال الشريط العائم ==========
+        window.setActiveNav = function(id) {
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('nav-' + id);
+            if (target) target.classList.add('active');
+        };
+
+        window.openWallet = function() {
+            // التمرير إلى محفظة المستخدم
+            document.querySelector('.wallet-card').scrollIntoView({ behavior: 'smooth' });
+            // إذا كان المستخدم مسجل، نفتح المحفظة
+            if (userData) {
+                alert(`💰 رصيدك الحالي: ${userData.balance?.toLocaleString() || 0} ج.س\n📱 رقم المحفظة: #${userData.walletID || '000000'}`);
+            } else {
+                alert('❌ يرجى تسجيل الدخول أولاً');
+            }
+        };
+
+        window.openSupport = function() {
+            window.open('https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة', '_blank');
+        };
+
+        window.openAccount = function() {
+            // فتح الشريط الجانبي أو صفحة الحساب
+            toggleSidebar(true);
         };
 
         // ========== دالة فتح واتساب ==========
@@ -1475,6 +1597,8 @@
                 hash = '#home';
             }
             window.location.hash = hash;
+            // تحديث الشريط العائم
+            if (page === 'home') setActiveNav('home');
         }
         window.navigateTo = navigateTo;
 
@@ -1488,6 +1612,7 @@
 
             if (hash === '#home' || hash === '') {
                 document.getElementById('homePage').classList.remove('hidden');
+                setActiveNav('home');
                 return;
             }
 
@@ -1518,6 +1643,71 @@
         }
 
         window.addEventListener('hashchange', handleRoute);
+
+        // ========== صفحة تفاصيل المنتج ==========
+        function showProductDetail(productId) {
+            const result = findProductById(productId);
+            
+            if (!result) {
+                alert('❌ المنتج غير موجود أو تم حذفه');
+                navigateTo('home');
+                return;
+            }
+
+            const { product, category } = result;
+            currentProductId = productId;
+
+            const categoryImage = categoryImages[category] || 'https://via.placeholder.com/200';
+            document.getElementById('detailImage').src = categoryImage;
+            document.getElementById('detailName').textContent = product.name;
+            document.getElementById('detailName2').textContent = product.name;
+            document.getElementById('detailPrice').textContent = product.price.toLocaleString() + ' ج.س';
+
+            const detailPage = document.getElementById('productDetailPage');
+            detailPage.dataset.productId = product.id;
+            detailPage.dataset.productName = product.name;
+            detailPage.dataset.productPrice = product.price;
+            detailPage.dataset.productCategory = category;
+
+            document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
+            document.getElementById('homePage').classList.add('hidden');
+            detailPage.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addToCartDetail = function() {
+            const detailPage = document.getElementById('productDetailPage');
+            const productName = detailPage.dataset.productName;
+            if (productName) {
+                alert(`🛒 تم إضافة "${productName}" إلى السلة!`);
+            } else {
+                alert('❌ لم يتم تحديد منتج');
+            }
+        };
+
+        window.buyNowDetail = function() {
+            const detailPage = document.getElementById('productDetailPage');
+            const productId = detailPage.dataset.productId;
+            const productName = detailPage.dataset.productName;
+            const productPrice = parseFloat(detailPage.dataset.productPrice);
+            const category = detailPage.dataset.productCategory;
+            if (productId && productName && productPrice && category) {
+                showOrderModal(productName, productPrice, category, productId);
+            } else {
+                alert('❌ لم يتم تحديد منتج');
+            }
+        };
+
+        window.goBackFromDetail = function() {
+            const detailPage = document.getElementById('productDetailPage');
+            const category = detailPage.dataset.productCategory;
+            if (category && allProducts[category] && allProducts[category].length > 0) {
+                navigateTo('category', category);
+            } else {
+                navigateTo('home');
+            }
+        };
 
         // ========== دوال الأدمن ==========
         window.addNewProduct = async () => {
@@ -2084,4 +2274,4 @@
         });
     </script>
 </body>
-    </html>
+                            </html>
