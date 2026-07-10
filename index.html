@@ -8,7 +8,7 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- نفس الأنماط الأساسية السابقة مع تعديلات على بطاقات المنتج --- */
+        /* --- جميع الأنماط السابقة مع تعديل بسيط في حجم الصورة --- */
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
         * {
             font-family: 'Cairo', sans-serif;
@@ -21,7 +21,6 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-        /* --- الأنماط العامة (glass, cards, buttons...) كما هي من الكود السابق --- */
         .glass {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(16px);
@@ -54,7 +53,7 @@
         .service-card:hover .service-icon {
             transform: scale(1.05);
         }
-        /* --- التصميم الجديد لبطاقات المنتج (على شكل اليونكو) --- */
+        /* --- تصميم بطاقات المنتج الجديد (على شكل اليونكو) --- */
         .product-card {
             background: white;
             border-radius: 0.75rem;
@@ -76,7 +75,7 @@
             height: 200px;
             object-fit: contain;
             background: #f8fafc;
-            padding: 0.5rem;
+            padding: 0.75rem;
             border-bottom: 1px solid #f1f5f9;
         }
         .product-card .product-info {
@@ -170,7 +169,7 @@
         .share-btn-whatsapp { background: #25D366; }
         .share-btn-facebook { background: #1877F2; }
         .share-btn-tiktok { background: #000000; }
-        /* --- باقي الأنماط (شبكة المنتجات، الأزرار، الوضع الليلي...) من الكود السابق --- */
+        /* --- باقي الأنماط العامة --- */
         .back-btn {
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -196,25 +195,6 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 1.5rem;
         }
-        .whatsapp-float {
-            position: fixed;
-            bottom: 80px;
-            left: 20px;
-            z-index: 100;
-            background: #25D366;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-        }
         .category-page {
             display: none;
         }
@@ -227,9 +207,7 @@
         .home-page.hidden {
             display: none;
         }
-        input,
-        select,
-        textarea {
+        input, select, textarea {
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 1rem;
@@ -238,9 +216,7 @@
             color: #1e293b;
             transition: 0.2s;
         }
-        input:focus,
-        select:focus,
-        textarea:focus {
+        input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: #f59e0b;
             background: rgba(255, 255, 255, 0.8);
@@ -251,19 +227,13 @@
             gap: 1rem;
         }
         @media (min-width: 640px) {
-            .service-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .service-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (min-width: 768px) {
-            .service-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            .service-grid { grid-template-columns: repeat(3, 1fr); }
         }
         @media (min-width: 1024px) {
-            .service-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
+            .service-grid { grid-template-columns: repeat(4, 1fr); }
         }
         .product-grid {
             display: grid;
@@ -271,19 +241,13 @@
             gap: 1rem;
         }
         @media (min-width: 640px) {
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (min-width: 768px) {
-            .product-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            .product-grid { grid-template-columns: repeat(3, 1fr); }
         }
         @media (min-width: 1024px) {
-            .product-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
+            .product-grid { grid-template-columns: repeat(4, 1fr); }
         }
         .admin-tab {
             transition: all 0.2s;
@@ -298,12 +262,8 @@
             color: #d97706;
             background: rgba(245, 158, 11, 0.1);
         }
-        .admin-tab-content {
-            display: none;
-        }
-        .admin-tab-content.active {
-            display: block;
-        }
+        .admin-tab-content { display: none; }
+        .admin-tab-content.active { display: block; }
         .product-item {
             background: rgba(255, 255, 255, 0.6);
             border-radius: 1rem;
@@ -319,9 +279,7 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
             cursor: pointer;
         }
-        .user-item:hover {
-            background: rgba(255, 255, 255, 0.8);
-        }
+        .user-item:hover { background: rgba(255, 255, 255, 0.8); }
         .sidebar {
             position: fixed;
             top: 0;
@@ -336,9 +294,7 @@
             padding: 1.5rem;
             border-right: 1px solid rgba(0, 0, 0, 0.05);
         }
-        .sidebar.open {
-            right: 0;
-        }
+        .sidebar.open { right: 0; }
         .sidebar-overlay {
             position: fixed;
             top: 0;
@@ -350,9 +306,7 @@
             z-index: 999;
             display: none;
         }
-        .sidebar-overlay.active {
-            display: block;
-        }
+        .sidebar-overlay.active { display: block; }
         .menu-btn {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(8px);
@@ -364,9 +318,7 @@
             color: #1e293b;
             transition: 0.2s;
         }
-        .menu-btn:hover {
-            background: rgba(255, 255, 255, 0.8);
-        }
+        .menu-btn:hover { background: rgba(255, 255, 255, 0.8); }
         .simple-banner {
             background: linear-gradient(135deg, #fef08a, #fde047);
             height: 80px;
@@ -384,9 +336,7 @@
             font-size: 0.75rem;
             transition: 0.2s;
         }
-        .footer-links a:hover {
-            color: #d97706;
-        }
+        .footer-links a:hover { color: #d97706; }
         .brand-name {
             background: linear-gradient(135deg, #f59e0b, #d97706);
             -webkit-background-clip: text;
@@ -451,18 +401,10 @@
             font-size: 0.9rem;
             padding: 0.6rem 0.5rem;
         }
-        .text-dark {
-            color: #1e293b;
-        }
-        .text-dark-light {
-            color: #475569;
-        }
-        .text-yellow-dark {
-            color: #d97706;
-        }
-        .border-yellow-dark {
-            border-color: #d97706;
-        }
+        .text-dark { color: #1e293b; }
+        .text-dark-light { color: #475569; }
+        .text-yellow-dark { color: #d97706; }
+        .border-yellow-dark { border-color: #d97706; }
         .danger-btn {
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
@@ -492,9 +434,7 @@
             display: block;
             margin-bottom: 1rem;
         }
-        .whatsapp-icon-input {
-            position: relative;
-        }
+        .whatsapp-icon-input { position: relative; }
         .whatsapp-icon-input i {
             position: absolute;
             left: 15px;
@@ -503,9 +443,7 @@
             color: #25D366;
             font-size: 1.2rem;
         }
-        .whatsapp-icon-input input {
-            padding-right: 45px;
-        }
+        .whatsapp-icon-input input { padding-right: 45px; }
         .whatsapp-input {
             background: rgba(255, 255, 255, 0.6);
             border: 2px solid #25D366;
@@ -536,91 +474,51 @@
             margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
-        .category-header .page-title {
-            font-size: 1.8rem;
-        }
+        .category-header .page-title { font-size: 1.8rem; }
         /* --- الوضع الليلي --- */
         .dark .product-card {
             background: #1e293b;
             border-color: #334155;
         }
-        .dark .product-card .product-image {
-            background: #0f172a;
-        }
-        .dark .product-card .product-name {
-            color: #f1f5f9;
-        }
-        .dark .product-card .product-price {
-            color: #fbbf24;
-        }
-        .dark .product-card .product-rating span {
-            color: #94a3b8;
-        }
+        .dark .product-card .product-image { background: #0f172a; }
+        .dark .product-card .product-name { color: #f1f5f9; }
+        .dark .product-card .product-price { color: #fbbf24; }
+        .dark .product-card .product-rating span { color: #94a3b8; }
         .dark .product-card .btn-buy-now {
             background: #f59e0b;
             color: #1e293b;
         }
-        .dark .product-card .btn-buy-now:hover {
-            background: #d97706;
-        }
+        .dark .product-card .btn-buy-now:hover { background: #d97706; }
         .dark .product-card .btn-add-cart {
             background: #334155;
             color: #f1f5f9;
         }
-        .dark .product-card .btn-add-cart:hover {
-            background: #475569;
-        }
-        .dark .wallet-card {
-            background: rgba(30, 41, 59, 0.7);
-        }
-        .dark .glass-card {
-            background: rgba(30, 41, 59, 0.6);
-        }
-        .dark .glass-card h3 {
-            color: #f1f5f9;
-        }
-        .dark .glass-card p {
-            color: #94a3b8;
-        }
-        .dark body {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-        }
+        .dark .product-card .btn-add-cart:hover { background: #475569; }
+        .dark .wallet-card { background: rgba(30, 41, 59, 0.7); }
+        .dark .glass-card { background: rgba(30, 41, 59, 0.6); }
+        .dark .glass-card h3 { color: #f1f5f9; }
+        .dark .glass-card p { color: #94a3b8; }
+        .dark body { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
         .dark .simple-banner {
             background: linear-gradient(135deg, #1e293b, #334155);
             border-bottom-color: #f59e0b;
         }
-        .dark .brand-name-white {
-            color: #f1f5f9;
-        }
-        .dark .text-dark {
-            color: #f1f5f9;
-        }
-        .dark .text-dark-light {
-            color: #94a3b8;
-        }
+        .dark .brand-name-white { color: #f1f5f9; }
+        .dark .text-dark { color: #f1f5f9; }
+        .dark .text-dark-light { color: #94a3b8; }
         .dark .back-btn {
             background: rgba(30, 41, 59, 0.6);
             color: #f1f5f9;
         }
-        .dark .back-btn:hover {
-            background: rgba(30, 41, 59, 0.8);
-        }
+        .dark .back-btn:hover { background: rgba(30, 41, 59, 0.8); }
         .dark .menu-btn {
             background: rgba(30, 41, 59, 0.6);
             color: #f1f5f9;
         }
-        .dark .menu-btn:hover {
-            background: rgba(30, 41, 59, 0.8);
-        }
-        .dark .glass {
-            background: rgba(30, 41, 59, 0.7);
-        }
-        .dark .footer-links a {
-            color: #94a3b8;
-        }
-        .dark .footer-links a:hover {
-            color: #fbbf24;
-        }
+        .dark .menu-btn:hover { background: rgba(30, 41, 59, 0.8); }
+        .dark .glass { background: rgba(30, 41, 59, 0.7); }
+        .dark .footer-links a { color: #94a3b8; }
+        .dark .footer-links a:hover { color: #fbbf24; }
         .dark footer {
             background: rgba(30, 41, 59, 0.8);
             border-top-color: rgba(255, 255, 255, 0.1);
@@ -639,23 +537,15 @@
             color: #94a3b8;
             border-color: rgba(255, 255, 255, 0.1);
         }
-        .dark .empty-products i {
-            color: #475569;
-        }
+        .dark .empty-products i { color: #475569; }
         @media (max-width: 480px) {
-            .category-header .page-title {
-                font-size: 1.3rem;
-            }
-            .product-card .product-image {
-                height: 150px;
-            }
+            .category-header .page-title { font-size: 1.3rem; }
+            .product-card .product-image { height: 150px; }
             .product-card .product-name {
                 font-size: 0.85rem;
                 height: 2.2rem;
             }
-            .product-card .product-price {
-                font-size: 1rem;
-            }
+            .product-card .product-price { font-size: 1rem; }
         }
     </style>
 </head>
@@ -1048,10 +938,7 @@
     </div>
 
     <script type="module">
-        // ... (نفس الكود الخاص بـ Firebase وإدارة المنتجات والطلبات من الإصدار السابق) ...
-        // تم الحفاظ على جميع الوظائف كما هي دون تغيير
-        // فقط تم تعديل شكل بطاقات المنتج في دالة renderAllProducts و renderCategoryProducts
-
+        // ========== استيراد Firebase ==========
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, onSnapshot, collection, query, where, getDocs, updateDoc, increment, setDoc, serverTimestamp, orderBy, getDoc, runTransaction, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -1077,6 +964,20 @@
         let currentOrder = null;
         let editingProductId = null;
 
+        // ========== صور كل فئة ==========
+        const categoryImages = {
+            pubg: 'https://i.ibb.co/20tqyP6s/4ff592f1-0de2-421f-bd99-514dd525d512.png',
+            freefire: 'https://i.ibb.co/LMh98T2/4bf2c240-db85-47c5-b211-3d0a5cf192df.png',
+            clash: 'https://i.ibb.co/ZpS1L23Z/71ce3435-2342-43ff-aad3-0f65c7e6e837.png',
+            efootball: 'https://i.ibb.co/RkCSn7yX/a7934c4c-ed36-4662-b9cc-7bc04c57abf3.png',
+            netflix: 'https://i.ibb.co/HTqk43z8/4054fb24-7c84-445b-b62e-c15d5ed4fe8b.png',
+            googleplay: 'https://i.ibb.co/LhNr3W7Y/f0bf22d7-2b70-419a-8c74-898d8a251e56.png',
+            redotpay: 'https://i.ibb.co/ksqdJcgH/e96c9669-6446-4942-b760-a507d492a2b8.png',
+            tiktok: 'https://i.ibb.co/j93NWK9T/f74413af-29eb-4da4-917d-e347c7698ed7.png',
+            ai: 'https://i.ibb.co/zVDbcgnW/c8f040a9-48ad-4e5e-8203-f941fbf94ad6.png'
+        };
+
+        // ========== دالة فتح واتساب ==========
         window.openWalletWhatsApp = function() {
             if (userData && userData.walletID) {
                 const walletNumber = userData.walletID;
@@ -1150,6 +1051,7 @@
             ai: []
         };
 
+        // ========== إضافة المنتجات الافتراضية ==========
         async function seedDefaultProducts() {
             try {
                 const productsSnap = await getDocs(collection(db, "products"));
@@ -1178,6 +1080,7 @@
             }
         }
 
+        // ========== جلب المنتجات من Firestore ==========
         async function loadProductsFromFirestore() {
             try {
                 await seedDefaultProducts();
@@ -1208,6 +1111,7 @@
             }
         }
 
+        // ========== حذف جميع المنتجات ==========
         window.deleteAllProducts = async function() {
             if (!confirm("⚠️ تحذير: هل أنت متأكد من حذف جميع المنتجات نهائياً؟")) return;
             if (!confirm("⚠️ تأكيد نهائي: لا يمكن التراجع عن هذا الإجراء! هل تريد المتابعة؟")) return;
@@ -1236,6 +1140,7 @@
             }
         };
 
+        // ========== إرسال إشعار تيليجرام ==========
         async function sendTelegramNotification(orderData) {
             const message =
                 `🛒 **طلب جديد في MORRE STORE!**\n━━━━━━━━━━━━━━━━━━\n📦 **المنتج:** ${orderData.product}\n💰 **السعر:** ${orderData.price} ج.س\n🎮 **اللعبة:** ${orderData.game}\n👤 **العميل:** ${orderData.uName}\n🆔 **الأيدي:** ${orderData.gameID}\n🎮 **الاسم:** ${orderData.gameName}\n📱 **واتساب:** ${orderData.whatsapp}\n⏰ **الوقت:** ${new Date().toLocaleString('ar-SD')}`;
@@ -1248,6 +1153,7 @@
             } catch (e) { console.error(e); }
         }
 
+        // ========== عرض مودال الطلب ==========
         function showOrderModal(product, price, category, productId) {
             if (!userData) {
                 alert('❌ يرجى تسجيل الدخول أولاً');
@@ -1274,6 +1180,7 @@
             document.getElementById('modalWhatsApp').value = '';
         };
 
+        // ========== تأكيد الطلب ==========
         document.getElementById('confirmOrderBtn').onclick = async () => {
             if (!currentOrder) {
                 alert("❌ لا يوجد طلب نشط");
@@ -1321,6 +1228,7 @@
             }
         };
 
+        // ========== دالة المشاركة ==========
         function getShareText(productName, price, category) {
             return `🛒 منتج: ${productName}\n💰 السعر: ${price.toLocaleString()} ج.س\n🎮 الفئة: ${category}\n🛍️ من متجر MORRE STORE`;
         }
@@ -1337,8 +1245,7 @@
                     shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
                     break;
                 case 'tiktok':
-                    shareUrl =
-                    `https://www.tiktok.com/share?text=${encodeURIComponent(text + ' ' + url)}`;
+                    shareUrl = `https://www.tiktok.com/share?text=${encodeURIComponent(text + ' ' + url)}`;
                     break;
                 default:
                     return;
@@ -1348,7 +1255,7 @@
             }
         };
 
-        // ========== دالة عرض المنتجات (التصميم الجديد على شكل اليونكو) ==========
+        // ========== دالة عرض المنتجات (كل فئة بصورتها الخاصة) ==========
         function renderAllProducts() {
             const categories = ['pubg', 'freefire', 'clash', 'efootball', 'netflix', 'googleplay', 'redotpay', 'tiktok',
                 'ai'
@@ -1359,6 +1266,8 @@
                 if (!grid) return;
 
                 const products = allProducts[cat]?.filter(p => p.isActive !== false) || [];
+                // الحصول على صورة الفئة المناسبة
+                const categoryImage = categoryImages[cat] || 'https://via.placeholder.com/200';
 
                 if (products.length === 0) {
                     grid.innerHTML = `
@@ -1374,7 +1283,7 @@
                 grid.innerHTML = products.map(p => {
                     return `
                                 <div class="product-card">
-                                    <img src="https://i.ibb.co/20tqyP6s/4ff592f1-0de2-421f-bd99-514dd525d512.png" alt="${p.name}" class="product-image" loading="lazy">
+                                    <img src="${categoryImage}" alt="${p.name}" class="product-image" loading="lazy">
                                     <div class="product-info">
                                         <div class="product-name">${p.name}</div>
                                         <div class="product-price">${p.price.toLocaleString()} ج.س</div>
@@ -1406,7 +1315,7 @@
             alert('🛒 تم إضافة المنتج إلى السلة!');
         };
 
-        // ========== دوال الأدمن (نفس الكود السابق) ==========
+        // ========== دوال الأدمن ==========
         window.addNewProduct = async () => {
             const game = document.getElementById('productGame').value;
             const name = document.getElementById('productName').value.trim();
@@ -1522,7 +1431,7 @@
             }
         }
 
-        // ========== باقي الدوال (المستخدمين، الإحصائيات، الطلبات، التنقل) ==========
+        // ========== عرض جميع المستخدمين ==========
         function loadAllUsers() {
             onSnapshot(collection(db, "users"), (snap) => {
                 const list = document.getElementById('usersList');
@@ -1576,6 +1485,7 @@
             document.getElementById('userDetailModal').classList.add('hidden');
         };
 
+        // ========== إحصائيات ==========
         async function loadAdminStats() {
             try {
                 const usersSnap = await getDocs(collection(db, "users"));
@@ -1708,6 +1618,7 @@
             }
         };
 
+        // ========== عرض تاريخ الطلبات ==========
         function loadUserHistory(uid) {
             onSnapshot(query(collection(db, "orders"), where("uID", "==", uid), orderBy("timestamp", "desc")), (snap) => {
                 const list = document.getElementById('userOrdersList');
@@ -1727,6 +1638,7 @@
             });
         }
 
+        // ========== السياسات ==========
         const policies = {
             terms: { title: "📜 شروط الخدمة",
             content: "<p>باستخدامك للمنصة توافق على الشروط التالية: جميع عمليات الشحن خلال 24 ساعة، لا نضمن استرجاع الرصيد بعد إتمام الشراء.</p>" },
@@ -1973,4 +1885,4 @@
         };
     </script>
 </body>
-</html>
+    </html>
