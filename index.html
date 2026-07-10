@@ -146,41 +146,6 @@
         .product-card .btn-buy-now:hover {
             background: #0f172a;
         }
-        .product-card .share-buttons {
-            padding: 0 1rem 0.5rem;
-            display: flex;
-            gap: 0.3rem;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-        }
-        .product-card .share-btn {
-            padding: 0.2rem 0.6rem;
-            border-radius: 1.5rem;
-            font-size: 0.6rem;
-            font-weight: 700;
-            border: none;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.2rem;
-            color: white;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .share-btn-whatsapp { background: #25D366; }
-        .share-btn-facebook { background: #1877F2; }
-        .share-btn-tiktok { background: #000000; }
-        .copy-link-btn {
-            background: #e2e8f0;
-            color: #1e293b;
-            padding: 0.2rem 0.8rem;
-            border-radius: 1rem;
-            font-size: 0.7rem;
-            border: none;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .copy-link-btn:hover { background: #cbd5e1; }
         .product-detail-page {
             display: none;
             background: white;
@@ -270,19 +235,6 @@
         }
         .product-detail-page .detail-actions .btn-buy-now:hover {
             background: #0f172a;
-        }
-        .product-detail-page .detail-share {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-        .product-detail-page .detail-share span {
-            font-size: 0.85rem;
-            color: #64748b;
         }
         .product-detail-page .back-to-category {
             display: inline-block;
@@ -642,8 +594,6 @@
         .dark .product-detail-page .detail-info h1 { color: #f1f5f9; }
         .dark .product-detail-page .detail-info .detail-price { color: #fbbf24; }
         .dark .product-detail-page .detail-info .detail-description { color: #94a3b8; }
-        .dark .product-detail-page .detail-share { border-top-color: #334155; }
-        .dark .product-detail-page .detail-share span { color: #94a3b8; }
         .dark .product-detail-page .back-to-category { color: #94a3b8; }
         .dark .product-detail-page .back-to-category:hover { color: #fbbf24; }
         .dark .product-detail-page .detail-actions .btn-buy-now {
@@ -700,11 +650,6 @@
             border-color: rgba(255, 255, 255, 0.1);
         }
         .dark .empty-products i { color: #475569; }
-        .dark .copy-link-btn {
-            background: #334155;
-            color: #f1f5f9;
-        }
-        .dark .copy-link-btn:hover { background: #475569; }
         .dark .section-title {
             color: #f1f5f9;
         }
@@ -1036,13 +981,7 @@
                             <button onclick="window.addToCartDetail()" class="btn-add-cart"><i class="fas fa-cart-plus ml-1"></i> إضافة إلى السلة</button>
                             <button onclick="window.buyNowDetail()" class="btn-buy-now"><i class="fas fa-bolt ml-1"></i> اشترى الآن</button>
                         </div>
-                        <div class="detail-share">
-                            <span><i class="fas fa-share-alt ml-1"></i> مشاركة المنتج:</span>
-                            <button onclick="shareProductDetail('whatsapp')" class="share-btn share-btn-whatsapp"><i class="fab fa-whatsapp"></i> واتساب</button>
-                            <button onclick="shareProductDetail('facebook')" class="share-btn share-btn-facebook"><i class="fab fa-facebook-f"></i> فيسبوك</button>
-                            <button onclick="shareProductDetail('tiktok')" class="share-btn share-btn-tiktok"><i class="fab fa-tiktok"></i> تيك توك</button>
-                            <button onclick="copyProductLink()" class="copy-link-btn"><i class="fas fa-copy ml-1"></i> نسخ الرابط</button>
-                        </div>
+                        <!-- تم حذف قسم المشاركة -->
                     </div>
                 </div>
             </div>
@@ -1276,17 +1215,14 @@
             }
         };
 
-        // ========== 🔥 دالة البحث عن المنتج (المعدلة) ==========
+        // ========== دالة البحث عن المنتج ==========
         function findProductById(productId) {
-            console.log("🔍 البحث عن المنتج:", productId);
             for (const category in allProducts) {
                 const product = allProducts[category].find(p => p.id === productId);
                 if (product) {
-                    console.log("✅ تم العثور على المنتج في:", category);
                     return { product, category };
                 }
             }
-            console.log("❌ المنتج غير موجود في allProducts");
             return null;
         }
 
@@ -1319,14 +1255,11 @@
             }
         }
 
-        // ========== 🔥 جلب المنتجات من Firebase (المعدل) ==========
+        // ========== جلب المنتجات من Firebase ==========
         async function loadProductsFromFirestore() {
             try {
                 await seedDefaultProducts();
                 const productsSnap = await getDocs(collection(db, "products"));
-                
-                console.log("📦 عدد المنتجات في Firebase:", productsSnap.size);
-                
                 allProducts = {
                     pubg: [],
                     freefire: [],
@@ -1338,32 +1271,23 @@
                     tiktok: [],
                     ai: []
                 };
-                
                 if (!productsSnap.empty) {
                     productsSnap.forEach(doc => {
                         const p = doc.data();
-                        // 🔥 استخدام doc.id كمعرف رئيسي
-                        const productData = {
-                            id: doc.id,
-                            name: p.name || "منتج بدون اسم",
-                            price: p.price || 0,
-                            category: p.category || "pubg",
-                            isActive: p.isActive !== false
+                        const productData = { 
+                            ...p, 
+                            id: doc.id
                         };
-                        console.log("✅ تم تحميل:", productData.name, "معرف:", productData.id);
-                        if (allProducts.hasOwnProperty(productData.category)) {
+                        if (productData.isActive !== false && allProducts.hasOwnProperty(productData.category)) {
                             allProducts[productData.category].push(productData);
                         }
                     });
                 }
-                
-                console.log("✅ allProducts:", allProducts);
                 renderAllProducts();
                 loadManageProducts();
                 handleRoute();
             } catch (e) {
-                console.error("❌ خطأ في تحميل المنتجات:", e);
-                alert("❌ فشل تحميل المنتجات: " + e.message);
+                console.error("Error loading products:", e);
             }
         }
 
@@ -1484,175 +1408,6 @@
             }
         };
 
-        // ========== دوال المشاركة والروابط ==========
-        function getProductShareUrl(productId) {
-            return window.location.origin + window.location.pathname + '#product/' + productId;
-        }
-
-        function getProductShareText(productName, price, category) {
-            return `🛒 منتج: ${productName}\n💰 السعر: ${price.toLocaleString()} ج.س\n🎮 الفئة: ${category}\n🛍️ من متجر MORRE STORE`;
-        }
-
-        window.shareProduct = function(productId, productName, price, category, platform) {
-            const shareUrl = getProductShareUrl(productId);
-            const text = getProductShareText(productName, price, category);
-            let shareLink = '';
-            switch (platform) {
-                case 'whatsapp':
-                    shareLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + '\n' + shareUrl)}`;
-                    break;
-                case 'facebook':
-                    shareLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(text)}`;
-                    break;
-                case 'tiktok':
-                    shareLink = `https://www.tiktok.com/share?text=${encodeURIComponent(text + ' ' + shareUrl)}`;
-                    break;
-                default:
-                    return;
-            }
-            if (shareLink) {
-                window.open(shareLink, '_blank');
-            }
-        };
-
-        // ========== 🔥 زر النسخ - نسخ رابط المنتج الصحيح (المعدل) ==========
-        window.copyProductLink = function() {
-            if (!currentProductId) {
-                alert('❌ لا يوجد منتج محدد');
-                return;
-            }
-            const result = findProductById(currentProductId);
-            if (!result) {
-                alert('❌ المنتج غير موجود');
-                return;
-            }
-            const shareUrl = getProductShareUrl(currentProductId);
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(shareUrl).then(() => {
-                    alert('✅ تم نسخ رابط المنتج بنجاح!\n' + shareUrl);
-                }).catch(() => {
-                    fallbackCopy(shareUrl);
-                });
-            } else {
-                fallbackCopy(shareUrl);
-            }
-        };
-
-        // ========== 🔥 زر النسخ في بطاقات المنتجات (المعدل) ==========
-        window.copyProductLinkFromCard = function(productId) {
-            console.log("🔍 جاري نسخ رابط المنتج:", productId);
-            
-            const result = findProductById(productId);
-            if (!result) {
-                alert('❌ المنتج غير موجود في قاعدة البيانات');
-                return;
-            }
-            
-            const correctId = result.product.id;
-            const shareUrl = window.location.origin + window.location.pathname + '#product/' + correctId;
-            
-            console.log("✅ الرابط المنسوخ:", shareUrl);
-            
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(shareUrl).then(() => {
-                    alert('✅ تم نسخ رابط المنتج بنجاح!\n' + shareUrl);
-                }).catch(() => {
-                    fallbackCopy(shareUrl);
-                });
-            } else {
-                fallbackCopy(shareUrl);
-            }
-        };
-
-        // طريقة بديلة للنسخ
-        function fallbackCopy(text) {
-            const input = document.createElement('input');
-            input.value = text;
-            document.body.appendChild(input);
-            input.select();
-            document.execCommand('copy');
-            document.body.removeChild(input);
-            alert('✅ تم نسخ رابط المنتج بنجاح!\n' + text);
-        }
-
-        // ========== 🔥 صفحة تفاصيل المنتج (المعدلة) ==========
-        function showProductDetail(productId) {
-            console.log("🔍 جاري عرض المنتج:", productId);
-            
-            const result = findProductById(productId);
-            
-            if (!result) {
-                alert('❌ المنتج غير موجود أو تم حذفه');
-                navigateTo('home');
-                return;
-            }
-
-            const { product, category } = result;
-            currentProductId = productId;
-
-            const categoryImage = categoryImages[category] || 'https://via.placeholder.com/200';
-            document.getElementById('detailImage').src = categoryImage;
-            document.getElementById('detailName').textContent = product.name;
-            document.getElementById('detailName2').textContent = product.name;
-            document.getElementById('detailPrice').textContent = product.price.toLocaleString() + ' ج.س';
-
-            const detailPage = document.getElementById('productDetailPage');
-            detailPage.dataset.productId = product.id;
-            detailPage.dataset.productName = product.name;
-            detailPage.dataset.productPrice = product.price;
-            detailPage.dataset.productCategory = category;
-
-            document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
-            document.getElementById('homePage').classList.add('hidden');
-            detailPage.classList.add('active');
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        window.addToCartDetail = function() {
-            const detailPage = document.getElementById('productDetailPage');
-            const productName = detailPage.dataset.productName;
-            if (productName) {
-                alert(`🛒 تم إضافة "${productName}" إلى السلة!`);
-            } else {
-                alert('❌ لم يتم تحديد منتج');
-            }
-        };
-
-        window.buyNowDetail = function() {
-            const detailPage = document.getElementById('productDetailPage');
-            const productId = detailPage.dataset.productId;
-            const productName = detailPage.dataset.productName;
-            const productPrice = parseFloat(detailPage.dataset.productPrice);
-            const category = detailPage.dataset.productCategory;
-            if (productId && productName && productPrice && category) {
-                showOrderModal(productName, productPrice, category, productId);
-            } else {
-                alert('❌ لم يتم تحديد منتج');
-            }
-        };
-
-        window.shareProductDetail = function(platform) {
-            const detailPage = document.getElementById('productDetailPage');
-            const productId = detailPage.dataset.productId;
-            const productName = detailPage.dataset.productName;
-            const productPrice = parseFloat(detailPage.dataset.productPrice);
-            const category = detailPage.dataset.productCategory;
-            if (productId && productName && productPrice && category) {
-                shareProduct(productId, productName, productPrice, category, platform);
-            }
-        };
-
-        window.goBackFromDetail = function() {
-            const detailPage = document.getElementById('productDetailPage');
-            const category = detailPage.dataset.productCategory;
-            if (category && allProducts[category] && allProducts[category].length > 0) {
-                navigateTo('category', category);
-            } else {
-                navigateTo('home');
-            }
-        };
-
         // ========== عرض المنتجات في الفئات ==========
         function renderAllProducts() {
             const categories = ['pubg', 'freefire', 'clash', 'efootball', 'netflix', 'googleplay', 'redotpay', 'tiktok',
@@ -1697,12 +1452,6 @@
                                             <i class="fas fa-bolt ml-1"></i> اشترى الآن
                                         </button>
                                     </div>
-                                    <div class="share-buttons">
-                                        <button onclick="event.stopPropagation(); window.shareProduct('${p.id}', '${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'whatsapp')" class="share-btn share-btn-whatsapp"><i class="fab fa-whatsapp"></i></button>
-                                        <button onclick="event.stopPropagation(); window.shareProduct('${p.id}', '${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'facebook')" class="share-btn share-btn-facebook"><i class="fab fa-facebook-f"></i></button>
-                                        <button onclick="event.stopPropagation(); window.shareProduct('${p.id}', '${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'tiktok')" class="share-btn share-btn-tiktok"><i class="fab fa-tiktok"></i></button>
-                                        <button onclick="event.stopPropagation(); window.copyProductLinkFromCard('${p.id}')" class="copy-link-btn" title="نسخ رابط المنتج"><i class="fas fa-copy"></i></button>
-                                    </div>
                                 </div>
                             `;
                 }).join('');
@@ -1729,10 +1478,9 @@
         }
         window.navigateTo = navigateTo;
 
-        // ========== 🔥 معالج الروابط (المعدل) ==========
+        // ========== معالج الروابط ==========
         function handleRoute() {
             const hash = window.location.hash || '#home';
-            console.log("📍 الرابط الحالي:", hash);
             
             document.getElementById('homePage').classList.add('hidden');
             document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
@@ -1746,8 +1494,6 @@
             const parts = hash.substring(1).split('/');
             const page = parts[0];
             const param = parts[1] || '';
-
-            console.log("📄 الصفحة:", page, "المعرف:", param);
 
             if (page === 'category' && param) {
                 const target = document.getElementById(`category-${param}`);
@@ -1888,12 +1634,10 @@
                                         <p class="text-dark font-bold">${p.name}</p>
                                         <p class="text-yellow-dark text-sm">${p.price.toLocaleString()} ج.س</p>
                                         <p class="text-dark-light text-xs">${catNames[p.category] || p.category}</p>
-                                        <button onclick="navigateTo('product', '${doc.id}')" class="text-xs text-blue-500 hover:underline mt-1">🔗 عرض المنتج</button>
                                     </div>
-                                    <div class="flex gap-2 flex-wrap">
+                                    <div class="flex gap-2">
                                         <button onclick="window.editProductPrice('${doc.id}', ${p.price})" class="bg-yellow-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-yellow-600">تعديل السعر</button>
                                         <button onclick="window.deleteProduct('${doc.id}')" class="bg-red-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-600">حذف</button>
-                                        <button onclick="window.copyProductLinkFromCard('${doc.id}')" class="bg-gray-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-gray-600">نسخ الرابط</button>
                                     </div>
                                 </div>
                             `;
@@ -2340,4 +2084,4 @@
         });
     </script>
 </body>
-                            </html>
+    </html>
