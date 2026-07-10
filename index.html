@@ -8,7 +8,6 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* ========== جميع الأنماط ========== */
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
         * {
             font-family: 'Cairo', sans-serif;
@@ -53,7 +52,6 @@
         .service-card:hover .service-icon {
             transform: scale(1.05);
         }
-        /* ========== بطاقات المنتج ========== */
         .product-card {
             background: white;
             border-radius: 0.75rem;
@@ -183,7 +181,6 @@
             transition: 0.2s;
         }
         .copy-link-btn:hover { background: #cbd5e1; }
-        /* ========== صفحة تفاصيل المنتج ========== */
         .product-detail-page {
             display: none;
             background: white;
@@ -298,7 +295,6 @@
         .product-detail-page .back-to-category:hover {
             color: #d97706;
         }
-        /* ========== الأقسام ========== */
         .section-title {
             font-size: 1.5rem;
             font-weight: 800;
@@ -313,7 +309,6 @@
         .section-title .section-icon {
             font-size: 1.5rem;
         }
-        /* ========== الأنماط العامة ========== */
         .back-btn {
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -619,7 +614,6 @@
             flex-wrap: wrap;
         }
         .category-header .page-title { font-size: 1.8rem; }
-        /* ========== الوضع الليلي ========== */
         .dark .product-card {
             background: #1e293b;
             border-color: #334155;
@@ -1282,6 +1276,17 @@
             }
         };
 
+        // ========== دالة البحث عن المنتج ==========
+        function findProductById(productId) {
+            for (const category in allProducts) {
+                const product = allProducts[category].find(p => p.id === productId);
+                if (product) {
+                    return { product, category };
+                }
+            }
+            return null;
+        }
+
         // ========== إضافة المنتجات الافتراضية ==========
         async function seedDefaultProducts() {
             try {
@@ -1330,7 +1335,6 @@
                 if (!productsSnap.empty) {
                     productsSnap.forEach(doc => {
                         const p = doc.data();
-                        // 🔥 استخدام doc.id من Firebase
                         const productData = { 
                             ...p, 
                             id: doc.id
@@ -1346,17 +1350,6 @@
             } catch (e) {
                 console.error("Error loading products:", e);
             }
-        }
-
-        // ========== 🔥 دالة البحث عن المنتج ==========
-        function findProductById(productId) {
-            for (const category in allProducts) {
-                const product = allProducts[category].find(p => p.id === productId);
-                if (product) {
-                    return { product, category };
-                }
-            }
-            return null;
         }
 
         // ========== حذف جميع المنتجات ==========
@@ -1507,9 +1500,16 @@
             }
         };
 
+        // ========== دالة نسخ الرابط (المعدلة) ==========
         window.copyProductLink = function() {
             if (!currentProductId) {
                 alert('❌ لا يوجد منتج محدد');
+                return;
+            }
+            // البحث عن المنتج للتأكد من وجوده
+            const result = findProductById(currentProductId);
+            if (!result) {
+                alert('❌ المنتج غير موجود');
                 return;
             }
             const shareUrl = getProductShareUrl(currentProductId);
@@ -1526,22 +1526,41 @@
             });
         };
 
+        // ========== زر النسخ في بطاقات المنتجات (المعدل) ==========
         window.copyProductLinkFromCard = function(productId) {
-            const shareUrl = getProductShareUrl(productId);
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                alert('✅ تم نسخ رابط المنتج بنجاح!');
-            }).catch(() => {
-                const input = document.createElement('input');
-                input.value = shareUrl;
-                document.body.appendChild(input);
-                input.select();
-                document.execCommand('copy');
-                document.body.removeChild(input);
-                alert('✅ تم نسخ رابط المنتج بنجاح!');
-            });
+            // البحث عن المنتج
+            const result = findProductById(productId);
+            if (!result) {
+                alert('❌ المنتج غير موجود');
+                return;
+            }
+            // استخدام المعرف الصحيح من قاعدة البيانات
+            const correctId = result.product.id;
+            const shareUrl = window.location.origin + window.location.pathname + '#product/' + correctId;
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    alert('✅ تم نسخ رابط المنتج بنجاح!');
+                }).catch(() => {
+                    fallbackCopy(shareUrl);
+                });
+            } else {
+                fallbackCopy(shareUrl);
+            }
         };
 
-        // ========== 🔥 صفحة تفاصيل المنتج المعدلة ==========
+        // طريقة بديلة للنسخ
+        function fallbackCopy(text) {
+            const input = document.createElement('input');
+            input.value = text;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            alert('✅ تم نسخ رابط المنتج بنجاح!');
+        }
+
+        // ========== صفحة تفاصيل المنتج ==========
         function showProductDetail(productId) {
             const result = findProductById(productId);
             
@@ -1642,7 +1661,6 @@
                 }
 
                 grid.innerHTML = products.map(p => {
-                    // 🔥 استخدام p.id من Firebase
                     return `
                                 <div class="product-card" onclick="navigateTo('product', '${p.id}')">
                                     <img src="${categoryImage}" alt="${p.name}" class="product-image" loading="lazy">
@@ -1666,7 +1684,7 @@
                                         <button onclick="event.stopPropagation(); window.shareProduct('${p.id}', '${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'whatsapp')" class="share-btn share-btn-whatsapp"><i class="fab fa-whatsapp"></i></button>
                                         <button onclick="event.stopPropagation(); window.shareProduct('${p.id}', '${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'facebook')" class="share-btn share-btn-facebook"><i class="fab fa-facebook-f"></i></button>
                                         <button onclick="event.stopPropagation(); window.shareProduct('${p.id}', '${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', 'tiktok')" class="share-btn share-btn-tiktok"><i class="fab fa-tiktok"></i></button>
-                                        <button onclick="event.stopPropagation(); window.copyProductLinkFromCard('${p.id}')" class="copy-link-btn"><i class="fas fa-copy"></i></button>
+                                        <button onclick="event.stopPropagation(); window.copyProductLinkFromCard('${p.id}')" class="copy-link-btn" title="نسخ رابط المنتج"><i class="fas fa-copy"></i></button>
                                     </div>
                                 </div>
                             `;
@@ -1678,7 +1696,7 @@
             alert('🛒 تم إضافة المنتج إلى السلة!');
         };
 
-        // ========== 🔥 نظام التنقل المعدل ==========
+        // ========== نظام التنقل ==========
         function navigateTo(page, param) {
             let hash = '';
             if (page === 'home') {
@@ -1694,11 +1712,10 @@
         }
         window.navigateTo = navigateTo;
 
-        // ========== 🔥 معالج الروابط المعدل ==========
+        // ========== معالج الروابط ==========
         function handleRoute() {
             const hash = window.location.hash || '#home';
             
-            // إخفاء كل الصفحات
             document.getElementById('homePage').classList.add('hidden');
             document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
             document.getElementById('productDetailPage').classList.remove('active');
@@ -1721,7 +1738,6 @@
                     navigateTo('home');
                 }
             } else if (page === 'product' && param) {
-                // 🔥 استخدام دالة البحث الجديدة
                 const result = findProductById(param);
                 if (result) {
                     showProductDetail(result.product.id);
@@ -1737,7 +1753,7 @@
 
         window.addEventListener('hashchange', handleRoute);
 
-        // ========== 🔥 دوال الأدمن المعدلة ==========
+        // ========== دوال الأدمن ==========
         window.addNewProduct = async () => {
             const game = document.getElementById('productGame').value;
             const name = document.getElementById('productName').value.trim();
@@ -1748,7 +1764,6 @@
                 return;
             }
             
-            // 🔥 استخدام docRef.id من Firebase
             const docRef = doc(collection(db, "products"));
             const newId = docRef.id;
             
@@ -2304,101 +2319,5 @@
             handleRoute();
         });
     </script>
-    <!-- زر إعادة تعيين المنتجات -->
-<div style="position:fixed;bottom:80px;right:15px;z-index:99999;">
-    <button onclick="resetProducts()" style="background:#f59e0b;color:white;border:none;border-radius:50%;width:60px;height:60px;font-size:28px;box-shadow:0 4px 20px rgba(0,0,0,0.3);cursor:pointer;display:flex;align-items:center;justify-content:center;border:2px solid white;">
-        🔄
-    </button>
-</div>
-
-<script>
-async function resetProducts() {
-    if (!confirm('⚠️ سيتم حذف جميع المنتجات وإعادة تعيينها.\nهل أنت متأكد؟')) return;
-    
-    const btn = document.querySelector('button[onclick="resetProducts()"]');
-    btn.textContent = '⏳';
-    btn.disabled = true;
-    
-    try {
-        const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js");
-        const { getFirestore, collection, getDocs, writeBatch, doc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js");
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyC0jzecEwKgHpxHpTi8Y-_bwwfzVdtgf3E",
-            authDomain: "khasmshop.firebaseapp.com",
-            projectId: "khasmshop",
-            storageBucket: "khasmshop.firebasestorage.app",
-            messagingSenderId: "238182001615",
-            appId: "1:238182001615:web:d77391030a40a481b440ba"
-        };
-        
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        
-        const products = [
-            { name: "325 شدة", price: 20000, category: "pubg" },
-            { name: "60 شدة", price: 4000, category: "pubg" },
-            { name: "1800 شدة", price: 100000, category: "pubg" },
-            { name: "660 شدة", price: 38000, category: "pubg" },
-            { name: "8100 شدة", price: 430000, category: "pubg" },
-            { name: "3850 شدة", price: 210000, category: "pubg" },
-            { name: "110 جوهرة", price: 4500, category: "freefire" },
-            { name: "231 جوهرة", price: 9000, category: "freefire" },
-            { name: "583 جوهرة", price: 23000, category: "freefire" },
-            { name: "1180 جوهرة", price: 50000, category: "freefire" },
-            { name: "التذكرة الذهبية (أول مرة)", price: 10000, category: "clash" },
-            { name: "التذكرة الذهبية", price: 27000, category: "clash" },
-            { name: "130 كوينز", price: 6500, category: "efootball" },
-            { name: "300 كوينز", price: 15000, category: "efootball" },
-            { name: "550 كوينز", price: 27000, category: "efootball" },
-            { name: "750 كوينز", price: 37000, category: "efootball" },
-            { name: "مجموعة مورينو + 150 كوينز", price: 28000, category: "efootball" },
-            { name: "نتفليكس Standard + إعلانات", price: 55000, category: "netflix" },
-            { name: "نتفليكس Standard بدون إعلانات", price: 120000, category: "netflix" },
-            { name: "بطاقة جوجل بلاي 5$", price: 30000, category: "googleplay" },
-            { name: "بطاقة جوجل بلاي 10$", price: 60000, category: "googleplay" },
-            { name: "حساب Redotpay موثق", price: 120000, category: "redotpay" },
-            { name: "حساب موثق + فيزا Redotpay", price: 180000, category: "redotpay" },
-            { name: "114 عملة تيك توك", price: 6000, category: "tiktok" },
-            { name: "447 عملة تيك توك", price: 30000, category: "tiktok" },
-            { name: "897 عملة تيك توك", price: 60000, category: "tiktok" },
-            { name: "ChatGPT Plus - شهر", price: 120000, category: "ai" },
-            { name: "ChatGPT Go - شهر", price: 45000, category: "ai" },
-            { name: "Gemini Pro - شهر", price: 75000, category: "ai" }
-        ];
-        
-        // حذف القديم
-        const snapshot = await getDocs(collection(db, "products"));
-        const batch = writeBatch(db);
-        snapshot.forEach(doc => batch.delete(doc.ref));
-        await batch.commit();
-        
-        // إضافة الجديد
-        const newBatch = writeBatch(db);
-        for (const product of products) {
-            const docRef = doc(collection(db, "products"));
-            newBatch.set(docRef, {
-                id: docRef.id,
-                name: product.name,
-                price: product.price,
-                category: product.category,
-                isActive: true,
-                createdAt: serverTimestamp()
-            });
-        }
-        await newBatch.commit();
-        
-        btn.textContent = '✅';
-        alert(`✅ تم إضافة ${products.length} منتج بنجاح!`);
-        setTimeout(() => window.location.reload(), 1500);
-        
-    } catch (error) {
-        alert('❌ حدث خطأ: ' + error.message);
-        console.error(error);
-        btn.textContent = '🔄';
-        btn.disabled = false;
-    }
-}
-</script>
 </body>
-                                                                                                                                   </html>
+</html>
