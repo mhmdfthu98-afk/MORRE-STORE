@@ -1278,12 +1278,15 @@
 
         // ========== دالة البحث عن المنتج ==========
         function findProductById(productId) {
+            console.log("🔍 البحث عن المنتج:", productId);
             for (const category in allProducts) {
                 const product = allProducts[category].find(p => p.id === productId);
                 if (product) {
+                    console.log("✅ تم العثور على المنتج في:", category);
                     return { product, category };
                 }
             }
+            console.log("❌ المنتج غير موجود");
             return null;
         }
 
@@ -1337,13 +1340,14 @@
                         const p = doc.data();
                         const productData = { 
                             ...p, 
-                            id: doc.id
+                            id: doc.id // 🔥 استخدام المعرف الصحيح من Firebase
                         };
                         if (productData.isActive !== false && allProducts.hasOwnProperty(productData.category)) {
                             allProducts[productData.category].push(productData);
                         }
                     });
                 }
+                console.log("✅ تم تحميل المنتجات:", allProducts);
                 renderAllProducts();
                 loadManageProducts();
                 handleRoute();
@@ -1500,47 +1504,49 @@
             }
         };
 
-        // ========== دالة نسخ الرابط (المعدلة) ==========
+        // ========== زر النسخ - نسخ رابط المنتج الصحيح ==========
         window.copyProductLink = function() {
             if (!currentProductId) {
                 alert('❌ لا يوجد منتج محدد');
                 return;
             }
-            // البحث عن المنتج للتأكد من وجوده
             const result = findProductById(currentProductId);
             if (!result) {
                 alert('❌ المنتج غير موجود');
                 return;
             }
             const shareUrl = getProductShareUrl(currentProductId);
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                alert('✅ تم نسخ رابط المنتج بنجاح!');
-            }).catch(() => {
-                const input = document.createElement('input');
-                input.value = shareUrl;
-                document.body.appendChild(input);
-                input.select();
-                document.execCommand('copy');
-                document.body.removeChild(input);
-                alert('✅ تم نسخ رابط المنتج بنجاح!');
-            });
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shareUrl).then(() => {
+                    alert('✅ تم نسخ رابط المنتج بنجاح!\n' + shareUrl);
+                }).catch(() => {
+                    fallbackCopy(shareUrl);
+                });
+            } else {
+                fallbackCopy(shareUrl);
+            }
         };
 
-        // ========== زر النسخ في بطاقات المنتجات (المعدل) ==========
+        // ========== زر النسخ في بطاقات المنتجات ==========
         window.copyProductLinkFromCard = function(productId) {
-            // البحث عن المنتج
+            console.log("🔍 جاري نسخ رابط المنتج:", productId);
+            
+            // البحث عن المنتج في allProducts
             const result = findProductById(productId);
             if (!result) {
-                alert('❌ المنتج غير موجود');
+                alert('❌ المنتج غير موجود في قاعدة البيانات');
                 return;
             }
-            // استخدام المعرف الصحيح من قاعدة البيانات
+            
+            // استخدام المعرف الصحيح من Firebase
             const correctId = result.product.id;
             const shareUrl = window.location.origin + window.location.pathname + '#product/' + correctId;
             
+            console.log("✅ الرابط المنسوخ:", shareUrl);
+            
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(shareUrl).then(() => {
-                    alert('✅ تم نسخ رابط المنتج بنجاح!');
+                    alert('✅ تم نسخ رابط المنتج بنجاح!\n' + shareUrl);
                 }).catch(() => {
                     fallbackCopy(shareUrl);
                 });
@@ -1557,11 +1563,13 @@
             input.select();
             document.execCommand('copy');
             document.body.removeChild(input);
-            alert('✅ تم نسخ رابط المنتج بنجاح!');
+            alert('✅ تم نسخ رابط المنتج بنجاح!\n' + text);
         }
 
         // ========== صفحة تفاصيل المنتج ==========
         function showProductDetail(productId) {
+            console.log("🔍 جاري عرض المنتج:", productId);
+            
             const result = findProductById(productId);
             
             if (!result) {
@@ -1715,6 +1723,7 @@
         // ========== معالج الروابط ==========
         function handleRoute() {
             const hash = window.location.hash || '#home';
+            console.log("📍 الرابط الحالي:", hash);
             
             document.getElementById('homePage').classList.add('hidden');
             document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
@@ -1728,6 +1737,8 @@
             const parts = hash.substring(1).split('/');
             const page = parts[0];
             const param = parts[1] || '';
+
+            console.log("📄 الصفحة:", page, "المعرف:", param);
 
             if (page === 'category' && param) {
                 const target = document.getElementById(`category-${param}`);
@@ -2320,4 +2331,4 @@
         });
     </script>
 </body>
-</html>
+                            </html>
