@@ -8,6 +8,7 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* ========== جميع الأنماط السابقة ========== */
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
         * {
             font-family: 'Cairo', sans-serif;
@@ -52,7 +53,7 @@
         .service-card:hover .service-icon {
             transform: scale(1.05);
         }
-        /* ========== تصميم بطاقات المنتج (زي اليونكو) ========== */
+        /* ========== تصميم بطاقات المنتج ========== */
         .product-card {
             background: white;
             border-radius: 0.75rem;
@@ -152,6 +153,7 @@
             display: flex;
             gap: 0.3rem;
             justify-content: flex-start;
+            flex-wrap: wrap;
         }
         .product-card .share-btn {
             padding: 0.2rem 0.6rem;
@@ -170,7 +172,18 @@
         .share-btn-whatsapp { background: #25D366; }
         .share-btn-facebook { background: #1877F2; }
         .share-btn-tiktok { background: #000000; }
-        /* ========== تصميم صفحة المنتج التفصيلية (زي اليونكو) ========== */
+        .copy-link-btn {
+            background: #e2e8f0;
+            color: #1e293b;
+            padding: 0.2rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.7rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .copy-link-btn:hover { background: #cbd5e1; }
+        /* ========== تصميم صفحة المنتج التفصيلية ========== */
         .product-detail-page {
             display: none;
             background: white;
@@ -298,6 +311,21 @@
         }
         .product-detail-page .back-to-category:hover {
             color: #d97706;
+        }
+        /* ========== أنماط الأقسام ========== */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin: 2rem 0 1rem 0;
+            padding-right: 1rem;
+            border-right: 4px solid #f59e0b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-title .section-icon {
+            font-size: 1.5rem;
         }
         /* ========== باقي الأنماط العامة ========== */
         .back-btn {
@@ -605,17 +633,6 @@
             flex-wrap: wrap;
         }
         .category-header .page-title { font-size: 1.8rem; }
-        .copy-link-btn {
-            background: #e2e8f0;
-            color: #1e293b;
-            padding: 0.2rem 0.8rem;
-            border-radius: 1rem;
-            font-size: 0.7rem;
-            border: none;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .copy-link-btn:hover { background: #cbd5e1; }
         /* ========== الوضع الليلي ========== */
         .dark .product-card {
             background: #1e293b;
@@ -708,6 +725,9 @@
             color: #f1f5f9;
         }
         .dark .copy-link-btn:hover { background: #475569; }
+        .dark .section-title {
+            color: #f1f5f9;
+        }
         @media (max-width: 480px) {
             .category-header .page-title { font-size: 1.3rem; }
             .product-card .product-image { height: 150px; }
@@ -726,6 +746,9 @@
             .product-detail-page .detail-actions .btn-buy-now {
                 width: 100%;
                 text-align: center;
+            }
+            .section-title {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -881,23 +904,23 @@
                 </div>
             </div>
 
-            <!-- ========== الصفحة الرئيسية ========== -->
+            <!-- ========== الصفحة الرئيسية (مقسمة إلى أقسام) ========== -->
             <div id="homePage" class="home-page">
                 <h2 class="text-2xl font-black text-dark mb-6 text-center">🌟 جميع الخدمات</h2>
+
+                <!-- ===== قسم الألعاب ===== -->
+                <div class="section-title">
+                    <span class="section-icon">🎮</span> الألعاب
+                </div>
                 <div class="service-grid">
                     <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'pubg')">
                         <img src="https://i.ibb.co/20tqyP6s/4ff592f1-0de2-421f-bd99-514dd525d512.png" alt="PUBG" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">ببجي PUBG</h3>
                         <p class="text-dark-light text-xs">شحن فوري</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'freefire')">
-                        <img src="https://i.ibb.co/LMh98T2/4bf2c240-db85-47c5-b211-3d0a5cf192df.png" alt="FreeFire" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">فري فاير FreeFire</h3>
-                        <p class="text-dark-light text-xs">شحن فوري</p>
-                    </div>
                     <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'efootball')">
                         <img src="https://i.ibb.co/RkCSn7yX/a7934c4c-ed36-4662-b9cc-7bc04c57abf3.png" alt="eFootball" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">eFootball شحن</h3>
+                        <h3 class="text-dark font-bold mt-2">eFootball</h3>
                         <p class="text-dark-light text-xs">كوينز وباقات</p>
                     </div>
                     <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'clash')">
@@ -905,11 +928,40 @@
                         <h3 class="text-dark font-bold mt-2">كلاش أوف كلانس</h3>
                         <p class="text-dark-light text-xs">تذاكر وجواهر</p>
                     </div>
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'freefire')">
+                        <img src="https://i.ibb.co/LMh98T2/4bf2c240-db85-47c5-b211-3d0a5cf192df.png" alt="FreeFire" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">فري فاير FreeFire</h3>
+                        <p class="text-dark-light text-xs">شحن فوري</p>
+                    </div>
+                </div>
+
+                <!-- ===== قسم الاشتراكات ===== -->
+                <div class="section-title">
+                    <span class="section-icon">📺</span> الاشتراكات
+                </div>
+                <div class="service-grid">
                     <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'netflix')">
                         <img src="https://i.ibb.co/HTqk43z8/4054fb24-7c84-445b-b62e-c15d5ed4fe8b.png" alt="Netflix" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">نتفليكس Netflix</h3>
                         <p class="text-dark-light text-xs">اشتراكات شهرية</p>
                     </div>
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'ai')">
+                        <img src="https://i.ibb.co/zVDbcgnW/c8f040a9-48ad-4e5e-8203-f941fbf94ad6.png" alt="AI" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">الذكاء الاصطناعي</h3>
+                        <p class="text-dark-light text-xs">ChatGPT - Gemini</p>
+                    </div>
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'tiktok')">
+                        <img src="https://i.ibb.co/j93NWK9T/f74413af-29eb-4da4-917d-e347c7698ed7.png" alt="TikTok" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">تيك توك TikTok</h3>
+                        <p class="text-dark-light text-xs">عملات تيك توك</p>
+                    </div>
+                </div>
+
+                <!-- ===== قسم البطاقات ===== -->
+                <div class="section-title">
+                    <span class="section-icon">💳</span> البطاقات
+                </div>
+                <div class="service-grid">
                     <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'googleplay')">
                         <img src="https://i.ibb.co/LhNr3W7Y/f0bf22d7-2b70-419a-8c74-898d8a251e56.png" alt="Google Play" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">جوجل بلاي</h3>
@@ -920,20 +972,10 @@
                         <h3 class="text-dark font-bold mt-2">فيزا Redotpay</h3>
                         <p class="text-dark-light text-xs">بطاقة افتراضية</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'tiktok')">
-                        <img src="https://i.ibb.co/j93NWK9T/f74413af-29eb-4da4-917d-e347c7698ed7.png" alt="TikTok" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">تيك توك TikTok</h3>
-                        <p class="text-dark-light text-xs">عملات تيك توك</p>
-                    </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'ai')">
-                        <img src="https://i.ibb.co/zVDbcgnW/c8f040a9-48ad-4e5e-8203-f941fbf94ad6.png" alt="AI" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">الذكاء الاصطناعي</h3>
-                        <p class="text-dark-light text-xs">ChatGPT - Gemini</p>
-                    </div>
                 </div>
             </div>
 
-            <!-- ========== صفحات الفئات (الخدمات) ========== -->
+            <!-- ========== صفحات الفئات ========== -->
             <div id="category-pubg" class="category-page">
                 <div class="category-header">
                     <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -1156,7 +1198,7 @@
         let userData = null;
         let currentOrder = null;
         let editingProductId = null;
-        let currentProductId = null; // للمنتج المعروض في صفحة التفاصيل
+        let currentProductId = null;
 
         // ========== صور الفئات ==========
         const categoryImages = {
@@ -1287,7 +1329,7 @@
             }
         }
 
-        // ========== جلب المنتجات من Firestore ==========
+        // ========== جلب المنتجات ==========
         async function loadProductsFromFirestore() {
             try {
                 await seedDefaultProducts();
@@ -1313,7 +1355,6 @@
                 }
                 renderAllProducts();
                 loadManageProducts();
-                // بعد تحميل المنتجات، نتحقق من الرابط الحالي
                 handleRoute();
             } catch (e) {
                 console.error("Error loading products:", e);
@@ -1437,9 +1478,8 @@
             }
         };
 
-        // ========== دوال المشاركة ==========
+        // ========== دوال المشاركة والروابط ==========
         function getProductShareUrl(productId) {
-            // إنشاء رابط المنتج باستخدام التجزئة
             return window.location.origin + window.location.pathname + '#product/' + productId;
         }
 
@@ -1469,7 +1509,6 @@
             }
         };
 
-        // نسخ رابط المنتج
         window.copyProductLink = function() {
             if (!currentProductId) {
                 alert('❌ لا يوجد منتج محدد');
@@ -1479,7 +1518,6 @@
             navigator.clipboard.writeText(shareUrl).then(() => {
                 alert('✅ تم نسخ رابط المنتج بنجاح!');
             }).catch(() => {
-                // Fallback
                 const input = document.createElement('input');
                 input.value = shareUrl;
                 document.body.appendChild(input);
@@ -1489,11 +1527,24 @@
                 alert('✅ تم نسخ رابط المنتج بنجاح!');
             });
         };
-        window.copyProductLink = copyProductLink;
 
-        // ========== دوال صفحة التفاصيل ==========
+        window.copyProductLinkFromCard = function(productId) {
+            const shareUrl = getProductShareUrl(productId);
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                alert('✅ تم نسخ رابط المنتج بنجاح!');
+            }).catch(() => {
+                const input = document.createElement('input');
+                input.value = shareUrl;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                alert('✅ تم نسخ رابط المنتج بنجاح!');
+            });
+        };
+
+        // ========== صفحة تفاصيل المنتج ==========
         function showProductDetail(productId) {
-            // البحث عن المنتج في allProducts
             let foundProduct = null;
             let foundCategory = '';
             for (const category in allProducts) {
@@ -1513,20 +1564,17 @@
 
             currentProductId = productId;
 
-            // تعبئة البيانات
             const categoryImage = categoryImages[foundCategory] || 'https://via.placeholder.com/200';
             document.getElementById('detailImage').src = categoryImage;
             document.getElementById('detailName').textContent = foundProduct.name;
             document.getElementById('detailName2').textContent = foundProduct.name;
             document.getElementById('detailPrice').textContent = foundProduct.price.toLocaleString() + ' ج.س';
 
-            // تخزين بيانات المنتج في الـ DOM للاستخدام في الأزرار
             document.getElementById('productDetailPage').dataset.productId = foundProduct.id;
             document.getElementById('productDetailPage').dataset.productName = foundProduct.name;
             document.getElementById('productDetailPage').dataset.productPrice = foundProduct.price;
             document.getElementById('productDetailPage').dataset.productCategory = foundCategory;
 
-            // إظهار الصفحة وإخفاء الباقي
             document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
             document.getElementById('homePage').classList.add('hidden');
             document.getElementById('productDetailPage').classList.add('active');
@@ -1534,7 +1582,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // أزرار صفحة التفاصيل
         window.addToCartDetail = function() {
             const detailPage = document.getElementById('productDetailPage');
             const productName = detailPage.dataset.productName;
@@ -1570,7 +1617,6 @@
         };
 
         window.goBackFromDetail = function() {
-            // العودة إلى الفئة التي كان المستخدم فيها
             const detailPage = document.getElementById('productDetailPage');
             const category = detailPage.dataset.productCategory;
             if (category && allProducts[category] && allProducts[category].length > 0) {
@@ -1580,7 +1626,7 @@
             }
         };
 
-        // ========== دالة عرض المنتجات في الفئات ==========
+        // ========== عرض المنتجات في الفئات ==========
         function renderAllProducts() {
             const categories = ['pubg', 'freefire', 'clash', 'efootball', 'netflix', 'googleplay', 'redotpay', 'tiktok',
                 'ai'
@@ -1605,8 +1651,6 @@
                 }
 
                 grid.innerHTML = products.map(p => {
-                    // إنشاء رابط المنتج
-                    const productUrl = getProductShareUrl(p.id);
                     return `
                                 <div class="product-card" onclick="navigateTo('product', '${p.id}')">
                                     <img src="${categoryImage}" alt="${p.name}" class="product-image" loading="lazy">
@@ -1638,27 +1682,11 @@
             });
         }
 
-        // نسخ الرابط من البطاقة
-        window.copyProductLinkFromCard = function(productId) {
-            const shareUrl = getProductShareUrl(productId);
-            navigator.clipboard.writeText(shareUrl).then(() => {
-                alert('✅ تم نسخ رابط المنتج بنجاح!');
-            }).catch(() => {
-                const input = document.createElement('input');
-                input.value = shareUrl;
-                document.body.appendChild(input);
-                input.select();
-                document.execCommand('copy');
-                document.body.removeChild(input);
-                alert('✅ تم نسخ رابط المنتج بنجاح!');
-            });
-        };
-
         window.addToCart = function(productId) {
             alert('🛒 تم إضافة المنتج إلى السلة!');
         };
 
-        // ========== نظام التنقل (Routing) ==========
+        // ========== نظام التنقل ==========
         function navigateTo(page, param) {
             let hash = '';
             if (page === 'home') {
@@ -1676,9 +1704,7 @@
 
         function handleRoute() {
             const hash = window.location.hash || '#home';
-            console.log('📍 Route:', hash);
 
-            // إخفاء كل الصفحات
             document.getElementById('homePage').classList.add('hidden');
             document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
             document.getElementById('productDetailPage').classList.remove('active');
@@ -1688,7 +1714,6 @@
                 return;
             }
 
-            // التعامل مع الروابط
             const parts = hash.substring(1).split('/');
             const page = parts[0];
             const param = parts[1] || '';
@@ -1697,14 +1722,11 @@
                 const target = document.getElementById(`category-${param}`);
                 if (target && allProducts[param] && allProducts[param].length > 0) {
                     target.classList.add('active');
-                    // تحديث عنوان الصفحة
                     document.title = `${categoryNames[param] || param} - MORRE STORE`;
                 } else {
-                    // الفئة غير موجودة أو فارغة → نروح للرئيسية
                     navigateTo('home');
                 }
             } else if (page === 'product' && param) {
-                // التحقق من وجود المنتج
                 let found = false;
                 for (const category in allProducts) {
                     if (allProducts[category].find(p => p.id === param)) {
@@ -1714,7 +1736,6 @@
                 }
                 if (found) {
                     showProductDetail(param);
-                    // تحديث عنوان الصفحة
                     const detailPage = document.getElementById('productDetailPage');
                     const name = detailPage.dataset.productName || 'المنتج';
                     document.title = `${name} - MORRE STORE`;
@@ -1727,7 +1748,6 @@
             }
         }
 
-        // استمع لتغير الرابط
         window.addEventListener('hashchange', handleRoute);
 
         // ========== دوال الأدمن ==========
@@ -1848,7 +1868,7 @@
             }
         }
 
-        // ========== عرض جميع المستخدمين ==========
+        // ========== باقي الدوال ==========
         function loadAllUsers() {
             onSnapshot(collection(db, "users"), (snap) => {
                 const list = document.getElementById('usersList');
@@ -1902,7 +1922,6 @@
             document.getElementById('userDetailModal').classList.add('hidden');
         };
 
-        // ========== إحصائيات ==========
         async function loadAdminStats() {
             try {
                 const usersSnap = await getDocs(collection(db, "users"));
@@ -2035,7 +2054,6 @@
             }
         };
 
-        // ========== عرض تاريخ الطلبات ==========
         function loadUserHistory(uid) {
             onSnapshot(query(collection(db, "orders"), where("uID", "==", uid), orderBy("timestamp", "desc")), (snap) => {
                 const list = document.getElementById('userOrdersList');
@@ -2055,7 +2073,6 @@
             });
         }
 
-        // ========== السياسات ==========
         const policies = {
             terms: { title: "📜 شروط الخدمة",
             content: "<p>باستخدامك للمنصة توافق على الشروط التالية: جميع عمليات الشحن خلال 24 ساعة، لا نضمن استرجاع الرصيد بعد إتمام الشراء.</p>" },
@@ -2280,10 +2297,9 @@
             navigator.clipboard.writeText(window.location.href).then(() => alert('تم نسخ الرابط'));
         };
 
-        // معالجة الرابط عند التحميل الأول
         window.addEventListener('load', () => {
             handleRoute();
         });
     </script>
 </body>
-    </html>
+            </html>
