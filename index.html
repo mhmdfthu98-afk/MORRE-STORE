@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -422,14 +421,6 @@
             padding: 0 1.5rem;
             border-bottom: 2px solid rgba(245, 158, 11, 0.3);
         }
-        .footer-links a {
-            color: #64748b;
-            margin: 0 0.75rem;
-            text-decoration: none;
-            font-size: 0.75rem;
-            transition: 0.2s;
-        }
-        .footer-links a:hover { color: #d97706; }
         .brand-name {
             background: linear-gradient(135deg, #f59e0b, #d97706);
             -webkit-background-clip: text;
@@ -1447,19 +1438,19 @@
 
         <!-- ========== الشريط العائم السفلي ========== -->
         <div class="bottom-nav">
-            <button onclick="navigateTo('home'); setActiveNav('home')" class="nav-item active" id="nav-home">
+            <button onclick="navigateTo('home')" class="nav-item active" id="nav-home">
                 <i class="fas fa-home"></i>
                 <span>الرئيسية</span>
             </button>
-            <button onclick="openWallet(); setActiveNav('wallet')" class="nav-item wallet-item" id="nav-wallet">
+            <button onclick="openWallet()" class="nav-item wallet-item" id="nav-wallet">
                 <i class="fas fa-wallet"></i>
                 <span>المحفظة</span>
             </button>
-            <button onclick="openSupport(); setActiveNav('support')" class="nav-item" id="nav-support">
+            <button onclick="openSupport()" class="nav-item" id="nav-support">
                 <i class="fas fa-headset"></i>
                 <span>الدعم</span>
             </button>
-            <button onclick="openAccount(); setActiveNav('account')" class="nav-item" id="nav-account">
+            <button onclick="openAccount()" class="nav-item" id="nav-account">
                 <i class="fas fa-user"></i>
                 <span>الحساب</span>
             </button>
@@ -1474,7 +1465,7 @@
                 <p id="sidebarWallet" class="text-sm text-yellow-dark"></p>
             </div>
             <a href="#" onclick="navigateTo('home'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-home w-6"></i> الرئيسية</a>
-            <a href="#" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-user w-6"></i> حسابي</a>
+            <a href="#" onclick="openAccount(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-user w-6"></i> حسابي</a>
             <a href="#" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6"></i> محفظتي</a>
             <a href="#" onclick="toggleSidebar(false); document.getElementById('userOrdersList').scrollIntoView({behavior:'smooth'});" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-shopping-bag w-6"></i> طلباتي</a>
             <a href="#" onclick="openWalletWhatsApp(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6 text-yellow-dark"></i> شحن المحفظة</a>
@@ -1742,13 +1733,21 @@
             document.getElementById('displayLastLogin').textContent = user.lastLogin;
         }
 
-        // فتح صفحة الحساب
+        // ========== فتح صفحة الحساب ==========
         window.openAccount = function() {
-            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            // إخفاء كل الصفحات
+            document.getElementById('homePage').classList.add('hidden');
+            document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
+            document.getElementById('productDetailPage').classList.remove('active');
+            document.getElementById('page-account').style.display = 'none';
+            document.getElementById('page-account').classList.remove('active');
+            
+            // إظهار صفحة الحساب
             document.getElementById('page-account').style.display = 'block';
             document.getElementById('page-account').classList.add('active');
             setActiveNav('account');
             updateProfileUI();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         };
 
         // ========== مودال تعديل بيانات الحساب ==========
@@ -2150,6 +2149,9 @@
             if (page === 'home') {
                 hash = '#home';
                 setActiveNav('home');
+            } else if (page === 'account') {
+                hash = '#account';
+                setActiveNav('account');
             } else if (page === 'category' && param) {
                 hash = '#category/' + param;
             } else if (page === 'product' && param) {
@@ -2175,6 +2177,15 @@
             if (hash === '#home' || hash === '') {
                 document.getElementById('homePage').classList.remove('hidden');
                 setActiveNav('home');
+                return;
+            }
+            
+            // التعامل مع صفحة الحساب
+            if (hash === '#account') {
+                document.getElementById('page-account').style.display = 'block';
+                document.getElementById('page-account').classList.add('active');
+                setActiveNav('account');
+                updateProfileUI();
                 return;
             }
 
@@ -2698,7 +2709,6 @@
                         user.wallet = '#' + (userData.walletID || '123456789');
                         user.balance = userData.balance || 0;
                         user.avatar = userData.img || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
-                        // تحديث الإحصائيات
                         updateProfileUI();
                     }
                     if (isAdmin) {
@@ -2780,7 +2790,6 @@
 
         window.addEventListener('load', () => {
             handleRoute();
-            // تحديث صفحة الحساب
             updateProfileUI();
         });
 
@@ -2790,5 +2799,4 @@
         });
     </script>
 </body>
-</html>
-```
+    </html>
