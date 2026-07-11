@@ -1432,25 +1432,25 @@
             </div>
         </main>
 
-<!-- ========== الشريط العائم السفلي ========== -->
+        <!-- ========== الشريط العائم السفلي ========== -->
 <div class="bottom-nav">
-    <button onclick="navigateTo('home'); setActiveNav('home')" class="nav-item active" id="nav-home">
+    <button onclick="navigateToPage('home')" class="nav-item active" id="nav-home" data-page="home">
         <i class="fas fa-home"></i>
         <span>الرئيسية</span>
     </button>
-    <button onclick="window.location.href='wallet.html'" class="nav-item" id="nav-wallet">
+    <button onclick="navigateToPage('wallet')" class="nav-item" id="nav-wallet" data-page="wallet">
         <i class="fas fa-wallet"></i>
         <span>المحفظة</span>
     </button>
-    <button onclick="window.location.href='support.html'" class="nav-item" id="nav-support">
+    <button onclick="navigateToPage('support')" class="nav-item" id="nav-support" data-page="support">
         <i class="fas fa-headset"></i>
         <span>الدعم</span>
     </button>
-    <button onclick="window.location.href='orders.html'" class="nav-item" id="nav-orders">
+    <button onclick="navigateToPage('orders')" class="nav-item" id="nav-orders" data-page="orders">
         <i class="fas fa-box"></i>
         <span>طلباتي</span>
     </button>
-    <button onclick="window.location.href='account.html'" class="nav-item" id="nav-account">
+    <button onclick="navigateToPage('account')" class="nav-item" id="nav-account" data-page="account">
         <i class="fas fa-user"></i>
         <span>الحساب</span>
     </button>
@@ -1459,47 +1459,29 @@
         <!-- الشريط الجانبي -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <div class="sidebar" id="sidebar">
-    <div class="text-center py-4 border-b border-dark/10">
-        <img id="sidebarImg" class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-dark" src="https://via.placeholder.com/100">
-        <h4 id="sidebarName" class="font-bold text-dark text-lg mt-2"></h4>
-        <p id="sidebarWallet" class="text-sm text-yellow-dark"></p>
-    </div>
-
-    <a href="#" onclick="navigateTo('home'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
-        <i class="fas fa-home w-6 text-yellow-dark"></i> الرئيسية
+    <!-- ... -->
+    
+    <a href="#" onclick="navigateToPage('home'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-home w-6"></i> الرئيسية
     </a>
 
-    <a href="#" onclick="toggleSidebar(false); window.location.href='account.html'" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
-        <i class="fas fa-user w-6 text-yellow-dark"></i> حسابي
+    <a href="#" onclick="navigateToPage('account'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-user w-6"></i> حسابي
     </a>
 
-    <a href="#" onclick="toggleSidebar(false); window.location.href='wallet.html'" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
-        <i class="fas fa-wallet w-6 text-yellow-dark"></i> محفظتي
+    <a href="#" onclick="navigateToPage('wallet'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-wallet w-6"></i> محفظتي
     </a>
 
-    <a href="#" onclick="toggleSidebar(false); window.location.href='orders.html'" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
-        <i class="fas fa-box w-6 text-yellow-dark"></i> طلباتي
+    <a href="#" onclick="navigateToPage('orders'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-box w-6"></i> طلباتي
     </a>
 
-    <a href="#" onclick="openWalletWhatsApp(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
-        <i class="fas fa-wallet w-6 text-green-500"></i> شحن المحفظة
+    <a href="#" onclick="navigateToPage('support'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-headset w-6"></i> خدمة العملاء
     </a>
-
-    <a href="#" onclick="toggleSidebar(false); window.location.href='support.html'" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
-        <i class="fas fa-headset w-6 text-green-500"></i> خدمة العملاء
-    </a>
-
-    <div onclick="toggleSidebar(false); showPolicy('terms');" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer">
-        <i class="fas fa-file-alt w-6 text-yellow-dark"></i> السياسات
-    </div>
-
-    <div onclick="toggleTheme()" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer" id="themeToggleBtn">
-        <i class="fas fa-moon w-6 text-yellow-dark"></i> الوضع الليلي
-    </div>
-
-    <a href="#" onclick="document.getElementById('logout-btn').click(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
-        <i class="fas fa-sign-out-alt w-6 text-red-500"></i> تسجيل الخروج
-    </a>
+    
+    <!-- ... -->
 </div>
 
     <!-- المودالات -->
@@ -2780,5 +2762,9 @@
             if (e.target === this) closeEditModal();
         });
     </script>
+        <!-- في نهاية index.html قبل </body> -->
+<script src="app.js" defer></script>
+</body>
+</html>
 </body>
     </html>
