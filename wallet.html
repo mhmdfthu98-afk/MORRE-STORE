@@ -170,15 +170,23 @@
         .payment-methods .pm-item:active {
             transform: scale(0.96);
         }
-        .payment-methods .pm-item img {
+        .payment-methods .pm-item .pm-img {
             width: 60px;
             height: 60px;
-            object-fit: contain;
+            margin: 0 auto 6px;
             border-radius: 10px;
-            margin-bottom: 6px;
             background: white;
             padding: 4px;
             border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .payment-methods .pm-item .pm-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         .payment-methods .pm-item .pm-name {
             font-size: 0.75rem;
@@ -444,6 +452,21 @@
         .modal-box .close-modal:hover {
             color: #1e293b;
         }
+        .modal-box input, .modal-box select, .modal-box textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            background: #f8fafc;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+        }
+        .modal-box input:focus, .modal-box select:focus, .modal-box textarea:focus {
+            outline: none;
+            border-color: #d97706;
+            background: white;
+        }
 
         /* ===== الشريط السفلي ===== */
         .bottom-nav {
@@ -546,7 +569,8 @@
         .dark .payment-methods .pm-item:hover {
             border-color: #d97706;
         }
-        .dark .payment-methods .pm-item img {
+        .dark .payment-methods .pm-item .pm-img {
+            background: #0f172a;
             border-color: #334155;
         }
         .dark .transaction-item {
@@ -653,7 +677,7 @@
             </div>
         </div>
 
-        <!-- ===== طرق الإيداع السريع (بالصور التي أرسلتها) ===== -->
+        <!-- ===== طرق الإيداع السريع (بالصور الجديدة من postimg) ===== -->
         <div class="glass-card">
             <div class="deposit-section-title">
                 <i class="fas fa-plus-circle"></i> اختر طريقة الإيداع
@@ -662,28 +686,36 @@
 
                 <!-- RedotPay -->
                 <a href="https://wa.me/249991305468?text=أريد%20شحن%20محفظتي%20عبر%20RedotPay" target="_blank" class="pm-item">
-                    <img src="https://i.ibb.co/0y9Z7SDZ/6feb9ec0dc4a917f20ee4499659d56ce.jpg" alt="RedotPay" loading="lazy">
+                    <div class="pm-img">
+                        <img src="https://i.postimg.cc/L54q1fQz/6feb9ec0dc4a917f20ee4499659d56ce.jpg" alt="RedotPay" loading="lazy">
+                    </div>
                     <div class="pm-name">💳 RedotPay</div>
                     <div class="pm-desc">بطاقة افتراضية</div>
                 </a>
 
                 <!-- بنكك -->
                 <a href="https://wa.me/249991305468?text=أريد%20شحن%20محفظتي%20عبر%20بنكك" target="_blank" class="pm-item">
-                    <img src="https://i.ibb.co/SXjYwNTb/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك" loading="lazy">
+                    <div class="pm-img">
+                        <img src="https://i.postimg.cc/yN5nn6CP/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك" loading="lazy">
+                    </div>
                     <div class="pm-name">🏦 بنكك</div>
                     <div class="pm-desc">تحويل بنكي</div>
                 </a>
 
                 <!-- Binance -->
                 <a href="https://wa.me/249991305468?text=أريد%20شحن%20محفظتي%20عبر%20Binance" target="_blank" class="pm-item">
-                    <img src="https://i.ibb.co/7tFjnwqw/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance" loading="lazy">
+                    <div class="pm-img">
+                        <img src="https://i.postimg.cc/9QZkDq6G/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance" loading="lazy">
+                    </div>
                     <div class="pm-name">🟡 Binance</div>
                     <div class="pm-desc">عملات رقمية</div>
                 </a>
 
                 <!-- MyCash -->
                 <a href="https://wa.me/249991305468?text=أريد%20شحن%20محفظتي%20عبر%20MyCash" target="_blank" class="pm-item">
-                    <img src="https://i.ibb.co/DDTbH3NJ/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash" loading="lazy">
+                    <div class="pm-img">
+                        <img src="https://i.postimg.cc/26hdw4wN/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash" loading="lazy">
+                    </div>
                     <div class="pm-name">📱 MyCash</div>
                     <div class="pm-desc">محفظة إلكترونية</div>
                 </a>
@@ -763,7 +795,7 @@
 
                 <div style="margin-bottom:12px;">
                     <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">🔑 تغيير كلمة مرور المحفظة</label>
-                    <input type="password" id="newWalletPassword" placeholder="كلمة المرور الجديدة" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #e2e8f0;font-size:0.9rem;background:#f8fafc;transition:0.2s;font-family:'Cairo',sans-serif;">
+                    <input type="password" id="newWalletPassword" placeholder="كلمة المرور الجديدة">
                     <button onclick="changeWalletPassword()" style="margin-top:8px;width:100%;padding:12px;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;font-weight:800;border:none;border-radius:10px;font-size:1rem;cursor:pointer;">
                         تغيير كلمة المرور
                     </button>
@@ -802,19 +834,27 @@
                 <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">اختر طريقة الإيداع</label>
                 <div class="payment-methods" id="depositMethods">
                     <div class="pm-item" data-method="RedotPay" onclick="selectDepositMethod(this)">
-                        <img src="https://i.ibb.co/0y9Z7SDZ/6feb9ec0dc4a917f20ee4499659d56ce.jpg" alt="RedotPay">
+                        <div class="pm-img">
+                            <img src="https://i.postimg.cc/L54q1fQz/6feb9ec0dc4a917f20ee4499659d56ce.jpg" alt="RedotPay">
+                        </div>
                         <div class="pm-name">💳 RedotPay</div>
                     </div>
                     <div class="pm-item" data-method="بنكك" onclick="selectDepositMethod(this)">
-                        <img src="https://i.ibb.co/SXjYwNTb/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك">
+                        <div class="pm-img">
+                            <img src="https://i.postimg.cc/yN5nn6CP/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك">
+                        </div>
                         <div class="pm-name">🏦 بنكك</div>
                     </div>
                     <div class="pm-item" data-method="Binance" onclick="selectDepositMethod(this)">
-                        <img src="https://i.ibb.co/7tFjnwqw/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance">
+                        <div class="pm-img">
+                            <img src="https://i.postimg.cc/9QZkDq6G/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance">
+                        </div>
                         <div class="pm-name">🟡 Binance</div>
                     </div>
                     <div class="pm-item" data-method="MyCash" onclick="selectDepositMethod(this)">
-                        <img src="https://i.ibb.co/DDTbH3NJ/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash">
+                        <div class="pm-img">
+                            <img src="https://i.postimg.cc/26hdw4wN/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash">
+                        </div>
                         <div class="pm-name">📱 MyCash</div>
                     </div>
                 </div>
@@ -822,12 +862,12 @@
 
             <div style="margin-bottom:12px;">
                 <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">💰 المبلغ (ج.س)</label>
-                <input type="number" id="depositAmount" placeholder="أدخل المبلغ" min="1" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #e2e8f0;font-size:0.9rem;background:#f8fafc;transition:0.2s;font-family:'Cairo',sans-serif;">
+                <input type="number" id="depositAmount" placeholder="أدخل المبلغ" min="1">
             </div>
 
             <div style="margin-bottom:12px;">
                 <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">📝 رقم العملية (اختياري)</label>
-                <input type="text" id="depositRef" placeholder="رقم العملية من التطبيق" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #e2e8f0;font-size:0.9rem;background:#f8fafc;transition:0.2s;font-family:'Cairo',sans-serif;">
+                <input type="text" id="depositRef" placeholder="رقم العملية من التطبيق">
             </div>
 
             <div style="margin-bottom:12px;">
@@ -856,15 +896,21 @@
                 <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">اختر طريقة السحب</label>
                 <div class="payment-methods" id="withdrawMethods">
                     <div class="pm-item" data-method="بنكك" onclick="selectWithdrawMethod(this)">
-                        <img src="https://i.ibb.co/SXjYwNTb/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك">
+                        <div class="pm-img">
+                            <img src="https://i.postimg.cc/yN5nn6CP/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك">
+                        </div>
                         <div class="pm-name">🏦 بنكك</div>
                     </div>
                     <div class="pm-item" data-method="MyCash" onclick="selectWithdrawMethod(this)">
-                        <img src="https://i.ibb.co/DDTbH3NJ/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash">
+                        <div class="pm-img">
+                            <img src="https://i.postimg.cc/26hdw4wN/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash">
+                        </div>
                         <div class="pm-name">📱 MyCash</div>
                     </div>
                     <div class="pm-item" data-method="Binance" onclick="selectWithdrawMethod(this)">
-                        <img src="https://i.ibb.co/7tFjnwqw/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance">
+                        <div class="pm-img">
+                            <img src="https://i.postimg.cc/9QZkDq6G/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance">
+                        </div>
                         <div class="pm-name">🟡 Binance</div>
                     </div>
                 </div>
@@ -872,12 +918,12 @@
 
             <div style="margin-bottom:12px;">
                 <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">💰 المبلغ (ج.س)</label>
-                <input type="number" id="withdrawAmount" placeholder="أدخل المبلغ" min="1" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #e2e8f0;font-size:0.9rem;background:#f8fafc;transition:0.2s;font-family:'Cairo',sans-serif;">
+                <input type="number" id="withdrawAmount" placeholder="أدخل المبلغ" min="1">
             </div>
 
             <div style="margin-bottom:12px;">
                 <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">📱 رقم الحساب/المحفظة</label>
-                <input type="text" id="withdrawAccount" placeholder="أدخل رقم الحساب أو المحفظة" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #e2e8f0;font-size:0.9rem;background:#f8fafc;transition:0.2s;font-family:'Cairo',sans-serif;">
+                <input type="text" id="withdrawAccount" placeholder="أدخل رقم الحساب أو المحفظة">
             </div>
 
             <button onclick="submitWithdraw()" style="width:100%;padding:12px;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;font-weight:800;border:none;border-radius:10px;font-size:1rem;cursor:pointer;transition:0.2s;">
