@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>MORRE STORE | لوحة التحكم</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+        * {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #fef08a 0%, #fde047 30%, #fef9c3 60%, #fef08a 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .glass-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 8px 16px;
+            color: #1e293b;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+        .stat-card .number {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #1e293b;
+        }
+        .stat-card .label {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+        .stat-card .icon {
+            font-size: 1.5rem;
+        }
+        .stat-card.gold .number {
+            color: #d97706;
+        }
+        .stat-card.green .number {
+            color: #059669;
+        }
+        .stat-card.blue .number {
+            color: #2563eb;
+        }
+        .stat-card.purple .number {
+            color: #7c3aed;
+        }
+        .stat-card.red .number {
+            color: #dc2626;
+        }
+
+        .admin-menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .admin-menu .menu-item {
+            background: white;
+            border-radius: 12px;
+            padding: 14px 10px;
+            border: 1px solid #f1f5f9;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .admin-menu .menu-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border-color: #f59e0b;
+        }
+        .admin-menu .menu-item i {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 4px;
+            color: #d97706;
+        }
+        .admin-menu .menu-item .title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .admin-menu .menu-item .desc {
+            font-size: 0.55rem;
+            color: #94a3b8;
+        }
+
+        /* ===== التبويبات ===== */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .section-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .section-tabs .tab-btn {
+            padding: 6px 14px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #64748b;
+            font-weight: 700;
+            font-size: 0.65rem;
+            cursor: pointer;
+            transition: 0.2s;
+            flex: 1;
+            text-align: center;
+            min-width: 50px;
+        }
+        .section-tabs .tab-btn.active {
+            background: #f59e0b;
+            color: white;
+            border-color: #f59e0b;
+        }
+        .section-tabs .tab-btn:hover:not(.active) {
+            border-color: #d97706;
+        }
+
+        /* ===== جداول ===== */
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+        table th {
+            background: #f1f5f9;
+            color: #1e293b;
+            font-weight: 700;
+            padding: 8px 10px;
+            text-align: right;
+        }
+        table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #1e293b;
+        }
+        table tr:hover td {
+            background: #f8fafc;
+        }
+        .status-badge {
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .status-badge.pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .status-badge.progress {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        .status-badge.done {
+            background: #d1fae5;
+            color: #059669;
+        }
+        .status-badge.cancelled {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .btn-sm {
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-sm.gold {
+            background: #f59e0b;
+            color: white;
+        }
+        .btn-sm.gold:hover {
+            background: #d97706;
+        }
+        .btn-sm.green {
+            background: #059669;
+            color: white;
+        }
+        .btn-sm.green:hover {
+            background: #047857;
+        }
+        .btn-sm.red {
+            background: #dc2626;
+            color: white;
+        }
+        .btn-sm.red:hover {
+            background: #b91c1c;
+        }
+        .btn-sm.blue {
+            background: #2563eb;
+            color: white;
+        }
+        .btn-sm.blue:hover {
+            background: #1d4ed8;
+        }
+        .btn-sm.outline {
+            background: transparent;
+            color: #1e293b;
+            border: 1px solid #e2e8f0;
+        }
+        .btn-sm.outline:hover {
+            border-color: #d97706;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            background: rgba(255, 255, 255, 0.6);
+            transition: 0.2s;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #f59e0b;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0 10px;
+            z-index: 9999;
+        }
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #94a3b8;
+            font-size: 0.55rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 4px 12px;
+            transition: 0.3s;
+        }
+        .bottom-nav .nav-item i {
+            font-size: 1.3rem;
+            transition: 0.3s;
+        }
+        .bottom-nav .nav-item.active {
+            color: #d97706;
+        }
+        .bottom-nav .nav-item.active i {
+            transform: translateY(-2px);
+        }
+        .bottom-nav .nav-item:hover {
+            color: #d97706;
+        }
+
+        /* Dark Mode */
+        .dark body {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+        }
+        .dark .stat-card {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        .dark .stat-card .number {
+            color: #f1f5f9;
+        }
+        .dark .admin-menu .menu-item {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        .dark .admin-menu .menu-item .title {
+            color: #f1f5f9;
+        }
+        .dark .back-btn {
+            background: rgba(30, 41, 59, 0.6);
+            color: #f1f5f9;
+            border-color: #334155;
+        }
+        .dark .back-btn:hover {
+            background: rgba(30, 41, 59, 0.8);
+        }
+        .dark .bottom-nav {
+            background: rgba(30, 41, 59, 0.95);
+            border-top-color: rgba(255, 255, 255, 0.05);
+        }
+        .dark .bottom-nav .nav-item {
+            color: #64748b;
+        }
+        .dark .bottom-nav .nav-item.active {
+            color: #fbbf24;
+        }
+        .dark .section-tabs .tab-btn {
+            background: #1e293b;
+            border-color: #334155;
+            color: #94a3b8;
+        }
+        .dark .section-tabs .tab-btn.active {
+            background: #f59e0b;
+            color: #1e293b;
+        }
+        .dark table th {
+            background: #0f172a;
+            color: #f1f5f9;
+        }
+        .dark table td {
+            color: #f1f5f9;
+            border-color: #334155;
+        }
+        .dark table tr:hover td {
+            background: #0f172a;
+        }
+        .dark .input-field {
+            background: rgba(30, 41, 59, 0.6);
+            color: #f1f5f9;
+            border-color: #334155;
+        }
+        .dark .input-field:focus {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: #f59e0b;
+        }
+        .dark .btn-sm.outline {
+            color: #f1f5f9;
+            border-color: #334155;
+        }
+        .dark .btn-sm.outline:hover {
+            border-color: #d97706;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 999999;
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
+        }
+        .dark .toast {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: #64748b;
+        }
+        .empty-state i {
+            font-size: 3rem;
+            color: #cbd5e1;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .dark .empty-state i {
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== رأس الصفحة ===== -->
+        <div class="flex items-center gap-3 py-3 mb-4">
+            <a href="/" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</a>
+            <h1 class="text-2xl font-black text-dark">🖥️ لوحة التحكم</h1>
+            <span class="text-xs text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full mr-auto">👑 أدمن</span>
+        </div>
+
+        <!-- ===== قسم التبويبات الرئيسية ===== -->
+        <div class="section-tabs" id="mainTabs">
+            <button class="tab-btn active" data-tab="dashboard">📊 الرئيسية</button>
+            <button class="tab-btn" data-tab="products">📦 المنتجات</button>
+            <button class="tab-btn" data-tab="orders">🧾 الطلبات</button>
+            <button class="tab-btn" data-tab="customers">👥 العملاء</button>
+            <button class="tab-btn" data-tab="wallet">💳 المحفظة</button>
+            <button class="tab-btn" data-tab="games">🎮 الألعاب</button>
+            <button class="tab-btn" data-tab="cards">🎟️ البطاقات</button>
+            <button class="tab-btn" data-tab="offers">🎁 العروض</button>
+            <button class="tab-btn" data-tab="support">💬 الدعم</button>
+            <button class="tab-btn" data-tab="content">📢 المحتوى</button>
+            <button class="tab-btn" data-tab="settings">⚙️ الإعدادات</button>
+            <button class="tab-btn" data-tab="reports">📊 التقارير</button>
+            <button class="tab-btn" data-tab="notifications">🔔 الإشعارات</button>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 1. Dashboard -->
+        <!-- ============================================================ -->
+        <div id="tab-dashboard" class="tab-content active">
+
+            <!-- الإحصائيات -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                <div class="stat-card gold text-center">
+                    <div class="number" id="totalSales">0</div>
+                    <div class="label">💰 إجمالي المبيعات</div>
+                </div>
+                <div class="stat-card green text-center">
+                    <div class="number" id="totalProfit">0</div>
+                    <div class="label">📈 الأرباح</div>
+                </div>
+                <div class="stat-card blue text-center">
+                    <div class="number" id="totalCustomers">0</div>
+                    <div class="label">👥 العملاء</div>
+                </div>
+                <div class="stat-card purple text-center">
+                    <div class="number" id="totalOrders">0</div>
+                    <div class="label">📋 الطلبات</div>
+                </div>
+            </div>
+
+            <!-- آخر العمليات -->
+            <div class="glass-card p-4">
+                <h3 class="font-bold text-dark mb-3">🔄 آخر العمليات</h3>
+                <div id="recentActivity" class="space-y-2">
+                    <div class="text-dark-light text-sm">جاري التحميل...</div>
+                </div>
+            </div>
+
+            <!-- قائمة سريعة -->
+            <div class="admin-menu mt-4">
+                <div class="menu-item" onclick="switchTab('products')">
+                    <i class="fas fa-box"></i>
+                    <div class="title">إدارة المنتجات</div>
+                    <div class="desc">إضافة - تعديل - حذف</div>
+                </div>
+                <div class="menu-item" onclick="switchTab('orders')">
+                    <i class="fas fa-clipboard-list"></i>
+                    <div class="title">الطلبات</div>
+                    <div class="desc">مراجعة - تنفيذ</div>
+                </div>
+                <div class="menu-item" onclick="switchTab('customers')">
+                    <i class="fas fa-users"></i>
+                    <div class="title">العملاء</div>
+                    <div class="desc">إدارة الحسابات</div>
+                </div>
+                <div class="menu-item" onclick="switchTab('wallet')">
+                    <i class="fas fa-wallet"></i>
+                    <div class="title">المحفظة</div>
+                    <div class="desc">شحن - خصم</div>
+                </div>
+                <div class="menu-item" onclick="switchTab('games')">
+                    <i class="fas fa-gamepad"></i>
+                    <div class="title">الألعاب</div>
+                    <div class="desc">إدارة الألعاب</div>
+                </div>
+                <div class="menu-item" onclick="switchTab('cards')">
+                    <i class="fas fa-id-card"></i>
+                    <div class="title">البطاقات</div>
+                    <div class="desc">أكواد - بطاقات</div>
+                </div>
+                <div class="menu-item" onclick="switchTab('offers')">
+                    <i class="fas fa-tags"></i>
+                    <div class="title">العروض</div>
+                    <div class="desc">خصومات - كوبونات</div>
+                </div>
+                <div class="menu-item" onclick="switchTab('support')">
+                    <i class="fas fa-headset"></i>
+                    <div class="title">الدعم</div>
+                    <div class="desc">رسائل - شكاوى</div>
+                </div>
+                <div class="menu-item" onclick="switchTab('content')">
+                    <i class="fas fa-bullhorn"></i>
+                    <div class="title">المحتوى</div>
+                    <div class="desc">بنرات - إعلانات</div>
+                </div>
+                <div class="menu-item" onclick="switchTab('settings')">
+                    <i class="fas fa-cog"></i>
+                    <div class="title">الإعدادات</div>
+                    <div class="desc">إعدادات المتجر</div>
+                </div>
+                <div class="menu-item" onclick="switchTab('reports')">
+                    <i class="fas fa-chart-bar"></i>
+                    <div class="title">التقارير</div>
+                    <div class="desc">تقارير المبيعات</div>
+                </div>
+                <div class="menu-item" onclick="switchTab('notifications')">
+                    <i class="fas fa-bell"></i>
+                    <div class="title">الإشعارات</div>
+                    <div class="desc">إرسال إشعارات</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 2. المنتجات -->
+        <!-- ============================================================ -->
+        <div id="tab-products" class="tab-content">
+            <div class="glass-card p-4">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="font-bold text-dark">📦 إدارة المنتجات</h3>
+                    <button onclick="showAddProduct()" class="btn-sm gold">➕ إضافة</button>
+                </div>
+
+                <!-- نموذج إضافة منتج -->
+                <div id="addProductForm" class="hidden mb-4 p-3 bg-yellow-50 rounded-xl border border-yellow-200">
+                    <h4 class="font-bold text-dark text-sm mb-2">إضافة منتج جديد</h4>
+                    <div class="space-y-2">
+                        <select id="productCategory" class="input-field">
+                            <option value="pubg">🎮 PUBG</option>
+                            <option value="freefire">🔥 FreeFire</option>
+                            <option value="clash">👑 Clash of Clans</option>
+                            <option value="efootball">⚽ eFootball</option>
+                            <option value="netflix">🎬 Netflix</option>
+                            <option value="spotify">🎵 Spotify</option>
+                            <option value="chatgpt">🤖 ChatGPT</option>
+                            <option value="googleplay">🛍️ Google Play</option>
+                        </select>
+                        <input type="text" id="productName" class="input-field" placeholder="اسم المنتج">
+                        <input type="number" id="productPrice" class="input-field" placeholder="السعر (ج.س)">
+                        <button onclick="addProduct()" class="btn-sm gold w-full">💾 حفظ المنتج</button>
+                    </div>
+                </div>
+
+                <!-- قائمة المنتجات -->
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>المنتج</th>
+                                <th>السعر</th>
+                                <th>التصنيف</th>
+                                <th>إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTable">
+                            <tr>
+                                <td colspan="4" class="text-center text-dark-light">لا توجد منتجات</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 3. الطلبات -->
+        <!-- ============================================================ -->
+        <div id="tab-orders" class="tab-content">
+            <div class="glass-card p-4">
+                <h3 class="font-bold text-dark mb-3">🧾 إدارة الطلبات</h3>
+                <div class="flex gap-2 mb-3 overflow-x-auto pb-2">
+                    <button class="btn-sm gold" onclick="filterOrders('all')">الكل</button>
+                    <button class="btn-sm outline" onclick="filterOrders('pending')">⏳ قيد الانتظار</button>
+                    <button class="btn-sm outline" onclick="filterOrders('progress')">⚡ قيد التنفيذ</button>
+                    <button class="btn-sm outline" onclick="filterOrders('done')">✅ مكتمل</button>
+                    <button class="btn-sm outline" onclick="filterOrders('cancelled')">❌ ملغي</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>المنتج</th>
+                                <th>العميل</th>
+                                <th>السعر</th>
+                                <th>الحالة</th>
+                                <th>إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTable">
+                            <tr>
+                                <td colspan="6" class="text-center text-dark-light">لا توجد طلبات</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 4. العملاء -->
+        <!-- ============================================================ -->
+        <div id="tab-customers" class="tab-content">
+            <div class="glass-card p-4">
+                <h3 class="font-bold text-dark mb-3">👥 إدارة العملاء</h3>
+                <input type="text" id="searchCustomer" class="input-field mb-3" placeholder="🔍 بحث عن عميل..." onkeyup="searchCustomers()">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>الاسم</th>
+                                <th>البريد</th>
+                                <th>الرصيد</th>
+                                <th>الحالة</th>
+                                <th>إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customersTable">
+                            <tr>
+                                <td colspan="5" class="text-center text-dark-light">لا يوجد عملاء</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 5. المحفظة -->
+        <!-- ============================================================ -->
+        <div id="tab-wallet" class="tab-content">
+            <div class="glass-card p-4">
+                <h3 class="font-bold text-dark mb-3">💳 إدارة المحفظة</h3>
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-xs font-bold text-dark-light">👤 اختيار العميل</label>
+                        <select id="walletCustomer" class="input-field">
+                            <option value="">اختر عميل...</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-dark-light">💰 المبلغ</label>
+                        <input type="number" id="walletAmount" class="input-field" placeholder="أدخل المبلغ">
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="rechargeWallet()" class="btn-sm gold flex-1">➕ شحن الرصيد</button>
+                        <button onclick="deductWallet()" class="btn-sm red flex-1">➖ خصم الرصيد</button>
+                    </div>
+                    <div class="mt-3">
+                        <h4 class="font-bold text-dark text-sm mb-2">📋 سجل المعاملات</h4>
+                        <div id="walletTransactions" class="text-dark-light text-sm">
+                            لا توجد معاملات
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 6. الألعاب -->
+        <!-- ============================================================ -->
+        <div id="tab-games" class="tab-content">
+            <div class="glass-card p-4">
+                <h3 class="font-bold text-dark mb-3">🎮 إدارة الألعاب</h3>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-white/50 p-3 rounded-xl border border-gray-200 text-center">
+                        <span class="text-3xl">🎮</span>
+                        <p class="font-bold text-dark text-sm">PUBG</p>
+                        <p class="text-dark-light text-xs">شحن UC</p>
+                        <button class="btn-sm gold mt-2" onclick="showToast('📝 جاري تحميل PUBG...')">إدارة</button>
+                    </div>
+                    <div class="bg-white/50 p-3 rounded-xl border border-gray-200 text-center">
+                        <span class="text-3xl">🔥</span>
+                        <p class="font-bold text-dark text-sm">FreeFire</p>
+                        <p class="text-dark-light text-xs">شحن جواهر</p>
+                        <button class="btn-sm gold mt-2" onclick="showToast('📝 جاري تحميل FreeFire...')">إدارة</button>
+                    </div>
+                    <div class="bg-white/50 p-3 rounded-xl border border-gray-200 text-center">
+                        <span class="text-3xl">👑</span>
+                        <p class="font-bold text-dark text-sm">Clash</p>
+                        <p class="text-dark-light text-xs">تذاكر وجواهر</p>
+                        <button class="btn-sm gold mt-2" onclick="showToast('📝 جاري تحميل Clash...')">إدارة</button>
+                    </div>
+                    <div class="bg-white/50 p-3 rounded-xl border border-gray-200 text-center">
+                        <span class="text-3xl">⚽</span>
+                        <p class="font-bold text-dark text-sm">eFootball</p>
+                        <p class="text-dark-light text-xs">كوينز</p>
+                        <button class="btn-sm gold mt-2" onclick="showToast('📝 جاري تحميل eFootball...')">إدارة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 7. البطاقات -->
+        <!-- ============================================================ -->
+        <div id="tab-cards" class="tab-content">
+            <div class="glass-card p-4">
+                <h3 class="font-bold text-dark mb-3">🎟️ إدارة البطاقات والأكواد</h3>
+                <div class="space-y-2">
+                    <div class="flex gap-2">
+                        <input type="text" id="cardCode" class="input-field" placeholder="🔑 أدخل الكود">
+                        <input type="number" id="cardValue" class="input-field w-1/3" placeholder="القيمة">
+                    </div>
+                    <button onclick="addCard()" class="btn-sm gold w-full">➕ إضافة كود</button>
+                </div>
+                <div class="mt-3 table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>الكود</th>
+                                <th>القيمة</th>
+                                <th>الحالة</th>
+                                <th>إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cardsTable">
+                            <tr>
+                                <td colspan="4" class="text-center text-dark-light">لا توجد أكواد</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 8. العروض -->
+        <!-- ============================================================ -->
+        <div id="tab-offers" class="tab-content">
+            <div class="glass-card p-4">
+                <h3 class="font-bold text-dark mb-3">🎁 العروض والخصومات</h3>
+                <div class="space-y-2">
+                    <input type="text" id="offerName" class="input-field" placeholder="اسم العرض">
+                    <input type="number" id="offerDiscount" class="input-field" placeholder="نسبة الخصم %">
+                    <input type="date" id="offerExpiry" class="input-field">
+                    <button onclick="addOffer()" class="btn-sm gold w-full">➕ إنشاء عرض</button>
+                </div>
+                <div class="mt-3" id="offersList">
+                    <div class="text-dark-light text-sm">لا توجد عروض</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 9. الدعم -->
+        <!-- ============================================================ -->
+        <div id="tab-support" class="tab-content">
+            <div class="glass-card p-4">
+                <h3 class="font-bold text-dark mb-3">💬 الدعم والتواصل</h3>
+                <div id="supportMessages">
+                    <div class="text-dark-light text-sm">لا توجد رسائل</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 10. المحتوى -->
+        <!-- ============================================================ -->
+        <div id="tab-content" class="tab-content">
+            <div class="glass-card p-4">
+                <h3 class="font-bold text-dark mb-3">📢 إدارة المحتوى</h3>
+                <div class="space-y-2">
+                    <input type="text" id="bannerTitle" class="input-field" placeholder="عنوان البنر">
+                    <input type="text" id="bannerLink" class="input-field" placeholder="رابط البنر">
+                    <button onclick="addBanner()" class="btn-sm gold w-full">➕ إضافة بنر</button>
+                </div>
+                <div class="mt-3" id="bannersList">
+                    <div class="text-dark-light text-sm">لا توجد بنرات</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 11. الإعدادات -->
+        <!-- ============================================================ -->
+        <div id="tab-settings" class="tab-content">
+            <div class="glass-card p-4">
+                <h3 class="font-bold text-dark mb-3">⚙️ إعدادات المتجر</h3>
+                <div class="space-y-2">
+                    <input type="text" id="storeName" class="input-field" placeholder="اسم المتجر" value="MORRE STORE">
+                    <input type="text" id="storePhone" class="input-field" placeholder="رقم الهاتف" value="2490991305468">
+                    <input type="text" id="storeEmail" class="input-field" placeholder="البريد الإلكتروني" value="info@morrestore.com">
+                    <button onclick="saveSettings()" class="btn-sm gold w-full">💾 حفظ الإعدادات</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 12. التقارير -->
+        <!-- ============================================================ -->
+        <div id="tab-reports" class="tab-content">
+            <div class="glass-card p-4">
+                <h3 class="font-bold text-dark mb-3">📊 التقارير</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="showToast('📊 تقرير المبيعات')" class="btn-sm gold">💰 المبيعات</button>
+                    <button onclick="showToast('📊 تقرير الأرباح')" class="btn-sm gold">📈 الأرباح</button>
+                    <button onclick="showToast('📊 تقرير المنتجات')" class="btn-sm gold">📦 المنتجات</button>
+                    <button onclick="showToast('📊 تقرير العملاء')" class="btn-sm gold">👥 العملاء</button>
+                </div>
+                <div class="mt-3" id="reportContent">
+                    <div class="text-dark-light text-sm">اختر تقرير لعرضه</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 13. الإشعارات -->
+        <!-- ============================================================ -->
+        <div id="tab-notifications" class="tab-content">
+            <div class="glass-card p-4">
+                <h3 class="font-bold text-dark mb-3">🔔 الإشعارات</h3>
+                <div class="space-y-2">
+                    <input type="text" id="notificationTitle" class="input-field" placeholder="عنوان الإشعار">
+                    <textarea id="notificationBody" class="input-field" rows="3" placeholder="نص الإشعار..."></textarea>
+                    <button onclick="sendNotification()" class="btn-sm gold w-full">📨 إرسال إشعار</button>
+                </div>
+                <div class="mt-3" id="notificationsList">
+                    <div class="text-dark-light text-sm">لا توجد إشعارات سابقة</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== الشريط السفلي ===== -->
+    <div class="bottom-nav">
+        <a href="/" class="nav-item"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+        <a href="wallet.html" class="nav-item"><i class="fas fa-wallet"></i><span>المحفظة</span></a>
+        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i><span>الدعم</span></a>
+        <a href="orders.html" class="nav-item"><i class="fas fa-box"></i><span>طلباتي</span></a>
+        <a href="account.html" class="nav-item active"><i class="fas fa-user"></i><span>الحساب</span></a>
+    </div>
+
+    <!-- ===== Toast ===== -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // ============================================================
+        //  MORRE STORE - لوحة التحكم
+        // ============================================================
+
+        // ===== التبويبات =====
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabName).classList.add('active');
+
+            document.querySelectorAll('#mainTabs .tab-btn').forEach(el => el.classList.remove('active'));
+            document.querySelector(`#mainTabs .tab-btn[data-tab="${tabName}"]`).classList.add('active');
+
+            // تحديث عنوان الصفحة
+            const titles = {
+                dashboard: '📊 الرئيسية',
+                products: '📦 المنتجات',
+                orders: '🧾 الطلبات',
+                customers: '👥 العملاء',
+                wallet: '💳 المحفظة',
+                games: '🎮 الألعاب',
+                cards: '🎟️ البطاقات',
+                offers: '🎁 العروض',
+                support: '💬 الدعم',
+                content: '📢 المحتوى',
+                settings: '⚙️ الإعدادات',
+                reports: '📊 التقارير',
+                notifications: '🔔 الإشعارات'
+            };
+            document.querySelector('.page-title')?.remove();
+            const title = document.querySelector('.back-header');
+            if (title) {
+                const span = document.createElement('span');
+                span.className = 'text-sm text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full mr-auto';
+                span.textContent = '👑 أدمن';
+                title.appendChild(span);
+            }
+        }
+
+        // ===== حدث التبويبات =====
+        document.querySelectorAll('#mainTabs .tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                switchTab(this.dataset.tab);
+            });
+        });
+
+        // ===== إضافة منتج =====
+        let isProductFormVisible = false;
+
+        function showAddProduct() {
+            const form = document.getElementById('addProductForm');
+            isProductFormVisible = !isProductFormVisible;
+            form.classList.toggle('hidden', !isProductFormVisible);
+        }
+
+        function addProduct() {
+            const name = document.getElementById('productName').value.trim();
+            const price = document.getElementById('productPrice').value;
+            const category = document.getElementById('productCategory').value;
+
+            if (!name || !price) {
+                showToast('❌ اسم المنتج والسعر مطلوبين');
+                return;
+            }
+
+            // إضافة المنتج للجدول
+            const table = document.getElementById('productsTable');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${name}</td>
+                <td>${Number(price).toLocaleString()} ج.س</td>
+                <td>${category}</td>
+                <td>
+                    <button class="btn-sm gold" onclick="showToast('✏️ تعديل ${name}')">تعديل</button>
+                    <button class="btn-sm red" onclick="deleteProduct(this)">حذف</button>
+                </td>
+            `;
+            // حذف رسالة "لا توجد منتجات"
+            const emptyRow = table.querySelector('.text-center');
+            if (emptyRow) emptyRow.remove();
+            table.appendChild(row);
+
+            document.getElementById('productName').value = '';
+            document.getElementById('productPrice').value = '';
+            showToast('✅ تم إضافة المنتج بنجاح');
+            isProductFormVisible = false;
+            document.getElementById('addProductForm').classList.add('hidden');
+        }
+
+        function deleteProduct(btn) {
+            if (confirm('⚠️ هل أنت متأكد من حذف هذا المنتج؟')) {
+                btn.closest('tr').remove();
+                showToast('🗑️ تم حذف المنتج');
+            }
+        }
+
+        // ===== إضافة كود =====
+        function addCard() {
+            const code = document.getElementById('cardCode').value.trim();
+            const value = document.getElementById('cardValue').value;
+
+            if (!code || !value) {
+                showToast('❌ الكود والقيمة مطلوبين');
+                return;
+            }
+
+            const table = document.getElementById('cardsTable');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><code class="bg-yellow-50 px-2 py-1 rounded">${code}</code></td>
+                <td>${Number(value).toLocaleString()} ج.س</td>
+                <td><span class="status-badge pending">متاح</span></td>
+                <td>
+                    <button class="btn-sm red" onclick="deleteCard(this)">حذف</button>
+                </td>
+            `;
+            const emptyRow = table.querySelector('.text-center');
+            if (emptyRow) emptyRow.remove();
+            table.appendChild(row);
+
+            document.getElementById('cardCode').value = '';
+            document.getElementById('cardValue').value = '';
+            showToast('✅ تم إضافة الكود بنجاح');
+        }
+
+        function deleteCard(btn) {
+            if (confirm('⚠️ هل أنت متأكد من حذف هذا الكود؟')) {
+                btn.closest('tr').remove();
+                showToast('🗑️ تم حذف الكود');
+            }
+        }
+
+        // ===== إضافة عرض =====
+        function addOffer() {
+            const name = document.getElementById('offerName').value.trim();
+            const discount = document.getElementById('offerDiscount').value;
+            const expiry = document.getElementById('offerExpiry').value;
+
+            if (!name || !discount) {
+                showToast('❌ اسم العرض ونسبة الخصم مطلوبين');
+                return;
+            }
+
+            const list = document.getElementById('offersList');
+            const item = document.createElement('div');
+            item.className = 'flex justify-between items-center p-2 border-b border-gray-200';
+            item.innerHTML = `
+                <div>
+                    <span class="font-bold text-dark">${name}</span>
+                    <span class="text-xs text-yellow-600 mr-2">${discount}% خصم</span>
+                    <span class="text-xs text-dark-light">${expiry || 'بدون تاريخ انتهاء'}</span>
+                </div>
+                <button class="btn-sm red" onclick="this.parentElement.remove(); showToast('🗑️ تم حذف العرض')">حذف</button>
+            `;
+            const empty = list.querySelector('.text-dark-light');
+            if (empty) empty.remove();
+            list.appendChild(item);
+
+            document.getElementById('offerName').value = '';
+            document.getElementById('offerDiscount').value = '';
+            document.getElementById('offerExpiry').value = '';
+            showToast('✅ تم إنشاء العرض بنجاح');
+        }
+
+        // ===== إضافة بنر =====
+        function addBanner() {
+            const title = document.getElementById('bannerTitle').value.trim();
+            const link = document.getElementById('bannerLink').value.trim();
+
+            if (!title) {
+                showToast('❌ عنوان البنر مطلوب');
+                return;
+            }
+
+            const list = document.getElementById('bannersList');
+            const item = document.createElement('div');
+            item.className = 'flex justify-between items-center p-2 border-b border-gray-200';
+            item.innerHTML = `
+                <div>
+                    <span class="font-bold text-dark">📢 ${title}</span>
+                    <span class="text-xs text-dark-light mr-2">${link || 'بدون رابط'}</span>
+                </div>
+                <button class="btn-sm red" onclick="this.parentElement.remove(); showToast('🗑️ تم حذف البنر')">حذف</button>
+            `;
+            const empty = list.querySelector('.text-dark-light');
+            if (empty) empty.remove();
+            list.appendChild(item);
+
+            document.getElementById('bannerTitle').value = '';
+            document.getElementById('bannerLink').value = '';
+            showToast('✅ تم إضافة البنر بنجاح');
+        }
+
+        // ===== إرسال إشعار =====
+        function sendNotification() {
+            const title = document.getElementById('notificationTitle').value.trim();
+            const body = document.getElementById('notificationBody').value.trim();
+
+            if (!title || !body) {
+                showToast('❌ عنوان ونص الإشعار مطلوبين');
+                return;
+            }
+
+            const list = document.getElementById('notificationsList');
+            const item = document.createElement('div');
+            item.className = 'p-3 bg-yellow-50 rounded-xl mb-2 border border-yellow-200';
+            const now = new Date();
+            const time = now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+            item.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="font-bold text-dark">📨 ${title}</p>
+                        <p class="text-dark-light text-sm">${body}</p>
+                    </div>
+                    <span class="text-xs text-dark-light">${time}</span>
+                </div>
+            `;
+            const empty = list.querySelector('.text-dark-light');
+            if (empty) empty.remove();
+            list.prepend(item);
+
+            document.getElementById('notificationTitle').value = '';
+            document.getElementById('notificationBody').value = '';
+            showToast('✅ تم إرسال الإشعار بنجاح');
+        }
+
+        // ===== شحن/خصم المحفظة =====
+        function rechargeWallet() {
+            const amount = document.getElementById('walletAmount').value;
+            if (!amount || amount <= 0) {
+                showToast('❌ أدخل مبلغ صحيح');
+                return;
+            }
+            showToast(`✅ تم شحن ${Number(amount).toLocaleString()} ج.س بنجاح`);
+            addTransaction('➕ شحن', amount);
+        }
+
+        function deductWallet() {
+            const amount = document.getElementById('walletAmount').value;
+            if (!amount || amount <= 0) {
+                showToast('❌ أدخل مبلغ صحيح');
+                return;
+            }
+            showToast(`✅ تم خصم ${Number(amount).toLocaleString()} ج.س بنجاح`);
+            addTransaction('➖ خصم', amount);
+        }
+
+        function addTransaction(type, amount) {
+            const container = document.getElementById('walletTransactions');
+            const item = document.createElement('div');
+            item.className = 'flex justify-between py-1 border-b border-gray-100 text-sm';
+            const now = new Date().toLocaleString('ar-SA');
+            item.innerHTML = `
+                <span>${type}</span>
+                <span class="${type.includes('خصم') ? 'text-red-500' : 'text-green-500'}">${type.includes('خصم') ? '-' : '+'}${Number(amount).toLocaleString()} ج.س</span>
+                <span class="text-xs text-dark-light">${now}</span>
+            `;
+            const empty = container.querySelector('.text-dark-light');
+            if (empty) empty.remove();
+            container.prepend(item);
+        }
+
+        // ===== حفظ الإعدادات =====
+        function saveSettings() {
+            const name = document.getElementById('storeName').value.trim();
+            const phone = document.getElementById('storePhone').value.trim();
+            const email = document.getElementById('storeEmail').value.trim();
+
+            if (!name) {
+                showToast('❌ اسم المتجر مطلوب');
+                return;
+            }
+
+            showToast('✅ تم حفظ الإعدادات بنجاح');
+        }
+
+        // ===== تصفية الطلبات =====
+        function filterOrders(status) {
+            document.querySelectorAll('#tab-orders .btn-sm').forEach(btn => btn.classList.remove('gold'));
+            document.querySelector(`#tab-orders .btn-sm[onclick="filterOrders('${status}')"]`).classList.add('gold');
+
+            const rows = document.querySelectorAll('#ordersTable tr');
+            rows.forEach(row => {
+                if (row.querySelector('.text-center')) return;
+                const statusEl = row.querySelector('.status-badge');
+                if (!statusEl) return;
+                if (status === 'all' || statusEl.textContent === status) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // ===== البحث عن العملاء =====
+        function searchCustomers() {
+            const query = document.getElementById('searchCustomer').value.toLowerCase();
+            const rows = document.querySelectorAll('#customersTable tr');
+            rows.forEach(row => {
+                if (row.querySelector('.text-center')) return;
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
+
+        // ===== Toast =====
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        window.showToast = showToast;
+
+        // ===== الوضع الليلي =====
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+
+        // ===== بيانات وهمية للعرض =====
+        function loadDemoData() {
+            // إحصائيات
+            document.getElementById('totalSales').textContent = '1,245,000';
+            document.getElementById('totalProfit').textContent = '890,000';
+            document.getElementById('totalCustomers').textContent = '156';
+            document.getElementById('totalOrders').textContent = '89';
+
+            // آخر العمليات
+            const activity = document.getElementById('recentActivity');
+            activity.innerHTML = `
+                <div class="flex justify-between text-sm border-b border-gray-100 py-2">
+                    <span>🛒 طلب جديد من محمد</span>
+                    <span class="text-xs text-dark-light">منذ 5 دقائق</span>
+                </div>
+                <div class="flex justify-between text-sm border-b border-gray-100 py-2">
+                    <span>💰 شحن رصيد لأحمد (50,000 ج.س)</span>
+                    <span class="text-xs text-dark-light">منذ 15 دقيقة</span>
+                </div>
+                <div class="flex justify-between text-sm border-b border-gray-100 py-2">
+                    <span>✅ تم تنفيذ طلب #123</span>
+                    <span class="text-xs text-dark-light">منذ ساعة</span>
+                </div>
+                <div class="flex justify-between text-sm py-2">
+                    <span>📦 تم إضافة منتج جديد</span>
+                    <span class="text-xs text-dark-light">منذ ساعتين</span>
+                </div>
+            `;
+
+            // طلبات وهمية
+            const ordersTable = document.getElementById('ordersTable');
+            const ordersData = [
+                { id: '#101', product: '325 شدة PUBG', customer: 'أحمد', price: '20,000', status: 'pending' },
+                { id: '#102', product: 'اشتراك نتفليكس', customer: 'سارة', price: '55,000', status: 'progress' },
+                { id: '#103', product: 'بطاقة جوجل 10$', customer: 'محمد', price: '60,000', status: 'done' },
+                { id: '#104', product: '110 جوهرة FreeFire', customer: 'علي', price: '4,500', status: 'cancelled' },
+            ];
+            ordersData.forEach(o => {
+                const statusMap = {
+                    pending: { class: 'pending', text: 'قيد الانتظار' },
+                    progress: { class: 'progress', text: 'قيد التنفيذ' },
+                    done: { class: 'done', text: 'مكتمل' },
+                    cancelled: { class: 'cancelled', text: 'ملغي' }
+                };
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${o.id}</td>
+                    <td>${o.product}</td>
+                    <td>${o.customer}</td>
+                    <td>${o.price} ج.س</td>
+                    <td><span class="status-badge ${statusMap[o.status].class}">${statusMap[o.status].text}</span></td>
+                    <td>
+                        <button class="btn-sm green" onclick="showToast('✅ تم تأكيد الطلب ${o.id}')">تأكيد</button>
+                        <button class="btn-sm red" onclick="showToast('❌ تم إلغاء الطلب ${o.id}')">إلغاء</button>
+                    </td>
+                `;
+                ordersTable.appendChild(row);
+            });
+
+            // عملاء وهميون
+            const customersTable = document.getElementById('customersTable');
+            const customersData = [
+                { name: 'أحمد محمد', email: 'ahmed@email.com', balance: '150,000', status: 'نشط' },
+                { name: 'سارة علي', email: 'sara@email.com', balance: '75,000', status: 'نشط' },
+                { name: 'محمد خالد', email: 'mohamed@email.com', balance: '0', status: 'موقوف' },
+                { name: 'نور حسن', email: 'nour@email.com', balance: '230,000', status: 'نشط' },
+            ];
+            customersData.forEach(c => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${c.name}</td>
+                    <td>${c.email}</td>
+                    <td>${c.balance} ج.س</td>
+                    <td><span class="status-badge ${c.status === 'نشط' ? 'done' : 'cancelled'}">${c.status}</span></td>
+                    <td>
+                        <button class="btn-sm gold" onclick="showToast('🔍 عرض تفاصيل ${c.name}')">عرض</button>
+                        <button class="btn-sm red" onclick="showToast('${c.status === 'نشط' ? '⛔ تم حظر' : '✅ تم تفعيل'} ${c.name}')">${c.status === 'نشط' ? 'حظر' : 'تفعيل'}</button>
+                    </td>
+                `;
+                customersTable.appendChild(row);
+            });
+
+            // العملاء في المحفظة
+            const walletSelect = document.getElementById('walletCustomer');
+            customersData.forEach(c => {
+                const option = document.createElement('option');
+                option.value = c.name;
+                option.textContent = c.name + ' (' + c.balance + ' ج.س)';
+                walletSelect.appendChild(option);
+            });
+        }
+
+        // تشغيل البيانات الوهمية
+        loadDemoData();
+
+        console.log('🖥️ MORRE STORE - Admin Panel Loaded');
+    </script>
+
+</body>
+</html>
