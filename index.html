@@ -1365,61 +1365,7 @@
 
             <!-- ========== صفحة الحساب ========== -->
             <div id="page-account" class="page-section" style="display:none;padding:16px;max-width:480px;margin:0 auto;">
-                <div class="profile-card">
-                    <img class="avatar" id="profileAvatar" src="https://ui-avatars.com/api/?name=مستخدم&size=80&background=f59e0b&color=fff&bold=true" onclick="changeAvatar()">
-                    <div class="name" id="profileName">مستخدم</div>
-                    <div class="username" id="profileUsername">@user</div>
-                    <div class="wallet" id="profileWallet">💰 0 ج.س</div>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <div class="num" id="statOrders">0</div>
-                            <div class="label">📦 الطلبات</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="num" id="statCompleted">0</div>
-                            <div class="label">✅ مكتملة</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="num" id="statPending">0</div>
-                            <div class="label">⏳ معلقة</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-grid">
-                    <div class="info-item full">
-                        <div class="label">📧 البريد الإلكتروني</div>
-                        <div class="value" id="displayEmail">user@example.com <span class="edit-btn" onclick="openEditModal('email')">تعديل</span></div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">📱 رقم الهاتف</div>
-                        <div class="value" id="displayPhone">0991234567 <span class="edit-btn" onclick="openEditModal('phone')">تعديل</span></div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">👤 اسم المستخدم</div>
-                        <div class="value" id="displayUsername">user <span class="edit-btn" onclick="openEditModal('username')">تعديل</span></div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">🌍 الدولة</div>
-                        <div class="value" id="displayCountry">السودان <span class="edit-btn" onclick="openEditModal('country')">تعديل</span></div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">🏙️ المدينة</div>
-                        <div class="value" id="displayCity">الخرطوم <span class="edit-btn" onclick="openEditModal('city')">تعديل</span></div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">🔢 رقم المحفظة</div>
-                        <div class="value" style="color:#d97706;" id="displayWallet">#123456789</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">📅 تاريخ التسجيل</div>
-                        <div class="value" id="displayJoined">15 يناير 2025</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">⏳ آخر تسجيل</div>
-                        <div class="value" id="displayLastLogin">اليوم 10:30 ص</div>
-                    </div>
-                </div>
+            </div>
 
                 <div class="menu-grid">
                     <div class="menu-btn" onclick="openEditModal('all')"><i class="fas fa-user-edit"></i> تعديل البيانات</div>
@@ -1445,55 +1391,69 @@
         </main>
 
         <!-- ========== الشريط العائم السفلي ========== -->
-        <div class="bottom-nav">
-            <button onclick="navigateTo('home'); setActiveNav('home')" class="nav-item active" id="nav-home">
-                <i class="fas fa-home"></i>
-                <span>الرئيسية</span>
-            </button>
-            <button onclick="openWallet(); setActiveNav('wallet')" class="nav-item wallet-item" id="nav-wallet">
-                <i class="fas fa-wallet"></i>
-                <span>المحفظة</span>
-            </button>
-            <button onclick="openSupport(); setActiveNav('support')" class="nav-item" id="nav-support">
-                <i class="fas fa-headset"></i>
-                <span>الدعم</span>
-            </button>
-            <button onclick="openAccount(); setActiveNav('account')" class="nav-item" id="nav-account">
-                <i class="fas fa-user"></i>
-                <span>الحساب</span>
-            </button>
-        </div>
+<div class="bottom-nav">
+    <button onclick="navigateTo('home'); setActiveNav('home')" class="nav-item active" id="nav-home">
+        <i class="fas fa-home"></i>
+        <span>الرئيسية</span>
+    </button>
+    
+    <button onclick="window.location.href='wallet.html'" class="nav-item" id="nav-wallet">
+        <i class="fas fa-wallet"></i>
+        <span>المحفظة</span>
+    </button>
+    
+    <button onclick="window.location.href='support.html'" class="nav-item" id="nav-support">
+        <i class="fas fa-headset"></i>
+        <span>الدعم</span>
+    </button>
+    
+    <button onclick="window.location.href='orders.html'" class="nav-item" id="nav-orders">
+        <i class="fas fa-box"></i>
+        <span>طلباتي</span>
+    </button>
+    
+    <button onclick="window.location.href='account.html'" class="nav-item" id="nav-account">
+        <i class="fas fa-user"></i>
+        <span>الحساب</span>
+    </button>
+</div>
 
-        <!-- الشريط الجانبي -->
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
-        <div class="sidebar" id="sidebar">
-            <div class="text-center py-4 border-b border-dark/10">
-                <img id="sidebarImg" class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-dark" src="https://via.placeholder.com/100">
-                <h4 id="sidebarName" class="font-bold text-dark text-lg mt-2"></h4>
-                <p id="sidebarWallet" class="text-sm text-yellow-dark"></p>
-            </div>
-            <a href="#" onclick="navigateTo('home'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-home w-6"></i> الرئيسية</a>
-            <a href="#" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-user w-6"></i> حسابي</a>
-            <a href="#" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6"></i> محفظتي</a>
-            <a href="#" onclick="toggleSidebar(false); document.getElementById('userOrdersList').scrollIntoView({behavior:'smooth'});" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-shopping-bag w-6"></i> طلباتي</a>
-            <a href="#" onclick="openWalletWhatsApp(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6 text-yellow-dark"></i> شحن المحفظة</a>
-            <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fab fa-whatsapp w-6 text-green-500"></i> خدمة العملاء</a>
-            <div onclick="toggleSidebar(false); showPolicy('terms');" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer"><i class="fas fa-file-alt w-6"></i> السياسات</div>
-            <div onclick="toggleTheme()" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer" id="themeToggleBtn"><i class="fas fa-moon w-6"></i> الوضع الليلي</div>
-            <a href="#" onclick="document.getElementById('logout-btn').click(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-sign-out-alt w-6"></i> تسجيل الخروج</a>
-        </div>
-
-        <!-- الفوتر -->
-        <footer class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur border-t border-dark/10 py-3 text-center text-xs text-dark-light footer-links">
-            <div class="flex justify-center gap-4 flex-wrap">
-                <a href="#" onclick="showPolicy('terms');return false;">شروط الخدمة</a>
-                <a href="#" onclick="showPolicy('privacy');return false;">سياسة الخصوصية</a>
-                <a href="#" onclick="showPolicy('refund');return false;">سياسة الاسترجاع</a>
-                <a href="#" onclick="showPolicy('about');return false;">عن المتجر</a>
-            </div>
-            <div class="mt-1">© 2025 MORRE STORE - جميع الحقوق محفوظة</div>
-        </footer>
+        <!-- ===== الشريط الجانبي ===== -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="sidebar" id="sidebar">
+    <div class="text-center py-4 border-b border-dark/10">
+        <img id="sidebarImg" class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-dark" src="https://via.placeholder.com/100">
+        <h4 id="sidebarName" class="font-bold text-dark text-lg mt-2"></h4>
+        <p id="sidebarWallet" class="text-sm text-yellow-dark"></p>
     </div>
+    <a href="#" onclick="navigateTo('home'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-home w-6"></i> الرئيسية
+    </a>
+    <a href="#" onclick="window.location.href='account.html'; toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-user w-6"></i> حسابي
+    </a>
+    <a href="#" onclick="window.location.href='wallet.html'; toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-wallet w-6"></i> محفظتي
+    </a>
+    <a href="#" onclick="window.location.href='orders.html'; toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-shopping-bag w-6"></i> طلباتي
+    </a>
+    <a href="#" onclick="openWalletWhatsApp(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-wallet w-6 text-yellow-dark"></i> شحن المحفظة
+    </a>
+    <a href="#" onclick="window.location.href='support.html'; toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fab fa-whatsapp w-6 text-green-500"></i> خدمة العملاء
+    </a>
+    <div onclick="toggleSidebar(false); showPolicy('terms');" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer">
+        <i class="fas fa-file-alt w-6"></i> السياسات
+    </div>
+    <div onclick="toggleTheme()" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer" id="themeToggleBtn">
+        <i class="fas fa-moon w-6"></i> الوضع الليلي
+    </div>
+    <a href="#" onclick="document.getElementById('logout-btn').click(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-sign-out-alt w-6"></i> تسجيل الخروج
+    </a>
+</div>
 
     <!-- المودالات -->
     <div id="policy-modal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-50 flex items-center justify-center p-4">
