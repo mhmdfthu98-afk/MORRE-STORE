@@ -440,9 +440,9 @@
             toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        // ========== جلب السلة من Firebase أو LocalStorage ==========
+        // ========== 🔥 جلب السلة من LocalStorage أولاً ==========
         function loadCart(uid) {
-            // 🔥 أولاً: جلب من LocalStorage (بديل سريع)
+            // 1. جلب من LocalStorage
             const localCart = localStorage.getItem('cart_' + uid);
             if (localCart) {
                 try {
@@ -450,26 +450,30 @@
                     if (parsed.length > 0) {
                         cartItems = parsed;
                         renderCart();
+                        console.log("✅ تم جلب السلة من LocalStorage:", cartItems);
                         return;
                     }
-                } catch(e) {}
+                } catch(e) {
+                    console.error("Error parsing localStorage:", e);
+                }
             }
 
-            // 🔥 ثانياً: جلب من Firebase
+            // 2. جلب من Firebase
             if (uid) {
                 const cartRef = doc(db, "carts", uid);
                 onSnapshot(cartRef, (docSnap) => {
                     if (docSnap.exists()) {
                         cartItems = docSnap.data().items || [];
+                        // حفظ في LocalStorage
+                        localStorage.setItem('cart_' + uid, JSON.stringify(cartItems));
                     } else {
                         cartItems = [];
+                        localStorage.setItem('cart_' + uid, JSON.stringify([]));
                     }
-                    // حفظ في LocalStorage كنسخة احتياطية
-                    localStorage.setItem('cart_' + uid, JSON.stringify(cartItems));
                     renderCart();
                 }, (error) => {
-                    console.error("Error loading cart:", error);
-                    // إذا فشل Firebase، استخدم LocalStorage
+                    console.error("Error loading cart from Firebase:", error);
+                    // استخدام LocalStorage كبديل
                     const fallback = localStorage.getItem('cart_' + uid);
                     if (fallback) {
                         try {
@@ -481,16 +485,18 @@
             }
         }
 
-        // ========== حفظ السلة ==========
+        // ========== 🔥 حفظ السلة ==========
         async function saveCart(uid, items) {
             cartItems = items;
             // حفظ في LocalStorage
             localStorage.setItem('cart_' + uid, JSON.stringify(items));
+            console.log("✅ تم حفظ السلة في LocalStorage:", items);
             
             // محاولة حفظ في Firebase
             try {
                 const cartRef = doc(db, "carts", uid);
                 await setDoc(cartRef, { items: items, updatedAt: new Date() });
+                console.log("✅ تم حفظ السلة في Firebase");
             } catch (e) {
                 console.error("Error saving to Firebase:", e);
             }
