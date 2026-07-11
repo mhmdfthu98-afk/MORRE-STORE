@@ -1512,49 +1512,53 @@
             });
         }
 
-        // ========== إضافة منتج إلى السلة (مع Firebase + LocalStorage) ==========
-        window.addToCart = async function(productId) {
-            if (!userData) {
-                alert('❌ يرجى تسجيل الدخول أولاً');
-                return;
-            }
+        // ========== إضافة منتج إلى السلة (LocalStorage فقط) ==========
+window.addToCart = function(productId) {
+    if (!userData) {
+        alert('❌ يرجى تسجيل الدخول أولاً');
+        return;
+    }
 
-            // البحث عن المنتج
-            let product = null;
-            for (const category in allProducts) {
-                const found = allProducts[category].find(p => p.id === productId);
-                if (found) {
-                    product = found;
-                    break;
-                }
-            }
+    // البحث عن المنتج
+    let product = null;
+    for (const category in allProducts) {
+        const found = allProducts[category].find(p => p.id === productId);
+        if (found) {
+            product = found;
+            break;
+        }
+    }
 
-            if (!product) {
-                alert('❌ المنتج غير موجود');
-                return;
-            }
+    if (!product) {
+        alert('❌ المنتج غير موجود');
+        return;
+    }
 
-            try {
-                // محاولة حفظ في Firebase
-                const cartRef = doc(db, "carts", userData.uid);
-                const cartSnap = await getDoc(cartRef);
-                let cartItems = cartSnap.exists() ? cartSnap.data().items || [] : [];
+    // استخدام LocalStorage
+    const cartKey = 'cart_' + userData.uid;
+    let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+    
+    const existing = cart.find(item => item.id === productId);
+    if (existing) {
+        existing.qty += 1;
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            qty: 1
+        });
+    }
+    localStorage.setItem(cartKey, JSON.stringify(cart));
 
-                const existingIndex = cartItems.findIndex(item => item.id === productId);
-                if (existingIndex !== -1) {
-                    cartItems[existingIndex].qty += 1;
-                } else {
-                    cartItems.push({
-                        id: product.id,
-                        name: product.name,
-                        price: product.price,
-                        qty: 1
-                    });
-                }
+    // تحديث العداد
+    const total = cart.reduce((sum, item) => sum + item.qty, 0);
+    document.querySelectorAll('#cartCount, #navCartBadge, #headerCartBadge').forEach(el => {
+        if (el) el.textContent = total;
+    });
 
-                await setDoc(cartRef, { items: cartItems, updatedAt: new Date() });
-                updateCartBadge(cartItems);
-                showToast(`✅ تم إضافة "${product.name}" إلى السلة`);
+    showToast(`✅ تم إضافة "${product.name}" إلى السلة`);
+};
 
             } catch (error) {
                 console.error("Firebase error:", error);
