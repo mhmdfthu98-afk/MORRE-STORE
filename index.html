@@ -1159,6 +1159,36 @@
 </head>
 <body>
 
+    <!-- ===== حل فوري للتعلق ===== -->
+    <script>
+        // إظهار المحتوى فوراً بعد 1 ثانية
+        setTimeout(function() {
+            // إخفاء شاشة التحميل
+            const loading = document.getElementById('loading-screen');
+            if (loading) {
+                loading.style.display = 'none';
+                loading.classList.add('hidden');
+            }
+            
+            // إظهار إما المتجر أو شاشة تسجيل الدخول
+            const mainApp = document.getElementById('main-app');
+            const authScreen = document.getElementById('auth-screen');
+            
+            // إذا كان التطبيق الرئيسي مخفياً، اعرض شاشة تسجيل الدخول
+            if (mainApp && mainApp.classList.contains('hidden')) {
+                if (authScreen) {
+                    authScreen.classList.remove('hidden');
+                    authScreen.style.display = 'flex';
+                }
+            }
+            
+            // إذا كان التطبيق الرئيسي ظاهراً، تأكد من ظهوره
+            if (mainApp && !mainApp.classList.contains('hidden')) {
+                mainApp.style.display = 'block';
+            }
+        }, 1000);
+    </script>
+
     <!-- ===== شاشة التحميل ===== -->
     <div id="loading-screen" class="fixed inset-0 bg-white/70 backdrop-blur flex items-center justify-center z-50">
         <div class="loader-spin"></div>
