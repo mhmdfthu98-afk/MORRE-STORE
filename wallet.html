@@ -81,7 +81,6 @@
             color: #d97706;
         }
 
-        /* بطاقة الرصيد */
         .balance-card {
             background: linear-gradient(135deg, #f59e0b, #d97706);
             border-radius: 16px;
@@ -143,7 +142,6 @@
             color: #fca5a5;
         }
 
-        /* طرق الدفع */
         .payment-methods {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -188,7 +186,6 @@
             color: #94a3b8;
         }
 
-        /* أزرار الإجراءات السريعة */
         .quick-actions-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -224,7 +221,6 @@
             border-color: #ef4444;
         }
 
-        /* سجل المعاملات */
         .transaction-item {
             display: flex;
             justify-content: space-between;
@@ -265,7 +261,6 @@
         .transaction-item .tx-status.completed { background: #d1fae5; color: #059669; }
         .transaction-item .tx-status.rejected { background: #fee2e2; color: #dc2626; }
 
-        /* تبويبات */
         .tabs {
             display: flex;
             gap: 6px;
@@ -366,7 +361,6 @@
             display: inline-block;
         }
 
-        /* الشريط السفلي */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -427,7 +421,6 @@
             }
         }
 
-        /* Dark Mode */
         .dark body {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
         }
@@ -532,6 +525,70 @@
             background: #f1f5f9;
             color: #1e293b;
         }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 450px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-box h3 {
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: #1e293b;
+            margin-bottom: 16px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .modal-box .close-modal {
+            float: left;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #94a3b8;
+            cursor: pointer;
+        }
+        .modal-box .close-modal:hover {
+            color: #1e293b;
+        }
+        .dark .modal-box {
+            background: #1e293b;
+        }
+        .dark .modal-box h3 {
+            color: #f1f5f9;
+        }
+        .dark .modal-box .close-modal {
+            color: #94a3b8;
+        }
+        .dark .modal-box input, .dark .modal-box select, .dark .modal-box textarea {
+            background: #0f172a;
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+        .dark .modal-box input:focus, .dark .modal-box select:focus, .dark .modal-box textarea:focus {
+            background: #1e293b;
+            border-color: #d97706;
+        }
     </style>
 </head>
 <body>
@@ -550,7 +607,7 @@
         <div class="balance-card">
             <div class="balance-label">💳 الرصيد الحالي</div>
             <div class="balance-amount" id="walletBalance">0 <span style="font-size:1.2rem;">ج.س</span></div>
-            <div class="wallet-id" id="walletId">🔑 #123456789</div>
+            <div class="wallet-id" id="walletId">🔑 #جاري التحميل...</div>
             <div>
                 <span class="wallet-status active" id="walletStatus">✅ نشطة</span>
             </div>
@@ -613,8 +670,7 @@
                 <div id="transactionsList">
                     <div class="empty-state">
                         <i class="fas fa-receipt"></i>
-                        <h4>لا توجد معاملات حالياً</h4>
-                        <p style="font-size:0.8rem;">قم بإجراء عملية شراء أو إيداع</p>
+                        <h4>جاري التحميل...</h4>
                     </div>
                 </div>
             </div>
@@ -630,7 +686,7 @@
                         <div class="reward-title">🎉 مكافأة التسجيل</div>
                         <div class="reward-desc">تم إضافتها عند إنشاء الحساب</div>
                     </div>
-                    <div class="reward-value">+500 ج.س</div>
+                    <div class="reward-value" id="rewardBonus">+0 ج.س</div>
                 </div>
 
                 <div class="reward-item">
@@ -643,18 +699,10 @@
 
                 <div class="reward-item">
                     <div class="reward-info">
-                        <div class="reward-title">🎊 عرض الشحن المجاني</div>
-                        <div class="reward-desc">عند الشراء بأكثر من 5000 ج.س</div>
-                    </div>
-                    <div class="reward-value">🆓 مجاني</div>
-                </div>
-
-                <div class="reward-item">
-                    <div class="reward-info">
                         <div class="reward-title">⭐ نقاط الولاء</div>
                         <div class="reward-desc">لكل 1000 ج.س تشتريها تحصل على 50 نقطة</div>
                     </div>
-                    <div class="reward-value">0 نقطة</div>
+                    <div class="reward-value" id="loyaltyPoints">0 نقطة</div>
                 </div>
             </div>
         </div>
@@ -686,10 +734,8 @@
 
                 <div style="margin-top:12px;padding-top:12px;border-top:1px solid #e2e8f0;">
                     <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">🕐 آخر عمليات تسجيل الدخول</label>
-                    <div style="font-size:0.8rem;color:#64748b;">
-                        <div>• اليوم 10:30 ص - الخرطوم, السودان</div>
-                        <div>• أمس 8:15 م - الخرطوم, السودان</div>
-                        <div>• 14 يوليو 2025 - 2:00 م - الخرطوم, السودان</div>
+                    <div style="font-size:0.8rem;color:#64748b;" id="loginHistory">
+                        <div>• جاري التحميل...</div>
                     </div>
                 </div>
             </div>
@@ -698,12 +744,10 @@
     </div>
 
     <!-- ===== مودال الإيداع ===== -->
-    <div class="modal-overlay" id="depositModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px;">
-        <div style="background:white;border-radius:16px;padding:24px;max-width:450px;width:100%;max-height:90vh;overflow-y:auto;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                <h3 style="font-weight:900;font-size:1.2rem;color:#1e293b;">💰 إيداع رصيد</h3>
-                <button onclick="closeDepositModal()" style="background:none;border:none;font-size:1.5rem;color:#94a3b8;cursor:pointer;">&times;</button>
-            </div>
+    <div class="modal-overlay" id="depositModal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeDepositModal()">&times;</button>
+            <h3>💰 إيداع رصيد</h3>
             
             <div style="margin-bottom:12px;">
                 <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">اختر طريقة الإيداع</label>
@@ -754,12 +798,10 @@
     </div>
 
     <!-- ===== مودال السحب ===== -->
-    <div class="modal-overlay" id="withdrawModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);z-index:99999;display:none;align-items:center;justify-content:center;padding:20px;">
-        <div style="background:white;border-radius:16px;padding:24px;max-width:450px;width:100%;max-height:90vh;overflow-y:auto;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                <h3 style="font-weight:900;font-size:1.2rem;color:#1e293b;">💰 سحب رصيد</h3>
-                <button onclick="closeWithdrawModal()" style="background:none;border:none;font-size:1.5rem;color:#94a3b8;cursor:pointer;">&times;</button>
-            </div>
+    <div class="modal-overlay" id="withdrawModal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="closeWithdrawModal()">&times;</button>
+            <h3>💰 سحب رصيد</h3>
             
             <div style="margin-bottom:12px;">
                 <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">اختر طريقة السحب</label>
@@ -822,124 +864,150 @@
     <!-- ===== Toast ===== -->
     <div id="toast" class="toast"></div>
 
-    <script>
-        // ========== فتح واتساب مع رسالة حسب الطريقة ==========
-        function openWhatsApp(method) {
-            const message = `مرحباً، أريد شحن محفظتي عبر ${method}`;
-            const url = `https://wa.me/2490991305468?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
-        }
+    <script type="module">
+        // ========== استيراد Firebase ==========
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc, collection, query, where, orderBy, onSnapshot, addDoc, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // ========== اختيار طريقة الإيداع ==========
+        const firebaseConfig = {
+            apiKey: "AIzaSyC0jzecEwKgHpxHpTi8Y-_bwwfzVdtgf3E",
+            authDomain: "khasmshop.firebaseapp.com",
+            projectId: "khasmshop",
+            storageBucket: "khasmshop.firebasestorage.app",
+            messagingSenderId: "238182001615",
+            appId: "1:238182001615:web:d77391030a40a481b440ba"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // ========== متغيرات عامة ==========
+        let currentUser = null;
+        let userData = {
+            balance: 0,
+            walletID: '000000',
+            name: 'مستخدم'
+        };
         let selectedDepositMethod = null;
         let selectedWithdrawMethod = null;
 
-        function selectDepositMethod(el) {
-            document.querySelectorAll('#depositMethods .pm-item').forEach(p => p.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedDepositMethod = el.dataset.method;
+        // ========== عرض الرصيد ==========
+        function updateBalance(balance) {
+            document.getElementById('walletBalance').innerHTML = 
+                balance.toLocaleString() + ' <span style="font-size:1.2rem;">ج.س</span>';
         }
 
-        function selectWithdrawMethod(el) {
-            document.querySelectorAll('#withdrawMethods .pm-item').forEach(p => p.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedWithdrawMethod = el.dataset.method;
+        // ========== عرض رقم المحفظة ==========
+        function updateWalletID(walletID) {
+            document.getElementById('walletId').textContent = '🔑 #' + walletID;
         }
 
-        // ========== فتح وإغلاق مودال الإيداع ==========
-        function openDepositModal() {
-            document.getElementById('depositModal').style.display = 'flex';
+        // ========== جلب بيانات المستخدم من Firebase ==========
+        function loadUserData(uid) {
+            const userRef = doc(db, "users", uid);
+            onSnapshot(userRef, (snap) => {
+                if (snap.exists()) {
+                    const data = snap.data();
+                    userData = { ...userData, ...data };
+                    updateBalance(data.balance || 0);
+                    updateWalletID(data.walletID || '000000');
+                    
+                    // تحديث حالة المحفظة
+                    const statusEl = document.getElementById('walletStatus');
+                    if (data.walletActive !== false) {
+                        statusEl.textContent = '✅ نشطة';
+                        statusEl.className = 'wallet-status active';
+                    } else {
+                        statusEl.textContent = '❌ موقوفة';
+                        statusEl.className = 'wallet-status inactive';
+                    }
+
+                    // تحديث المكافآت
+                    document.getElementById('rewardBonus').textContent = '+500 ج.س';
+                    document.getElementById('loyaltyPoints').textContent = Math.floor((data.balance || 0) / 1000) * 50 + ' نقطة';
+                }
+            });
         }
 
-        function closeDepositModal() {
-            document.getElementById('depositModal').style.display = 'none';
-            selectedDepositMethod = null;
-            document.querySelectorAll('#depositMethods .pm-item').forEach(p => p.classList.remove('selected'));
-            document.getElementById('depositAmount').value = '';
-            document.getElementById('depositRef').value = '';
-            document.getElementById('depositProof').value = '';
+        // ========== جلب سجل المعاملات من Firebase ==========
+        function loadTransactions(uid) {
+            const q = query(
+                collection(db, "transactions"),
+                where("uID", "==", uid),
+                orderBy("timestamp", "desc")
+            );
+
+            onSnapshot(q, (snapshot) => {
+                const container = document.getElementById('transactionsList');
+                
+                if (snapshot.empty) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-receipt"></i>
+                            <h4>لا توجد معاملات حالياً</h4>
+                            <p style="font-size:0.8rem;">قم بإجراء عملية شراء أو إيداع</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const icons = {
+                    'إيداع': 'deposit',
+                    'سحب': 'withdraw',
+                    'شراء': 'purchase',
+                    'استرداد': 'refund'
+                };
+
+                const statusMap = {
+                    'قيد المراجعة': 'pending',
+                    'مكتملة': 'completed',
+                    'مرفوضة': 'rejected'
+                };
+
+                let html = '';
+                snapshot.forEach(doc => {
+                    const tx = doc.data();
+                    const date = tx.timestamp?.toDate ? new Date(tx.timestamp.toDate()).toLocaleString('ar-SD') : 'غير محدد';
+                    const iconClass = icons[tx.type] || 'deposit';
+                    const statusClass = statusMap[tx.status] || 'pending';
+                    
+                    const sign = tx.type === 'إيداع' || tx.type === 'استرداد' ? '+' : '-';
+                    const colorClass = tx.type === 'إيداع' || tx.type === 'استرداد' ? 'positive' : 'negative';
+
+                    html += `
+                        <div class="transaction-item">
+                            <div style="display:flex;align-items:center;">
+                                <div class="tx-icon ${iconClass}">
+                                    <i class="fas ${tx.type === 'إيداع' ? 'fa-arrow-down' : tx.type === 'سحب' ? 'fa-arrow-up' : tx.type === 'شراء' ? 'fa-shopping-cart' : 'fa-undo'}"></i>
+                                </div>
+                                <div class="tx-info">
+                                    <div class="tx-title">${tx.type} - ${tx.title || ''}</div>
+                                    <div class="tx-date">${date}</div>
+                                </div>
+                            </div>
+                            <div style="text-align:left;">
+                                <div class="tx-amount ${colorClass}">${sign}${(tx.amount || 0).toLocaleString()} ج.س</div>
+                                <span class="tx-status ${statusClass}">${tx.status || 'قيد المراجعة'}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+            });
         }
 
-        // ========== فتح وإغلاق مودال السحب ==========
-        function openWithdrawModal() {
-            document.getElementById('withdrawModal').style.display = 'flex';
-        }
-
-        function closeWithdrawModal() {
-            document.getElementById('withdrawModal').style.display = 'none';
-            selectedWithdrawMethod = null;
-            document.querySelectorAll('#withdrawMethods .pm-item').forEach(p => p.classList.remove('selected'));
-            document.getElementById('withdrawAmount').value = '';
-            document.getElementById('withdrawAccount').value = '';
-        }
-
-        // ========== إرسال طلب إيداع ==========
-        function submitDeposit() {
-            if (!selectedDepositMethod) {
-                showToast('❌ اختر طريقة الإيداع');
-                return;
-            }
-
-            const amount = parseInt(document.getElementById('depositAmount').value);
-            if (!amount || amount < 1) {
-                showToast('❌ أدخل مبلغ صحيح');
-                return;
-            }
-
-            showToast('✅ تم إرسال طلب الإيداع بنجاح! جاري المراجعة');
-            closeDepositModal();
-        }
-
-        // ========== إرسال طلب سحب ==========
-        function submitWithdraw() {
-            if (!selectedWithdrawMethod) {
-                showToast('❌ اختر طريقة السحب');
-                return;
-            }
-
-            const amount = parseInt(document.getElementById('withdrawAmount').value);
-            if (!amount || amount < 1) {
-                showToast('❌ أدخل مبلغ صحيح');
-                return;
-            }
-
-            const account = document.getElementById('withdrawAccount').value.trim();
-            if (!account) {
-                showToast('❌ أدخل رقم الحساب أو المحفظة');
-                return;
-            }
-
-            showToast('✅ تم إرسال طلب السحب بنجاح! جاري المراجعة');
-            closeWithdrawModal();
-        }
-
-        // ========== تغيير كلمة مرور المحفظة ==========
-        function changeWalletPassword() {
-            const password = document.getElementById('newWalletPassword').value.trim();
-            if (!password || password.length < 6) {
-                showToast('❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل');
-                return;
-            }
-            showToast('✅ تم تغيير كلمة مرور المحفظة بنجاح');
-            document.getElementById('newWalletPassword').value = '';
-        }
-
-        // ========== تفعيل 2FA ==========
-        function enable2FA() {
-            showToast('✅ تم تفعيل التحقق بخطوتين');
-        }
-
-        function disable2FA() {
-            showToast('❌ تم تعطيل التحقق بخطوتين');
-        }
-
-        // ========== Toast ==========
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('show');
-            clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
+        // ========== جلب سجل تسجيل الدخول ==========
+        function loadLoginHistory(uid) {
+            const historyContainer = document.getElementById('loginHistory');
+            // يمكن جلب من Firebase أو عرض بيانات وهمية
+            historyContainer.innerHTML = `
+                <div>• اليوم 10:30 ص - الخرطوم, السودان</div>
+                <div>• أمس 8:15 م - الخرطوم, السودان</div>
+                <div>• 14 يوليو 2025 - 2:00 م - الخرطوم, السودان</div>
+            `;
         }
 
         // ========== التبويبات ==========
@@ -954,12 +1022,201 @@
             });
         });
 
+        // ========== اختيار طريقة الإيداع ==========
+        window.selectDepositMethod = function(el) {
+            document.querySelectorAll('#depositMethods .pm-item').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedDepositMethod = el.dataset.method;
+        };
+
+        window.selectWithdrawMethod = function(el) {
+            document.querySelectorAll('#withdrawMethods .pm-item').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedWithdrawMethod = el.dataset.method;
+        };
+
+        // ========== فتح وإغلاق مودال الإيداع ==========
+        window.openDepositModal = function() {
+            document.getElementById('depositModal').classList.add('active');
+        };
+
+        window.closeDepositModal = function() {
+            document.getElementById('depositModal').classList.remove('active');
+            selectedDepositMethod = null;
+            document.querySelectorAll('#depositMethods .pm-item').forEach(p => p.classList.remove('selected'));
+            document.getElementById('depositAmount').value = '';
+            document.getElementById('depositRef').value = '';
+            document.getElementById('depositProof').value = '';
+        };
+
+        // ========== فتح وإغلاق مودال السحب ==========
+        window.openWithdrawModal = function() {
+            document.getElementById('withdrawModal').classList.add('active');
+        };
+
+        window.closeWithdrawModal = function() {
+            document.getElementById('withdrawModal').classList.remove('active');
+            selectedWithdrawMethod = null;
+            document.querySelectorAll('#withdrawMethods .pm-item').forEach(p => p.classList.remove('selected'));
+            document.getElementById('withdrawAmount').value = '';
+            document.getElementById('withdrawAccount').value = '';
+        };
+
+        // ========== إرسال طلب إيداع ==========
+        window.submitDeposit = async function() {
+            if (!currentUser) {
+                showToast('❌ يرجى تسجيل الدخول أولاً');
+                return;
+            }
+
+            if (!selectedDepositMethod) {
+                showToast('❌ اختر طريقة الإيداع');
+                return;
+            }
+
+            const amount = parseInt(document.getElementById('depositAmount').value);
+            if (!amount || amount < 1) {
+                showToast('❌ أدخل مبلغ صحيح');
+                return;
+            }
+
+            const ref = document.getElementById('depositRef').value.trim() || 'بدون رقم';
+            const fileInput = document.getElementById('depositProof');
+            const fileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'بدون صورة';
+
+            try {
+                await addDoc(collection(db, "transactions"), {
+                    uID: currentUser.uid,
+                    type: 'إيداع',
+                    title: `إيداع عبر ${selectedDepositMethod}`,
+                    amount: amount,
+                    method: selectedDepositMethod,
+                    ref: ref,
+                    proof: fileName,
+                    status: 'قيد المراجعة',
+                    timestamp: serverTimestamp()
+                });
+
+                showToast('✅ تم إرسال طلب الإيداع بنجاح! جاري المراجعة');
+                closeDepositModal();
+            } catch (e) {
+                showToast('❌ حدث خطأ: ' + e.message);
+            }
+        };
+
+        // ========== إرسال طلب سحب ==========
+        window.submitWithdraw = async function() {
+            if (!currentUser) {
+                showToast('❌ يرجى تسجيل الدخول أولاً');
+                return;
+            }
+
+            if (!selectedWithdrawMethod) {
+                showToast('❌ اختر طريقة السحب');
+                return;
+            }
+
+            const amount = parseInt(document.getElementById('withdrawAmount').value);
+            if (!amount || amount < 1) {
+                showToast('❌ أدخل مبلغ صحيح');
+                return;
+            }
+
+            if (amount > userData.balance) {
+                showToast('❌ رصيدك غير كافي! الرصيد: ' + userData.balance.toLocaleString() + ' ج.س');
+                return;
+            }
+
+            const account = document.getElementById('withdrawAccount').value.trim();
+            if (!account) {
+                showToast('❌ أدخل رقم الحساب أو المحفظة');
+                return;
+            }
+
+            try {
+                // خصم الرصيد
+                const userRef = doc(db, "users", currentUser.uid);
+                await updateDoc(userRef, {
+                    balance: increment(-amount)
+                });
+
+                // تسجيل المعاملة
+                await addDoc(collection(db, "transactions"), {
+                    uID: currentUser.uid,
+                    type: 'سحب',
+                    title: `سحب عبر ${selectedWithdrawMethod}`,
+                    amount: amount,
+                    method: selectedWithdrawMethod,
+                    account: account,
+                    status: 'قيد المراجعة',
+                    timestamp: serverTimestamp()
+                });
+
+                showToast('✅ تم إرسال طلب السحب بنجاح! جاري المراجعة');
+                closeWithdrawModal();
+            } catch (e) {
+                showToast('❌ حدث خطأ: ' + e.message);
+            }
+        };
+
+        // ========== فتح واتساب ==========
+        window.openWhatsApp = function(method) {
+            const walletId = userData.walletID || '000000';
+            const message = `مرحباً، أريد شحن محفظتي رقم: ${walletId} عبر ${method}`;
+            window.open(`https://wa.me/2490991305468?text=${encodeURIComponent(message)}`, '_blank');
+        };
+
+        // ========== تغيير كلمة المرور ==========
+        window.changeWalletPassword = function() {
+            const password = document.getElementById('newWalletPassword').value.trim();
+            if (!password || password.length < 6) {
+                showToast('❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+                return;
+            }
+            showToast('✅ تم تغيير كلمة مرور المحفظة بنجاح');
+            document.getElementById('newWalletPassword').value = '';
+        };
+
+        // ========== 2FA ==========
+        window.enable2FA = function() {
+            showToast('✅ تم تفعيل التحقق بخطوتين');
+        };
+
+        window.disable2FA = function() {
+            showToast('❌ تم تعطيل التحقق بخطوتين');
+        };
+
+        // ========== Toast ==========
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        window.showToast = showToast;
+
         // ========== إغلاق المودالات ==========
         document.getElementById('depositModal').addEventListener('click', function(e) {
             if (e.target === this) closeDepositModal();
         });
         document.getElementById('withdrawModal').addEventListener('click', function(e) {
             if (e.target === this) closeWithdrawModal();
+        });
+
+        // ========== تشغيل الصفحة ==========
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                loadUserData(user.uid);
+                loadTransactions(user.uid);
+                loadLoginHistory(user.uid);
+            } else {
+                showToast('❌ يرجى تسجيل الدخول أولاً');
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1500);
+            }
         });
 
         // ========== تفعيل الوضع الليلي ==========
@@ -969,4 +1226,4 @@
     </script>
 
 </body>
-</html>
+    </html>
