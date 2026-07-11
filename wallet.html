@@ -63,6 +63,8 @@
             border: 1px solid #f1f5f9;
             margin-bottom: 16px;
             transition: all 0.3s ease;
+            will-change: transform;
+            backface-visibility: hidden;
         }
         .glass-card:hover {
             transform: translateY(-2px);
@@ -142,6 +144,7 @@
             color: #fca5a5;
         }
 
+        /* ===== طرق الدفع ===== */
         .payment-methods {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -153,18 +156,19 @@
             border: 2px solid #e2e8f0;
             text-align: center;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             background: #f8fafc;
             text-decoration: none;
             display: block;
+            will-change: transform;
         }
         .payment-methods .pm-item:hover {
             border-color: #d97706;
-            transform: scale(1.03);
-            box-shadow: 0 4px 15px rgba(217,119,6,0.15);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(217,119,6,0.15);
         }
         .payment-methods .pm-item:active {
-            transform: scale(0.97);
+            transform: scale(0.96);
         }
         .payment-methods .pm-item img {
             width: 60px;
@@ -184,6 +188,11 @@
         .payment-methods .pm-item .pm-desc {
             font-size: 0.55rem;
             color: #94a3b8;
+        }
+        .payment-methods .pm-item.selected {
+            border-color: #d97706;
+            background: #fef3c7;
+            transform: scale(1.02);
         }
 
         .quick-actions-grid {
@@ -221,12 +230,16 @@
             border-color: #ef4444;
         }
 
+        /* ===== سجل المعاملات ===== */
         .transaction-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px 0;
             border-bottom: 1px solid #f1f5f9;
+            will-change: transform, opacity;
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            backface-visibility: hidden;
         }
         .transaction-item:last-child {
             border-bottom: none;
@@ -261,11 +274,14 @@
         .transaction-item .tx-status.completed { background: #d1fae5; color: #059669; }
         .transaction-item .tx-status.rejected { background: #fee2e2; color: #dc2626; }
 
+        /* ===== تبويبات ===== */
         .tabs {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
             margin-bottom: 12px;
+            position: relative;
+            padding-bottom: 4px;
         }
         .tabs .tab-btn {
             padding: 6px 14px;
@@ -276,15 +292,23 @@
             font-weight: 700;
             font-size: 0.7rem;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             flex: 1;
             text-align: center;
             min-width: 50px;
+            will-change: transform, background, color;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            touch-action: manipulation;
+        }
+        .tabs .tab-btn:active {
+            transform: scale(0.94);
         }
         .tabs .tab-btn.active {
             background: #f59e0b;
             color: white;
             border-color: #f59e0b;
+            transform: scale(1.02);
         }
         .tabs .tab-btn:hover:not(.active) {
             border-color: #d97706;
@@ -292,9 +316,22 @@
 
         .tab-content {
             display: none;
+            opacity: 0;
+            transform: translateY(12px) scale(0.97);
+            transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: opacity, transform;
+            pointer-events: none;
+            position: relative;
+            height: 0;
+            overflow: hidden;
         }
         .tab-content.active {
             display: block;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+            height: auto;
+            overflow: visible;
         }
 
         .deposit-section-title {
@@ -361,6 +398,54 @@
             display: inline-block;
         }
 
+        /* ===== مودال ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 450px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-box h3 {
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: #1e293b;
+            margin-bottom: 16px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .modal-box .close-modal {
+            float: left;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #94a3b8;
+            cursor: pointer;
+        }
+        .modal-box .close-modal:hover {
+            color: #1e293b;
+        }
+
+        /* ===== الشريط السفلي ===== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -421,6 +506,7 @@
             }
         }
 
+        /* ===== Dark Mode ===== */
         .dark body {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
         }
@@ -460,6 +546,9 @@
         .dark .payment-methods .pm-item:hover {
             border-color: #d97706;
         }
+        .dark .payment-methods .pm-item img {
+            border-color: #334155;
+        }
         .dark .transaction-item {
             border-color: #334155;
         }
@@ -496,8 +585,23 @@
             background: #f59e0b;
             color: #1e293b;
         }
-        .dark .payment-methods .pm-item img {
+        .dark .modal-box {
+            background: #1e293b;
+        }
+        .dark .modal-box h3 {
+            color: #f1f5f9;
+        }
+        .dark .modal-box .close-modal {
+            color: #94a3b8;
+        }
+        .dark .modal-box input, .dark .modal-box select, .dark .modal-box textarea {
+            background: #0f172a;
             border-color: #334155;
+            color: #f1f5f9;
+        }
+        .dark .modal-box input:focus, .dark .modal-box select:focus, .dark .modal-box textarea:focus {
+            background: #1e293b;
+            border-color: #d97706;
         }
 
         .toast {
@@ -525,70 +629,6 @@
             background: #f1f5f9;
             color: #1e293b;
         }
-
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            z-index: 99999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .modal-overlay.active {
-            display: flex;
-        }
-        .modal-box {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            max-width: 450px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .modal-box h3 {
-            font-weight: 900;
-            font-size: 1.2rem;
-            color: #1e293b;
-            margin-bottom: 16px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .modal-box .close-modal {
-            float: left;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #94a3b8;
-            cursor: pointer;
-        }
-        .modal-box .close-modal:hover {
-            color: #1e293b;
-        }
-        .dark .modal-box {
-            background: #1e293b;
-        }
-        .dark .modal-box h3 {
-            color: #f1f5f9;
-        }
-        .dark .modal-box .close-modal {
-            color: #94a3b8;
-        }
-        .dark .modal-box input, .dark .modal-box select, .dark .modal-box textarea {
-            background: #0f172a;
-            border-color: #334155;
-            color: #f1f5f9;
-        }
-        .dark .modal-box input:focus, .dark .modal-box select:focus, .dark .modal-box textarea:focus {
-            background: #1e293b;
-            border-color: #d97706;
-        }
     </style>
 </head>
 <body>
@@ -613,31 +653,38 @@
             </div>
         </div>
 
-        <!-- ===== طرق الإيداع السريع ===== -->
+        <!-- ===== طرق الإيداع السريع (بالصور التي أرسلتها) ===== -->
         <div class="glass-card">
             <div class="deposit-section-title">
                 <i class="fas fa-plus-circle"></i> اختر طريقة الإيداع
             </div>
             <div class="payment-methods">
-                <a href="#" onclick="openWhatsApp('بنكك')" class="pm-item">
-                    <img src="https://i.ibb.co/SXjYwNTb/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك">
+                <!-- RedotPay -->
+                <a href="https://wa.me/2490991305468?text=أريد%20شحن%20محفظتي%20عبر%20RedotPay" target="_blank" class="pm-item">
+                    <img src="https://i.ibb.co/0y9Z7SDZ/6feb9ec0dc4a917f20ee4499659d56ce.jpg" alt="RedotPay" loading="lazy">
+                    <div class="pm-name">💳 RedotPay</div>
+                    <div class="pm-desc">بطاقة افتراضية</div>
+                </a>
+
+                <!-- بنكك -->
+                <a href="https://wa.me/2490991305468?text=أريد%20شحن%20محفظتي%20عبر%20بنكك" target="_blank" class="pm-item">
+                    <img src="https://i.ibb.co/SXjYwNTb/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك" loading="lazy">
                     <div class="pm-name">🏦 بنكك</div>
                     <div class="pm-desc">تحويل بنكي</div>
                 </a>
-                <a href="#" onclick="openWhatsApp('ماي كاش')" class="pm-item">
-                    <img src="https://i.ibb.co/DDTbH3NJ/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="ماي كاش">
-                    <div class="pm-name">📱 ماي كاش</div>
-                    <div class="pm-desc">محفظة إلكترونية</div>
-                </a>
-                <a href="#" onclick="openWhatsApp('باينانس')" class="pm-item">
-                    <img src="https://i.ibb.co/7tFjnwqw/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="باينانس">
-                    <div class="pm-name">🟡 باينانس</div>
+
+                <!-- Binance -->
+                <a href="https://wa.me/2490991305468?text=أريد%20شحن%20محفظتي%20عبر%20Binance" target="_blank" class="pm-item">
+                    <img src="https://i.ibb.co/7tFjnwqw/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance" loading="lazy">
+                    <div class="pm-name">🟡 Binance</div>
                     <div class="pm-desc">عملات رقمية</div>
                 </a>
-                <a href="#" onclick="openWhatsApp('Redotpay')" class="pm-item">
-                    <img src="https://i.ibb.co/0y9Z7SDZ/6feb9ec0dc4a917f20ee4499659d56ce.jpg" alt="Redotpay">
-                    <div class="pm-name">💳 Redotpay</div>
-                    <div class="pm-desc">بطاقة افتراضية</div>
+
+                <!-- MyCash -->
+                <a href="https://wa.me/2490991305468?text=أريد%20شحن%20محفظتي%20عبر%20MyCash" target="_blank" class="pm-item">
+                    <img src="https://i.ibb.co/DDTbH3NJ/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash" loading="lazy">
+                    <div class="pm-name">📱 MyCash</div>
+                    <div class="pm-desc">محفظة إلكترونية</div>
                 </a>
             </div>
         </div>
@@ -686,7 +733,7 @@
                         <div class="reward-title">🎉 مكافأة التسجيل</div>
                         <div class="reward-desc">تم إضافتها عند إنشاء الحساب</div>
                     </div>
-                    <div class="reward-value" id="rewardBonus">+0 ج.س</div>
+                    <div class="reward-value" id="rewardBonus">+500 ج.س</div>
                 </div>
 
                 <div class="reward-item">
@@ -752,21 +799,21 @@
             <div style="margin-bottom:12px;">
                 <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">اختر طريقة الإيداع</label>
                 <div class="payment-methods" id="depositMethods">
+                    <div class="pm-item" data-method="RedotPay" onclick="selectDepositMethod(this)">
+                        <img src="https://i.ibb.co/0y9Z7SDZ/6feb9ec0dc4a917f20ee4499659d56ce.jpg" alt="RedotPay">
+                        <div class="pm-name">💳 RedotPay</div>
+                    </div>
                     <div class="pm-item" data-method="بنكك" onclick="selectDepositMethod(this)">
                         <img src="https://i.ibb.co/SXjYwNTb/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك">
                         <div class="pm-name">🏦 بنكك</div>
                     </div>
-                    <div class="pm-item" data-method="ماي كاش" onclick="selectDepositMethod(this)">
-                        <img src="https://i.ibb.co/DDTbH3NJ/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="ماي كاش">
-                        <div class="pm-name">📱 ماي كاش</div>
+                    <div class="pm-item" data-method="Binance" onclick="selectDepositMethod(this)">
+                        <img src="https://i.ibb.co/7tFjnwqw/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance">
+                        <div class="pm-name">🟡 Binance</div>
                     </div>
-                    <div class="pm-item" data-method="باينانس" onclick="selectDepositMethod(this)">
-                        <img src="https://i.ibb.co/7tFjnwqw/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="باينانس">
-                        <div class="pm-name">🟡 باينانس</div>
-                    </div>
-                    <div class="pm-item" data-method="Redotpay" onclick="selectDepositMethod(this)">
-                        <img src="https://i.ibb.co/0y9Z7SDZ/6feb9ec0dc4a917f20ee4499659d56ce.jpg" alt="Redotpay">
-                        <div class="pm-name">💳 Redotpay</div>
+                    <div class="pm-item" data-method="MyCash" onclick="selectDepositMethod(this)">
+                        <img src="https://i.ibb.co/DDTbH3NJ/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash">
+                        <div class="pm-name">📱 MyCash</div>
                     </div>
                 </div>
             </div>
@@ -810,13 +857,13 @@
                         <img src="https://i.ibb.co/SXjYwNTb/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك">
                         <div class="pm-name">🏦 بنكك</div>
                     </div>
-                    <div class="pm-item" data-method="ماي كاش" onclick="selectWithdrawMethod(this)">
-                        <img src="https://i.ibb.co/DDTbH3NJ/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="ماي كاش">
-                        <div class="pm-name">📱 ماي كاش</div>
+                    <div class="pm-item" data-method="MyCash" onclick="selectWithdrawMethod(this)">
+                        <img src="https://i.ibb.co/DDTbH3NJ/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash">
+                        <div class="pm-name">📱 MyCash</div>
                     </div>
-                    <div class="pm-item" data-method="باينانس" onclick="selectWithdrawMethod(this)">
-                        <img src="https://i.ibb.co/7tFjnwqw/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="باينانس">
-                        <div class="pm-name">🟡 باينانس</div>
+                    <div class="pm-item" data-method="Binance" onclick="selectWithdrawMethod(this)">
+                        <img src="https://i.ibb.co/7tFjnwqw/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance">
+                        <div class="pm-name">🟡 Binance</div>
                     </div>
                 </div>
             </div>
@@ -914,7 +961,6 @@
                     updateBalance(data.balance || 0);
                     updateWalletID(data.walletID || '000000');
                     
-                    // تحديث حالة المحفظة
                     const statusEl = document.getElementById('walletStatus');
                     if (data.walletActive !== false) {
                         statusEl.textContent = '✅ نشطة';
@@ -924,7 +970,6 @@
                         statusEl.className = 'wallet-status inactive';
                     }
 
-                    // تحديث المكافآت
                     document.getElementById('rewardBonus').textContent = '+500 ج.س';
                     document.getElementById('loyaltyPoints').textContent = Math.floor((data.balance || 0) / 1000) * 50 + ' نقطة';
                 }
@@ -1002,7 +1047,6 @@
         // ========== جلب سجل تسجيل الدخول ==========
         function loadLoginHistory(uid) {
             const historyContainer = document.getElementById('loginHistory');
-            // يمكن جلب من Firebase أو عرض بيانات وهمية
             historyContainer.innerHTML = `
                 <div>• اليوم 10:30 ص - الخرطوم, السودان</div>
                 <div>• أمس 8:15 م - الخرطوم, السودان</div>
@@ -1010,15 +1054,37 @@
             `;
         }
 
-        // ========== التبويبات ==========
-        document.querySelectorAll('#walletTabs .tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('#walletTabs .tab-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+        // ========== التبويبات السلسة ==========
+        const tabBtns = document.querySelectorAll('#walletTabs .tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
 
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.classList.contains('active')) return;
+                
                 const tab = this.dataset.tab;
-                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-                document.getElementById('tab-' + tab).classList.add('active');
+                
+                tabBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                requestAnimationFrame(() => {
+                    tabContents.forEach(content => {
+                        const isActive = content.id === 'tab-' + tab;
+                        
+                        if (isActive) {
+                            content.style.display = 'block';
+                            void content.offsetHeight;
+                            content.classList.add('active');
+                        } else {
+                            content.classList.remove('active');
+                            setTimeout(() => {
+                                if (!content.classList.contains('active')) {
+                                    content.style.display = 'none';
+                                }
+                            }, 300);
+                        }
+                    });
+                });
             });
         });
 
@@ -1134,13 +1200,11 @@
             }
 
             try {
-                // خصم الرصيد
                 const userRef = doc(db, "users", currentUser.uid);
                 await updateDoc(userRef, {
                     balance: increment(-amount)
                 });
 
-                // تسجيل المعاملة
                 await addDoc(collection(db, "transactions"), {
                     uID: currentUser.uid,
                     type: 'سحب',
@@ -1157,13 +1221,6 @@
             } catch (e) {
                 showToast('❌ حدث خطأ: ' + e.message);
             }
-        };
-
-        // ========== فتح واتساب ==========
-        window.openWhatsApp = function(method) {
-            const walletId = userData.walletID || '000000';
-            const message = `مرحباً، أريد شحن محفظتي رقم: ${walletId} عبر ${method}`;
-            window.open(`https://wa.me/2490991305468?text=${encodeURIComponent(message)}`, '_blank');
         };
 
         // ========== تغيير كلمة المرور ==========
@@ -1226,4 +1283,4 @@
     </script>
 
 </body>
-    </html>
+                    </html>
