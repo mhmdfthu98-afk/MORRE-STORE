@@ -2270,8 +2270,9 @@
             });
         }
 
-        // ========== إضافة منتج إلى السلة (مع Firebase) ==========
+    // ========== إضافة منتج إلى السلة (مع Firebase) ==========
 window.addToCart = async function(productId) {
+    // التحقق من تسجيل الدخول
     if (!userData) {
         alert('❌ يرجى تسجيل الدخول أولاً');
         return;
