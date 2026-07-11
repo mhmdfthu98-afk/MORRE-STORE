@@ -1452,24 +1452,51 @@
     </button>
 </div>
         
-        <!-- الشريط الجانبي -->
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
-        <div class="sidebar" id="sidebar">
-            <div class="text-center py-4 border-b border-dark/10">
-                <img id="sidebarImg" class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-dark" src="https://via.placeholder.com/100">
-                <h4 id="sidebarName" class="font-bold text-dark text-lg mt-2"></h4>
-                <p id="sidebarWallet" class="text-sm text-yellow-dark"></p>
-            </div>
-            <a href="#" onclick="navigateTo('home'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-home w-6"></i> الرئيسية</a>
-            <a href="#" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-user w-6"></i> حسابي</a>
-            <a href="#" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6"></i> محفظتي</a>
-            <a href="#" onclick="toggleSidebar(false); document.getElementById('userOrdersList').scrollIntoView({behavior:'smooth'});" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-shopping-bag w-6"></i> طلباتي</a>
-            <a href="#" onclick="openWalletWhatsApp(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6 text-yellow-dark"></i> شحن المحفظة</a>
-            <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fab fa-whatsapp w-6 text-green-500"></i> خدمة العملاء</a>
-            <div onclick="toggleSidebar(false); showPolicy('terms');" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer"><i class="fas fa-file-alt w-6"></i> السياسات</div>
-            <div onclick="toggleTheme()" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer" id="themeToggleBtn"><i class="fas fa-moon w-6"></i> الوضع الليلي</div>
-            <a href="#" onclick="document.getElementById('logout-btn').click(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-sign-out-alt w-6"></i> تسجيل الخروج</a>
-        </div>
+      <!-- الشريط الجانبي -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="sidebar" id="sidebar">
+    <div class="text-center py-4 border-b border-dark/10">
+        <img id="sidebarImg" class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-dark" src="https://via.placeholder.com/100">
+        <h4 id="sidebarName" class="font-bold text-dark text-lg mt-2"></h4>
+        <p id="sidebarWallet" class="text-sm text-yellow-dark"></p>
+    </div>
+    
+    <a href="#" onclick="navigateTo('home'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-home w-6"></i> الرئيسية
+    </a>
+    
+    <a href="#" onclick="toggleSidebar(false); window.location.href='account.html'" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-user w-6"></i> حسابي
+    </a>
+    
+    <a href="#" onclick="toggleSidebar(false); openWallet();" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-wallet w-6"></i> محفظتي
+    </a>
+    
+    <a href="#" onclick="toggleSidebar(false); document.getElementById('userOrdersList').scrollIntoView({behavior:'smooth'});" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-shopping-bag w-6"></i> طلباتي
+    </a>
+    
+    <a href="#" onclick="openWalletWhatsApp(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-wallet w-6 text-yellow-dark"></i> شحن المحفظة
+    </a>
+    
+    <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fab fa-whatsapp w-6 text-green-500"></i> خدمة العملاء
+    </a>
+    
+    <div onclick="toggleSidebar(false); showPolicy('terms');" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer">
+        <i class="fas fa-file-alt w-6"></i> السياسات
+    </div>
+    
+    <div onclick="toggleTheme()" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer" id="themeToggleBtn">
+        <i class="fas fa-moon w-6"></i> الوضع الليلي
+    </div>
+    
+    <a href="#" onclick="document.getElementById('logout-btn').click(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-sign-out-alt w-6"></i> تسجيل الخروج
+    </a>
+</div>
 
         <!-- الفوتر -->
         <footer class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur border-t border-dark/10 py-3 text-center text-xs text-dark-light footer-links">
