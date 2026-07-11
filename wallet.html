@@ -143,42 +143,6 @@
             color: #fca5a5;
         }
 
-        /* أزرار الإجراءات السريعة */
-        .quick-actions-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-        .quick-actions-grid .q-btn {
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            background: #f8fafc;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.2s;
-            font-weight: 700;
-            font-size: 0.8rem;
-            color: #1e293b;
-        }
-        .quick-actions-grid .q-btn:hover {
-            border-color: #d97706;
-            background: white;
-        }
-        .quick-actions-grid .q-btn i {
-            display: block;
-            font-size: 1.4rem;
-            margin-bottom: 4px;
-            color: #d97706;
-        }
-        .quick-actions-grid .q-btn.danger i {
-            color: #ef4444;
-        }
-        .quick-actions-grid .q-btn.danger:hover {
-            border-color: #ef4444;
-        }
-
         /* طرق الدفع */
         .payment-methods {
             display: grid;
@@ -222,6 +186,42 @@
         .payment-methods .pm-item .pm-desc {
             font-size: 0.55rem;
             color: #94a3b8;
+        }
+
+        /* أزرار الإجراءات السريعة */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .quick-actions-grid .q-btn {
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #1e293b;
+        }
+        .quick-actions-grid .q-btn:hover {
+            border-color: #d97706;
+            background: white;
+        }
+        .quick-actions-grid .q-btn i {
+            display: block;
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+            color: #d97706;
+        }
+        .quick-actions-grid .q-btn.danger i {
+            color: #ef4444;
+        }
+        .quick-actions-grid .q-btn.danger:hover {
+            border-color: #ef4444;
         }
 
         /* سجل المعاملات */
@@ -302,7 +302,35 @@
             display: block;
         }
 
-        /* مكافآت */
+        .deposit-section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #64748b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .deposit-section-title i {
+            color: #d97706;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: #64748b;
+        }
+        .empty-state i {
+            font-size: 3rem;
+            color: #cbd5e1;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .empty-state h4 {
+            color: #1e293b;
+            font-weight: 700;
+        }
+
         .reward-item {
             display: flex;
             justify-content: space-between;
@@ -327,7 +355,6 @@
             color: #d97706;
             font-size: 0.9rem;
         }
-
         .coupon-code {
             background: #fef3c7;
             padding: 6px 12px;
@@ -505,42 +532,6 @@
             background: #f1f5f9;
             color: #1e293b;
         }
-
-        .empty-state {
-            text-align: center;
-            padding: 30px 20px;
-            color: #64748b;
-        }
-        .empty-state i {
-            font-size: 3rem;
-            color: #cbd5e1;
-            margin-bottom: 12px;
-            display: block;
-        }
-        .empty-state h4 {
-            color: #1e293b;
-            font-weight: 700;
-        }
-        .dark .empty-state h4 {
-            color: #f1f5f9;
-        }
-        .dark .empty-state i {
-            color: #475569;
-        }
-
-        /* قسم الإيداع السريع */
-        .deposit-section-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #64748b;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .deposit-section-title i {
-            color: #d97706;
-        }
     </style>
 </head>
 <body>
@@ -571,28 +562,21 @@
                 <i class="fas fa-plus-circle"></i> اختر طريقة الإيداع
             </div>
             <div class="payment-methods">
-                <!-- بنكك -->
                 <a href="#" onclick="openWhatsApp('بنكك')" class="pm-item">
                     <img src="https://i.ibb.co/SXjYwNTb/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك">
                     <div class="pm-name">🏦 بنكك</div>
                     <div class="pm-desc">تحويل بنكي</div>
                 </a>
-
-                <!-- ماي كاش -->
                 <a href="#" onclick="openWhatsApp('ماي كاش')" class="pm-item">
                     <img src="https://i.ibb.co/DDTbH3NJ/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="ماي كاش">
                     <div class="pm-name">📱 ماي كاش</div>
                     <div class="pm-desc">محفظة إلكترونية</div>
                 </a>
-
-                <!-- باينانس -->
                 <a href="#" onclick="openWhatsApp('باينانس')" class="pm-item">
                     <img src="https://i.ibb.co/7tFjnwqw/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="باينانس">
                     <div class="pm-name">🟡 باينانس</div>
                     <div class="pm-desc">عملات رقمية</div>
                 </a>
-
-                <!-- Redotpay -->
                 <a href="#" onclick="openWhatsApp('Redotpay')" class="pm-item">
                     <img src="https://i.ibb.co/0y9Z7SDZ/6feb9ec0dc4a917f20ee4499659d56ce.jpg" alt="Redotpay">
                     <div class="pm-name">💳 Redotpay</div>
@@ -680,10 +664,10 @@
             <div class="glass-card">
                 <div class="card-title"><i class="fas fa-shield-alt"></i> الأمان</div>
 
-                <div class="form-group" style="margin-bottom:12px;">
+                <div style="margin-bottom:12px;">
                     <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">🔑 تغيير كلمة مرور المحفظة</label>
                     <input type="password" id="newWalletPassword" placeholder="كلمة المرور الجديدة" style="width:100%;padding:10px 14px;border-radius:10px;border:1px solid #e2e8f0;font-size:0.9rem;background:#f8fafc;transition:0.2s;font-family:'Cairo',sans-serif;">
-                    <button class="btn-primary" onclick="changeWalletPassword()" style="margin-top:8px;width:100%;padding:12px;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;font-weight:800;border:none;border-radius:10px;font-size:1rem;cursor:pointer;">
+                    <button onclick="changeWalletPassword()" style="margin-top:8px;width:100%;padding:12px;background:linear-gradient(135deg,#f59e0b,#d97706);color:white;font-weight:800;border:none;border-radius:10px;font-size:1rem;cursor:pointer;">
                         تغيير كلمة المرور
                     </button>
                 </div>
@@ -841,7 +825,6 @@
     <script>
         // ========== فتح واتساب مع رسالة حسب الطريقة ==========
         function openWhatsApp(method) {
-            const walletId = document.getElementById('walletId').textContent || '#123456789';
             const message = `مرحباً، أريد شحن محفظتي عبر ${method}`;
             const url = `https://wa.me/2490991305468?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
@@ -983,10 +966,6 @@
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         }
-
-        // ========== بيانات وهمية للرصيد ==========
-        document.getElementById('walletBalance').innerHTML = '0 <span style="font-size:1.2rem;">ج.س</span>';
-        document.getElementById('walletId').textContent = '🔑 #123456789';
     </script>
 
 </body>
