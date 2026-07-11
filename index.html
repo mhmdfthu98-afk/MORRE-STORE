@@ -1352,34 +1352,6 @@
             </div>
         </main>
 
-        <!-- ========== الشريط العائم السفلي ========== -->
-<div class="bottom-nav">
-    <button onclick="navigateTo('home'); setActiveNav('home')" class="nav-item active" id="nav-home">
-        <i class="fas fa-home"></i>
-        <span>الرئيسية</span>
-    </button>
-    
-    <button onclick="window.location.href='wallet.html'" class="nav-item" id="nav-wallet">
-        <i class="fas fa-wallet"></i>
-        <span>المحفظة</span>
-    </button>
-    
-    <button onclick="window.location.href='support.html'" class="nav-item" id="nav-support">
-        <i class="fas fa-headset"></i>
-        <span>الدعم</span>
-    </button>
-    
-    <button onclick="window.location.href='orders.html'" class="nav-item" id="nav-orders">
-        <i class="fas fa-box"></i>
-        <span>طلباتي</span>
-    </button>
-    
-    <button onclick="window.location.href='account.html'" class="nav-item" id="nav-account">
-        <i class="fas fa-user"></i>
-        <span>الحساب</span>
-    </button>
-</div>
-
         <!-- ===== الشريط الجانبي ===== -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <div class="sidebar" id="sidebar">
@@ -1406,6 +1378,9 @@
     <a href="#" onclick="window.location.href='support.html'; toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
         <i class="fab fa-whatsapp w-6 text-green-500"></i> خدمة العملاء
     </a>
+    <a href="#" onclick="window.location.href='admin.html'; toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-cog w-6 text-yellow-600"></i> لوحة التحكم
+    </a>
     <div onclick="toggleSidebar(false); showPolicy('terms');" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer">
         <i class="fas fa-file-alt w-6"></i> السياسات
     </div>
@@ -1415,6 +1390,34 @@
     <a href="#" onclick="document.getElementById('logout-btn').click(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
         <i class="fas fa-sign-out-alt w-6"></i> تسجيل الخروج
     </a>
+</div>
+
+<!-- ===== الشريط العائم السفلي ===== -->
+<div class="bottom-nav">
+    <button onclick="navigateTo('home'); setActiveNav('home')" class="nav-item active" id="nav-home">
+        <i class="fas fa-home"></i>
+        <span>الرئيسية</span>
+    </button>
+    <button onclick="window.location.href='games.html'" class="nav-item" id="nav-games">
+        <i class="fas fa-gamepad"></i>
+        <span>الألعاب</span>
+    </button>
+    <button onclick="window.location.href='subscriptions.html'" class="nav-item" id="nav-subscriptions">
+        <i class="fas fa-star"></i>
+        <span>اشتراكات</span>
+    </button>
+    <button onclick="window.location.href='wallet.html'" class="nav-item" id="nav-wallet">
+        <i class="fas fa-wallet"></i>
+        <span>المحفظة</span>
+    </button>
+    <button onclick="window.location.href='orders.html'" class="nav-item" id="nav-orders">
+        <i class="fas fa-box"></i>
+        <span>طلباتي</span>
+    </button>
+    <button onclick="window.location.href='account.html'" class="nav-item" id="nav-account">
+        <i class="fas fa-user"></i>
+        <span>الحساب</span>
+    </button>
 </div>
 
     <!-- المودالات -->
