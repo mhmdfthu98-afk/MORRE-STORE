@@ -1814,7 +1814,11 @@
                 }).join('');
             });
         }
-        
+
+        window.addToCart = function(productId) {
+            alert('🛒 تم إضافة المنتج إلى السلة!');
+        };
+
         // ========== نظام التنقل ==========
         function navigateTo(page, param) {
             let hash = '';
@@ -1941,7 +1945,7 @@
         };
 
         window.deleteProduct = async (productId) => {
-            if (confirm("⚠️ هل أنت متأكد من حذف هذا المنتج نهائياً？")) {
+            if (confirm("⚠️ هل أنت متأكد من حذف هذا المنتج نهائياً؟")) {
                 await deleteDoc(doc(db, "products", productId));
                 for (const category in allProducts) {
                     allProducts[category] = allProducts[category].filter(p => p.id !== productId);
@@ -2189,16 +2193,27 @@
             }
         };
 
+        // ========== 🔥 دالة loadUserHistory المعدلة (بدون orderBy) ==========
         function loadUserHistory(uid) {
-            onSnapshot(query(collection(db, "orders"), where("uID", "==", uid), orderBy("timestamp", "desc")), (snap) => {
+            onSnapshot(query(collection(db, "orders"), where("uID", "==", uid)), (snap) => {
                 const list = document.getElementById('userOrdersList');
                 list.innerHTML = '';
                 if (snap.empty) {
                     list.innerHTML = '<div class="text-center text-dark-light py-8">لا توجد طلبات سابقة</div>';
                     return;
                 }
+                const orders = [];
                 snap.forEach(d => {
                     const o = d.data();
+                    orders.push({ ...o, id: d.id });
+                });
+                orders.sort((a, b) => {
+                    if (a.timestamp && b.timestamp) {
+                        return b.timestamp.toDate() - a.timestamp.toDate();
+                    }
+                    return 0;
+                });
+                orders.forEach(o => {
                     const config = o.status === 'مكتمل' ? { color: 'text-green-600', icon: '✅' } : o.status ===
                         'فشل' ? { color: 'text-red-600', icon: '❌' } : { color: 'text-yellow-dark',
                             icon: '⏳' };
@@ -2438,4 +2453,4 @@
         });
     </script>
 </body>
-                                                                                                                                                                                                </html>
+                                                          </html>
