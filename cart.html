@@ -440,23 +440,41 @@
             toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        // ========== 🔥 جلب السلة من LocalStorage أولاً ==========
-        function loadCart(uid) {
-            // 1. جلب من LocalStorage
-            const localCart = localStorage.getItem('cart_' + uid);
-            if (localCart) {
-                try {
-                    const parsed = JSON.parse(localCart);
-                    if (parsed.length > 0) {
-                        cartItems = parsed;
-                        renderCart();
-                        console.log("✅ تم جلب السلة من LocalStorage:", cartItems);
-                        return;
-                    }
-                } catch(e) {
-                    console.error("Error parsing localStorage:", e);
-                }
+        // ========== 🔥 جلب السلة من LocalStorage فقط ==========
+function loadCart(uid) {
+    // قراءة من LocalStorage فقط
+    const localCart = localStorage.getItem('cart_' + uid);
+    if (localCart) {
+        try {
+            cartItems = JSON.parse(localCart);
+            renderCart();
+            console.log("✅ تم جلب السلة من LocalStorage:", cartItems);
+            return;
+        } catch(e) {
+            console.error("Error parsing localStorage:", e);
+        }
+    }
+    
+    // إذا كان LocalStorage فاضي، جرب Firebase
+    if (uid) {
+        const cartRef = doc(db, "carts", uid);
+        getDoc(cartRef).then((docSnap) => {
+            if (docSnap.exists()) {
+                cartItems = docSnap.data().items || [];
+                localStorage.setItem('cart_' + uid, JSON.stringify(cartItems));
+            } else {
+                cartItems = [];
             }
+            renderCart();
+        }).catch(() => {
+            cartItems = [];
+            renderCart();
+        });
+    } else {
+        cartItems = [];
+        renderCart();
+    }
+}
 
             // 2. جلب من Firebase
             if (uid) {
@@ -486,23 +504,23 @@
         }
 
         // ========== 🔥 حفظ السلة ==========
-        async function saveCart(uid, items) {
-            cartItems = items;
-            // حفظ في LocalStorage
-            localStorage.setItem('cart_' + uid, JSON.stringify(items));
-            console.log("✅ تم حفظ السلة في LocalStorage:", items);
-            
-            // محاولة حفظ في Firebase
-            try {
-                const cartRef = doc(db, "carts", uid);
-                await setDoc(cartRef, { items: items, updatedAt: new Date() });
-                console.log("✅ تم حفظ السلة في Firebase");
-            } catch (e) {
-                console.error("Error saving to Firebase:", e);
-            }
-            
-            renderCart();
-        }
+async function saveCart(uid, items) {
+    cartItems = items;
+    
+    // ✅ حفظ في LocalStorage (دائماً)
+    localStorage.setItem('cart_' + uid, JSON.stringify(items));
+    console.log("✅ تم حفظ السلة في LocalStorage:", items);
+    renderCart();
+    
+    // محاولة حفظ في Firebase (إذا شغال)
+    try {
+        const cartRef = doc(db, "carts", uid);
+        await setDoc(cartRef, { items: items, updatedAt: new Date() });
+        console.log("✅ تم حفظ السلة في Firebase");
+    } catch (e) {
+        console.log("⚠️ Firebase مش شغال، ولكن السلة محفوظة في LocalStorage");
+    }
+}
 
         // ========== عرض السلة ==========
         function renderCart() {
