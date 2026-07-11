@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MORRE STORE | PUBG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+        * { font-family: 'Cairo', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #fef08a 0%, #fde047 30%, #fef9c3 60%, #fef08a 100%);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+        .container { max-width: 550px; margin: 0 auto; padding: 16px; }
+        .back-btn {
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            padding: 8px 16px;
+            color: #1e293b;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.8); }
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-color: #f59e0b;
+        }
+        .product-card .price {
+            color: #d97706;
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
+        .btn-buy {
+            width: 100%;
+            padding: 8px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-buy:hover { transform: scale(1.02); box-shadow: 0 4px 15px rgba(245,158,11,0.3); }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0 10px;
+            z-index: 9999;
+        }
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #94a3b8;
+            font-size: 0.55rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 4px 12px;
+            transition: 0.3s;
+        }
+        .bottom-nav .nav-item i { font-size: 1.3rem; transition: 0.3s; }
+        .bottom-nav .nav-item.active { color: #d97706; }
+        .bottom-nav .nav-item.active i { transform: translateY(-2px); }
+        .bottom-nav .nav-item:hover { color: #d97706; }
+        .filter-btn {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .filter-btn.active { background: #f59e0b; color: white; border-color: #f59e0b; }
+        .filter-btn:hover { border-color: #d97706; }
+        .dark body {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        .dark .product-card { background: #1e293b; border-color: #334155; }
+        .dark .product-card h3 { color: #f1f5f9; }
+        .dark .product-card p { color: #94a3b8; }
+        .dark .product-card .price { color: #fbbf24; }
+        .dark .back-btn { background: rgba(30,41,59,0.6); color: #f1f5f9; border-color: #334155; }
+        .dark .back-btn:hover { background: rgba(30,41,59,0.8); }
+        .dark .bottom-nav { background: rgba(30,41,59,0.95); border-top-color: rgba(255,255,255,0.05); }
+        .dark .bottom-nav .nav-item { color: #64748b; }
+        .dark .bottom-nav .nav-item.active { color: #fbbf24; }
+        .dark .filter-btn { background: #1e293b; border-color: #334155; color: #94a3b8; }
+        .dark .filter-btn.active { background: #f59e0b; color: #1e293b; border-color: #f59e0b; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- رأس الصفحة -->
+        <div class="flex items-center gap-3 py-3 mb-4">
+            <a href="games.html" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</a>
+            <h1 class="text-2xl font-black text-dark">🎮 PUBG Mobile</h1>
+        </div>
+
+        <!-- الفلترة -->
+        <div class="flex gap-2 mb-4 overflow-x-auto pb-2">
+            <button class="filter-btn active" onclick="filterProducts('all')">الكل</button>
+            <button class="filter-btn" onclick="filterProducts('uc')">شدة UC</button>
+            <button class="filter-btn" onclick="filterProducts('pass')">بطاقات</button>
+        </div>
+
+        <!-- المنتجات -->
+        <div id="productsGrid" class="space-y-3">
+            <!-- منتج 1 -->
+            <div class="product-card" data-category="uc">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-dark">🔵 60 شدة (UC)</h3>
+                        <p class="text-dark-light text-xs">شحن فوري - مباشر</p>
+                    </div>
+                    <div class="text-left">
+                        <div class="price">4,000 ج.س</div>
+                        <button class="btn-buy text-xs mt-1" onclick="event.stopPropagation(); alert('🛒 تم إضافة المنتج إلى السلة')">اشترى الآن</button>
+                    </div>
+                </div>
+            </div>
+            <!-- منتج 2 -->
+            <div class="product-card" data-category="uc">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-dark">🔵 325 شدة (UC)</h3>
+                        <p class="text-dark-light text-xs">شحن فوري - مباشر</p>
+                    </div>
+                    <div class="text-left">
+                        <div class="price">20,000 ج.س</div>
+                        <button class="btn-buy text-xs mt-1" onclick="event.stopPropagation(); alert('🛒 تم إضافة المنتج إلى السلة')">اشترى الآن</button>
+                    </div>
+                </div>
+            </div>
+            <!-- منتج 3 -->
+            <div class="product-card" data-category="uc">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-dark">🔵 660 شدة (UC)</h3>
+                        <p class="text-dark-light text-xs">شحن فوري - مباشر</p>
+                    </div>
+                    <div class="text-left">
+                        <div class="price">38,000 ج.س</div>
+                        <button class="btn-buy text-xs mt-1" onclick="event.stopPropagation(); alert('🛒 تم إضافة المنتج إلى السلة')">اشترى الآن</button>
+                    </div>
+                </div>
+            </div>
+            <!-- منتج 4 -->
+            <div class="product-card" data-category="uc">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-dark">🔵 1800 شدة (UC)</h3>
+                        <p class="text-dark-light text-xs">شحن فوري - مباشر</p>
+                    </div>
+                    <div class="text-left">
+                        <div class="price">100,000 ج.س</div>
+                        <button class="btn-buy text-xs mt-1" onclick="event.stopPropagation(); alert('🛒 تم إضافة المنتج إلى السلة')">اشترى الآن</button>
+                    </div>
+                </div>
+            </div>
+            <!-- منتج 5 -->
+            <div class="product-card" data-category="pass">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-dark">🎫 بطاقة Royal Pass</h3>
+                        <p class="text-dark-light text-xs">باس الموسم - شهر</p>
+                    </div>
+                    <div class="text-left">
+                        <div class="price">15,000 ج.س</div>
+                        <button class="btn-buy text-xs mt-1" onclick="event.stopPropagation(); alert('🛒 تم إضافة المنتج إلى السلة')">اشترى الآن</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الشريط السفلي -->
+    <div class="bottom-nav">
+        <a href="/" class="nav-item"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+        <a href="wallet.html" class="nav-item"><i class="fas fa-wallet"></i><span>المحفظة</span></a>
+        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i><span>الدعم</span></a>
+        <a href="orders.html" class="nav-item"><i class="fas fa-box"></i><span>طلباتي</span></a>
+        <a href="account.html" class="nav-item active"><i class="fas fa-user"></i><span>الحساب</span></a>
+    </div>
+
+    <script>
+        function filterProducts(category) {
+            // تحديث الأزرار
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.filter-btn[onclick="filterProducts('${category}')"]`).classList.add('active');
+            
+            // تصفية المنتجات
+            document.querySelectorAll('.product-card').forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>
