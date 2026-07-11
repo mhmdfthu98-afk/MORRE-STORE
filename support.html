@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>MORRE STORE | مركز الدعم</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+        * {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #fef08a 0%, #fde047 30%, #fef9c3 60%, #fef08a 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+        .back-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            margin-bottom: 8px;
+        }
+        .back-header .back-btn {
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            padding: 8px 16px;
+            color: #1e293b;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+        .back-header .back-btn:hover {
+            background: rgba(255,255,255,0.8);
+        }
+        .back-header .page-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #1e293b;
+        }
+        .glass-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #f1f5f9;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+        .glass-card .card-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .glass-card .card-title i {
+            color: #d97706;
+            font-size: 1.3rem;
+        }
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 600;
+            transition: 0.2s;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .contact-btn:hover {
+            background: #f1f5f9;
+            border-color: #d97706;
+        }
+        .contact-btn i {
+            font-size: 1.3rem;
+            width: 30px;
+            text-align: center;
+        }
+        .contact-btn .whatsapp { color: #25D366; }
+        .contact-btn .telegram { color: #0088cc; }
+        .contact-btn .email { color: #ea4335; }
+        .contact-btn .chat { color: #d97706; }
+
+        .faq-item {
+            border-bottom: 1px solid #f1f5f9;
+            padding: 12px 0;
+            cursor: pointer;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-item .faq-q {
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-item .faq-q i {
+            color: #d97706;
+            transition: 0.3s;
+        }
+        .faq-item .faq-a {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 6px;
+            display: none;
+            line-height: 1.6;
+        }
+        .faq-item.open .faq-a {
+            display: block;
+        }
+        .faq-item.open .faq-q i {
+            transform: rotate(180deg);
+        }
+
+        .support-form input, .support-form textarea, .support-form select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            background: #f8fafc;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+        }
+        .support-form input:focus, .support-form textarea:focus, .support-form select:focus {
+            outline: none;
+            border-color: #d97706;
+            background: white;
+        }
+        .support-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .support-form .file-input {
+            padding: 8px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px dashed #cbd5e1;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .support-form .file-input input {
+            display: none;
+        }
+        .support-form .file-input label {
+            cursor: pointer;
+            color: #64748b;
+            font-weight: 600;
+        }
+        .support-form .file-input label i {
+            color: #d97706;
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            font-weight: 800;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(245,158,11,0.3);
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .status-item:last-child {
+            border-bottom: none;
+        }
+        .status-item .status-title {
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .status-item .status-date {
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .status-badge.pending { background: #fef3c7; color: #d97706; }
+        .status-badge.progress { background: #dbeafe; color: #2563eb; }
+        .status-badge.done { background: #d1fae5; color: #059669; }
+        .status-badge.closed { background: #f1f5f9; color: #64748b; }
+
+        .rating-stars {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .rating-stars i {
+            color: #cbd5e1;
+            transition: 0.2s;
+        }
+        .rating-stars i.active {
+            color: #f59e0b;
+        }
+        .rating-stars i:hover {
+            transform: scale(1.1);
+        }
+
+        .about-text {
+            color: #475569;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        .about-text strong {
+            color: #d97706;
+        }
+
+        .terms-text {
+            color: #475569;
+            line-height: 1.8;
+            font-size: 0.9rem;
+        }
+        .terms-text li {
+            margin-bottom: 6px;
+        }
+
+        .section-toggle {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .section-toggle .tab-btn {
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #64748b;
+            font-weight: 700;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.2s;
+            flex: 1;
+            text-align: center;
+            min-width: 70px;
+        }
+        .section-toggle .tab-btn.active {
+            background: #f59e0b;
+            color: white;
+            border-color: #f59e0b;
+        }
+        .section-toggle .tab-btn:hover:not(.active) {
+            border-color: #d97706;
+        }
+
+        .section-content {
+            display: none;
+        }
+        .section-content.active {
+            display: block;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 6px 0 10px 0;
+            z-index: 9999;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            color: #94a3b8;
+            font-size: 0.55rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 4px 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: none;
+            background: transparent;
+        }
+        .bottom-nav .nav-item i {
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        .bottom-nav .nav-item span {
+            font-size: 0.55rem;
+            font-weight: 700;
+        }
+        .bottom-nav .nav-item.active {
+            color: #d97706;
+        }
+        .bottom-nav .nav-item.active i {
+            transform: translateY(-2px);
+        }
+        .bottom-nav .nav-item:hover {
+            color: #d97706;
+        }
+        @media (max-width: 480px) {
+            .bottom-nav .nav-item {
+                padding: 4px 6px;
+            }
+            .bottom-nav .nav-item i {
+                font-size: 1.1rem;
+            }
+            .bottom-nav .nav-item span {
+                font-size: 0.45rem;
+            }
+        }
+
+        /* Dark Mode */
+        .dark body {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        .dark .glass-card {
+            background: #1e293b;
+            border-color: #334155;
+        }
+        .dark .glass-card .card-title {
+            color: #f1f5f9;
+        }
+        .dark .back-header .page-title {
+            color: #f1f5f9;
+        }
+        .dark .back-header .back-btn {
+            background: rgba(30,41,59,0.6);
+            color: #f1f5f9;
+            border-color: #334155;
+        }
+        .dark .back-header .back-btn:hover {
+            background: rgba(30,41,59,0.8);
+        }
+        .dark .contact-btn {
+            background: #0f172a;
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+        .dark .contact-btn:hover {
+            background: #1e293b;
+            border-color: #d97706;
+        }
+        .dark .faq-item {
+            border-color: #334155;
+        }
+        .dark .faq-item .faq-q {
+            color: #f1f5f9;
+        }
+        .dark .faq-item .faq-a {
+            color: #94a3b8;
+        }
+        .dark .support-form input, .dark .support-form textarea, .dark .support-form select {
+            background: #0f172a;
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+        .dark .support-form input:focus, .dark .support-form textarea:focus, .dark .support-form select:focus {
+            background: #1e293b;
+            border-color: #d97706;
+        }
+        .dark .support-form .file-input {
+            background: #0f172a;
+            border-color: #334155;
+        }
+        .dark .support-form .file-input label {
+            color: #94a3b8;
+        }
+        .dark .status-item {
+            border-color: #334155;
+        }
+        .dark .status-item .status-title {
+            color: #f1f5f9;
+        }
+        .dark .about-text {
+            color: #94a3b8;
+        }
+        .dark .terms-text {
+            color: #94a3b8;
+        }
+        .dark .section-toggle .tab-btn {
+            background: #1e293b;
+            border-color: #334155;
+            color: #94a3b8;
+        }
+        .dark .section-toggle .tab-btn.active {
+            background: #f59e0b;
+            color: #1e293b;
+        }
+        .dark .bottom-nav {
+            background: rgba(30,41,59,0.95);
+            border-top-color: rgba(255,255,255,0.05);
+        }
+        .dark .bottom-nav .nav-item {
+            color: #64748b;
+        }
+        .dark .bottom-nav .nav-item.active {
+            color: #fbbf24;
+        }
+        .dark .status-badge.pending { background: #78350f; color: #fbbf24; }
+        .dark .status-badge.progress { background: #1e3a5f; color: #60a5fa; }
+        .dark .status-badge.done { background: #064e3b; color: #34d399; }
+        .dark .status-badge.closed { background: #1e293b; color: #94a3b8; }
+
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 99999;
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
+        }
+        .dark .toast {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== رأس الصفحة ===== -->
+        <div class="back-header">
+            <a href="/" class="back-btn">
+                <i class="fas fa-arrow-right"></i> رجوع
+            </a>
+            <div class="page-title">🎧 مركز الدعم</div>
+        </div>
+
+        <!-- ===== أقسام التنقل ===== -->
+        <div class="section-toggle">
+            <button class="tab-btn active" data-section="contact">📞 تواصل</button>
+            <button class="tab-btn" data-section="faq">❓ أسئلة</button>
+            <button class="tab-btn" data-section="help">🆘 مساعدة</button>
+            <button class="tab-btn" data-section="status">📋 طلباتي</button>
+            <button class="tab-btn" data-section="about">🏢 عنا</button>
+            <button class="tab-btn" data-section="terms">📜 سياسات</button>
+            <button class="tab-btn" data-section="rating">⭐ تقييم</button>
+        </div>
+
+        <!-- ===== 1. تواصل معنا ===== -->
+        <div id="section-contact" class="section-content active">
+            <div class="glass-card">
+                <div class="card-title"><i class="fas fa-comments"></i> تواصل معنا</div>
+
+                <a href="#" onclick="startLiveChat()" class="contact-btn">
+                    <i class="fas fa-comment-dots chat"></i>
+                    <span>💬 محادثة مباشرة مع فريق الدعم</span>
+                </a>
+
+                <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="contact-btn">
+                    <i class="fab fa-whatsapp whatsapp"></i>
+                    <span>📱 تواصل عبر واتساب</span>
+                </a>
+
+                <a href="https://t.me/morre_store" target="_blank" class="contact-btn">
+                    <i class="fab fa-telegram telegram"></i>
+                    <span>✈️ تواصل عبر تيليجرام</span>
+                </a>
+
+                <a href="mailto:support@morrestore.com" class="contact-btn">
+                    <i class="fas fa-envelope email"></i>
+                    <span>📧 البريد الإلكتروني: support@morrestore.com</span>
+                </a>
+
+                <div style="margin-top:12px;padding:12px;background:#f8fafc;border-radius:10px;text-align:center;color:#64748b;font-size:0.85rem;">
+                    <i class="fas fa-clock" style="color:#d97706;"></i>
+                    <strong>ساعات العمل:</strong> السبت - الخميس 9 ص - 11 م | الجمعة 2 م - 11 م
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 2. الأسئلة الشائعة ===== -->
+        <div id="section-faq" class="section-content">
+            <div class="glass-card">
+                <div class="card-title"><i class="fas fa-question-circle"></i> الأسئلة الشائعة</div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-q">
+                        كيف أشتري؟ <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-a">
+                        تصفح المنتجات في المتجر، اختر المنتج المناسب، اضغط على "اشترى الآن"، املأ بياناتك، وتأكد من رصيدك الكافي.
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-q">
+                        كيف أشحن الألعاب؟ <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-a">
+                        بعد شراء المنتج، سيتم شحن رصيد اللعبة تلقائياً خلال 5-30 دقيقة عبر حساب اللاعب الذي أدخلته.
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-q">
+                        كيف أدفع؟ <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-a">
+                        الدفع يتم عبر رصيد المحفظة الإلكترونية داخل المتجر. يمكنك شحن المحفظة عبر التواصل مع فريق الدعم على واتساب.
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-q">
+                        كم يستغرق تنفيذ الطلب؟ <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-a">
+                        يتم تنفيذ الطلبات خلال 5-30 دقيقة من وقت الشراء، وفي أوقات الذروة قد تستغرق حتى ساعة.
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-q">
+                        ماذا أفعل إذا واجهت مشكلة؟ <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-a">
+                        تواصل مع فريق الدعم عبر واتساب أو تيليجرام، وسنقوم بحل مشكلتك في أقرب وقت ممكن.
+                    </div>
+                </div>
+
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-q">
+                        سياسة الاسترجاع والاستبدال <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-a">
+                        في حال تأخر الشحن أكثر من 48 ساعة، يمكنك طلب استرجاع كامل. في حال وصول منتج خاطئ، يتم استبداله فوراً.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 3. طلب مساعدة ===== -->
+        <div id="section-help" class="section-content">
+            <div class="glass-card">
+                <div class="card-title"><i class="fas fa-hands-helping"></i> طلب مساعدة</div>
+
+                <form class="support-form" id="helpForm">
+                    <select id="helpType" required>
+                        <option value="">📌 نوع المشكلة</option>
+                        <option value="شراء">مشكلة في الشراء</option>
+                        <option value="شحن">تأخر في الشحن</option>
+                        <option value="حساب">مشكلة في الحساب</option>
+                        <option value="دفع">مشكلة في الدفع</option>
+                        <option value="أخرى">مشكلة أخرى</option>
+                    </select>
+
+                    <input type="text" id="helpTitle" placeholder="📝 عنوان المشكلة" required>
+
+                    <textarea id="helpDesc" placeholder="📄 وصف المشكلة بالتفصيل..." required></textarea>
+
+                    <div class="file-input">
+                        <label for="helpFile">
+                            <i class="fas fa-paperclip"></i> إرفاق صورة (اختياري)
+                        </label>
+                        <input type="file" id="helpFile" accept="image/*">
+                    </div>
+
+                    <button type="button" class="btn-primary" onclick="sendHelpRequest()">
+                        <i class="fas fa-paper-plane"></i> إرسال الطلب
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ===== 4. حالة الطلبات ===== -->
+        <div id="section-status" class="section-content">
+            <div class="glass-card">
+                <div class="card-title"><i class="fas fa-clipboard-list"></i> حالة طلبات الدعم</div>
+
+                <div id="ticketsList">
+                    <div class="status-item">
+                        <div>
+                            <div class="status-title">💰 مشكلة في الشحن</div>
+                            <div class="status-date">15 يوليو 2025 - 10:30 ص</div>
+                        </div>
+                        <span class="status-badge progress">جاري التنفيذ</span>
+                    </div>
+
+                    <div class="status-item">
+                        <div>
+                            <div class="status-title">🔑 نسيت كلمة المرور</div>
+                            <div class="status-date">14 يوليو 2025 - 3:15 م</div>
+                        </div>
+                        <span class="status-badge done">تم الحل</span>
+                    </div>
+
+                    <div class="status-item">
+                        <div>
+                            <div class="status-title">📱 مشكلة في واتساب</div>
+                            <div class="status-date">13 يوليو 2025 - 8:00 م</div>
+                        </div>
+                        <span class="status-badge pending">قيد المراجعة</span>
+                    </div>
+
+                    <div class="status-item">
+                        <div>
+                            <div class="status-title">💳 تأخير في الدفع</div>
+                            <div class="status-date">12 يوليو 2025 - 11:20 ص</div>
+                        </div>
+                        <span class="status-badge closed">مغلق</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 5. من نحن ===== -->
+        <div id="section-about" class="section-content">
+            <div class="glass-card">
+                <div class="card-title"><i class="fas fa-store-alt"></i> من نحن</div>
+
+                <div class="about-text">
+                    <p><strong>🏢 MORRE STORE</strong> هو متجر شامل للخدمات الرقمية في السودان، نقدم خدمات شحن الألعاب والبطاقات الرقمية بسرعة وأمان.</p>
+                    <br>
+                    <p><strong>🎯 رسالتنا:</strong> تقديم أفضل تجربة شراء للعملاء من خلال توفير منتجات رقمية عالية الجودة بأسعار تنافسية، مع دعم فني متميز على مدار الساعة.</p>
+                    <br>
+                    <p><strong>✅ ما نقدمه:</strong></p>
+                    <ul style="list-style:none;padding:0;">
+                        <li>🎮 شحن ببجي - فري فاير - كلاش - eFootball</li>
+                        <li>📺 اشتراكات نتفليكس وخدمات الذكاء الاصطناعي</li>
+                        <li>💳 بطاقات جوجل بلاي وفيزا Redotpay الافتراضية</li>
+                        <li>🎵 عملات تيك توك</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 6. الشروط والأحكام ===== -->
+        <div id="section-terms" class="section-content">
+            <div class="glass-card">
+                <div class="card-title"><i class="fas fa-file-contract"></i> الشروط والأحكام</div>
+
+                <div class="terms-text">
+                    <h4 style="color:#d97706;margin-bottom:8px;">📜 شروط الخدمة</h4>
+                    <ul style="padding-right:20px;">
+                        <li>باستخدامك للمنصة توافق على جميع الشروط المذكورة.</li>
+                        <li>جميع عمليات الشحن تتم خلال 24 ساعة من وقت الشراء.</li>
+                        <li>لا نضمن استرجاع الرصيد بعد إتمام عملية الشراء.</li>
+                        <li>يجب إدخال بيانات صحيحة لضمان وصول الشحن.</li>
+                    </ul>
+                    <br>
+                    <h4 style="color:#d97706;margin-bottom:8px;">🔒 سياسة الخصوصية</h4>
+                    <ul style="padding-right:20px;">
+                        <li>نلتزم بحماية بياناتك الشخصية ولا نشاركها مع أي طرف ثالث.</li>
+                        <li>جميع بيانات الدفع مشفرة بالكامل.</li>
+                        <li>يمكنك طلب حذف بياناتك في أي وقت.</li>
+                    </ul>
+                    <br>
+                    <h4 style="color:#d97706;margin-bottom:8px;">💰 سياسة الاسترجاع</h4>
+                    <ul style="padding-right:20px;">
+                        <li>في حال تأخر الشحن أكثر من 48 ساعة، يمكنك طلب استرجاع كامل.</li>
+                        <li>في حال وصول منتج خاطئ، يتم استبداله فوراً دون أي تكلفة إضافية.</li>
+                        <li>لا يتم استرجاع المبالغ في حال تغيير رأيك بعد الشراء.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 7. تقييم الدعم ===== -->
+        <div id="section-rating" class="section-content">
+            <div class="glass-card">
+                <div class="card-title"><i class="fas fa-star"></i> تقييم خدمة الدعم</div>
+
+                <p style="color:#64748b;text-align:center;margin-bottom:10px;">كيف تقيم تجربتك مع فريق الدعم؟</p>
+
+                <div class="rating-stars" id="ratingStars">
+                    <i class="fas fa-star" data-value="1" onclick="setRating(1)"></i>
+                    <i class="fas fa-star" data-value="2" onclick="setRating(2)"></i>
+                    <i class="fas fa-star" data-value="3" onclick="setRating(3)"></i>
+                    <i class="fas fa-star" data-value="4" onclick="setRating(4)"></i>
+                    <i class="fas fa-star" data-value="5" onclick="setRating(5)"></i>
+                </div>
+
+                <div style="text-align:center;color:#94a3b8;font-size:0.85rem;margin-bottom:12px;" id="ratingText">اختر التقييم</div>
+
+                <textarea id="ratingFeedback" placeholder="📝 اكتب ملاحظاتك عن خدمة الدعم..." style="width:100%;padding:10px;border-radius:10px;border:1px solid #e2e8f0;background:#f8fafc;font-family:'Cairo',sans-serif;resize:vertical;min-height:80px;"></textarea>
+
+                <button class="btn-primary" onclick="submitRating()" style="margin-top:12px;">
+                    <i class="fas fa-check"></i> إرسال التقييم
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== الشريط السفلي ===== -->
+    <div class="bottom-nav">
+        <a href="/" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="#" onclick="showToast('💰 رصيدك: 0 ج.س')" class="nav-item">
+            <i class="fas fa-wallet"></i>
+            <span>المحفظة</span>
+        </a>
+        <a href="support.html" class="nav-item active">
+            <i class="fas fa-headset"></i>
+            <span>الدعم</span>
+        </a>
+        <a href="account.html" class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>الحساب</span>
+        </a>
+    </div>
+
+    <!-- ===== Toast ===== -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // ========== تبديل الأقسام ==========
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const section = this.dataset.section;
+                document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+                document.getElementById('section-' + section).classList.add('active');
+            });
+        });
+
+        // ========== الأسئلة الشائعة ==========
+        function toggleFaq(el) {
+            el.classList.toggle('open');
+        }
+
+        // ========== Toast ==========
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        window.showToast = showToast;
+
+        // ========== محادثة مباشرة ==========
+        function startLiveChat() {
+            showToast('💬 جاري توصيلك مع فريق الدعم...');
+            setTimeout(() => {
+                window.open('https://wa.me/2490991305468?text=مرحباً%20أريد%20محادثة%20مباشرة', '_blank');
+            }, 1000);
+        }
+        window.startLiveChat = startLiveChat;
+
+        // ========== إرسال طلب مساعدة ==========
+        function sendHelpRequest() {
+            const type = document.getElementById('helpType').value;
+            const title = document.getElementById('helpTitle').value.trim();
+            const desc = document.getElementById('helpDesc').value.trim();
+
+            if (!type || !title || !desc) {
+                showToast('❌ جميع الحقول مطلوبة ما عدا الصورة');
+                return;
+            }
+
+            const fileInput = document.getElementById('helpFile');
+            let fileName = 'بدون صورة';
+            if (fileInput.files.length > 0) {
+                fileName = fileInput.files[0].name;
+            }
+
+            showToast('✅ تم إرسال طلب المساعدة بنجاح! سنتواصل معك قريباً');
+
+            // إضافة الطلب إلى قائمة الحالة
+            const list = document.getElementById('ticketsList');
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('ar-SD') + ' - ' + now.toLocaleTimeString('ar-SD', {hour:'2-digit', minute:'2-digit'});
+            
+            const statusMap = {
+                'شراء': 'مشكلة في الشراء',
+                'شحن': 'تأخر في الشحن',
+                'حساب': 'مشكلة في الحساب',
+                'دفع': 'مشكلة في الدفع',
+                'أخرى': 'مشكلة أخرى'
+            };
+
+            const newItem = document.createElement('div');
+            newItem.className = 'status-item';
+            newItem.innerHTML = `
+                <div>
+                    <div class="status-title">${title}</div>
+                    <div class="status-date">${dateStr}</div>
+                </div>
+                <span class="status-badge pending">قيد المراجعة</span>
+            `;
+            list.insertBefore(newItem, list.firstChild);
+
+            // إعادة تعيين النموذج
+            document.getElementById('helpType').value = '';
+            document.getElementById('helpTitle').value = '';
+            document.getElementById('helpDesc').value = '';
+            document.getElementById('helpFile').value = '';
+        }
+        window.sendHelpRequest = sendHelpRequest;
+
+        // ========== نظام التقييم ==========
+        let selectedRating = 0;
+
+        function setRating(value) {
+            selectedRating = value;
+            const stars = document.querySelectorAll('#ratingStars i');
+            stars.forEach((star, index) => {
+                if (index < value) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+
+            const texts = ['', '⭐ سيء جداً', '⭐ سيء', '⭐⭐⭐ جيد', '⭐⭐⭐⭐ ممتاز', '⭐⭐⭐⭐⭐ ممتاز جداً'];
+            document.getElementById('ratingText').textContent = texts[value] || 'اختر التقييم';
+        }
+        window.setRating = setRating;
+
+        function submitRating() {
+            if (selectedRating === 0) {
+                showToast('❌ يرجى اختيار تقييم أولاً');
+                return;
+            }
+
+            const feedback = document.getElementById('ratingFeedback').value.trim();
+            const stars = ['⭐', '⭐', '⭐⭐⭐', '⭐⭐⭐⭐', '⭐⭐⭐⭐⭐'];
+            const msg = feedback ? ` مع ملاحظاتك: ${feedback}` : '';
+
+            showToast(`✅ شكراً لتقييمك ${stars[selectedRating-1]}${msg}`);
+            document.getElementById('ratingFeedback').value = '';
+            setRating(0);
+        }
+        window.submitRating = submitRating;
+
+        // ========== تفعيل الوضع الليلي ==========
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+</body>
+</html>
