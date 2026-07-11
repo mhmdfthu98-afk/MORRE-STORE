@@ -2193,34 +2193,34 @@
             }
         };
 
-        // ========== 🔥 دالة loadUserHistory المعدلة (بدون orderBy) ==========
         function loadUserHistory(uid) {
-            onSnapshot(query(collection(db, "orders"), where("uID", "==", uid)), (snap) => {
-                const list = document.getElementById('userOrdersList');
-                list.innerHTML = '';
-                if (snap.empty) {
-                    list.innerHTML = '<div class="text-center text-dark-light py-8">لا توجد طلبات سابقة</div>';
-                    return;
-                }
-                const orders = [];
-                snap.forEach(d => {
-                    const o = d.data();
-                    orders.push({ ...o, id: d.id });
-                });
-                orders.sort((a, b) => {
-                    if (a.timestamp && b.timestamp) {
-                        return b.timestamp.toDate() - a.timestamp.toDate();
-                    }
-                    return 0;
-                });
-                orders.forEach(o => {
-                    const config = o.status === 'مكتمل' ? { color: 'text-green-600', icon: '✅' } : o.status ===
-                        'فشل' ? { color: 'text-red-600', icon: '❌' } : { color: 'text-yellow-dark',
-                            icon: '⏳' };
-                    list.innerHTML +=
-                        `<div class="glass p-4 rounded-2xl"><div class="flex justify-between"><div><span class="text-2xl">${config.icon}</span><p class="font-bold text-dark">${o.product}</p><p class="text-xs text-dark-light">🆔 ${o.gameID}</p></div><span class="px-2 py-1 rounded-full text-xs ${config.color} bg-black/5">${o.status}</span></div><div class="grid grid-cols-2 gap-2 mt-3 text-sm"><div class="text-dark">💰 ${o.price.toLocaleString()} ج.س</div><div class="text-dark">📱 ${o.whatsapp || 'غير محدد'}</div></div></div>`;
-                });
-            });
+    onSnapshot(query(collection(db, "orders"), where("uID", "==", uid)), (snap) => {
+        const list = document.getElementById('userOrdersList');
+        list.innerHTML = '';
+        if (snap.empty) {
+            list.innerHTML = '<div class="text-center text-dark-light py-8">لا توجد طلبات سابقة</div>';
+            return;
+        }
+        const orders = [];
+        snap.forEach(d => {
+            const o = d.data();
+            const price = o.price || 0;
+            orders.push({ ...o, id: d.id, price: price });
+        });
+        orders.sort((a, b) => {
+            if (a.timestamp && b.timestamp) {
+                return b.timestamp.toDate() - a.timestamp.toDate();
+            }
+            return 0;
+        });
+        orders.forEach(o => {
+            const config = o.status === 'مكتمل' ? { color: 'text-green-600', icon: '✅' } : o.status ===
+                'فشل' ? { color: 'text-red-600', icon: '❌' } : { color: 'text-yellow-dark',
+                    icon: '⏳' };
+            list.innerHTML +=
+                `<div class="glass p-4 rounded-2xl"><div class="flex justify-between"><div><span class="text-2xl">${config.icon}</span><p class="font-bold text-dark">${o.product || 'منتج'}</p><p class="text-xs text-dark-light">🆔 ${o.gameID || '---'}</p></div><span class="px-2 py-1 rounded-full text-xs ${config.color} bg-black/5">${o.status || 'قيد الانتظار'}</span></div><div class="grid grid-cols-2 gap-2 mt-3 text-sm"><div class="text-dark">💰 ${(o.price || 0).toLocaleString()} ج.س</div><div class="text-dark">📱 ${o.whatsapp || 'غير محدد'}</div></div></div>`;
+        });
+    });
         }
 
         const policies = {
