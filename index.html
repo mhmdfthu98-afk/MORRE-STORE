@@ -2816,40 +2816,101 @@
         // ============================================================
         let authResolved = false;
 
-        onAuthStateChanged(auth, async (user) => {
-            authResolved = true;
-            const loading = document.getElementById('loading-screen');
-            const authScr = document.getElementById('auth-screen');
-            const appScr = document.getElementById('main-app');
+        // ============================================================
+//  ✅✅✅ كود تسجيل الدخول المصلح ✅✅✅
+// ============================================================
 
-            if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const userSnap = await getDoc(userRef);
-
-                if (!userSnap.exists()) {
-                    const walletID = Math.floor(100000 + Math.random() * 900000).toString();
-                    await setDoc(userRef, {
-                        name: user.displayName || user.email?.split('@')[0] || 'مستخدم',
-                        email: user.email,
-                        img: user.photoURL || 'https://via.placeholder.com/100',
-                        walletID: walletID,
-                        balance: 0,
-                        createdAt: serverTimestamp()
-                    });
-                    alert(`✨ مرحباً بك في MORRE STORE!\n📱 رقم محفظتك: #${walletID}`);
-                }
-
-                loading.classList.add('hidden');
-                authScr.classList.add('hidden');
-                appScr.classList.remove('hidden');
-                startEngine(user);
-
-            } else {
-                loading.classList.add('hidden');
-                authScr.classList.remove('hidden');
-                appScr.classList.add('hidden');
+onAuthStateChanged(auth, async (user) => {
+    console.log('🔐 Auth state changed:', user ? 'User logged in' : 'No user');
+    
+    const loading = document.getElementById('loading-screen');
+    const authScr = document.getElementById('auth-screen');
+    const appScr = document.getElementById('main-app');
+    
+    // إخفاء شاشة التحميل
+    if (loading) {
+        loading.style.display = 'none';
+        loading.classList.add('hidden');
+    }
+    
+    if (user) {
+        console.log('👤 User email:', user.email);
+        
+        try {
+            // التحقق من وجود المستخدم
+            const userRef = doc(db, "users", user.uid);
+            const userSnap = await getDoc(userRef);
+            
+            if (!userSnap.exists()) {
+                // إنشاء حساب جديد
+                console.log('📝 Creating new user...');
+                const walletID = Math.floor(100000 + Math.random() * 900000).toString();
+                await setDoc(userRef, {
+                    name: user.displayName || user.email?.split('@')[0] || 'مستخدم',
+                    email: user.email,
+                    img: user.photoURL || 'https://via.placeholder.com/100',
+                    walletID: walletID,
+                    balance: 0,
+                    createdAt: serverTimestamp()
+                });
+                alert('✨ مرحباً بك في MORRE STORE!\n📱 رقم محفظتك: #' + walletID);
             }
-        });
+            
+            // ✅ إظهار المتجر
+            if (authScr) {
+                authScr.style.display = 'none';
+                authScr.classList.add('hidden');
+            }
+            if (appScr) {
+                appScr.style.display = 'block';
+                appScr.classList.remove('hidden');
+            }
+            
+            console.log('✅ المتجر ظهر بنجاح!');
+            startEngine(user);
+            
+        } catch (error) {
+            console.error('❌ خطأ:', error);
+            alert('❌ حدث خطأ: ' + error.message);
+            
+            // محاولة إظهار المتجر حتى مع الخطأ
+            if (authScr) authScr.style.display = 'none';
+            if (appScr) appScr.style.display = 'block';
+        }
+        
+    } else {
+        // ❌ المستخدم غير مسجل دخول
+        console.log('👤 No user, showing login screen');
+        
+        if (authScr) {
+            authScr.style.display = 'flex';
+            authScr.classList.remove('hidden');
+        }
+        if (appScr) {
+            appScr.style.display = 'none';
+            appScr.classList.add('hidden');
+        }
+    }
+});
+
+// ===== مؤقت أمان: بعد 5 ثواني =====
+setTimeout(function() {
+    const loading = document.getElementById('loading-screen');
+    const authScr = document.getElementById('auth-screen');
+    const appScr = document.getElementById('main-app');
+    
+    if (loading) {
+        loading.style.display = 'none';
+        loading.classList.add('hidden');
+    }
+    
+    if (appScr && appScr.style.display === 'none') {
+        if (authScr) {
+            authScr.style.display = 'flex';
+            authScr.classList.remove('hidden');
+        }
+    }
+}, 5000);
 
         // ===== مؤقت إجباري بعد 4 ثواني =====
         setTimeout(function() {
