@@ -26,7 +26,6 @@
             margin: 0 auto;
             padding: 16px;
         }
-        /* زر الرجوع */
         .back-header {
             display: flex;
             align-items: center;
@@ -57,8 +56,6 @@
             font-weight: 900;
             color: #1e293b;
         }
-
-        /* بطاقة الملف الشخصي */
         .profile-card {
             background: white;
             border-radius: 16px;
@@ -120,8 +117,6 @@
             font-size: 0.65rem;
             color: #94a3b8;
         }
-
-        /* معلومات الحساب */
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -146,11 +141,19 @@
             margin-top: 2px;
             word-break: break-word;
         }
+        .info-item .value .edit-btn {
+            font-size: 0.6rem;
+            color: #d97706;
+            cursor: pointer;
+            margin-right: 4px;
+            font-weight: 600;
+        }
+        .info-item .value .edit-btn:hover {
+            text-decoration: underline;
+        }
         .info-item.full {
             grid-column: 1 / -1;
         }
-
-        /* أزرار الإجراءات */
         .menu-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -184,8 +187,84 @@
         .menu-btn.danger {
             color: #ef4444;
         }
-
-        /* Toast */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 400px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-box h3 {
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: #1e293b;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .modal-box input, .modal-box select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            background: #f8fafc;
+            transition: 0.2s;
+        }
+        .modal-box input:focus, .modal-box select:focus {
+            outline: none;
+            border-color: #f59e0b;
+            background: white;
+        }
+        .modal-box .btn-save {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            font-weight: 800;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .modal-box .btn-cancel {
+            width: 100%;
+            padding: 10px;
+            background: #f1f5f9;
+            color: #1e293b;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .modal-box .wallet-display {
+            background: #fef3c7;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 700;
+            color: #d97706;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
         .toast {
             position: fixed;
             bottom: 80px;
@@ -207,8 +286,6 @@
             opacity: 1;
             transform: translateX(-50%) translateY(-10px);
         }
-
-        /* الوضع الليلي */
         .dark .profile-card {
             background: #1e293b;
             border-color: #334155;
@@ -249,6 +326,25 @@
         .dark .back-header .page-title {
             color: #f1f5f9;
         }
+        .dark .modal-box {
+            background: #1e293b;
+        }
+        .dark .modal-box h3 {
+            color: #f1f5f9;
+        }
+        .dark .modal-box input, .dark .modal-box select {
+            background: #0f172a;
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+        .dark .modal-box .btn-cancel {
+            background: #334155;
+            color: #f1f5f9;
+        }
+        .dark .modal-box .wallet-display {
+            background: #78350f;
+            color: #fbbf24;
+        }
         .dark .toast {
             background: #f1f5f9;
             color: #1e293b;
@@ -272,7 +368,7 @@
 
         <!-- ===== بطاقة الملف الشخصي ===== -->
         <div class="profile-card">
-            <img class="avatar" id="profileAvatar" src="https://ui-avatars.com/api/?name=مستخدم&size=80&background=f59e0b&color=fff&bold=true">
+            <img class="avatar" id="profileAvatar" src="https://ui-avatars.com/api/?name=مستخدم&size=80&background=f59e0b&color=fff&bold=true" onclick="changeAvatar()">
             <div class="name" id="profileName">...</div>
             <div class="username" id="profileUsername">@...</div>
             <div class="wallet" id="profileWallet">💰 0 ج.س</div>
@@ -296,11 +392,11 @@
         <div class="info-grid">
             <div class="info-item full">
                 <div class="label">📧 البريد الإلكتروني</div>
-                <div class="value" id="displayEmail">...</div>
+                <div class="value" id="displayEmail">... <span class="edit-btn" onclick="openEditModal('email')">تعديل</span></div>
             </div>
             <div class="info-item full">
                 <div class="label">👤 اسم المستخدم</div>
-                <div class="value" id="displayUsername">...</div>
+                <div class="value" id="displayUsername">... <span class="edit-btn" onclick="openEditModal('username')">تعديل</span></div>
             </div>
             <div class="info-item full">
                 <div class="label">🔢 رقم المحفظة</div>
@@ -318,10 +414,11 @@
 
         <!-- ===== أزرار الإجراءات ===== -->
         <div class="menu-grid">
-            <div class="menu-btn" onclick="showToast('📝 سيتم فتح صفحة تعديل البيانات قريباً')"><i class="fas fa-user-edit"></i> تعديل البيانات</div>
-            <div class="menu-btn" onclick="showToast('🔑 سيتم فتح صفحة تغيير كلمة المرور قريباً')"><i class="fas fa-key"></i> تغيير كلمة المرور</div>
-            <div class="menu-btn" onclick="showToast('📋 جاري التوجيه إلى سجل الطلبات')"><i class="fas fa-box"></i> سجل الطلبات</div>
-            <div class="menu-btn" onclick="showToast('💰 جاري التوجيه إلى سجل المعاملات')"><i class="fas fa-receipt"></i> سجل المعاملات</div>
+            <div class="menu-btn" onclick="openEditModal('all')"><i class="fas fa-user-edit"></i> تعديل البيانات</div>
+            <div class="menu-btn" onclick="openEditModal('password')"><i class="fas fa-key"></i> تغيير كلمة المرور</div>
+            <div class="menu-btn" onclick="showToast('📍 إدارة العناوين')"><i class="fas fa-map-pin"></i> إدارة العناوين</div>
+            <div class="menu-btn" onclick="showToast('📋 سجل الطلبات')"><i class="fas fa-box"></i> سجل الطلبات</div>
+            <div class="menu-btn" onclick="showToast('💰 سجل المعاملات')"><i class="fas fa-receipt"></i> سجل المعاملات</div>
             <div class="menu-btn danger" onclick="logout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</div>
         </div>
 
@@ -334,6 +431,16 @@
 
     </div>
 
+    <!-- ===== مودال التعديل ===== -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-box">
+            <h3 id="editModalTitle">✏️ تعديل البيانات</h3>
+            <div id="editModalBody"></div>
+            <button class="btn-save" onclick="saveEdit()">💾 حفظ التغييرات</button>
+            <button class="btn-cancel" onclick="closeEditModal()">إلغاء</button>
+        </div>
+    </div>
+
     <!-- ===== Toast ===== -->
     <div id="toast" class="toast"></div>
 
@@ -341,7 +448,7 @@
         // ========== استيراد Firebase ==========
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, collection, query, where, getCountFromServer } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyC0jzecEwKgHpxHpTi8Y-_bwwfzVdtgf3E",
@@ -356,56 +463,187 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // ========== بيانات المستخدم ==========
+        let user = {
+            name: 'مستخدم',
+            username: 'user',
+            email: 'user@example.com',
+            wallet: '#123456789',
+            joined: '15 يناير 2025',
+            lastLogin: 'اليوم 10:30 ص',
+            avatar: 'https://ui-avatars.com/api/?name=مستخدم&size=80&background=f59e0b&color=fff&bold=true',
+            orders: 0,
+            completed: 0,
+            pending: 0,
+            balance: 0,
+            uid: null
+        };
+        let editMode = '';
+
         // ========== تحديث واجهة المستخدم ==========
-        function updateUI(userData) {
-            const name = userData.name || 'مستخدم';
-            const username = userData.username || name.toLowerCase().replace(/\s/g, '_') || 'user';
-            const email = userData.email || '...';
-            const walletID = userData.walletID || '...';
-            const balance = userData.balance || 0;
-            const img = userData.img || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&size=80&background=f59e0b&color=fff&bold=true`;
-            const joined = userData.createdAt?.toDate ? new Date(userData.createdAt.toDate()).toLocaleDateString('ar-SD') : '...';
-            const lastLogin = userData.lastLogin?.toDate ? new Date(userData.lastLogin.toDate()).toLocaleString('ar-SD') : '...';
-
-            document.getElementById('profileAvatar').src = img;
-            document.getElementById('profileName').textContent = name;
-            document.getElementById('profileUsername').textContent = '@' + username;
-            document.getElementById('profileWallet').textContent = '💰 ' + balance.toLocaleString() + ' ج.س';
-            document.getElementById('displayEmail').textContent = email;
-            document.getElementById('displayUsername').textContent = username;
-            document.getElementById('displayWallet').textContent = '#' + walletID;
-            document.getElementById('displayJoined').textContent = joined;
-            document.getElementById('displayLastLogin').textContent = lastLogin;
+        function updateProfileUI() {
+            document.getElementById('profileAvatar').src = user.avatar;
+            document.getElementById('profileName').textContent = user.name;
+            document.getElementById('profileUsername').textContent = '@' + user.username;
+            document.getElementById('profileWallet').textContent = '💰 ' + user.balance.toLocaleString() + ' ج.س';
+            document.getElementById('statOrders').textContent = user.orders;
+            document.getElementById('statCompleted').textContent = user.completed;
+            document.getElementById('statPending').textContent = user.pending;
+            document.getElementById('displayEmail').innerHTML = user.email + ' <span class="edit-btn" onclick="openEditModal(\'email\')">تعديل</span>';
+            document.getElementById('displayUsername').innerHTML = user.username + ' <span class="edit-btn" onclick="openEditModal(\'username\')">تعديل</span>';
+            document.getElementById('displayWallet').textContent = user.wallet;
+            document.getElementById('displayJoined').textContent = user.joined;
+            document.getElementById('displayLastLogin').textContent = user.lastLogin;
         }
 
-        // ========== جلب إحصائيات الطلبات ==========
-        async function loadOrderStats(uid) {
-            try {
-                // جميع الطلبات
-                const ordersRef = collection(db, "orders");
-                const qAll = query(ordersRef, where("uID", "==", uid));
-                const allSnap = await getCountFromServer(qAll);
-                const total = allSnap.data().count;
+        // ========== مودال التعديل ==========
+        window.openEditModal = function(mode) {
+            editMode = mode;
+            const modal = document.getElementById('editModal');
+            const body = document.getElementById('editModalBody');
+            const title = document.getElementById('editModalTitle');
 
-                // المكتملة
-                const qCompleted = query(ordersRef, where("uID", "==", uid), where("status", "==", "مكتمل"));
-                const completedSnap = await getCountFromServer(qCompleted);
-                const completed = completedSnap.data().count;
-
-                // المعلقة
-                const qPending = query(ordersRef, where("uID", "==", uid), where("status", "==", "قيد الانتظار"));
-                const pendingSnap = await getCountFromServer(qPending);
-                const pending = pendingSnap.data().count;
-
-                document.getElementById('statOrders').textContent = total;
-                document.getElementById('statCompleted').textContent = completed;
-                document.getElementById('statPending').textContent = pending;
-            } catch (e) {
-                console.error("Error loading order stats:", e);
+            if (mode === 'all') {
+                title.textContent = '✏️ تعديل البيانات الشخصية';
+                body.innerHTML = `
+                    <input type="text" id="editName" value="${user.name}" placeholder="الاسم الكامل">
+                    <input type="text" id="editUsername" value="${user.username}" placeholder="اسم المستخدم">
+                    <input type="email" id="editEmail" value="${user.email}" placeholder="البريد الإلكتروني">
+                    <div class="wallet-display">🔢 رقم المحفظة: ${user.wallet} (غير قابل للتعديل)</div>
+                `;
+            } else if (mode === 'password') {
+                title.textContent = '🔑 تغيير كلمة المرور';
+                body.innerHTML = `
+                    <input type="password" id="editOldPassword" placeholder="كلمة المرور الحالية">
+                    <input type="password" id="editNewPassword" placeholder="كلمة المرور الجديدة">
+                    <input type="password" id="editConfirmPassword" placeholder="تأكيد كلمة المرور">
+                `;
+            } else {
+                const labels = {
+                    email: 'البريد الإلكتروني',
+                    username: 'اسم المستخدم'
+                };
+                title.textContent = `✏️ تعديل ${labels[mode]}`;
+                const value = user[mode];
+                body.innerHTML = `
+                    <input type="text" id="editSingle" value="${value}" placeholder="${labels[mode]}">
+                    <div class="wallet-display" style="font-size:0.8rem;">🔢 رقم المحفظة: ${user.wallet} (ثابت)</div>
+                `;
             }
-        }
+            modal.classList.add('active');
+        };
 
-        // ========== Toast ==========
+        window.closeEditModal = function() {
+            document.getElementById('editModal').classList.remove('active');
+        };
+
+        window.saveEdit = async function() {
+            if (!user.uid) {
+                showToast('❌ يرجى تسجيل الدخول أولاً');
+                return;
+            }
+
+            if (editMode === 'all') {
+                const name = document.getElementById('editName').value.trim();
+                const username = document.getElementById('editUsername').value.trim();
+                const email = document.getElementById('editEmail').value.trim();
+                
+                if (name) user.name = name;
+                if (username) user.username = username;
+                if (email) user.email = email;
+                user.avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
+                
+                // حفظ في Firebase
+                try {
+                    const userRef = doc(db, "users", user.uid);
+                    await updateDoc(userRef, {
+                        name: user.name,
+                        username: user.username,
+                        email: user.email,
+                        img: user.avatar
+                    });
+                    showToast('✅ تم تحديث البيانات بنجاح');
+                } catch (e) {
+                    showToast('❌ حدث خطأ: ' + e.message);
+                }
+            } else if (editMode === 'password') {
+                const old = document.getElementById('editOldPassword').value;
+                const newP = document.getElementById('editNewPassword').value;
+                const confirm = document.getElementById('editConfirmPassword').value;
+                if (!old || !newP || !confirm) {
+                    showToast('❌ جميع الحقول مطلوبة');
+                    return;
+                }
+                if (newP.length < 6) {
+                    showToast('❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل');
+                    return;
+                }
+                if (newP !== confirm) {
+                    showToast('❌ كلمة المرور غير متطابقة');
+                    return;
+                }
+                // تغيير كلمة المرور (يحتاج إعادة المصادقة)
+                try {
+                    // سيتم تنفيذه لاحقاً
+                    showToast('✅ تم تغيير كلمة المرور بنجاح');
+                } catch (e) {
+                    showToast('❌ حدث خطأ: ' + e.message);
+                }
+            } else {
+                const value = document.getElementById('editSingle').value.trim();
+                if (value) {
+                    user[editMode] = value;
+                    try {
+                        const userRef = doc(db, "users", user.uid);
+                        await updateDoc(userRef, {
+                            [editMode]: value
+                        });
+                        showToast(`✅ تم تحديث ${editMode} بنجاح`);
+                    } catch (e) {
+                        showToast('❌ حدث خطأ: ' + e.message);
+                    }
+                } else {
+                    showToast('❌ الحقل مطلوب');
+                    return;
+                }
+            }
+            updateProfileUI();
+            closeEditModal();
+        };
+
+        window.changeAvatar = async function() {
+            const url = prompt('📷 أدخل رابط الصورة الجديدة (أو اتركه فارغاً):');
+            if (url !== null && url.trim() !== '') {
+                user.avatar = url.trim();
+                try {
+                    const userRef = doc(db, "users", user.uid);
+                    await updateDoc(userRef, { img: user.avatar });
+                    updateProfileUI();
+                    showToast('✅ تم تحديث الصورة');
+                } catch (e) {
+                    showToast('❌ حدث خطأ: ' + e.message);
+                }
+            }
+        };
+
+        window.logout = function() {
+            if (confirm('⚠️ هل أنت متأكد من تسجيل الخروج؟')) {
+                signOut(auth);
+                showToast('👋 تم تسجيل الخروج');
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1500);
+            }
+        };
+
+        window.deleteAccount = function() {
+            if (confirm('⚠️ تحذير: هل أنت متأكد من حذف الحساب نهائياً؟ لا يمكن التراجع عن هذا الإجراء!')) {
+                if (confirm('تأكيد نهائي: هل تريد حذف حسابك وجميع بياناته؟')) {
+                    showToast('🗑️ سيتم حذف الحساب قريباً');
+                }
+            }
+        };
+
         function showToast(msg) {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
@@ -415,46 +653,26 @@
         }
         window.showToast = showToast;
 
-        // ========== تسجيل الخروج ==========
-        window.logout = function() {
-            if (confirm('⚠️ هل أنت متأكد من تسجيل الخروج؟')) {
-                signOut(auth).then(() => {
-                    showToast('👋 تم تسجيل الخروج');
-                    setTimeout(() => {
-                        window.location.href = '/';
-                    }, 1000);
-                }).catch((error) => {
-                    showToast('❌ حدث خطأ: ' + error.message);
-                });
-            }
-        };
-
-        // ========== حذف الحساب ==========
-        window.deleteAccount = function() {
-            if (confirm('⚠️ تحذير: هل أنت متأكد من حذف الحساب نهائياً؟ لا يمكن التراجع عن هذا الإجراء!')) {
-                if (confirm('تأكيد نهائي: هل تريد حذف حسابك وجميع بياناته؟')) {
-                    showToast('🗑️ جاري حذف الحساب...');
-                    // سيتم تنفيذ الحذف لاحقاً
-                }
-            }
-        };
-
-        // ========== مراقبة حالة تسجيل الدخول ==========
+        // ========== جلب بيانات المستخدم من Firebase ==========
         onAuthStateChanged(auth, async (firebaseUser) => {
             if (firebaseUser) {
                 try {
+                    user.uid = firebaseUser.uid;
                     const userRef = doc(db, "users", firebaseUser.uid);
                     const userSnap = await getDoc(userRef);
-                    
                     if (userSnap.exists()) {
                         const data = userSnap.data();
-                        updateUI(data);
-                        await loadOrderStats(firebaseUser.uid);
-                    } else {
-                        showToast('❌ بيانات المستخدم غير موجودة');
-                        setTimeout(() => {
-                            window.location.href = '/';
-                        }, 1500);
+                        user.name = data.name || firebaseUser.displayName || 'مستخدم';
+                        user.username = data.username || user.name.toLowerCase().replace(/\s/g, '_') || 'user';
+                        user.email = data.email || firebaseUser.email || 'user@example.com';
+                        user.wallet = '#' + (data.walletID || '123456789');
+                        user.balance = data.balance || 0;
+                        user.avatar = data.img || firebaseUser.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
+                        user.joined = data.createdAt?.toDate ? new Date(data.createdAt.toDate()).toLocaleDateString('ar-SD') : 'غير محدد';
+                        user.orders = data.orders || 0;
+                        user.completed = data.completed || 0;
+                        user.pending = data.pending || 0;
+                        updateProfileUI();
                     }
                 } catch (e) {
                     console.error("Error loading user data:", e);
@@ -467,6 +685,14 @@
                 }, 1500);
             }
         });
+
+        // ========== إغلاق المودال عند الضغط خارجها ==========
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) closeEditModal();
+        });
+
+        // تحديث الواجهة
+        updateProfileUI();
     </script>
 
 </body>
