@@ -4,18 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>MORRE STORE | متجر شامل للخدمات الرقمية</title>
-    
-    <!-- ===== Prefetch للصفحات ===== -->
-    <link rel="prefetch" href="wallet.html" as="document">
-    <link rel="prefetch" href="orders.html" as="document">
-    <link rel="prefetch" href="support.html" as="document">
-    <link rel="prefetch" href="account.html" as="document">
-    
     <script src="https://cdn.tailwindcss.com">
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- ===== CSS ===== -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
         * {
@@ -736,6 +727,12 @@
         .bottom-nav .nav-item:hover {
             color: #d97706;
         }
+        .bottom-nav .nav-item.wallet-item i {
+            color: #94a3b8;
+        }
+        .bottom-nav .nav-item.wallet-item.active i {
+            color: #d97706;
+        }
         @media (max-width: 480px) {
             .bottom-nav .nav-item {
                 padding: 4px 6px;
@@ -1114,7 +1111,33 @@
         </div>
 
         <main class="max-w-7xl mx-auto px-4 relative z-10">
-            <!-- ===== تم إزالة بطاقة المحفظة العلوية ===== -->
+            <!-- محفظة المستخدم -->
+            <div class="wallet-card p-5 text-dark mb-6 mt-4">
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <img id="uImg" class="w-12 h-12 rounded-full border-2 border-yellow-dark shadow-lg" src="https://via.placeholder.com/100">
+                        <div>
+                            <h2 id="uName" class="font-bold text-lg text-dark">...</h2>
+                            <div id="uWallet" class="text-xs text-yellow-dark bg-black/5 px-2 py-0.5 rounded-full mt-1">#000000</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <div class="bg-black/5 px-4 py-2 rounded-xl text-center flex-1 sm:flex-none">
+                            <p class="text-xs text-dark-light">الرصيد</p>
+                            <p class="text-xl font-black text-yellow-dark"><span id="uBal">0</span> <small class="text-xs">ج.س</small></p>
+                        </div>
+                        <button id="logout-btn" class="w-10 h-10 bg-red-500/20 text-red-600 rounded-full hover:bg-red-500/30"><i class="fas fa-power-off"></i></button>
+                    </div>
+                </div>
+                <div class="quick-actions mt-4">
+                    <a href="#" onclick="openWalletWhatsApp()" class="action-btn text-center">
+                        <i class="fas fa-wallet ml-1"></i> شحن المحفظة
+                    </a>
+                    <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="action-btn-outline text-center">
+                        <i class="fas fa-headset ml-1"></i> خدمة العملاء
+                    </a>
+                </div>
+            </div>
 
             <!-- لوحة تحكم الأدمن -->
             <div id="adminPanel" class="hidden mb-6">
@@ -1368,11 +1391,23 @@
                         <div class="label">📧 البريد الإلكتروني</div>
                         <div class="value" id="displayEmail">user@example.com <span class="edit-btn" onclick="openEditModal('email')">تعديل</span></div>
                     </div>
-                    <div class="info-item full">
+                    <div class="info-item">
+                        <div class="label">📱 رقم الهاتف</div>
+                        <div class="value" id="displayPhone">0991234567 <span class="edit-btn" onclick="openEditModal('phone')">تعديل</span></div>
+                    </div>
+                    <div class="info-item">
                         <div class="label">👤 اسم المستخدم</div>
                         <div class="value" id="displayUsername">user <span class="edit-btn" onclick="openEditModal('username')">تعديل</span></div>
                     </div>
-                    <div class="info-item full">
+                    <div class="info-item">
+                        <div class="label">🌍 الدولة</div>
+                        <div class="value" id="displayCountry">السودان <span class="edit-btn" onclick="openEditModal('country')">تعديل</span></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="label">🏙️ المدينة</div>
+                        <div class="value" id="displayCity">الخرطوم <span class="edit-btn" onclick="openEditModal('city')">تعديل</span></div>
+                    </div>
+                    <div class="info-item">
                         <div class="label">🔢 رقم المحفظة</div>
                         <div class="value" style="color:#d97706;" id="displayWallet">#123456789</div>
                     </div>
@@ -1409,35 +1444,27 @@
             </div>
         </main>
 
-        <!-- ============================================================ -->
-        <!--  ✅✅✅ الشريط العائم السفلي (محدث مع طلباتي) ✅✅✅           -->
-        <!-- ============================================================ -->
+        <!-- ========== الشريط العائم السفلي ========== -->
         <div class="bottom-nav">
             <button onclick="navigateTo('home'); setActiveNav('home')" class="nav-item active" id="nav-home">
                 <i class="fas fa-home"></i>
                 <span>الرئيسية</span>
             </button>
-            <button onclick="window.location.href='wallet.html'" class="nav-item" id="nav-wallet">
+            <button onclick="openWallet(); setActiveNav('wallet')" class="nav-item wallet-item" id="nav-wallet">
                 <i class="fas fa-wallet"></i>
                 <span>المحفظة</span>
             </button>
-            <button onclick="window.location.href='support.html'" class="nav-item" id="nav-support">
+            <button onclick="openSupport(); setActiveNav('support')" class="nav-item" id="nav-support">
                 <i class="fas fa-headset"></i>
                 <span>الدعم</span>
             </button>
-            <button onclick="window.location.href='orders.html'" class="nav-item" id="nav-orders">
-                <i class="fas fa-box"></i>
-                <span>طلباتي</span>
-            </button>
-            <button onclick="window.location.href='account.html'" class="nav-item" id="nav-account">
+            <button onclick="openAccount(); setActiveNav('account')" class="nav-item" id="nav-account">
                 <i class="fas fa-user"></i>
                 <span>الحساب</span>
             </button>
         </div>
 
-        <!-- ============================================================ -->
-        <!--  ✅✅✅ الشريط الجانبي (محدث) ✅✅✅                           -->
-        <!-- ============================================================ -->
+        <!-- الشريط الجانبي -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <div class="sidebar" id="sidebar">
             <div class="text-center py-4 border-b border-dark/10">
@@ -1446,11 +1473,11 @@
                 <p id="sidebarWallet" class="text-sm text-yellow-dark"></p>
             </div>
             <a href="#" onclick="navigateTo('home'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-home w-6"></i> الرئيسية</a>
-            <a href="#" onclick="window.location.href='account.html'; toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-user w-6"></i> حسابي</a>
-            <a href="#" onclick="window.location.href='wallet.html'; toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6"></i> محفظتي</a>
-            <a href="#" onclick="window.location.href='orders.html'; toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-shopping-bag w-6"></i> طلباتي</a>
+            <a href="#" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-user w-6"></i> حسابي</a>
+            <a href="#" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6"></i> محفظتي</a>
+            <a href="#" onclick="toggleSidebar(false); document.getElementById('userOrdersList').scrollIntoView({behavior:'smooth'});" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-shopping-bag w-6"></i> طلباتي</a>
             <a href="#" onclick="openWalletWhatsApp(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6 text-yellow-dark"></i> شحن المحفظة</a>
-            <a href="#" onclick="window.location.href='support.html'; toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fab fa-whatsapp w-6 text-green-500"></i> خدمة العملاء</a>
+            <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fab fa-whatsapp w-6 text-green-500"></i> خدمة العملاء</a>
             <div onclick="toggleSidebar(false); showPolicy('terms');" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer"><i class="fas fa-file-alt w-6"></i> السياسات</div>
             <div onclick="toggleTheme()" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer" id="themeToggleBtn"><i class="fas fa-moon w-6"></i> الوضع الليلي</div>
             <a href="#" onclick="document.getElementById('logout-btn').click(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-sign-out-alt w-6"></i> تسجيل الخروج</a>
@@ -1468,7 +1495,7 @@
         </footer>
     </div>
 
-    <!-- ===== المودالات ===== -->
+    <!-- المودالات -->
     <div id="policy-modal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-50 flex items-center justify-center p-4">
         <div class="glass w-full max-w-md p-6 rounded-3xl text-dark">
             <div class="flex justify-between items-center mb-4"><h3 id="policy-title" class="text-xl font-bold"></h3><button onclick="closePolicyModal()" class="text-dark-light hover:text-dark"><i class="fas fa-times text-2xl"></i></button></div>
@@ -1541,7 +1568,6 @@
         </div>
     </div>
 
-    <!-- ===== Firebase ===== -->
     <script type="module">
         // ========== استيراد Firebase ==========
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -1570,11 +1596,14 @@
         let editingProductId = null;
         let currentProductId = null;
 
-        // ========== بيانات المستخدم ==========
+        // ========== بيانات المستخدم (وهمية - سيتم جلبها من Firebase لاحقاً) ==========
         let user = {
             name: 'مستخدم',
             username: 'user',
             email: 'user@example.com',
+            phone: '0991234567',
+            country: 'السودان',
+            city: 'الخرطوم',
             wallet: '#123456789',
             joined: '15 يناير 2025',
             lastLogin: 'اليوم 10:30 ص',
@@ -1703,7 +1732,10 @@
             document.getElementById('statCompleted').textContent = user.completed;
             document.getElementById('statPending').textContent = user.pending;
             document.getElementById('displayEmail').innerHTML = user.email + ' <span class="edit-btn" onclick="openEditModal(\'email\')">تعديل</span>';
+            document.getElementById('displayPhone').innerHTML = user.phone + ' <span class="edit-btn" onclick="openEditModal(\'phone\')">تعديل</span>';
             document.getElementById('displayUsername').innerHTML = user.username + ' <span class="edit-btn" onclick="openEditModal(\'username\')">تعديل</span>';
+            document.getElementById('displayCountry').innerHTML = user.country + ' <span class="edit-btn" onclick="openEditModal(\'country\')">تعديل</span>';
+            document.getElementById('displayCity').innerHTML = user.city + ' <span class="edit-btn" onclick="openEditModal(\'city\')">تعديل</span>';
             document.getElementById('displayWallet').textContent = user.wallet;
             document.getElementById('displayJoined').textContent = user.joined;
             document.getElementById('displayLastLogin').textContent = user.lastLogin;
@@ -1711,7 +1743,11 @@
 
         // فتح صفحة الحساب
         window.openAccount = function() {
-            window.location.href = 'account.html';
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('page-account').style.display = 'block';
+            document.getElementById('page-account').classList.add('active');
+            setActiveNav('account');
+            updateProfileUI();
         };
 
         // ========== مودال تعديل بيانات الحساب ==========
@@ -1727,6 +1763,9 @@
                     <input type="text" id="editName" value="${user.name}" placeholder="الاسم الكامل">
                     <input type="text" id="editUsername" value="${user.username}" placeholder="اسم المستخدم">
                     <input type="email" id="editEmail" value="${user.email}" placeholder="البريد الإلكتروني">
+                    <input type="tel" id="editPhone" value="${user.phone}" placeholder="رقم الهاتف">
+                    <input type="text" id="editCountry" value="${user.country}" placeholder="الدولة">
+                    <input type="text" id="editCity" value="${user.city}" placeholder="المدينة">
                     <div class="wallet-display">🔢 رقم المحفظة: ${user.wallet} (غير قابل للتعديل)</div>
                 `;
             } else if (mode === 'password') {
@@ -1739,7 +1778,10 @@
             } else {
                 const labels = {
                     email: 'البريد الإلكتروني',
-                    username: 'اسم المستخدم'
+                    phone: 'رقم الهاتف',
+                    username: 'اسم المستخدم',
+                    country: 'الدولة',
+                    city: 'المدينة'
                 };
                 title.textContent = `✏️ تعديل ${labels[mode]}`;
                 const value = user[mode];
@@ -1760,9 +1802,15 @@
                 const name = document.getElementById('editName').value.trim();
                 const username = document.getElementById('editUsername').value.trim();
                 const email = document.getElementById('editEmail').value.trim();
+                const phone = document.getElementById('editPhone').value.trim();
+                const country = document.getElementById('editCountry').value.trim();
+                const city = document.getElementById('editCity').value.trim();
                 if (name) user.name = name;
                 if (username) user.username = username;
                 if (email) user.email = email;
+                if (phone) user.phone = phone;
+                if (country) user.country = country;
+                if (city) user.city = city;
                 user.avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
                 showToast('✅ تم تحديث البيانات بنجاح');
             } else if (editMode === 'password') {
@@ -1807,11 +1855,7 @@
 
         window.logout = function() {
             if (confirm('⚠️ هل أنت متأكد من تسجيل الخروج؟')) {
-                signOut(auth);
                 showToast('👋 تم تسجيل الخروج');
-                document.getElementById('main-app').classList.add('hidden');
-                document.getElementById('auth-screen').classList.remove('hidden');
-                navigateTo('home');
             }
         };
 
@@ -1824,11 +1868,15 @@
         };
 
         window.openWallet = function() {
-            window.location.href = 'wallet.html';
+            if (userData) {
+                showToast(`💰 رصيدك: ${userData.balance?.toLocaleString() || 0} ج.س\n📱 رقم المحفظة: #${userData.walletID || '000000'}`);
+            } else {
+                showToast(`💰 رصيدك: ${user.balance.toLocaleString()} ج.س\n📱 رقم المحفظة: ${user.wallet}`);
+            }
         };
 
         window.openSupport = function() {
-            window.location.href = 'support.html';
+            window.open('https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة', '_blank');
         };
 
         // ========== Toast ==========
@@ -2640,13 +2688,16 @@
                     document.getElementById('uBal').innerText = (userData.balance || 0).toLocaleString();
                     document.getElementById('uWallet').innerText = `المحفظة: #${userData.walletID}`;
                     updateSidebarUser();
+                    // تحديث بيانات صفحة الحساب من Firebase
                     if (userData) {
                         user.name = userData.name || 'مستخدم';
                         user.username = userData.username || userData.name?.toLowerCase().replace(/\s/g, '_') || 'user';
                         user.email = userData.email || 'user@example.com';
+                        user.phone = userData.phone || '0991234567';
                         user.wallet = '#' + (userData.walletID || '123456789');
                         user.balance = userData.balance || 0;
                         user.avatar = userData.img || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
+                        // تحديث الإحصائيات
                         updateProfileUI();
                     }
                     if (isAdmin) {
@@ -2665,17 +2716,10 @@
             if ('Notification' in window) Notification.requestPermission();
         }
 
-        // ============================================================
-        //  ✅✅✅ حل مشكلة تسجيل الدخول (محدث) ✅✅✅
-        // ============================================================
-        let authResolved = false;
-
         onAuthStateChanged(auth, async (user) => {
-            authResolved = true;
             const loading = document.getElementById('loading-screen');
             const authScr = document.getElementById('auth-screen');
             const appScr = document.getElementById('main-app');
-            
             if (user) {
                 const userRef = doc(db, "users", user.uid);
                 const userSnap = await getDoc(userRef);
@@ -2689,7 +2733,7 @@
                         balance: 0,
                         createdAt: serverTimestamp()
                     });
-                    alert(`✨ مرحباً بك في MORRE STORE!\n📱 رقم محفظتك: #${walletID}`);
+                    alert(`✨ مرحباً بك في MORRE STORE!\n📱 رقم محفظتك: #${walletID}\n💰 للشحن اضغط على زر "شحن المحفظة"`);
                 }
                 loading.classList.add('hidden');
                 authScr.classList.add('hidden');
@@ -2701,23 +2745,6 @@
                 appScr.classList.add('hidden');
             }
         });
-
-        // ===== مؤقت أمان =====
-        setTimeout(() => {
-            if (!authResolved) {
-                const loading = document.getElementById('loading-screen');
-                const authScr = document.getElementById('auth-screen');
-                const appScr = document.getElementById('main-app');
-                
-                if (loading) loading.classList.add('hidden');
-                if (authScr) authScr.classList.remove('hidden');
-                if (appScr) appScr.classList.add('hidden');
-            }
-        }, 4000);
-
-        // ============================================================
-        //  نهاية الكود
-        // ============================================================
 
         document.querySelectorAll('.auth-tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -2752,12 +2779,14 @@
 
         window.addEventListener('load', () => {
             handleRoute();
+            // تحديث صفحة الحساب
             updateProfileUI();
         });
 
+        // غلق مودال التعديل بالضغط خارجها
         document.getElementById('editModal').addEventListener('click', function(e) {
             if (e.target === this) closeEditModal();
         });
     </script>
 </body>
-                            </html>
+</html> 
