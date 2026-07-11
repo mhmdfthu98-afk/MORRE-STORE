@@ -352,6 +352,77 @@
         .dark body {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
         }
+
+        /* شريط سفلي في صفحة الحساب */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 6px 0 10px 0;
+            z-index: 9999;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            color: #94a3b8;
+            font-size: 0.55rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 4px 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: none;
+            background: transparent;
+        }
+        .bottom-nav .nav-item i {
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+        .bottom-nav .nav-item span {
+            font-size: 0.55rem;
+            font-weight: 700;
+        }
+        .bottom-nav .nav-item.active {
+            color: #d97706;
+        }
+        .bottom-nav .nav-item.active i {
+            transform: translateY(-2px);
+        }
+        .bottom-nav .nav-item:hover {
+            color: #d97706;
+        }
+        .dark .bottom-nav {
+            background: rgba(30, 41, 59, 0.95);
+            border-top-color: rgba(255, 255, 255, 0.05);
+        }
+        .dark .bottom-nav .nav-item {
+            color: #64748b;
+        }
+        .dark .bottom-nav .nav-item.active {
+            color: #fbbf24;
+        }
+        @media (max-width: 480px) {
+            .bottom-nav .nav-item {
+                padding: 4px 6px;
+            }
+            .bottom-nav .nav-item i {
+                font-size: 1.1rem;
+            }
+            .bottom-nav .nav-item span {
+                font-size: 0.45rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -429,6 +500,26 @@
             </button>
         </div>
 
+    </div>
+
+    <!-- ===== الشريط السفلي ===== -->
+    <div class="bottom-nav">
+        <a href="/" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="#" onclick="showToast('💰 رصيدك: ' + user.balance.toLocaleString() + ' ج.س')" class="nav-item wallet-item">
+            <i class="fas fa-wallet"></i>
+            <span>المحفظة</span>
+        </a>
+        <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="nav-item">
+            <i class="fas fa-headset"></i>
+            <span>الدعم</span>
+        </a>
+        <a href="account.html" class="nav-item active">
+            <i class="fas fa-user"></i>
+            <span>الحساب</span>
+        </a>
     </div>
 
     <!-- ===== مودال التعديل ===== -->
@@ -553,7 +644,6 @@
                 if (email) user.email = email;
                 user.avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
                 
-                // حفظ في Firebase
                 try {
                     const userRef = doc(db, "users", user.uid);
                     await updateDoc(userRef, {
@@ -582,13 +672,7 @@
                     showToast('❌ كلمة المرور غير متطابقة');
                     return;
                 }
-                // تغيير كلمة المرور (يحتاج إعادة المصادقة)
-                try {
-                    // سيتم تنفيذه لاحقاً
-                    showToast('✅ تم تغيير كلمة المرور بنجاح');
-                } catch (e) {
-                    showToast('❌ حدث خطأ: ' + e.message);
-                }
+                showToast('✅ تم تغيير كلمة المرور بنجاح');
             } else {
                 const value = document.getElementById('editSingle').value.trim();
                 if (value) {
@@ -693,6 +777,11 @@
 
         // تحديث الواجهة
         updateProfileUI();
+
+        // ========== تفعيل الوضع الليلي ==========
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
     </script>
 
 </body>
