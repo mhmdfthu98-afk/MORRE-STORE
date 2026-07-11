@@ -1450,10 +1450,10 @@
                 <i class="fas fa-headset"></i>
                 <span>الدعم</span>
             </button>
-            <button onclick="openAccount()" class="nav-item" id="nav-account">
-                <i class="fas fa-user"></i>
-                <span>الحساب</span>
-            </button>
+            <a href="/account.html" class="nav-item" id="nav-account">
+    <i class="fas fa-user"></i>
+    <span>الحساب</span>
+            </a>
         </div>
 
         <!-- الشريط الجانبي -->
@@ -1465,7 +1465,9 @@
                 <p id="sidebarWallet" class="text-sm text-yellow-dark"></p>
             </div>
             <a href="#" onclick="navigateTo('home'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-home w-6"></i> الرئيسية</a>
-            <a href="#" onclick="openAccount(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-user w-6"></i> حسابي</a>
+            <a href="/account.html" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+    <i class="fas fa-user w-6"></i> حسابي
+            </a>
             <a href="#" onclick="toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6"></i> محفظتي</a>
             <a href="#" onclick="toggleSidebar(false); document.getElementById('userOrdersList').scrollIntoView({behavior:'smooth'});" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-shopping-bag w-6"></i> طلباتي</a>
             <a href="#" onclick="openWalletWhatsApp(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl"><i class="fas fa-wallet w-6 text-yellow-dark"></i> شحن المحفظة</a>
