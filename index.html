@@ -1446,13 +1446,17 @@
         <i class="fas fa-headset"></i>
         <span>الدعم</span>
     </button>
+    <button onclick="window.location.href='orders.html'" class="nav-item" id="nav-orders">
+        <i class="fas fa-box"></i>
+        <span>طلباتي</span>
+    </button>
     <button onclick="window.location.href='account.html'" class="nav-item" id="nav-account">
         <i class="fas fa-user"></i>
         <span>الحساب</span>
     </button>
 </div>
-        
-      <!-- الشريط الجانبي -->
+
+        <!-- الشريط الجانبي -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 <div class="sidebar" id="sidebar">
     <div class="text-center py-4 border-b border-dark/10">
@@ -1473,8 +1477,8 @@
         <i class="fas fa-wallet w-6"></i> محفظتي
     </a>
     
-    <a href="#" onclick="toggleSidebar(false); document.getElementById('userOrdersList').scrollIntoView({behavior:'smooth'});" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
-        <i class="fas fa-shopping-bag w-6"></i> طلباتي
+    <a href="#" onclick="toggleSidebar(false); window.location.href='orders.html'" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-box w-6"></i> طلباتي
     </a>
     
     <a href="#" onclick="openWalletWhatsApp(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
