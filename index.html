@@ -1442,7 +1442,7 @@
         <i class="fas fa-wallet"></i>
         <span>المحفظة</span>
     </button>
-    <button onclick="openSupport(); setActiveNav('support')" class="nav-item" id="nav-support">
+    <button onclick="window.location.href='support.html'" class="nav-item" id="nav-support">
         <i class="fas fa-headset"></i>
         <span>الدعم</span>
     </button>
@@ -1481,8 +1481,8 @@
         <i class="fas fa-wallet w-6 text-yellow-dark"></i> شحن المحفظة
     </a>
     
-    <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
-        <i class="fab fa-whatsapp w-6 text-green-500"></i> خدمة العملاء
+    <a href="support.html" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-headset w-6 text-green-500"></i> خدمة العملاء
     </a>
     
     <div onclick="toggleSidebar(false); showPolicy('terms');" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer">
@@ -1497,18 +1497,6 @@
         <i class="fas fa-sign-out-alt w-6"></i> تسجيل الخروج
     </a>
 </div>
-
-        <!-- الفوتر -->
-        <footer class="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur border-t border-dark/10 py-3 text-center text-xs text-dark-light footer-links">
-            <div class="flex justify-center gap-4 flex-wrap">
-                <a href="#" onclick="showPolicy('terms');return false;">شروط الخدمة</a>
-                <a href="#" onclick="showPolicy('privacy');return false;">سياسة الخصوصية</a>
-                <a href="#" onclick="showPolicy('refund');return false;">سياسة الاسترجاع</a>
-                <a href="#" onclick="showPolicy('about');return false;">عن المتجر</a>
-            </div>
-            <div class="mt-1">© 2025 MORRE STORE - جميع الحقوق محفوظة</div>
-        </footer>
-    </div>
 
     <!-- المودالات -->
     <div id="policy-modal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-50 flex items-center justify-center p-4">
