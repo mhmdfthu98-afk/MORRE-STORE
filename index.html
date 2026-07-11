@@ -1051,7 +1051,22 @@
     <div id="loading-screen" class="fixed inset-0 bg-white/70 backdrop-blur flex items-center justify-center z-50">
         <div class="loader-spin"></div>
     </div>
+<!-- شاشة التحميل -->
+<div id="loading-screen" class="fixed inset-0 bg-white/70 backdrop-blur flex items-center justify-center z-50">
+    <div class="loader-spin"></div>
+</div>
 
+<!-- ===== حل مشكلة التحميل ===== -->
+<script>
+    // إخفاء شاشة التحميل بعد 3 ثواني كحد أقصى
+    setTimeout(function() {
+        const loading = document.getElementById('loading-screen');
+        if (loading) {
+            loading.style.display = 'none';
+            loading.classList.add('hidden');
+        }
+    }, 3000);
+</script>
     <!-- شاشة تسجيل الدخول -->
     <div id="auth-screen" class="fixed inset-0 bg-white/60 backdrop-blur flex items-center justify-center p-6 z-40 hidden">
         <div class="glass w-full max-w-md p-8 rounded-3xl text-dark">
@@ -2641,36 +2656,73 @@
             if ('Notification' in window) Notification.requestPermission();
         }
 
-        onAuthStateChanged(auth, async (user) => {
-            const loading = document.getElementById('loading-screen');
-            const authScr = document.getElementById('auth-screen');
-            const appScr = document.getElementById('main-app');
-            if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const userSnap = await getDoc(userRef);
-                if (!userSnap.exists()) {
-                    const walletID = Math.floor(100000 + Math.random() * 900000).toString();
-                    await setDoc(userRef, {
-                        name: user.displayName || user.email?.split('@')[0] || 'مستخدم',
-                        email: user.email,
-                        img: user.photoURL || 'https://via.placeholder.com/100',
-                        walletID: walletID,
-                        balance: 0,
-                        createdAt: serverTimestamp()
-                    });
-                    alert(`✨ مرحباً بك في MORRE STORE!\n📱 رقم محفظتك: #${walletID}\n💰 للشحن اضغط على زر "شحن المحفظة"`);
-                }
-                loading.classList.add('hidden');
-                authScr.classList.add('hidden');
-                appScr.classList.remove('hidden');
-                startEngine(user);
-            } else {
-                loading.classList.add('hidden');
-                authScr.classList.remove('hidden');
-                appScr.classList.add('hidden');
-            }
-        });
+        
+// ===== حل مشكلة المصادقة مع مؤقت إجباري =====
+let authResolved = false;
 
+onAuthStateChanged(auth, async (user) => {
+    authResolved = true;
+    const loading = document.getElementById('loading-screen');
+    const authScr = document.getElementById('auth-screen');
+    const appScr = document.getElementById('main-app');
+    
+    if (user) {
+        // التحقق من وجود المستخدم في قاعدة البيانات
+        const userRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userRef);
+        
+        if (!userSnap.exists()) {
+            // إنشاء حساب جديد للمستخدم
+            const walletID = Math.floor(100000 + Math.random() * 900000).toString();
+            await setDoc(userRef, {
+                name: user.displayName || user.email?.split('@')[0] || 'مستخدم',
+                email: user.email,
+                img: user.photoURL || 'https://via.placeholder.com/100',
+                walletID: walletID,
+                balance: 0,
+                createdAt: serverTimestamp()
+            });
+            alert(`✨ مرحباً بك في MORRE STORE!\n📱 رقم محفظتك: #${walletID}\n💰 للشحن اضغط على زر "شحن المحفظة"`);
+        }
+        
+        // إخفاء شاشة التحميل وإظهار التطبيق
+        loading.classList.add('hidden');
+        authScr.classList.add('hidden');
+        appScr.classList.remove('hidden');
+        
+        // بدء تشغيل المتجر
+        startEngine(user);
+        
+    } else {
+        // المستخدم غير مسجل الدخول
+        loading.classList.add('hidden');
+        authScr.classList.remove('hidden');
+        appScr.classList.add('hidden');
+    }
+});
+
+// ===== مؤقت إجباري بعد 4 ثواني في حالة عدم استجابة Firebase =====
+setTimeout(function() {
+    if (!authResolved) {
+        const loading = document.getElementById('loading-screen');
+        const authScr = document.getElementById('auth-screen');
+        const appScr = document.getElementById('main-app');
+        
+        // إخفاء شاشة التحميل
+        if (loading) {
+            loading.style.display = 'none';
+            loading.classList.add('hidden');
+        }
+        
+        // عرض شاشة تسجيل الدخول افتراضياً
+        if (authScr) {
+            authScr.classList.remove('hidden');
+        }
+        if (appScr) {
+            appScr.classList.add('hidden');
+        }
+    }
+}, 4000);
         document.querySelectorAll('.auth-tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active-tab'));
