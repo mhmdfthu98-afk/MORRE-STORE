@@ -1391,23 +1391,11 @@
                         <div class="label">📧 البريد الإلكتروني</div>
                         <div class="value" id="displayEmail">user@example.com <span class="edit-btn" onclick="openEditModal('email')">تعديل</span></div>
                     </div>
-                    <div class="info-item">
-                        <div class="label">📱 رقم الهاتف</div>
-                        <div class="value" id="displayPhone">0991234567 <span class="edit-btn" onclick="openEditModal('phone')">تعديل</span></div>
-                    </div>
-                    <div class="info-item">
+                    <div class="info-item full">
                         <div class="label">👤 اسم المستخدم</div>
                         <div class="value" id="displayUsername">user <span class="edit-btn" onclick="openEditModal('username')">تعديل</span></div>
                     </div>
-                    <div class="info-item">
-                        <div class="label">🌍 الدولة</div>
-                        <div class="value" id="displayCountry">السودان <span class="edit-btn" onclick="openEditModal('country')">تعديل</span></div>
-                    </div>
-                    <div class="info-item">
-                        <div class="label">🏙️ المدينة</div>
-                        <div class="value" id="displayCity">الخرطوم <span class="edit-btn" onclick="openEditModal('city')">تعديل</span></div>
-                    </div>
-                    <div class="info-item">
+                    <div class="info-item full">
                         <div class="label">🔢 رقم المحفظة</div>
                         <div class="value" style="color:#d97706;" id="displayWallet">#123456789</div>
                     </div>
@@ -1596,14 +1584,11 @@
         let editingProductId = null;
         let currentProductId = null;
 
-        // ========== بيانات المستخدم (وهمية - سيتم جلبها من Firebase لاحقاً) ==========
+        // ========== بيانات المستخدم ==========
         let user = {
             name: 'مستخدم',
             username: 'user',
             email: 'user@example.com',
-            phone: '0991234567',
-            country: 'السودان',
-            city: 'الخرطوم',
             wallet: '#123456789',
             joined: '15 يناير 2025',
             lastLogin: 'اليوم 10:30 ص',
@@ -1732,10 +1717,7 @@
             document.getElementById('statCompleted').textContent = user.completed;
             document.getElementById('statPending').textContent = user.pending;
             document.getElementById('displayEmail').innerHTML = user.email + ' <span class="edit-btn" onclick="openEditModal(\'email\')">تعديل</span>';
-            document.getElementById('displayPhone').innerHTML = user.phone + ' <span class="edit-btn" onclick="openEditModal(\'phone\')">تعديل</span>';
             document.getElementById('displayUsername').innerHTML = user.username + ' <span class="edit-btn" onclick="openEditModal(\'username\')">تعديل</span>';
-            document.getElementById('displayCountry').innerHTML = user.country + ' <span class="edit-btn" onclick="openEditModal(\'country\')">تعديل</span>';
-            document.getElementById('displayCity').innerHTML = user.city + ' <span class="edit-btn" onclick="openEditModal(\'city\')">تعديل</span>';
             document.getElementById('displayWallet').textContent = user.wallet;
             document.getElementById('displayJoined').textContent = user.joined;
             document.getElementById('displayLastLogin').textContent = user.lastLogin;
@@ -1763,9 +1745,6 @@
                     <input type="text" id="editName" value="${user.name}" placeholder="الاسم الكامل">
                     <input type="text" id="editUsername" value="${user.username}" placeholder="اسم المستخدم">
                     <input type="email" id="editEmail" value="${user.email}" placeholder="البريد الإلكتروني">
-                    <input type="tel" id="editPhone" value="${user.phone}" placeholder="رقم الهاتف">
-                    <input type="text" id="editCountry" value="${user.country}" placeholder="الدولة">
-                    <input type="text" id="editCity" value="${user.city}" placeholder="المدينة">
                     <div class="wallet-display">🔢 رقم المحفظة: ${user.wallet} (غير قابل للتعديل)</div>
                 `;
             } else if (mode === 'password') {
@@ -1778,10 +1757,7 @@
             } else {
                 const labels = {
                     email: 'البريد الإلكتروني',
-                    phone: 'رقم الهاتف',
-                    username: 'اسم المستخدم',
-                    country: 'الدولة',
-                    city: 'المدينة'
+                    username: 'اسم المستخدم'
                 };
                 title.textContent = `✏️ تعديل ${labels[mode]}`;
                 const value = user[mode];
@@ -1802,15 +1778,9 @@
                 const name = document.getElementById('editName').value.trim();
                 const username = document.getElementById('editUsername').value.trim();
                 const email = document.getElementById('editEmail').value.trim();
-                const phone = document.getElementById('editPhone').value.trim();
-                const country = document.getElementById('editCountry').value.trim();
-                const city = document.getElementById('editCity').value.trim();
                 if (name) user.name = name;
                 if (username) user.username = username;
                 if (email) user.email = email;
-                if (phone) user.phone = phone;
-                if (country) user.country = country;
-                if (city) user.city = city;
                 user.avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
                 showToast('✅ تم تحديث البيانات بنجاح');
             } else if (editMode === 'password') {
@@ -1855,7 +1825,11 @@
 
         window.logout = function() {
             if (confirm('⚠️ هل أنت متأكد من تسجيل الخروج؟')) {
+                signOut(auth);
                 showToast('👋 تم تسجيل الخروج');
+                document.getElementById('main-app').classList.add('hidden');
+                document.getElementById('auth-screen').classList.remove('hidden');
+                navigateTo('home');
             }
         };
 
@@ -2693,7 +2667,6 @@
                         user.name = userData.name || 'مستخدم';
                         user.username = userData.username || userData.name?.toLowerCase().replace(/\s/g, '_') || 'user';
                         user.email = userData.email || 'user@example.com';
-                        user.phone = userData.phone || '0991234567';
                         user.wallet = '#' + (userData.walletID || '123456789');
                         user.balance = userData.balance || 0;
                         user.avatar = userData.img || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
