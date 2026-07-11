@@ -2270,9 +2270,73 @@
             });
         }
 
-        window.addToCart = function(productId) {
-            alert('🛒 تم إضافة المنتج إلى السلة!');
-        };
+        // ========== إضافة منتج إلى السلة (مع Firebase) ==========
+window.addToCart = async function(productId) {
+    if (!userData) {
+        alert('❌ يرجى تسجيل الدخول أولاً');
+        return;
+    }
+
+    // البحث عن المنتج في allProducts
+    let product = null;
+    for (const category in allProducts) {
+        const found = allProducts[category].find(p => p.id === productId);
+        if (found) {
+            product = found;
+            break;
+        }
+    }
+
+    if (!product) {
+        alert('❌ المنتج غير موجود');
+        return;
+    }
+
+    try {
+        // جلب السلة الحالية من Firebase
+        const cartRef = doc(db, "carts", userData.uid);
+        const cartSnap = await getDoc(cartRef);
+        let cartItems = [];
+
+        if (cartSnap.exists()) {
+            cartItems = cartSnap.data().items || [];
+        }
+
+        // البحث عن المنتج في السلة
+        const existingIndex = cartItems.findIndex(item => item.id === productId);
+        if (existingIndex !== -1) {
+            cartItems[existingIndex].qty += 1;
+        } else {
+            cartItems.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                qty: 1
+            });
+        }
+
+        // حفظ السلة في Firebase
+        await setDoc(cartRef, { items: cartItems, updatedAt: new Date() });
+
+        // تحديث العداد في الواجهة
+        updateCartBadge(cartItems);
+
+        showToast(`✅ تم إضافة "${product.name}" إلى السلة`);
+
+    } catch (error) {
+        console.error("Error adding to cart:", error);
+        alert('❌ حدث خطأ في إضافة المنتج إلى السلة');
+    }
+};
+
+// ========== تحديث عداد السلة ==========
+function updateCartBadge(cartItems) {
+    const total = cartItems.reduce((sum, item) => sum + item.qty, 0);
+    const badges = document.querySelectorAll('#cartCount, #navCartBadge, #headerCartBadge');
+    badges.forEach(el => {
+        if (el) el.textContent = total;
+    });
+}
 
         // ========== نظام التنقل ==========
         function navigateTo(page, param) {
@@ -2937,6 +3001,27 @@ window.openWallet = function() {
         alert('❌ يرجى تسجيل الدخول أولاً');
     }
 };
+
+window.openSupport = function() {
+    window.open('https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة', '_blank');
+};
+
+// ========== دالة الإشعارات (Toast) ==========
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    if (!toast) {
+        const t = document.createElement('div');
+        t.id = 'toast';
+        t.className = 'toast';
+        document.body.appendChild(t);
+    }
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timeout);
+    t._timeout = setTimeout(() => t.classList.remove('show'), 3000);
+}
+window.showToast = showToast;
 
 window.openSupport = function() {
     window.open('https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة', '_blank');
