@@ -379,6 +379,7 @@
     <div id="toast" class="toast"></div>
 
     <script type="module">
+        // ========== استيراد Firebase ==========
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -400,6 +401,7 @@
         let cartItems = [];
         let couponApplied = false;
 
+        // ========== صور المنتجات ==========
         const productImages = {
             '325 شدة': 'https://i.ibb.co/20tqyP6s/4ff592f1-0de2-421f-bd99-514dd525d512.png',
             '60 شدة': 'https://i.ibb.co/20tqyP6s/4ff592f1-0de2-421f-bd99-514dd525d512.png',
@@ -440,87 +442,64 @@
             toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
-        // ========== 🔥 جلب السلة من LocalStorage فقط ==========
-function loadCart(uid) {
-    // قراءة من LocalStorage فقط
-    const localCart = localStorage.getItem('cart_' + uid);
-    if (localCart) {
-        try {
-            cartItems = JSON.parse(localCart);
-            renderCart();
-            console.log("✅ تم جلب السلة من LocalStorage:", cartItems);
-            return;
-        } catch(e) {
-            console.error("Error parsing localStorage:", e);
-        }
-    }
-    
-    // إذا كان LocalStorage فاضي، جرب Firebase
-    if (uid) {
-        const cartRef = doc(db, "carts", uid);
-        getDoc(cartRef).then((docSnap) => {
-            if (docSnap.exists()) {
-                cartItems = docSnap.data().items || [];
-                localStorage.setItem('cart_' + uid, JSON.stringify(cartItems));
-            } else {
-                cartItems = [];
+        // ========== 🔥 جلب السلة ==========
+        function loadCart(uid) {
+            // 🔥 1. جلب من LocalStorage
+            const localCart = localStorage.getItem('cart_' + uid);
+            if (localCart) {
+                try {
+                    const parsed = JSON.parse(localCart);
+                    if (parsed.length > 0) {
+                        cartItems = parsed;
+                        renderCart();
+                        console.log("✅ تم جلب السلة من LocalStorage:", cartItems);
+                        return;
+                    }
+                } catch(e) {
+                    console.error("Error parsing localStorage:", e);
+                }
             }
-            renderCart();
-        }).catch(() => {
-            cartItems = [];
-            renderCart();
-        });
-    } else {
-        cartItems = [];
-        renderCart();
-    }
-}
 
-            // 2. جلب من Firebase
+            // 🔥 2. جلب من Firebase
             if (uid) {
                 const cartRef = doc(db, "carts", uid);
-                onSnapshot(cartRef, (docSnap) => {
+                getDoc(cartRef).then((docSnap) => {
                     if (docSnap.exists()) {
                         cartItems = docSnap.data().items || [];
-                        // حفظ في LocalStorage
                         localStorage.setItem('cart_' + uid, JSON.stringify(cartItems));
                     } else {
                         cartItems = [];
                         localStorage.setItem('cart_' + uid, JSON.stringify([]));
                     }
                     renderCart();
-                }, (error) => {
-                    console.error("Error loading cart from Firebase:", error);
-                    // استخدام LocalStorage كبديل
-                    const fallback = localStorage.getItem('cart_' + uid);
-                    if (fallback) {
-                        try {
-                            cartItems = JSON.parse(fallback);
-                            renderCart();
-                        } catch(e) {}
-                    }
+                }).catch(() => {
+                    cartItems = [];
+                    renderCart();
                 });
+            } else {
+                cartItems = [];
+                renderCart();
             }
         }
 
         // ========== 🔥 حفظ السلة ==========
-async function saveCart(uid, items) {
-    cartItems = items;
-    
-    // ✅ حفظ في LocalStorage (دائماً)
-    localStorage.setItem('cart_' + uid, JSON.stringify(items));
-    console.log("✅ تم حفظ السلة في LocalStorage:", items);
-    renderCart();
-    
-    // محاولة حفظ في Firebase (إذا شغال)
-    try {
-        const cartRef = doc(db, "carts", uid);
-        await setDoc(cartRef, { items: items, updatedAt: new Date() });
-        console.log("✅ تم حفظ السلة في Firebase");
-    } catch (e) {
-        console.log("⚠️ Firebase مش شغال، ولكن السلة محفوظة في LocalStorage");
-    }
-}
+        async function saveCart(uid, items) {
+            cartItems = items;
+            
+            // 🔥 حفظ في LocalStorage دائماً
+            localStorage.setItem('cart_' + uid, JSON.stringify(items));
+            console.log("✅ تم حفظ السلة في LocalStorage:", items);
+            renderCart();
+            
+            // 🔥 محاولة حفظ في Firebase
+            try {
+                const cartRef = doc(db, "carts", uid);
+                await setDoc(cartRef, { items: items, updatedAt: new Date() });
+                console.log("✅ تم حفظ السلة في Firebase");
+            } catch (e) {
+                console.log("⚠️ Firebase مش شغال، السلة محفوظة في LocalStorage");
+            }
+        }
 
         // ========== عرض السلة ==========
         function renderCart() {
