@@ -9,31 +9,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
-        * {
-            font-family: 'Cairo', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { font-family: 'Cairo', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(135deg, #fef08a 0%, #fde047 30%, #fef9c3 60%, #fef08a 100%);
             min-height: 100vh;
             overflow-x: hidden;
-            padding-bottom: 20px;
+            padding-bottom: 80px;
         }
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 16px;
+        .container { max-width: 550px; margin: 0 auto; padding: 16px; }
+        .glass-card {
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
         }
-        .back-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 0;
-            margin-bottom: 8px;
-        }
-        .back-header .back-btn {
+        .glass-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+        .back-btn {
             background: rgba(255,255,255,0.6);
             border: 1px solid rgba(255,255,255,0.3);
             border-radius: 12px;
@@ -41,27 +33,18 @@
             color: #1e293b;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
             text-decoration: none;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.9rem;
+            transition: 0.2s;
         }
-        .back-header .back-btn:hover {
-            background: rgba(255,255,255,0.8);
-        }
-        .back-header .page-title {
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: #1e293b;
-        }
+        .back-btn:hover { background: rgba(255,255,255,0.8); }
         .profile-card {
             background: white;
             border-radius: 16px;
             padding: 20px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
             border: 1px solid #f1f5f9;
             margin-bottom: 16px;
         }
@@ -73,20 +56,9 @@
             margin: 0 auto 10px;
             object-fit: cover;
             cursor: pointer;
-            transition: 0.3s;
         }
-        .profile-card .avatar:hover {
-            opacity: 0.8;
-        }
-        .profile-card .name {
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: #1e293b;
-        }
-        .profile-card .username {
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
+        .profile-card .name { font-size: 1.2rem; font-weight: 900; color: #1e293b; }
+        .profile-card .username { font-size: 0.8rem; color: #94a3b8; }
         .profile-card .wallet {
             display: inline-block;
             background: #fef3c7;
@@ -105,18 +77,10 @@
             padding-top: 12px;
             border-top: 1px solid #f1f5f9;
         }
-        .profile-card .stats .stat-item {
-            text-align: center;
-        }
-        .profile-card .stats .stat-item .num {
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: #1e293b;
-        }
-        .profile-card .stats .stat-item .label {
-            font-size: 0.65rem;
-            color: #94a3b8;
-        }
+        .profile-card .stats .stat-item { text-align: center; }
+        .profile-card .stats .stat-item .num { font-size: 1.2rem; font-weight: 900; color: #1e293b; }
+        .profile-card .stats .stat-item .label { font-size: 0.65rem; color: #94a3b8; }
+
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -129,18 +93,8 @@
             padding: 12px 14px;
             border: 1px solid #f1f5f9;
         }
-        .info-item .label {
-            font-size: 0.65rem;
-            color: #94a3b8;
-            font-weight: 600;
-        }
-        .info-item .value {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-top: 2px;
-            word-break: break-word;
-        }
+        .info-item .label { font-size: 0.65rem; color: #94a3b8; font-weight: 600; }
+        .info-item .value { font-size: 0.9rem; font-weight: 700; color: #1e293b; margin-top: 2px; word-break: break-word; }
         .info-item .value .edit-btn {
             font-size: 0.6rem;
             color: #d97706;
@@ -148,12 +102,9 @@
             margin-right: 4px;
             font-weight: 600;
         }
-        .info-item .value .edit-btn:hover {
-            text-decoration: underline;
-        }
-        .info-item.full {
-            grid-column: 1 / -1;
-        }
+        .info-item .value .edit-btn:hover { text-decoration: underline; }
+        .info-item.full { grid-column: 1 / -1; }
+
         .menu-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -172,21 +123,42 @@
             font-size: 0.8rem;
             color: #1e293b;
         }
-        .menu-btn:active {
-            transform: scale(0.96);
+        .menu-btn:active { transform: scale(0.96); }
+        .menu-btn i { display: block; font-size: 1.4rem; margin-bottom: 4px; color: #d97706; }
+        .menu-btn.danger i { color: #ef4444; }
+        .menu-btn.danger { color: #ef4444; }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0 10px;
+            z-index: 9999;
         }
-        .menu-btn i {
-            display: block;
-            font-size: 1.4rem;
-            margin-bottom: 4px;
-            color: #d97706;
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #94a3b8;
+            font-size: 0.55rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 4px 12px;
+            transition: 0.3s;
         }
-        .menu-btn.danger i {
-            color: #ef4444;
-        }
-        .menu-btn.danger {
-            color: #ef4444;
-        }
+        .bottom-nav .nav-item i { font-size: 1.3rem; transition: 0.3s; }
+        .bottom-nav .nav-item.active { color: #d97706; }
+        .bottom-nav .nav-item.active i { transform: translateY(-2px); }
+        .bottom-nav .nav-item:hover { color: #d97706; }
+
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -198,9 +170,7 @@
             justify-content: center;
             padding: 20px;
         }
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
         .modal-box {
             background: white;
             border-radius: 16px;
@@ -210,13 +180,7 @@
             max-height: 90vh;
             overflow-y: auto;
         }
-        .modal-box h3 {
-            font-weight: 900;
-            font-size: 1.2rem;
-            color: #1e293b;
-            margin-bottom: 16px;
-            text-align: center;
-        }
+        .modal-box h3 { font-weight: 900; font-size: 1.2rem; color: #1e293b; margin-bottom: 16px; text-align: center; }
         .modal-box input, .modal-box select {
             width: 100%;
             padding: 10px 14px;
@@ -225,13 +189,8 @@
             font-size: 0.9rem;
             margin-bottom: 10px;
             background: #f8fafc;
-            transition: 0.2s;
         }
-        .modal-box input:focus, .modal-box select:focus {
-            outline: none;
-            border-color: #f59e0b;
-            background: white;
-        }
+        .modal-box input:focus, .modal-box select:focus { outline: none; border-color: #f59e0b; background: white; }
         .modal-box .btn-save {
             width: 100%;
             padding: 12px;
@@ -265,6 +224,29 @@
             margin-bottom: 10px;
             font-size: 0.9rem;
         }
+
+        .dark body {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        .dark .profile-card { background: #1e293b; border-color: #334155; }
+        .dark .profile-card .name { color: #f1f5f9; }
+        .dark .profile-card .stats .stat-item .num { color: #f1f5f9; }
+        .dark .info-item { background: #1e293b; border-color: #334155; }
+        .dark .info-item .value { color: #f1f5f9; }
+        .dark .menu-btn { background: #1e293b; border-color: #334155; color: #f1f5f9; }
+        .dark .profile-card .wallet { background: #78350f; color: #fbbf24; }
+        .dark .profile-card .stats { border-color: #334155; }
+        .dark .back-btn { background: rgba(30,41,59,0.6); color: #f1f5f9; border-color: #334155; }
+        .dark .back-btn:hover { background: rgba(30,41,59,0.8); }
+        .dark .bottom-nav { background: rgba(30,41,59,0.95); border-top-color: rgba(255,255,255,0.05); }
+        .dark .bottom-nav .nav-item { color: #64748b; }
+        .dark .bottom-nav .nav-item.active { color: #fbbf24; }
+        .dark .modal-box { background: #1e293b; }
+        .dark .modal-box h3 { color: #f1f5f9; }
+        .dark .modal-box input, .dark .modal-box select { background: #0f172a; border-color: #334155; color: #f1f5f9; }
+        .dark .modal-box .btn-cancel { background: #334155; color: #f1f5f9; }
+        .dark .modal-box .wallet-display { background: #78350f; color: #fbbf24; }
+
         .toast {
             position: fixed;
             bottom: 80px;
@@ -276,168 +258,96 @@
             border-radius: 10px;
             font-size: 0.8rem;
             font-weight: 600;
-            z-index: 99999;
+            z-index: 999999;
             opacity: 0;
             transition: 0.3s;
             pointer-events: none;
             white-space: nowrap;
         }
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-10px);
-        }
-        .dark .profile-card {
-            background: #1e293b;
-            border-color: #334155;
-        }
-        .dark .profile-card .name {
-            color: #f1f5f9;
-        }
-        .dark .profile-card .stats .stat-item .num {
-            color: #f1f5f9;
-        }
-        .dark .info-item {
-            background: #1e293b;
-            border-color: #334155;
-        }
-        .dark .info-item .value {
-            color: #f1f5f9;
-        }
-        .dark .menu-btn {
-            background: #1e293b;
-            border-color: #334155;
-            color: #f1f5f9;
-        }
-        .dark .profile-card .wallet {
-            background: #78350f;
-            color: #fbbf24;
-        }
-        .dark .profile-card .stats {
-            border-color: #334155;
-        }
-        .dark .back-header .back-btn {
-            background: rgba(30,41,59,0.6);
-            color: #f1f5f9;
-            border-color: #334155;
-        }
-        .dark .back-header .back-btn:hover {
-            background: rgba(30,41,59,0.8);
-        }
-        .dark .back-header .page-title {
-            color: #f1f5f9;
-        }
-        .dark .modal-box {
-            background: #1e293b;
-        }
-        .dark .modal-box h3 {
-            color: #f1f5f9;
-        }
-        .dark .modal-box input, .dark .modal-box select {
-            background: #0f172a;
-            border-color: #334155;
-            color: #f1f5f9;
-        }
-        .dark .modal-box .btn-cancel {
-            background: #334155;
-            color: #f1f5f9;
-        }
-        .dark .modal-box .wallet-display {
-            background: #78350f;
-            color: #fbbf24;
-        }
-        .dark .toast {
-            background: #f1f5f9;
-            color: #1e293b;
-        }
-        .dark body {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(-10px); }
+        .dark .toast { background: #f1f5f9; color: #1e293b; }
 
-        /* شريط سفلي في صفحة الحساب */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        .tx-item {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
-            padding: 6px 0 10px 0;
-            z-index: 9999;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
         }
-        .bottom-nav .nav-item {
+        .tx-item:last-child { border-bottom: none; }
+        .tx-item .tx-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 2px;
-            color: #94a3b8;
-            font-size: 0.55rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 4px 12px;
-            border-radius: 12px;
-            text-decoration: none;
-            border: none;
-            background: transparent;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-left: 10px;
         }
-        .bottom-nav .nav-item i {
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-        }
-        .bottom-nav .nav-item span {
-            font-size: 0.55rem;
+        .tx-item .tx-icon.deposit { background: #d1fae5; color: #059669; }
+        .tx-item .tx-icon.withdraw { background: #fee2e2; color: #dc2626; }
+        .tx-item .tx-icon.purchase { background: #dbeafe; color: #2563eb; }
+        .tx-item .tx-icon.refund { background: #fef3c7; color: #d97706; }
+        .tx-item .tx-info { flex: 1; }
+        .tx-item .tx-info .tx-title { font-weight: 700; color: #1e293b; font-size: 0.8rem; }
+        .tx-item .tx-info .tx-date { font-size: 0.6rem; color: #94a3b8; }
+        .tx-item .tx-amount { font-weight: 900; font-size: 0.85rem; }
+        .tx-item .tx-amount.positive { color: #059669; }
+        .tx-item .tx-amount.negative { color: #dc2626; }
+        .tx-item .tx-status {
+            font-size: 0.5rem;
+            padding: 2px 8px;
+            border-radius: 10px;
             font-weight: 700;
         }
-        .bottom-nav .nav-item.active {
-            color: #d97706;
+        .tx-item .tx-status.pending { background: #fef3c7; color: #d97706; }
+        .tx-item .tx-status.completed { background: #d1fae5; color: #059669; }
+        .tx-item .tx-status.rejected { background: #fee2e2; color: #dc2626; }
+        .dark .tx-item { border-color: #334155; }
+        .dark .tx-item .tx-info .tx-title { color: #f1f5f9; }
+
+        .order-item {
+            padding: 12px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #f1f5f9;
+            margin-bottom: 8px;
         }
-        .bottom-nav .nav-item.active i {
-            transform: translateY(-2px);
+        .order-item .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .bottom-nav .nav-item:hover {
-            color: #d97706;
+        .order-item .order-id { font-weight: 700; font-size: 0.75rem; color: #1e293b; }
+        .order-item .order-status {
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-weight: 700;
         }
-        .dark .bottom-nav {
-            background: rgba(30, 41, 59, 0.95);
-            border-top-color: rgba(255, 255, 255, 0.05);
-        }
-        .dark .bottom-nav .nav-item {
-            color: #64748b;
-        }
-        .dark .bottom-nav .nav-item.active {
-            color: #fbbf24;
-        }
-        @media (max-width: 480px) {
-            .bottom-nav .nav-item {
-                padding: 4px 6px;
-            }
-            .bottom-nav .nav-item i {
-                font-size: 1.1rem;
-            }
-            .bottom-nav .nav-item span {
-                font-size: 0.45rem;
-            }
-        }
+        .order-item .order-status.pending { background: #fef3c7; color: #d97706; }
+        .order-item .order-status.done { background: #d1fae5; color: #059669; }
+        .order-item .order-status.cancelled { background: #fee2e2; color: #dc2626; }
+        .order-item .order-product { font-size: 0.8rem; font-weight: 700; color: #1e293b; margin-top: 4px; }
+        .order-item .order-price { font-size: 0.7rem; color: #d97706; font-weight: 900; }
+        .order-item .order-date { font-size: 0.6rem; color: #94a3b8; }
+        .dark .order-item { background: #1e293b; border-color: #334155; }
+        .dark .order-item .order-id { color: #f1f5f9; }
+        .dark .order-item .order-product { color: #f1f5f9; }
     </style>
 </head>
 <body>
 
     <div class="container">
 
-        <!-- ===== زر الرجوع ===== -->
-        <div class="back-header">
-            <a href="/" class="back-btn">
-                <i class="fas fa-arrow-right"></i> رجوع
-            </a>
-            <div class="page-title">👤 حسابي</div>
+        <!-- رأس الصفحة -->
+        <div class="flex items-center gap-3 py-3 mb-4">
+            <a href="/" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</a>
+            <h1 class="text-2xl font-black text-dark">👤 حسابي</h1>
         </div>
 
-        <!-- ===== بطاقة الملف الشخصي ===== -->
+        <!-- الملف الشخصي -->
         <div class="profile-card">
             <img class="avatar" id="profileAvatar" src="https://ui-avatars.com/api/?name=مستخدم&size=80&background=f59e0b&color=fff&bold=true" onclick="changeAvatar()">
             <div class="name" id="profileName">...</div>
@@ -459,7 +369,7 @@
             </div>
         </div>
 
-        <!-- ===== معلومات الحساب ===== -->
+        <!-- معلومات الحساب -->
         <div class="info-grid">
             <div class="info-item full">
                 <div class="label">📧 البريد الإلكتروني</div>
@@ -483,46 +393,51 @@
             </div>
         </div>
 
-        <!-- ===== أزرار الإجراءات ===== -->
+        <!-- الإعدادات (نقلت من الصفحة الرئيسية) -->
         <div class="menu-grid">
             <div class="menu-btn" onclick="openEditModal('all')"><i class="fas fa-user-edit"></i> تعديل البيانات</div>
             <div class="menu-btn" onclick="openEditModal('password')"><i class="fas fa-key"></i> تغيير كلمة المرور</div>
             <div class="menu-btn" onclick="showToast('📍 إدارة العناوين')"><i class="fas fa-map-pin"></i> إدارة العناوين</div>
-            <div class="menu-btn" onclick="showToast('📋 سجل الطلبات')"><i class="fas fa-box"></i> سجل الطلبات</div>
-            <div class="menu-btn" onclick="showToast('💰 سجل المعاملات')"><i class="fas fa-receipt"></i> سجل المعاملات</div>
+            <div class="menu-btn" onclick="document.getElementById('ordersSection').scrollIntoView({behavior:'smooth'})"><i class="fas fa-box"></i> سجل الطلبات</div>
+            <div class="menu-btn" onclick="document.getElementById('transactionsSection').scrollIntoView({behavior:'smooth'})"><i class="fas fa-receipt"></i> سجل المعاملات</div>
             <div class="menu-btn danger" onclick="logout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</div>
         </div>
 
-        <!-- ===== حذف الحساب ===== -->
+        <!-- حذف الحساب -->
         <div style="text-align:center;margin-top:8px;">
             <button onclick="deleteAccount()" style="background:none;border:none;color:#ef4444;font-weight:700;font-size:0.8rem;cursor:pointer;padding:8px 16px;">
                 <i class="fas fa-trash"></i> حذف الحساب
             </button>
         </div>
 
+        <!-- ===== سجل الطلبات ===== -->
+        <div id="ordersSection" class="mt-6">
+            <h3 class="text-xl font-black text-dark mb-4 border-r-4 border-yellow-dark pr-3">📋 سجل الطلبات</h3>
+            <div id="ordersList" class="space-y-2">
+                <div class="text-center text-dark-light py-4">جاري التحميل...</div>
+            </div>
+        </div>
+
+        <!-- ===== سجل المعاملات ===== -->
+        <div id="transactionsSection" class="mt-6">
+            <h3 class="text-xl font-black text-dark mb-4 border-r-4 border-yellow-dark pr-3">💰 سجل المعاملات</h3>
+            <div id="transactionsList" class="space-y-1">
+                <div class="text-center text-dark-light py-4">جاري التحميل...</div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- ===== الشريط السفلي ===== -->
+    <!-- الشريط السفلي -->
     <div class="bottom-nav">
-        <a href="/" class="nav-item">
-            <i class="fas fa-home"></i>
-            <span>الرئيسية</span>
-        </a>
-        <a href="#" onclick="showToast('💰 رصيدك: ' + user.balance.toLocaleString() + ' ج.س')" class="nav-item wallet-item">
-            <i class="fas fa-wallet"></i>
-            <span>المحفظة</span>
-        </a>
-        <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="nav-item">
-            <i class="fas fa-headset"></i>
-            <span>الدعم</span>
-        </a>
-        <a href="account.html" class="nav-item active">
-            <i class="fas fa-user"></i>
-            <span>الحساب</span>
-        </a>
+        <a href="/" class="nav-item"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+        <a href="wallet.html" class="nav-item"><i class="fas fa-wallet"></i><span>المحفظة</span></a>
+        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i><span>الدعم</span></a>
+        <a href="orders.html" class="nav-item"><i class="fas fa-box"></i><span>طلباتي</span></a>
+        <a href="account.html" class="nav-item active"><i class="fas fa-user"></i><span>الحساب</span></a>
     </div>
 
-    <!-- ===== مودال التعديل ===== -->
+    <!-- مودال التعديل -->
     <div class="modal-overlay" id="editModal">
         <div class="modal-box">
             <h3 id="editModalTitle">✏️ تعديل البيانات</h3>
@@ -532,14 +447,17 @@
         </div>
     </div>
 
-    <!-- ===== Toast ===== -->
+    <!-- Toast -->
     <div id="toast" class="toast"></div>
 
     <script type="module">
-        // ========== استيراد Firebase ==========
+        // ============================================================
+        //  MORRE STORE - صفحة الحساب (مع Firebase)
+        // ============================================================
+
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, updateDoc, collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyC0jzecEwKgHpxHpTi8Y-_bwwfzVdtgf3E",
@@ -554,7 +472,10 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // ========== بيانات المستخدم ==========
+        let userData = null;
+        let currentUser = null;
+        let editMode = '';
+
         let user = {
             name: 'مستخدم',
             username: 'user',
@@ -566,12 +487,10 @@
             orders: 0,
             completed: 0,
             pending: 0,
-            balance: 0,
-            uid: null
+            balance: 0
         };
-        let editMode = '';
 
-        // ========== تحديث واجهة المستخدم ==========
+        // ===== تحديث الواجهة =====
         function updateProfileUI() {
             document.getElementById('profileAvatar').src = user.avatar;
             document.getElementById('profileName').textContent = user.name;
@@ -587,7 +506,117 @@
             document.getElementById('displayLastLogin').textContent = user.lastLogin;
         }
 
-        // ========== مودال التعديل ==========
+        // ===== جلب بيانات المستخدم =====
+        async function loadUserData(uid) {
+            const userRef = doc(db, "users", uid);
+            const userSnap = await getDoc(userRef);
+            if (userSnap.exists()) {
+                const data = userSnap.data();
+                userData = data;
+                user.name = data.name || 'مستخدم';
+                user.username = data.username || user.name.toLowerCase().replace(/\s/g, '_') || 'user';
+                user.email = data.email || 'user@example.com';
+                user.wallet = '#' + (data.walletID || '123456789');
+                user.balance = data.balance || 0;
+                user.avatar = data.img || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
+                user.joined = data.createdAt?.toDate ? new Date(data.createdAt.toDate()).toLocaleDateString('ar-SD') : 'غير محدد';
+                user.orders = data.orders || 0;
+                user.completed = data.completed || 0;
+                user.pending = data.pending || 0;
+                updateProfileUI();
+            }
+        }
+
+        // ===== جلب سجل الطلبات =====
+        function loadOrders(uid) {
+            const q = query(
+                collection(db, "orders"),
+                where("uID", "==", uid),
+                orderBy("timestamp", "desc")
+            );
+
+            onSnapshot(q, (snapshot) => {
+                const container = document.getElementById('ordersList');
+                if (snapshot.empty) {
+                    container.innerHTML = '<div class="text-center text-dark-light py-4">📭 لا توجد طلبات سابقة</div>';
+                    return;
+                }
+
+                let html = '';
+                snapshot.forEach(doc => {
+                    const o = doc.data();
+                    const date = o.timestamp?.toDate ? new Date(o.timestamp.toDate()).toLocaleString('ar-SD') : 'غير محدد';
+                    const statusClass = o.status === 'مكتمل' ? 'done' : o.status === 'ملغي' || o.status === 'فشل' ? 'cancelled' : 'pending';
+                    const statusText = o.status === 'مكتمل' ? '✅ مكتمل' : o.status === 'ملغي' || o.status === 'فشل' ? '❌ ملغي' : '⏳ قيد الانتظار';
+
+                    html += `
+                        <div class="order-item">
+                            <div class="order-header">
+                                <span class="order-id">#${doc.id.substring(0, 8)}</span>
+                                <span class="order-status ${statusClass}">${statusText}</span>
+                            </div>
+                            <div class="order-product">${o.product}</div>
+                            <div class="flex justify-between items-center mt-1">
+                                <span class="order-price">${(o.price || 0).toLocaleString()} ج.س</span>
+                                <span class="order-date">${date}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            });
+        }
+
+        // ===== جلب سجل المعاملات =====
+        function loadTransactions(uid) {
+            const q = query(
+                collection(db, "transactions"),
+                where("uID", "==", uid),
+                orderBy("timestamp", "desc")
+            );
+
+            onSnapshot(q, (snapshot) => {
+                const container = document.getElementById('transactionsList');
+                if (snapshot.empty) {
+                    container.innerHTML = '<div class="text-center text-dark-light py-4">💰 لا توجد معاملات سابقة</div>';
+                    return;
+                }
+
+                const icons = { 'إيداع': 'deposit', 'سحب': 'withdraw', 'شراء': 'purchase', 'استرداد': 'refund' };
+                const statusMap = { 'قيد المراجعة': 'pending', 'مكتملة': 'completed', 'مرفوضة': 'rejected' };
+
+                let html = '';
+                snapshot.forEach(doc => {
+                    const tx = doc.data();
+                    const date = tx.timestamp?.toDate ? new Date(tx.timestamp.toDate()).toLocaleString('ar-SD') : 'غير محدد';
+                    const iconClass = icons[tx.type] || 'deposit';
+                    const statusClass = statusMap[tx.status] || 'pending';
+                    const sign = tx.type === 'إيداع' || tx.type === 'استرداد' ? '+' : '-';
+                    const colorClass = tx.type === 'إيداع' || tx.type === 'استرداد' ? 'positive' : 'negative';
+
+                    html += `
+                        <div class="tx-item">
+                            <div style="display:flex;align-items:center;flex:1;">
+                                <div class="tx-icon ${iconClass}">
+                                    <i class="fas ${tx.type === 'إيداع' ? 'fa-arrow-down' : tx.type === 'سحب' ? 'fa-arrow-up' : tx.type === 'شراء' ? 'fa-shopping-cart' : 'fa-undo'}"></i>
+                                </div>
+                                <div class="tx-info">
+                                    <div class="tx-title">${tx.type} - ${tx.title || ''}</div>
+                                    <div class="tx-date">${date}</div>
+                                </div>
+                            </div>
+                            <div style="text-align:left;">
+                                <div class="tx-amount ${colorClass}">${sign}${(tx.amount || 0).toLocaleString()} ج.س</div>
+                                <span class="tx-status ${statusClass}">${tx.status || 'قيد المراجعة'}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            });
+        }
+
+        // ===== مودال التعديل =====
         window.openEditModal = function(mode) {
             editMode = mode;
             const modal = document.getElementById('editModal');
@@ -610,14 +639,10 @@
                     <input type="password" id="editConfirmPassword" placeholder="تأكيد كلمة المرور">
                 `;
             } else {
-                const labels = {
-                    email: 'البريد الإلكتروني',
-                    username: 'اسم المستخدم'
-                };
+                const labels = { email: 'البريد الإلكتروني', username: 'اسم المستخدم' };
                 title.textContent = `✏️ تعديل ${labels[mode]}`;
-                const value = user[mode];
                 body.innerHTML = `
-                    <input type="text" id="editSingle" value="${value}" placeholder="${labels[mode]}">
+                    <input type="text" id="editSingle" value="${user[mode]}" placeholder="${labels[mode]}">
                     <div class="wallet-display" style="font-size:0.8rem;">🔢 رقم المحفظة: ${user.wallet} (ثابت)</div>
                 `;
             }
@@ -629,7 +654,7 @@
         };
 
         window.saveEdit = async function() {
-            if (!user.uid) {
+            if (!currentUser) {
                 showToast('❌ يرجى تسجيل الدخول أولاً');
                 return;
             }
@@ -638,14 +663,13 @@
                 const name = document.getElementById('editName').value.trim();
                 const username = document.getElementById('editUsername').value.trim();
                 const email = document.getElementById('editEmail').value.trim();
-                
                 if (name) user.name = name;
                 if (username) user.username = username;
                 if (email) user.email = email;
                 user.avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
-                
+
                 try {
-                    const userRef = doc(db, "users", user.uid);
+                    const userRef = doc(db, "users", currentUser.uid);
                     await updateDoc(userRef, {
                         name: user.name,
                         username: user.username,
@@ -660,28 +684,17 @@
                 const old = document.getElementById('editOldPassword').value;
                 const newP = document.getElementById('editNewPassword').value;
                 const confirm = document.getElementById('editConfirmPassword').value;
-                if (!old || !newP || !confirm) {
-                    showToast('❌ جميع الحقول مطلوبة');
-                    return;
-                }
-                if (newP.length < 6) {
-                    showToast('❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل');
-                    return;
-                }
-                if (newP !== confirm) {
-                    showToast('❌ كلمة المرور غير متطابقة');
-                    return;
-                }
+                if (!old || !newP || !confirm) { showToast('❌ جميع الحقول مطلوبة'); return; }
+                if (newP.length < 6) { showToast('❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل'); return; }
+                if (newP !== confirm) { showToast('❌ كلمة المرور غير متطابقة'); return; }
                 showToast('✅ تم تغيير كلمة المرور بنجاح');
             } else {
                 const value = document.getElementById('editSingle').value.trim();
                 if (value) {
                     user[editMode] = value;
                     try {
-                        const userRef = doc(db, "users", user.uid);
-                        await updateDoc(userRef, {
-                            [editMode]: value
-                        });
+                        const userRef = doc(db, "users", currentUser.uid);
+                        await updateDoc(userRef, { [editMode]: value });
                         showToast(`✅ تم تحديث ${editMode} بنجاح`);
                     } catch (e) {
                         showToast('❌ حدث خطأ: ' + e.message);
@@ -700,7 +713,7 @@
             if (url !== null && url.trim() !== '') {
                 user.avatar = url.trim();
                 try {
-                    const userRef = doc(db, "users", user.uid);
+                    const userRef = doc(db, "users", currentUser.uid);
                     await updateDoc(userRef, { img: user.avatar });
                     updateProfileUI();
                     showToast('✅ تم تحديث الصورة');
@@ -714,14 +727,12 @@
             if (confirm('⚠️ هل أنت متأكد من تسجيل الخروج؟')) {
                 signOut(auth);
                 showToast('👋 تم تسجيل الخروج');
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 1500);
+                setTimeout(() => window.location.href = '/', 1500);
             }
         };
 
         window.deleteAccount = function() {
-            if (confirm('⚠️ تحذير: هل أنت متأكد من حذف الحساب نهائياً؟ لا يمكن التراجع عن هذا الإجراء!')) {
+            if (confirm('⚠️ تحذير: هل أنت متأكد من حذف الحساب نهائياً؟')) {
                 if (confirm('تأكيد نهائي: هل تريد حذف حسابك وجميع بياناته؟')) {
                     showToast('🗑️ سيتم حذف الحساب قريباً');
                 }
@@ -737,51 +748,30 @@
         }
         window.showToast = showToast;
 
-        // ========== جلب بيانات المستخدم من Firebase ==========
-        onAuthStateChanged(auth, async (firebaseUser) => {
-            if (firebaseUser) {
-                try {
-                    user.uid = firebaseUser.uid;
-                    const userRef = doc(db, "users", firebaseUser.uid);
-                    const userSnap = await getDoc(userRef);
-                    if (userSnap.exists()) {
-                        const data = userSnap.data();
-                        user.name = data.name || firebaseUser.displayName || 'مستخدم';
-                        user.username = data.username || user.name.toLowerCase().replace(/\s/g, '_') || 'user';
-                        user.email = data.email || firebaseUser.email || 'user@example.com';
-                        user.wallet = '#' + (data.walletID || '123456789');
-                        user.balance = data.balance || 0;
-                        user.avatar = data.img || firebaseUser.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
-                        user.joined = data.createdAt?.toDate ? new Date(data.createdAt.toDate()).toLocaleDateString('ar-SD') : 'غير محدد';
-                        user.orders = data.orders || 0;
-                        user.completed = data.completed || 0;
-                        user.pending = data.pending || 0;
-                        updateProfileUI();
-                    }
-                } catch (e) {
-                    console.error("Error loading user data:", e);
-                    showToast('❌ حدث خطأ في تحميل البيانات');
-                }
+        // ===== تشغيل الصفحة =====
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                await loadUserData(user.uid);
+                loadOrders(user.uid);
+                loadTransactions(user.uid);
             } else {
                 showToast('❌ يرجى تسجيل الدخول أولاً');
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 1500);
+                setTimeout(() => window.location.href = '/', 1500);
             }
         });
 
-        // ========== إغلاق المودال عند الضغط خارجها ==========
+        // ===== الوضع الليلي =====
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+
+        // ===== إغلاق المودال =====
         document.getElementById('editModal').addEventListener('click', function(e) {
             if (e.target === this) closeEditModal();
         });
 
-        // تحديث الواجهة
-        updateProfileUI();
-
-        // ========== تفعيل الوضع الليلي ==========
-        if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.classList.add('dark');
-        }
+        console.log('👤 MORRE STORE - Account Page Loaded');
     </script>
 
 </body>
