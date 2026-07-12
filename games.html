@@ -14,6 +14,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         body {
             background: linear-gradient(135deg, #fef08a 0%, #fde047 30%, #fef9c3 60%, #fef08a 100%);
@@ -26,77 +27,148 @@
             margin: 0 auto;
             padding: 16px;
         }
-        .glass-card {
-            background: rgba(255,255,255,0.6);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 1.5rem;
-            transition: all 0.3s ease;
+
+        /* ===== شريط الأقسام الأفقي ===== */
+        .categories-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 4px 2px 12px 2px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .categories-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-card {
+            flex: 0 0 auto;
+            min-width: 85px;
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(4px);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
             cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            position: relative;
+            overflow: hidden;
         }
-        .glass-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        .category-card:active {
+            transform: scale(0.94);
         }
-        .back-btn {
-            background: rgba(255,255,255,0.6);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 12px;
-            padding: 8px 16px;
-            color: #1e293b;
+        .category-card .cat-icon {
+            font-size: 1.6rem;
+            display: block;
+            margin-bottom: 4px;
+            transition: transform 0.3s ease;
+        }
+        .category-card .cat-name {
+            font-size: 0.65rem;
             font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
+            color: #64748b;
+            transition: color 0.3s ease;
+            white-space: nowrap;
         }
-        .back-btn:hover {
-            background: rgba(255,255,255,0.8);
-        }
-        .search-input {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.3);
-            background: rgba(255,255,255,0.6);
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
-        .search-input:focus {
-            outline: none;
+        .category-card.active {
+            background: white;
             border-color: #f59e0b;
-            background: rgba(255,255,255,0.8);
+            box-shadow: 0 4px 20px rgba(217, 119, 6, 0.15);
+            transform: translateY(-2px);
+        }
+        .category-card.active .cat-name {
+            color: #d97706;
+        }
+        .category-card.active .cat-icon {
+            transform: scale(1.08);
+        }
+        .category-card:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.6);
+            border-color: rgba(217, 119, 6, 0.3);
+        }
+
+        /* ===== محتوى الأقسام ===== */
+        .section-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(12px) scale(0.97);
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: opacity, transform;
+        }
+        .section-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .section-content .section-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-content .section-title i {
+            color: #d97706;
+        }
+
+        /* ===== بطاقات الألعاب ===== */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
         }
         .game-card {
             background: white;
             border-radius: 16px;
             padding: 16px 12px;
             border: 1px solid #f1f5f9;
-            transition: all 0.3s ease;
-            cursor: pointer;
             text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .game-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .game-card:hover::after {
+            opacity: 1;
         }
         .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
             border-color: #f59e0b;
         }
-        .game-card .game-icon {
-            font-size: 2.8rem;
-            display: block;
-            margin-bottom: 6px;
+        .game-card:active {
+            transform: scale(0.96);
         }
         .game-card .game-img {
             width: 100%;
             height: 80px;
             object-fit: contain;
-            background: white;
+            background: #f8fafc;
             border-radius: 12px;
             padding: 6px;
-            margin-bottom: 6px;
-            border: 1px solid #f1f5f9;
+            margin-bottom: 8px;
+            transition: transform 0.3s ease;
+        }
+        .game-card:hover .game-img {
+            transform: scale(1.04);
         }
         .game-card .game-name {
             font-weight: 700;
@@ -111,21 +183,22 @@
             display: inline-block;
             background: #fef3c7;
             color: #d97706;
-            font-size: 0.5rem;
+            font-size: 0.45rem;
             font-weight: 700;
             padding: 1px 10px;
             border-radius: 10px;
             margin-top: 4px;
         }
 
+        /* ===== الشريط السفلي ===== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(0,0,0,0.05);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
             display: flex;
             justify-content: space-around;
             padding: 6px 0 10px;
@@ -158,17 +231,27 @@
             color: #d97706;
         }
 
+        /* ===== Dark Mode ===== */
         .dark body {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
         }
-        .dark .glass-card {
-            background: rgba(30,41,59,0.6);
+        .dark .category-card {
+            background: rgba(30, 41, 59, 0.6);
+            border-color: #334155;
         }
-        .dark .glass-card h3 {
-            color: #f1f5f9;
-        }
-        .dark .glass-card p {
+        .dark .category-card .cat-name {
             color: #94a3b8;
+        }
+        .dark .category-card.active {
+            background: #1e293b;
+            border-color: #f59e0b;
+            box-shadow: 0 4px 20px rgba(217, 119, 6, 0.1);
+        }
+        .dark .category-card.active .cat-name {
+            color: #fbbf24;
+        }
+        .dark .category-card:hover:not(.active) {
+            background: rgba(30, 41, 59, 0.8);
         }
         .dark .game-card {
             background: #1e293b;
@@ -182,34 +265,19 @@
         }
         .dark .game-card .game-img {
             background: #0f172a;
-            border-color: #334155;
         }
-        .dark .back-btn {
-            background: rgba(30,41,59,0.6);
+        .dark .section-content .section-title {
             color: #f1f5f9;
-            border-color: #334155;
-        }
-        .dark .back-btn:hover {
-            background: rgba(30,41,59,0.8);
         }
         .dark .bottom-nav {
-            background: rgba(30,41,59,0.95);
-            border-top-color: rgba(255,255,255,0.05);
+            background: rgba(30, 41, 59, 0.95);
+            border-top-color: rgba(255, 255, 255, 0.05);
         }
         .dark .bottom-nav .nav-item {
             color: #64748b;
         }
         .dark .bottom-nav .nav-item.active {
             color: #fbbf24;
-        }
-        .dark .search-input {
-            background: rgba(30,41,59,0.6);
-            color: #f1f5f9;
-            border-color: #334155;
-        }
-        .dark .search-input:focus {
-            background: rgba(30,41,59,0.8);
-            border-color: #f59e0b;
         }
         .dark .game-card .game-badge {
             background: #78350f;
@@ -246,71 +314,270 @@
 <body>
 
     <div class="container">
-        
-        <!-- ===== رأس الصفحة ===== -->
-        <div class="flex items-center gap-3 py-3 mb-4">
-            <a href="/" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</a>
-            <h1 class="text-2xl font-black text-dark">🎮 الألعاب</h1>
-            <span class="text-xs text-yellow-600 bg-yellow-100 px-3 py-1 rounded-full mr-auto">🌟 6 ألعاب</span>
+
+        <!-- ===== الهيدر ===== -->
+        <div class="flex items-center justify-between py-3 mb-2">
+            <div>
+                <span style="background:linear-gradient(135deg,#f59e0b,#d97706);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900;font-size:1.5rem;">MORRE</span>
+                <span style="color:#1e293b;font-weight:900;font-size:1.5rem;">STORE</span>
+            </div>
+            <button id="logout-btn" class="w-9 h-9 bg-red-500/20 text-red-600 rounded-full hover:bg-red-500/30 transition">
+                <i class="fas fa-power-off text-sm"></i>
+            </button>
         </div>
 
-        <!-- ===== بحث ===== -->
-        <div class="mb-4">
-            <input type="text" id="searchGames" class="search-input" placeholder="🔍 ابحث عن لعبة..." onkeyup="filterGames()">
+        <!-- ===== شريط الأقسام ===== -->
+        <div class="categories-scroll" id="categoriesScroll">
+            <div class="category-card active" data-section="games" onclick="switchSection('games', this)">
+                <span class="cat-icon">🎮</span>
+                <span class="cat-name">الألعاب</span>
+            </div>
+            <div class="category-card" data-section="subscriptions" onclick="switchSection('subscriptions', this)">
+                <span class="cat-icon">⭐</span>
+                <span class="cat-name">الاشتراكات</span>
+            </div>
+            <div class="category-card" data-section="stores" onclick="switchSection('stores', this)">
+                <span class="cat-icon">🛍️</span>
+                <span class="cat-name">المتاجر</span>
+            </div>
+            <div class="category-card" data-section="services" onclick="switchSection('services', this)">
+                <span class="cat-icon">⚡</span>
+                <span class="cat-name">خدمات مميزة</span>
+            </div>
+            <div class="category-card" data-section="cards" onclick="switchSection('cards', this)">
+                <span class="cat-icon">💳</span>
+                <span class="cat-name">البطاقات</span>
+            </div>
+            <div class="category-card" data-section="accounts" onclick="switchSection('accounts', this)">
+                <span class="cat-icon">👤</span>
+                <span class="cat-name">الحسابات</span>
+            </div>
+            <div class="category-card" data-section="offers" onclick="switchSection('offers', this)">
+                <span class="cat-icon">🎁</span>
+                <span class="cat-name">العروض</span>
+            </div>
         </div>
 
-        <!-- ===== قائمة الألعاب ===== -->
-        <div id="gamesGrid" class="grid grid-cols-2 gap-3">
-            
-            <!-- PUBG -->
-            <div class="game-card" onclick="window.location.href='product.html?id=pubg'">
-                <img src="https://i.ibb.co/20tqyP6s/4ff592f1-0de2-421f-bd99-514dd525d512.png" alt="PUBG" class="game-img">
-                <div class="game-name">🎮 PUBG Mobile</div>
-                <div class="game-desc">شحن UC - بطاقات</div>
-                <span class="game-badge">🔥 الأكثر طلباً</span>
-            </div>
+        <!-- ===== قسم الألعاب ===== -->
+        <div id="section-games" class="section-content active">
+            <div class="section-title"><i class="fas fa-gamepad"></i> أشهر الألعاب</div>
+            <div class="game-grid">
+                <!-- PUBG -->
+                <div class="game-card" onclick="window.location.href='product.html?id=pubg'">
+                    <img src="https://i.ibb.co/20tqyP6s/4ff592f1-0de2-421f-bd99-514dd525d512.png" alt="PUBG" class="game-img">
+                    <div class="game-name">🎮 PUBG Mobile</div>
+                    <div class="game-desc">شحن UC - بطاقات</div>
+                    <span class="game-badge">🔥 الأكثر طلباً</span>
+                </div>
 
-            <!-- FreeFire -->
-            <div class="game-card" onclick="window.location.href='product.html?id=freefire'">
-                <img src="https://i.ibb.co/LMh98T2/4bf2c240-db85-47c5-b211-3d0a5cf192df.png" alt="FreeFire" class="game-img">
-                <div class="game-name">🔥 FreeFire</div>
-                <div class="game-desc">شحن جواهر</div>
-                <span class="game-badge">⭐ ممتاز</span>
-            </div>
+                <!-- FreeFire -->
+                <div class="game-card" onclick="window.location.href='product.html?id=freefire'">
+                    <img src="https://i.ibb.co/LMh98T2/4bf2c240-db85-47c5-b211-3d0a5cf192df.png" alt="FreeFire" class="game-img">
+                    <div class="game-name">🔥 FreeFire</div>
+                    <div class="game-desc">شحن جواهر</div>
+                    <span class="game-badge">⭐ ممتاز</span>
+                </div>
 
-            <!-- Clash of Clans -->
-            <div class="game-card" onclick="window.location.href='product.html?id=clash'">
-                <img src="https://i.ibb.co/ZpS1L23Z/71ce3435-2342-43ff-aad3-0f65c7e6e837.png" alt="Clash" class="game-img">
-                <div class="game-name">👑 Clash of Clans</div>
-                <div class="game-desc">تذاكر وجواهر</div>
-            </div>
+                <!-- Clash of Clans -->
+                <div class="game-card" onclick="window.location.href='product.html?id=clash'">
+                    <img src="https://i.ibb.co/ZpS1L23Z/71ce3435-2342-43ff-aad3-0f65c7e6e837.png" alt="Clash" class="game-img">
+                    <div class="game-name">👑 Clash of Clans</div>
+                    <div class="game-desc">تذاكر وجواهر</div>
+                </div>
 
-            <!-- eFootball -->
-            <div class="game-card" onclick="window.location.href='product.html?id=efootball'">
-                <img src="https://i.ibb.co/RkCSn7yX/a7934c4c-ed36-4662-b9cc-7bc04c57abf3.png" alt="eFootball" class="game-img">
-                <div class="game-name">⚽ eFootball</div>
-                <div class="game-desc">كوينز وباقات</div>
-                <span class="game-badge">⭐ ممتاز</span>
-            </div>
+                <!-- eFootball -->
+                <div class="game-card" onclick="window.location.href='product.html?id=efootball'">
+                    <img src="https://i.ibb.co/RkCSn7yX/a7934c4c-ed36-4662-b9cc-7bc04c57abf3.png" alt="eFootball" class="game-img">
+                    <div class="game-name">⚽ eFootball</div>
+                    <div class="game-desc">كوينز وباقات</div>
+                    <span class="game-badge">⭐ ممتاز</span>
+                </div>
 
-            <!-- Roblox -->
-            <div class="game-card" onclick="window.location.href='product.html?id=roblox'">
-                <img src="https://i.ibb.co/HTqk43z8/4054fb24-7c84-445b-b62e-c15d5ed4fe8b.png" alt="Roblox" class="game-img">
-                <div class="game-name">🎲 Roblox</div>
-                <div class="game-desc">عملات روبلوكس</div>
-            </div>
+                <!-- Roblox -->
+                <div class="game-card" onclick="window.location.href='product.html?id=roblox'">
+                    <img src="https://i.ibb.co/HTqk43z8/4054fb24-7c84-445b-b62e-c15d5ed4fe8b.png" alt="Roblox" class="game-img">
+                    <div class="game-name">🎲 Roblox</div>
+                    <div class="game-desc">عملات روبلوكس</div>
+                </div>
 
-            <!-- المزيد -->
-            <div class="game-card" onclick="showToast('🎮 المزيد من الألعاب قريباً')">
-                <div class="game-icon" style="font-size:3rem;">➕</div>
-                <div class="game-name">المزيد</div>
-                <div class="game-desc">ألعاب أخرى قريباً</div>
+                <!-- المزيد -->
+                <div class="game-card" onclick="showToast('🎮 المزيد من الألعاب قريباً')">
+                    <div style="font-size:2.5rem;padding:10px 0;">➕</div>
+                    <div class="game-name">المزيد</div>
+                    <div class="game-desc">ألعاب أخرى قريباً</div>
+                </div>
             </div>
+        </div>
 
+        <!-- ===== قسم الاشتراكات ===== -->
+        <div id="section-subscriptions" class="section-content">
+            <div class="section-title"><i class="fas fa-star"></i> اشتراكات رقمية</div>
+            <div class="game-grid">
+                <div class="game-card" onclick="window.location.href='product.html?id=netflix'">
+                    <img src="https://i.ibb.co/HTqk43z8/4054fb24-7c84-445b-b62e-c15d5ed4fe8b.png" alt="Netflix" class="game-img">
+                    <div class="game-name">🎬 Netflix</div>
+                    <div class="game-desc">اشتراكات شهرية</div>
+                    <span class="game-badge">⭐ ممتاز</span>
+                </div>
+                <div class="game-card" onclick="window.location.href='product.html?id=spotify'">
+                    <img src="https://i.ibb.co/HTqk43z8/4054fb24-7c84-445b-b62e-c15d5ed4fe8b.png" alt="Spotify" class="game-img">
+                    <div class="game-name">🎵 Spotify</div>
+                    <div class="game-desc">بريميوم</div>
+                </div>
+                <div class="game-card" onclick="window.location.href='product.html?id=chatgpt'">
+                    <img src="https://i.ibb.co/zVDbcgnW/c8f040a9-48ad-4e5e-8203-f941fbf94ad6.png" alt="ChatGPT" class="game-img">
+                    <div class="game-name">🤖 ChatGPT</div>
+                    <div class="game-desc">اشتراك شهري</div>
+                    <span class="game-badge">🔥 الأفضل</span>
+                </div>
+                <div class="game-card" onclick="showToast('⭐ المزيد قريباً')">
+                    <div style="font-size:2.5rem;padding:10px 0;">➕</div>
+                    <div class="game-name">المزيد</div>
+                    <div class="game-desc">قريباً</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== قسم المتاجر ===== -->
+        <div id="section-stores" class="section-content">
+            <div class="section-title"><i class="fas fa-store"></i> متاجر رقمية</div>
+            <div class="game-grid">
+                <div class="game-card" onclick="window.location.href='product.html?id=googleplay'">
+                    <img src="https://i.ibb.co/LhNr3W7Y/f0bf22d7-2b70-419a-8c74-898d8a251e56.png" alt="Google Play" class="game-img">
+                    <div class="game-name">🛍️ Google Play</div>
+                    <div class="game-desc">بطاقات شحن</div>
+                </div>
+                <div class="game-card" onclick="window.location.href='product.html?id=apple'">
+                    <img src="https://i.ibb.co/LhNr3W7Y/f0bf22d7-2b70-419a-8c74-898d8a251e56.png" alt="Apple" class="game-img">
+                    <div class="game-name">🍎 Apple</div>
+                    <div class="game-desc">بطاقات App Store</div>
+                </div>
+                <div class="game-card" onclick="window.location.href='product.html?id=steam'">
+                    <img src="https://i.ibb.co/LhNr3W7Y/f0bf22d7-2b70-419a-8c74-898d8a251e56.png" alt="Steam" class="game-img">
+                    <div class="game-name">🎮 Steam</div>
+                    <div class="game-desc">بطاقات ألعاب</div>
+                    <span class="game-badge">⭐ ممتاز</span>
+                </div>
+                <div class="game-card" onclick="showToast('🛍️ المزيد قريباً')">
+                    <div style="font-size:2.5rem;padding:10px 0;">➕</div>
+                    <div class="game-name">المزيد</div>
+                    <div class="game-desc">قريباً</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== قسم خدمات مميزة ===== -->
+        <div id="section-services" class="section-content">
+            <div class="section-title"><i class="fas fa-bolt"></i> خدمات مميزة</div>
+            <div class="game-grid">
+                <div class="game-card" onclick="showToast('⚡ خدمات الحماية')">
+                    <div style="font-size:2.5rem;padding:6px 0;">🛡️</div>
+                    <div class="game-name">خدمات حماية</div>
+                    <div class="game-desc">VPN - أمان</div>
+                </div>
+                <div class="game-card" onclick="showToast('⚡ أكواد رقمية')">
+                    <div style="font-size:2.5rem;padding:6px 0;">🔑</div>
+                    <div class="game-name">أكواد رقمية</div>
+                    <div class="game-desc">خصومات - هدايا</div>
+                </div>
+                <div class="game-card" onclick="showToast('⚡ حسابات جاهزة')">
+                    <div style="font-size:2.5rem;padding:6px 0;">👤</div>
+                    <div class="game-name">حسابات جاهزة</div>
+                    <div class="game-desc">ألعاب - برامج</div>
+                </div>
+                <div class="game-card" onclick="showToast('⚡ المزيد قريباً')">
+                    <div style="font-size:2.5rem;padding:10px 0;">➕</div>
+                    <div class="game-name">المزيد</div>
+                    <div class="game-desc">قريباً</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== قسم البطاقات ===== -->
+        <div id="section-cards" class="section-content">
+            <div class="section-title"><i class="fas fa-credit-card"></i> بطاقات رقمية</div>
+            <div class="game-grid">
+                <div class="game-card" onclick="window.location.href='product.html?id=googleplay'">
+                    <img src="https://i.ibb.co/LhNr3W7Y/f0bf22d7-2b70-419a-8c74-898d8a251e56.png" alt="Google Play" class="game-img">
+                    <div class="game-name">🛍️ Google Play</div>
+                    <div class="game-desc">بطاقات شحن</div>
+                </div>
+                <div class="game-card" onclick="window.location.href='product.html?id=apple'">
+                    <img src="https://i.ibb.co/LhNr3W7Y/f0bf22d7-2b70-419a-8c74-898d8a251e56.png" alt="Apple" class="game-img">
+                    <div class="game-name">🍎 Apple</div>
+                    <div class="game-desc">بطاقات App Store</div>
+                </div>
+                <div class="game-card" onclick="window.location.href='product.html?id=steam'">
+                    <img src="https://i.ibb.co/LhNr3W7Y/f0bf22d7-2b70-419a-8c74-898d8a251e56.png" alt="Steam" class="game-img">
+                    <div class="game-name">🎮 Steam</div>
+                    <div class="game-desc">بطاقات ألعاب</div>
+                </div>
+                <div class="game-card" onclick="showToast('💳 المزيد قريباً')">
+                    <div style="font-size:2.5rem;padding:10px 0;">➕</div>
+                    <div class="game-name">المزيد</div>
+                    <div class="game-desc">قريباً</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== قسم الحسابات ===== -->
+        <div id="section-accounts" class="section-content">
+            <div class="section-title"><i class="fas fa-users"></i> حسابات جاهزة</div>
+            <div class="game-grid">
+                <div class="game-card" onclick="showToast('👤 حسابات ألعاب')">
+                    <div style="font-size:2.5rem;padding:6px 0;">🎮</div>
+                    <div class="game-name">حسابات ألعاب</div>
+                    <div class="game-desc">PUBG - FreeFire</div>
+                </div>
+                <div class="game-card" onclick="showToast('👤 حسابات برامج')">
+                    <div style="font-size:2.5rem;padding:6px 0;">💻</div>
+                    <div class="game-name">حسابات برامج</div>
+                    <div class="game-desc">Adobe - Office</div>
+                </div>
+                <div class="game-card" onclick="showToast('👤 حسابات سوشيال')">
+                    <div style="font-size:2.5rem;padding:6px 0;">📱</div>
+                    <div class="game-name">حسابات سوشيال</div>
+                    <div class="game-desc">Instagram - TikTok</div>
+                </div>
+                <div class="game-card" onclick="showToast('👤 المزيد قريباً')">
+                    <div style="font-size:2.5rem;padding:10px 0;">➕</div>
+                    <div class="game-name">المزيد</div>
+                    <div class="game-desc">قريباً</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== قسم العروض ===== -->
+        <div id="section-offers" class="section-content">
+            <div class="section-title"><i class="fas fa-gift"></i> عروض وخصومات</div>
+            <div class="game-grid">
+                <div class="game-card" onclick="showToast('🎁 خصم 20% على PUBG')">
+                    <div style="font-size:2.5rem;padding:6px 0;">🎁</div>
+                    <div class="game-name">خصم 20% PUBG</div>
+                    <div class="game-desc">عرض محدود</div>
+                    <span class="game-badge">🔥 عرض</span>
+                </div>
+                <div class="game-card" onclick="showToast('🎁 خصم 15% على Netflix')">
+                    <div style="font-size:2.5rem;padding:6px 0;">🎬</div>
+                    <div class="game-name">خصم 15% Netflix</div>
+                    <div class="game-desc">عرض محدود</div>
+                    <span class="game-badge">⭐ ممتاز</span>
+                </div>
+                <div class="game-card" onclick="showToast('🎁 كوبون خصم 10%')">
+                    <div style="font-size:2.5rem;padding:6px 0;">🎫</div>
+                    <div class="game-name">كوبون خصم 10%</div>
+                    <div class="game-desc">لجميع المنتجات</div>
+                </div>
+                <div class="game-card" onclick="showToast('🎁 المزيد قريباً')">
+                    <div style="font-size:2.5rem;padding:10px 0;">➕</div>
+                    <div class="game-name">المزيد</div>
+                    <div class="game-desc">قريباً</div>
+                </div>
+            </div>
         </div>
 
         <!-- ===== إعلان سفلي ===== -->
-        <div class="glass-card p-4 text-center mt-4">
+        <div class="glass-card p-4 text-center mt-4" style="background:rgba(255,255,255,0.6);border-radius:16px;border:1px solid rgba(255,255,255,0.3);">
             <p class="text-dark text-sm font-bold">🎯 شحن فوري بأفضل الأسعار</p>
             <p class="text-dark-light text-xs">جميع عمليات الشحن خلال 5-30 دقيقة</p>
         </div>
@@ -331,19 +598,69 @@
 
     <script>
         // ============================================================
-        //  MORRE STORE - صفحة الألعاب
+        //  MORRE STORE - الصفحة الرئيسية (محدثة)
         // ============================================================
 
-        // ===== البحث =====
-        function filterGames() {
-            const input = document.getElementById('searchGames').value.toLowerCase();
-            const cards = document.querySelectorAll('.game-card');
-            cards.forEach(card => {
-                const text = card.textContent.toLowerCase();
-                card.style.display = text.includes(input) ? 'block' : 'none';
-            });
+        let currentSection = 'games';
+        let isTransitioning = false;
+
+        // ===== التبديل بين الأقسام =====
+        function switchSection(section, element) {
+            if (isTransitioning || section === currentSection) return;
+            isTransitioning = true;
+
+            // Ripple Effect
+            if (element) {
+                const rect = element.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = '50%';
+                ripple.style.top = '50%';
+                ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(217, 119, 6, 0.2)';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.animation = 'rippleAnim 500ms ease-out forwards';
+                element.style.position = 'relative';
+                element.style.overflow = 'hidden';
+                element.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 500);
+            }
+
+            // تحديث الأزرار
+            document.querySelectorAll('.category-card').forEach(el => el.classList.remove('active'));
+            if (element) element.classList.add('active');
+
+            // تحديث المحتوى
+            const oldContent = document.getElementById('section-' + currentSection);
+            const newContent = document.getElementById('section-' + section);
+
+            if (oldContent) {
+                oldContent.classList.remove('active');
+                setTimeout(() => {
+                    oldContent.style.display = 'none';
+                }, 300);
+            }
+
+            if (newContent) {
+                newContent.style.display = 'block';
+                void newContent.offsetHeight;
+                newContent.classList.add('active');
+            }
+
+            currentSection = section;
+            isTransitioning = false;
+
+            // تمرير إلى المحتوى
+            setTimeout(() => {
+                if (newContent) {
+                    newContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
         }
-        window.filterGames = filterGames;
 
         // ===== Toast =====
         function showToast(msg) {
@@ -355,13 +672,35 @@
         }
         window.showToast = showToast;
 
+        // ===== تسجيل الخروج =====
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            if (confirm('⚠️ هل أنت متأكد من تسجيل الخروج؟')) {
+                showToast('👋 تم تسجيل الخروج');
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1500);
+            }
+        });
+
         // ===== الوضع الليلي =====
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         }
 
-        console.log('🎮 MORRE STORE - Games Page Loaded');
+        // ===== التمرير إلى القسم النشط =====
+        setTimeout(() => {
+            const activeCard = document.querySelector('.category-card.active');
+            if (activeCard) {
+                activeCard.scrollIntoView({
+                    behavior: 'smooth',
+                    inline: 'center',
+                    block: 'nearest'
+                });
+            }
+        }, 300);
+
+        console.log('🚀 MORRE STORE - Home Page Loaded');
     </script>
 
 </body>
-</html>
+    </html>
