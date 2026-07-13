@@ -1627,6 +1627,19 @@
         let editingProductId = null;
         let currentProductId = null;
 
+// ========== إظهار زر لوحة التحكم للأدمن فقط ==========
+onAuthStateChanged(auth, (user) => {
+    if (user && ADMINS.includes(user.email)) {
+        // إظهار في الشريط السفلي
+        const navAdmin = document.getElementById('nav-admin');
+        if (navAdmin) navAdmin.style.display = 'flex';
+        
+        // إظهار في الشريط الجانبي
+        const sidebarAdmin = document.getElementById('sidebar-admin');
+        if (sidebarAdmin) sidebarAdmin.style.display = 'flex';
+    }
+});
+        
         // ========== بيانات المستخدم (وهمية - سيتم جلبها من Firebase لاحقاً) ==========
         let user = {
             name: 'مستخدم',
