@@ -2410,27 +2410,44 @@
             }
         };
 
+        
         // ============================================================
-        // ===== 15. تشغيل لوحة التحكم =====
-        // ============================================================
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                currentUser = user;
-                if (checkAdmin(user)) {
-                    // تحميل جميع البيانات
-                    await loadStats();
-                    await loadCustomers();
-                    await loadOrders();
-                    await loadProducts();
-                    await loadTransactions();
-                    await loadCodes();
-                    showToast('✅ مرحباً بك في لوحة التحكم');
-                }
-            } else {
-                showToast('❌ يرجى تسجيل الدخول', true);
-                setTimeout(() => window.location.href = 'index.html', 1500);
-            }
-        });
+// ===== 15. تشغيل لوحة التحكم (معدل للأداء) =====
+// ============================================================
+
+// ===== تحسين الأداء: تحميل البيانات بالتوازي =====
+async function loadAllData() {
+    showToast('⏳ جاري تحميل البيانات...');
+    
+    try {
+        // تحميل جميع البيانات بالتوازي (أسرع)
+        await Promise.all([
+            loadStats(),
+            loadCustomers(),
+            loadOrders(),
+            loadProducts(),
+            loadTransactions(),
+            loadCodes()
+        ]);
+        
+        showToast('✅ تم تحميل جميع البيانات بنجاح');
+    } catch (e) {
+        console.error('Error loading data:', e);
+        showToast('⚠️ حدث خطأ في تحميل بعض البيانات', true);
+    }
+}
+
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        currentUser = user;
+        if (checkAdmin(user)) {
+            await loadAllData(); // تحميل كل شيء مرة واحدة بدلاً من كل على حدة
+        }
+    } else {
+        showToast('❌ يرجى تسجيل الدخول', true);
+        setTimeout(() => window.location.href = 'index.html', 1500);
+    }
+});
 
         // ============================================================
         // ===== 16. الوضع الليلي =====
