@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewfit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>MORRE STORE | لوحة التحكم</title>
     <script src="https://cdn.tailwindcss.com">
     </script>
@@ -154,7 +154,6 @@
         .product-card .product-actions .btn-sm { flex: 1; text-align: center; min-width: 32px; }
         .product-card .product-badge { position: absolute; top: 8px; right: 8px; background: #d97706; color: white; font-size: 0.55rem; font-weight: 700; padding: 2px 10px; border-radius: 12px; }
         .product-card .product-badge.popular { background: #dc2626; right: auto; left: 8px; }
-        .product-card .product-badge.inactive { background: #64748b; }
         .product-card .image-wrap { position: relative; }
         .product-card .image-wrap .overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.8rem; }
 
@@ -245,7 +244,7 @@
         <div class="logo"><span>MORRE</span><small>لوحة التحكم</small></div>
         <div class="menu-item" data-tab="dashboard" onclick="switchTab('dashboard')"><i class="fas fa-chart-pie"></i> الرئيسية</div>
         <div class="menu-item" data-tab="customers" onclick="switchTab('customers')"><i class="fas fa-users"></i> العملاء <span class="badge" id="customerBadge">0</span></div>
-        <div class="menu-item active" data-tab="orders" onclick="switchTab('orders')"><i class="fas fa-clipboard-list"></i> الطلبات <span class="badge" id="orderBadge">0</span></div>
+        <div class="menu-item" data-tab="orders" onclick="switchTab('orders')"><i class="fas fa-clipboard-list"></i> الطلبات <span class="badge" id="orderBadge">0</span></div>
         <div class="menu-item" data-tab="wallet" onclick="switchTab('wallet')"><i class="fas fa-wallet"></i> المحفظة</div>
         <div class="menu-item" data-tab="transactions" onclick="switchTab('transactions')"><i class="fas fa-history"></i> سجل المعاملات</div>
         <div class="menu-item" data-tab="products" onclick="switchTab('products')"><i class="fas fa-box"></i> المنتجات</div>
@@ -267,14 +266,14 @@
         <!-- ===== رأس الصفحة ===== -->
         <div class="back-header">
             <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-            <div class="page-title" id="pageTitle">📋 إدارة الطلبات</div>
+            <div class="page-title" id="pageTitle">📊 الرئيسية</div>
             <button onclick="window.location.href='index.html'" class="back-btn" style="margin-right:auto;"><i class="fas fa-store"></i> المتجر</button>
         </div>
 
         <!-- ========================================================== -->
         <!-- ===== 1. Dashboard ===== -->
         <!-- ========================================================== -->
-        <div id="tab-dashboard" class="tab-content">
+        <div id="tab-dashboard" class="tab-content active">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                 <div class="stat-card gold text-center"><div class="number" id="totalCustomers">0</div><div class="label">👥 إجمالي العملاء</div></div>
                 <div class="stat-card green text-center"><div class="number" id="totalOrders">0</div><div class="label">📋 إجمالي الطلبات</div></div>
@@ -319,160 +318,63 @@
         </div>
 
         <!-- ========================================================== -->
-        <!-- ===== 2. العملاء (كامل) ===== -->
+        <!-- ===== 2. العملاء ===== -->
         <!-- ========================================================== -->
         <div id="tab-customers" class="tab-content">
             <div class="glass-card">
                 <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
-                    <div>
-                        <h3 class="text-xl font-bold text-dark">👥 إدارة العملاء</h3>
-                        <p class="text-sm text-dark-light">إدارة جميع حسابات العملاء بسهولة</p>
-                    </div>
+                    <div><h3 class="text-xl font-bold text-dark">👥 إدارة العملاء</h3><p class="text-sm text-dark-light">إدارة جميع حسابات العملاء بسهولة</p></div>
                     <button onclick="refreshCustomers()" class="btn-sm outline">🔄 تحديث</button>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-blue-600" id="totalCustomersCount">0</div>
-                        <div class="text-xs text-dark-light">👥 إجمالي العملاء</div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-green-600" id="activeCustomersCount">0</div>
-                        <div class="text-xs text-dark-light">✅ نشطون</div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-red-600" id="bannedCustomersCount">0</div>
-                        <div class="text-xs text-dark-light">⛔ محظورون</div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-yellow-600" id="totalBalanceCount">0</div>
-                        <div class="text-xs text-dark-light">💰 إجمالي الرصيد</div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-purple-600" id="totalOrdersCount">0</div>
-                        <div class="text-xs text-dark-light">📦 إجمالي الطلبات</div>
-                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-blue-600" id="totalCustomersCount">0</div><div class="text-xs text-dark-light">👥 إجمالي العملاء</div></div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-green-600" id="activeCustomersCount">0</div><div class="text-xs text-dark-light">✅ نشطون</div></div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-red-600" id="bannedCustomersCount">0</div><div class="text-xs text-dark-light">⛔ محظورون</div></div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-yellow-600" id="totalBalanceCount">0</div><div class="text-xs text-dark-light">💰 إجمالي الرصيد</div></div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-purple-600" id="totalOrdersCount">0</div><div class="text-xs text-dark-light">📦 إجمالي الطلبات</div></div>
                 </div>
                 <div class="flex flex-wrap gap-2 mb-4">
-                    <div class="flex-1 min-w-[150px]">
-                        <input type="text" id="searchCustomer" class="input-field" placeholder="🔍 بحث بالاسم أو البريد أو الهاتف..." oninput="filterCustomers()">
-                    </div>
-                    <select id="filterStatus" class="input-field" style="max-width:140px;" onchange="filterCustomers()">
-                        <option value="all">📌 الكل</option>
-                        <option value="active">✅ نشط</option>
-                        <option value="banned">⛔ محظور</option>
-                    </select>
+                    <div class="flex-1 min-w-[150px]"><input type="text" id="searchCustomer" class="input-field" placeholder="🔍 بحث بالاسم أو البريد أو الهاتف..." oninput="filterCustomers()"></div>
+                    <select id="filterStatus" class="input-field" style="max-width:140px;" onchange="filterCustomers()"><option value="all">📌 الكل</option><option value="active">✅ نشط</option><option value="banned">⛔ محظور</option></select>
                     <input type="date" id="filterDate" class="input-field" style="max-width:160px;" onchange="filterCustomers()">
                     <button onclick="resetCustomerFilters()" class="btn-sm outline">🔄 إعادة تعيين</button>
                 </div>
                 <div class="table-wrap">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>الصورة</th>
-                                <th>الاسم</th>
-                                <th>البريد</th>
-                                <th>الهاتف</th>
-                                <th>المحفظة</th>
-                                <th>الرصيد</th>
-                                <th>الطلبات</th>
-                                <th>المشتريات</th>
-                                <th>التسجيل</th>
-                                <th>آخر دخول</th>
-                                <th>الحالة</th>
-                                <th>إجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody id="customersTable">
-                            <tr><td colspan="13" class="text-center text-dark-light py-8">جاري تحميل العملاء...</td></tr>
-                        </tbody>
+                        <thead><tr><th>#</th><th>الصورة</th><th>الاسم</th><th>البريد</th><th>الهاتف</th><th>المحفظة</th><th>الرصيد</th><th>الطلبات</th><th>المشتريات</th><th>التسجيل</th><th>آخر دخول</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+                        <tbody id="customersTable"><tr><td colspan="13" class="text-center text-dark-light py-8">جاري تحميل العملاء...</td></tr></tbody>
                     </table>
                 </div>
             </div>
         </div>
 
         <!-- ========================================================== -->
-        <!-- ===== 3. الطلبات (كامل) ===== -->
+        <!-- ===== 3. الطلبات ===== -->
         <!-- ========================================================== -->
-        <div id="tab-orders" class="tab-content active">
+        <div id="tab-orders" class="tab-content">
             <div class="glass-card">
                 <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
-                    <div>
-                        <h3 class="text-xl font-bold text-dark">📋 إدارة الطلبات</h3>
-                        <p class="text-sm text-dark-light">إدارة جميع طلبات العملاء بسهولة</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="refreshOrders()" class="btn-sm outline">🔄 تحديث</button>
-                    </div>
+                    <div><h3 class="text-xl font-bold text-dark">📋 إدارة الطلبات</h3><p class="text-sm text-dark-light">إدارة جميع طلبات العملاء بسهولة</p></div>
+                    <button onclick="refreshOrders()" class="btn-sm outline">🔄 تحديث</button>
                 </div>
-
-                <!-- إحصائيات سريعة -->
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-blue-600" id="totalOrdersCountOrders">0</div>
-                        <div class="text-xs text-dark-light">📋 إجمالي الطلبات</div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-yellow-600" id="pendingOrdersCount">0</div>
-                        <div class="text-xs text-dark-light">⏳ قيد الانتظار</div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-blue-600" id="reviewOrdersCount">0</div>
-                        <div class="text-xs text-dark-light">📌 قيد المراجعة</div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-green-600" id="completedOrdersCount">0</div>
-                        <div class="text-xs text-dark-light">✅ مكتمل</div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-purple-600" id="totalRevenueCount">0</div>
-                        <div class="text-xs text-dark-light">💰 إجمالي الإيرادات</div>
-                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-blue-600" id="totalOrdersCountOrders">0</div><div class="text-xs text-dark-light">📋 إجمالي الطلبات</div></div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-yellow-600" id="pendingOrdersCount">0</div><div class="text-xs text-dark-light">⏳ قيد الانتظار</div></div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-blue-600" id="reviewOrdersCount">0</div><div class="text-xs text-dark-light">📌 قيد المراجعة</div></div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-green-600" id="completedOrdersCount">0</div><div class="text-xs text-dark-light">✅ مكتمل</div></div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-purple-600" id="totalRevenueCount">0</div><div class="text-xs text-dark-light">💰 إجمالي الإيرادات</div></div>
                 </div>
-
-                <!-- البحث والفلترة -->
                 <div class="flex flex-wrap gap-2 mb-4">
-                    <div class="flex-1 min-w-[150px]">
-                        <input type="text" id="searchOrder" class="input-field" placeholder="🔍 بحث برقم الطلب أو اسم العميل..." oninput="filterOrders()">
-                    </div>
-                    <select id="filterOrderStatus" class="input-field" style="max-width:140px;" onchange="filterOrders()">
-                        <option value="all">📌 الكل</option>
-                        <option value="قيد الانتظار">⏳ قيد الانتظار</option>
-                        <option value="قيد المراجعة">📌 قيد المراجعة</option>
-                        <option value="جاري التنفيذ">⚡ جاري التنفيذ</option>
-                        <option value="مكتمل">✅ مكتمل</option>
-                        <option value="ملغي">❌ ملغي</option>
-                    </select>
-                    <select id="filterPayment" class="input-field" style="max-width:140px;" onchange="filterOrders()">
-                        <option value="all">💳 جميع طرق الدفع</option>
-                        <option value="محفظة">💰 محفظة</option>
-                        <option value="بطاقة">💳 بطاقة</option>
-                        <option value="تحويل">🏦 تحويل</option>
-                    </select>
+                    <div class="flex-1 min-w-[150px]"><input type="text" id="searchOrder" class="input-field" placeholder="🔍 بحث برقم الطلب أو اسم العميل..." oninput="filterOrders()"></div>
+                    <select id="filterOrderStatus" class="input-field" style="max-width:140px;" onchange="filterOrders()"><option value="all">📌 الكل</option><option value="قيد الانتظار">⏳ قيد الانتظار</option><option value="قيد المراجعة">📌 قيد المراجعة</option><option value="جاري التنفيذ">⚡ جاري التنفيذ</option><option value="مكتمل">✅ مكتمل</option><option value="ملغي">❌ ملغي</option></select>
+                    <select id="filterPayment" class="input-field" style="max-width:140px;" onchange="filterOrders()"><option value="all">💳 جميع طرق الدفع</option><option value="محفظة">💰 محفظة</option><option value="بطاقة">💳 بطاقة</option><option value="تحويل">🏦 تحويل</option></select>
                     <input type="date" id="filterOrderDate" class="input-field" style="max-width:160px;" onchange="filterOrders()">
                     <button onclick="resetOrderFilters()" class="btn-sm outline">🔄 إعادة تعيين</button>
                 </div>
-
-                <!-- جدول الطلبات -->
                 <div class="table-wrap">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>رقم الطلب</th>
-                                <th>العميل</th>
-                                <th>المنتج</th>
-                                <th>الكمية</th>
-                                <th>المبلغ</th>
-                                <th>طريقة الدفع</th>
-                                <th>التاريخ</th>
-                                <th>الحالة</th>
-                                <th>إجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ordersTable">
-                            <tr><td colspan="10" class="text-center text-dark-light py-8">جاري تحميل الطلبات...</td></tr>
-                        </tbody>
+                        <thead><tr><th>#</th><th>رقم الطلب</th><th>العميل</th><th>المنتج</th><th>الكمية</th><th>المبلغ</th><th>طريقة الدفع</th><th>التاريخ</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+                        <tbody id="ordersTable"><tr><td colspan="10" class="text-center text-dark-light py-8">جاري تحميل الطلبات...</td></tr></tbody>
                     </table>
                 </div>
             </div>
@@ -485,33 +387,13 @@
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">💰 إدارة المحافظ</h3>
                 <div class="space-y-3">
-                    <div><label class="text-xs font-bold text-dark-light">👤 اختيار العميل</label>
-                        <select id="walletCustomer" class="input-field"><option value="">-- اختر عميلاً --</option></select>
-                    </div>
-                    <div><label class="text-xs font-bold text-dark-light">💳 رصيد العميل الحالي</label>
-                        <div class="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-xl text-center">
-                            <span class="text-2xl font-black text-yellow-600" id="customerCurrentBalance">0</span>
-                            <span class="text-dark-light"> ج.س</span>
-                        </div>
-                    </div>
-                    <div><label class="text-xs font-bold text-dark-light">💰 المبلغ</label>
-                        <input type="number" id="walletAmount" class="input-field" placeholder="أدخل المبلغ">
-                    </div>
-                    <div><label class="text-xs font-bold text-dark-light">📝 سبب العملية</label>
-                        <input type="text" id="walletReason" class="input-field" placeholder="سبب العملية (اختياري)">
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="rechargeWallet()" class="btn-sm gold flex-1">➕ شحن الرصيد</button>
-                        <button onclick="deductWallet()" class="btn-sm red flex-1">➖ خصم الرصيد</button>
-                    </div>
+                    <div><label class="text-xs font-bold text-dark-light">👤 اختيار العميل</label><select id="walletCustomer" class="input-field"><option value="">-- اختر عميلاً --</option></select></div>
+                    <div><label class="text-xs font-bold text-dark-light">💳 رصيد العميل الحالي</label><div class="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-xl text-center"><span class="text-2xl font-black text-yellow-600" id="customerCurrentBalance">0</span><span class="text-dark-light"> ج.س</span></div></div>
+                    <div><label class="text-xs font-bold text-dark-light">💰 المبلغ</label><input type="number" id="walletAmount" class="input-field" placeholder="أدخل المبلغ"></div>
+                    <div><label class="text-xs font-bold text-dark-light">📝 سبب العملية</label><input type="text" id="walletReason" class="input-field" placeholder="سبب العملية (اختياري)"></div>
+                    <div class="flex gap-2"><button onclick="rechargeWallet()" class="btn-sm gold flex-1">➕ شحن الرصيد</button><button onclick="deductWallet()" class="btn-sm red flex-1">➖ خصم الرصيد</button></div>
                 </div>
-                <div class="mt-4">
-                    <h4 class="font-bold text-dark text-sm mb-2">📊 إجمالي رصيد المحافظ</h4>
-                    <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-xl text-center">
-                        <span class="text-2xl font-black text-yellow-600" id="totalWalletBalance">0</span>
-                        <span class="text-dark-light"> ج.س</span>
-                    </div>
-                </div>
+                <div class="mt-4"><h4 class="font-bold text-dark text-sm mb-2">📊 إجمالي رصيد المحافظ</h4><div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-xl text-center"><span class="text-2xl font-black text-yellow-600" id="totalWalletBalance">0</span><span class="text-dark-light"> ج.س</span></div></div>
             </div>
         </div>
 
@@ -521,84 +403,38 @@
         <div id="tab-transactions" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">📊 سجل المعاملات</h3>
-                <div class="flex gap-2 mb-3">
-                    <input type="date" id="filterDate" class="input-field" style="max-width: 180px;">
-                    <button onclick="filterTransactions()" class="btn-sm gold">تصفية</button>
-                    <button onclick="resetTransactionFilter()" class="btn-sm outline">إعادة تعيين</button>
-                </div>
+                <div class="flex gap-2 mb-3"><input type="date" id="filterDate" class="input-field" style="max-width:180px;"><button onclick="filterTransactions()" class="btn-sm gold">تصفية</button><button onclick="resetTransactionFilter()" class="btn-sm outline">إعادة تعيين</button></div>
                 <div id="transactionsList"><div class="text-center text-dark-light py-4">جاري التحميل...</div></div>
             </div>
         </div>
 
         <!-- ========================================================== -->
-        <!-- ===== 6. المنتجات (كامل) ===== -->
+        <!-- ===== 6. المنتجات ===== -->
         <!-- ========================================================== -->
         <div id="tab-products" class="tab-content">
             <div class="glass-card">
                 <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
-                    <div>
-                        <h3 class="text-xl font-bold text-dark">📦 إدارة المنتجات</h3>
-                        <p class="text-sm text-dark-light">إدارة جميع منتجات المتجر بسهولة</p>
-                    </div>
+                    <div><h3 class="text-xl font-bold text-dark">📦 إدارة المنتجات</h3><p class="text-sm text-dark-light">إدارة جميع منتجات المتجر بسهولة</p></div>
                     <button onclick="openAddProductModal()" class="btn-sm gold">➕ إضافة منتج</button>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-blue-600" id="totalProductsCount">0</div>
-                        <div class="text-xs text-dark-light">📦 إجمالي المنتجات</div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-green-600" id="activeProductsCount">0</div>
-                        <div class="text-xs text-dark-light">✅ متوفر</div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-red-600" id="inactiveProductsCount">0</div>
-                        <div class="text-xs text-dark-light">⛔ غير متوفر</div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-yellow-600" id="featuredProductsCount">0</div>
-                        <div class="text-xs text-dark-light">⭐ مميز</div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center">
-                        <div class="text-2xl font-black text-purple-600" id="totalProductsValue">0</div>
-                        <div class="text-xs text-dark-light">💰 إجمالي القيمة</div>
-                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-blue-600" id="totalProductsCount">0</div><div class="text-xs text-dark-light">📦 إجمالي المنتجات</div></div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-green-600" id="activeProductsCount">0</div><div class="text-xs text-dark-light">✅ متوفر</div></div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-red-600" id="inactiveProductsCount">0</div><div class="text-xs text-dark-light">⛔ غير متوفر</div></div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-yellow-600" id="featuredProductsCount">0</div><div class="text-xs text-dark-light">⭐ مميز</div></div>
+                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-purple-600" id="totalProductsValue">0</div><div class="text-xs text-dark-light">💰 إجمالي القيمة</div></div>
                 </div>
                 <div class="flex flex-wrap gap-2 mb-4">
-                    <div class="flex-1 min-w-[150px]">
-                        <input type="text" id="searchProduct" class="input-field" placeholder="🔍 بحث باسم المنتج..." oninput="filterProducts()">
-                    </div>
-                    <select id="filterCategory" class="input-field" style="max-width:150px;" onchange="filterProducts()">
-                        <option value="all">📂 جميع الأقسام</option>
-                        <option value="games">🎮 ألعاب</option>
-                        <option value="subscriptions">⭐ اشتراكات</option>
-                        <option value="cards">💳 بطاقات</option>
-                        <option value="services">⚡ خدمات</option>
-                    </select>
-                    <select id="filterStatusProduct" class="input-field" style="max-width:140px;" onchange="filterProducts()">
-                        <option value="all">📌 الكل</option>
-                        <option value="active">✅ متوفر</option>
-                        <option value="inactive">⛔ غير متوفر</option>
-                    </select>
-                    <select id="filterSort" class="input-field" style="max-width:140px;" onchange="filterProducts()">
-                        <option value="newest">🆕 الأحدث</option>
-                        <option value="priceLow">💰 السعر (منخفض)</option>
-                        <option value="priceHigh">💰 السعر (مرتفع)</option>
-                        <option value="popular">🔥 الأكثر مبيعاً</option>
-                    </select>
+                    <div class="flex-1 min-w-[150px]"><input type="text" id="searchProduct" class="input-field" placeholder="🔍 بحث باسم المنتج..." oninput="filterProducts()"></div>
+                    <select id="filterCategory" class="input-field" style="max-width:150px;" onchange="filterProducts()"><option value="all">📂 جميع الأقسام</option><option value="games">🎮 ألعاب</option><option value="subscriptions">⭐ اشتراكات</option><option value="cards">💳 بطاقات</option><option value="services">⚡ خدمات</option></select>
+                    <select id="filterStatusProduct" class="input-field" style="max-width:140px;" onchange="filterProducts()"><option value="all">📌 الكل</option><option value="active">✅ متوفر</option><option value="inactive">⛔ غير متوفر</option></select>
+                    <select id="filterSort" class="input-field" style="max-width:140px;" onchange="filterProducts()"><option value="newest">🆕 الأحدث</option><option value="priceLow">💰 السعر (منخفض)</option><option value="priceHigh">💰 السعر (مرتفع)</option><option value="popular">🔥 الأكثر مبيعاً</option></select>
                     <button onclick="resetProductFilters()" class="btn-sm outline">🔄 إعادة تعيين</button>
                 </div>
-                <div id="productsGrid" class="product-grid">
-                    <div class="col-span-full text-center text-dark-light py-8">
-                        <i class="fas fa-box-open text-3xl block mb-2"></i>
-                        جاري تحميل المنتجات...
-                    </div>
-                </div>
+                <div id="productsGrid" class="product-grid"><div class="col-span-full text-center text-dark-light py-8"><i class="fas fa-box-open text-3xl block mb-2"></i>جاري تحميل المنتجات...</div></div>
                 <div class="table-wrap mt-4 hidden lg:block">
-                    <table>
-                        <thead><tr><th>#</th><th>الصورة</th><th>الاسم</th><th>القسم</th><th>السعر</th><th>الخصم</th><th>المخزون</th><th>الحالة</th><th>المبيعات</th><th>إجراءات</th></tr></thead>
-                        <tbody id="productsTable"><tr><td colspan="10" class="text-center text-dark-light py-8">لا توجد منتجات</td></tr></tbody>
-                    </table>
+                    <table><thead><tr><th>#</th><th>الصورة</th><th>الاسم</th><th>القسم</th><th>السعر</th><th>الخصم</th><th>المخزون</th><th>الحالة</th><th>المبيعات</th><th>إجراءات</th></tr></thead>
+                    <tbody id="productsTable"><tr><td colspan="10" class="text-center text-dark-light py-8">لا توجد منتجات</td></tr></tbody></table>
                 </div>
             </div>
         </div>
@@ -610,38 +446,12 @@
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">🎮 إدارة الألعاب</h3>
                 <div class="game-grid">
-                    <div class="game-card" onclick="showToast('🎮 جاري فتح إدارة PUBG')">
-                        <span class="game-icon">🎮</span>
-                        <div class="game-name">PUBG Mobile</div>
-                        <div class="game-desc">شحن UC</div>
-                        <span class="game-badge">🔥 نشط</span>
-                    </div>
-                    <div class="game-card" onclick="showToast('🔥 جاري فتح إدارة FreeFire')">
-                        <span class="game-icon">🔥</span>
-                        <div class="game-name">FreeFire</div>
-                        <div class="game-desc">شحن جواهر</div>
-                        <span class="game-badge">⭐ ممتاز</span>
-                    </div>
-                    <div class="game-card" onclick="showToast('👑 جاري فتح إدارة Clash of Clans')">
-                        <span class="game-icon">👑</span>
-                        <div class="game-name">Clash of Clans</div>
-                        <div class="game-desc">تذاكر وجواهر</div>
-                    </div>
-                    <div class="game-card" onclick="showToast('⚽ جاري فتح إدارة eFootball')">
-                        <span class="game-icon">⚽</span>
-                        <div class="game-name">eFootball</div>
-                        <div class="game-desc">كوينز</div>
-                    </div>
-                    <div class="game-card" onclick="showToast('🎲 جاري فتح إدارة Roblox')">
-                        <span class="game-icon">🎲</span>
-                        <div class="game-name">Roblox</div>
-                        <div class="game-desc">عملات</div>
-                    </div>
-                    <div class="game-card" onclick="showToast('➕ إضافة لعبة جديدة')">
-                        <span class="game-icon">➕</span>
-                        <div class="game-name">إضافة لعبة</div>
-                        <div class="game-desc">لعبة جديدة</div>
-                    </div>
+                    <div class="game-card" onclick="showToast('🎮 جاري فتح إدارة PUBG')"><span class="game-icon">🎮</span><div class="game-name">PUBG Mobile</div><div class="game-desc">شحن UC</div><span class="game-badge">🔥 نشط</span></div>
+                    <div class="game-card" onclick="showToast('🔥 جاري فتح إدارة FreeFire')"><span class="game-icon">🔥</span><div class="game-name">FreeFire</div><div class="game-desc">شحن جواهر</div><span class="game-badge">⭐ ممتاز</span></div>
+                    <div class="game-card" onclick="showToast('👑 جاري فتح إدارة Clash of Clans')"><span class="game-icon">👑</span><div class="game-name">Clash of Clans</div><div class="game-desc">تذاكر وجواهر</div></div>
+                    <div class="game-card" onclick="showToast('⚽ جاري فتح إدارة eFootball')"><span class="game-icon">⚽</span><div class="game-name">eFootball</div><div class="game-desc">كوينز</div></div>
+                    <div class="game-card" onclick="showToast('🎲 جاري فتح إدارة Roblox')"><span class="game-icon">🎲</span><div class="game-name">Roblox</div><div class="game-desc">عملات</div></div>
+                    <div class="game-card" onclick="showToast('➕ إضافة لعبة جديدة')"><span class="game-icon">➕</span><div class="game-name">إضافة لعبة</div><div class="game-desc">لعبة جديدة</div></div>
                 </div>
             </div>
         </div>
@@ -653,21 +463,9 @@
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">⭐ إدارة الاشتراكات</h3>
                 <div class="game-grid">
-                    <div class="game-card" onclick="showToast('🎬 جاري فتح إدارة Netflix')">
-                        <span class="game-icon">🎬</span>
-                        <div class="game-name">Netflix</div>
-                        <div class="game-desc">اشتراكات شهرية</div>
-                    </div>
-                    <div class="game-card" onclick="showToast('🎵 جاري فتح إدارة Spotify')">
-                        <span class="game-icon">🎵</span>
-                        <div class="game-name">Spotify</div>
-                        <div class="game-desc">بريميوم</div>
-                    </div>
-                    <div class="game-card" onclick="showToast('🤖 جاري فتح إدارة ChatGPT')">
-                        <span class="game-icon">🤖</span>
-                        <div class="game-name">ChatGPT</div>
-                        <div class="game-desc">اشتراك شهري</div>
-                    </div>
+                    <div class="game-card" onclick="showToast('🎬 جاري فتح إدارة Netflix')"><span class="game-icon">🎬</span><div class="game-name">Netflix</div><div class="game-desc">اشتراكات شهرية</div></div>
+                    <div class="game-card" onclick="showToast('🎵 جاري فتح إدارة Spotify')"><span class="game-icon">🎵</span><div class="game-name">Spotify</div><div class="game-desc">بريميوم</div></div>
+                    <div class="game-card" onclick="showToast('🤖 جاري فتح إدارة ChatGPT')"><span class="game-icon">🤖</span><div class="game-name">ChatGPT</div><div class="game-desc">اشتراك شهري</div></div>
                 </div>
             </div>
         </div>
@@ -679,21 +477,9 @@
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">💳 إدارة البطاقات</h3>
                 <div class="game-grid">
-                    <div class="game-card" onclick="showToast('🛍️ جاري فتح إدارة Google Play')">
-                        <span class="game-icon">🛍️</span>
-                        <div class="game-name">Google Play</div>
-                        <div class="game-desc">بطاقات شحن</div>
-                    </div>
-                    <div class="game-card" onclick="showToast('🍎 جاري فتح إدارة Apple')">
-                        <span class="game-icon">🍎</span>
-                        <div class="game-name">Apple</div>
-                        <div class="game-desc">بطاقات App Store</div>
-                    </div>
-                    <div class="game-card" onclick="showToast('🎮 جاري فتح إدارة Steam')">
-                        <span class="game-icon">🎮</span>
-                        <div class="game-name">Steam</div>
-                        <div class="game-desc">بطاقات ألعاب</div>
-                    </div>
+                    <div class="game-card" onclick="showToast('🛍️ جاري فتح إدارة Google Play')"><span class="game-icon">🛍️</span><div class="game-name">Google Play</div><div class="game-desc">بطاقات شحن</div></div>
+                    <div class="game-card" onclick="showToast('🍎 جاري فتح إدارة Apple')"><span class="game-icon">🍎</span><div class="game-name">Apple</div><div class="game-desc">بطاقات App Store</div></div>
+                    <div class="game-card" onclick="showToast('🎮 جاري فتح إدارة Steam')"><span class="game-icon">🎮</span><div class="game-name">Steam</div><div class="game-desc">بطاقات ألعاب</div></div>
                 </div>
             </div>
         </div>
@@ -704,17 +490,9 @@
         <div id="tab-codes" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">🎟️ إدارة الأكواد الرقمية</h3>
-                <div class="flex flex-wrap gap-2 mb-3">
-                    <input type="text" id="codeInput" class="input-field flex-1 min-w-[120px]" placeholder="🔑 أدخل الكود">
-                    <input type="number" id="codeValue" class="input-field" style="max-width:120px;" placeholder="القيمة">
-                    <button onclick="addCode()" class="btn-sm gold">➕ إضافة</button>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead><tr><th>الكود</th><th>القيمة</th><th>الحالة</th><th>إجراءات</th></tr></thead>
-                        <tbody id="codesTable"><tr><td colspan="4" class="text-center text-dark-light py-8">جاري التحميل...</td></tr></tbody>
-                    </table>
-                </div>
+                <div class="flex flex-wrap gap-2 mb-3"><input type="text" id="codeInput" class="input-field flex-1 min-w-[120px]" placeholder="🔑 أدخل الكود"><input type="number" id="codeValue" class="input-field" style="max-width:120px;" placeholder="القيمة"><button onclick="addCode()" class="btn-sm gold">➕ إضافة</button></div>
+                <div class="table-wrap"><table><thead><tr><th>الكود</th><th>القيمة</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+                <tbody id="codesTable"><tr><td colspan="4" class="text-center text-dark-light py-8">جاري التحميل...</td></tr></tbody></table></div>
             </div>
         </div>
 
@@ -724,12 +502,7 @@
         <div id="tab-offers" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">🎁 إدارة العروض والخصومات</h3>
-                <div class="space-y-2">
-                    <input type="text" id="offerName" class="input-field" placeholder="اسم العرض">
-                    <input type="number" id="offerDiscount" class="input-field" placeholder="نسبة الخصم %">
-                    <input type="date" id="offerExpiry" class="input-field">
-                    <button onclick="addOffer()" class="btn-sm gold w-full">➕ إنشاء عرض</button>
-                </div>
+                <div class="space-y-2"><input type="text" id="offerName" class="input-field" placeholder="اسم العرض"><input type="number" id="offerDiscount" class="input-field" placeholder="نسبة الخصم %"><input type="date" id="offerExpiry" class="input-field"><button onclick="addOffer()" class="btn-sm gold w-full">➕ إنشاء عرض</button></div>
                 <div class="mt-3" id="offersList"><div class="text-dark-light text-sm">لا توجد عروض</div></div>
             </div>
         </div>
@@ -740,12 +513,7 @@
         <div id="tab-reports" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">📊 التقارير والتحليلات</h3>
-                <div class="grid grid-cols-2 gap-2 mb-3">
-                    <button onclick="generateReport('sales')" class="btn-sm gold">💰 تقرير المبيعات</button>
-                    <button onclick="generateReport('customers')" class="btn-sm gold">👥 تقرير العملاء</button>
-                    <button onclick="generateReport('products')" class="btn-sm gold">📦 أداء المنتجات</button>
-                    <button onclick="generateReport('orders')" class="btn-sm gold">📋 تقرير الطلبات</button>
-                </div>
+                <div class="grid grid-cols-2 gap-2 mb-3"><button onclick="generateReport('sales')" class="btn-sm gold">💰 تقرير المبيعات</button><button onclick="generateReport('customers')" class="btn-sm gold">👥 تقرير العملاء</button><button onclick="generateReport('products')" class="btn-sm gold">📦 أداء المنتجات</button><button onclick="generateReport('orders')" class="btn-sm gold">📋 تقرير الطلبات</button></div>
                 <div id="reportContent"><div class="text-dark-light text-sm">اختر تقرير لعرضه</div></div>
             </div>
         </div>
@@ -756,12 +524,7 @@
         <div id="tab-settings" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">⚙️ إعدادات النظام</h3>
-                <div class="space-y-2">
-                    <input type="text" id="storeName" class="input-field" placeholder="اسم المتجر" value="MORRE STORE">
-                    <input type="text" id="storePhone" class="input-field" placeholder="رقم الهاتف" value="2490991305468">
-                    <input type="text" id="storeEmail" class="input-field" placeholder="البريد الإلكتروني" value="info@morrestore.com">
-                    <button onclick="saveSettings()" class="btn-sm gold w-full">💾 حفظ الإعدادات</button>
-                </div>
+                <div class="space-y-2"><input type="text" id="storeName" class="input-field" placeholder="اسم المتجر" value="MORRE STORE"><input type="text" id="storePhone" class="input-field" placeholder="رقم الهاتف" value="2490991305468"><input type="text" id="storeEmail" class="input-field" placeholder="البريد الإلكتروني" value="info@morrestore.com"><button onclick="saveSettings()" class="btn-sm gold w-full">💾 حفظ الإعدادات</button></div>
             </div>
         </div>
 
@@ -780,7 +543,7 @@
     <!-- ===== المودالات ===== -->
     <!-- ========================================================== -->
 
-    <!-- ===== مودال المنتج ===== -->
+    <!-- مودال المنتج -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-box">
             <button class="close-modal" onclick="closeModal('productModal')">&times;</button>
@@ -788,93 +551,34 @@
             <form id="productForm" class="space-y-3">
                 <div><label class="text-xs font-bold text-dark-light">📝 اسم المنتج</label><input type="text" id="modalProductName" class="input-field" placeholder="أدخل اسم المنتج" required></div>
                 <div><label class="text-xs font-bold text-dark-light">📄 وصف المنتج</label><textarea id="modalProductDesc" class="input-field" rows="3" placeholder="وصف المنتج..."></textarea></div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div><label class="text-xs font-bold text-dark-light">💰 السعر (ج.س)</label><input type="number" id="modalProductPrice" class="input-field" placeholder="0" required></div>
-                    <div><label class="text-xs font-bold text-dark-light">🏷️ سعر الخصم (ج.س)</label><input type="number" id="modalProductDiscount" class="input-field" placeholder="0"></div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div><label class="text-xs font-bold text-dark-light">📂 القسم</label><select id="modalProductCategory" class="input-field"><option value="games">🎮 ألعاب</option><option value="subscriptions">⭐ اشتراكات</option><option value="cards">💳 بطاقات</option><option value="services">⚡ خدمات</option></select></div>
-                    <div><label class="text-xs font-bold text-dark-light">🎮 الفئة الفرعية</label><select id="modalProductGame" class="input-field"><option value="pubg">PUBG Mobile</option><option value="freefire">FreeFire</option><option value="clash">Clash of Clans</option><option value="efootball">eFootball</option><option value="roblox">Roblox</option><option value="netflix">Netflix</option><option value="spotify">Spotify</option><option value="chatgpt">ChatGPT</option><option value="googleplay">Google Play</option><option value="apple">Apple</option><option value="steam">Steam</option></select></div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div><label class="text-xs font-bold text-dark-light">📦 المخزون</label><input type="number" id="modalProductStock" class="input-field" placeholder="الكمية" value="0"></div>
-                    <div><label class="text-xs font-bold text-dark-light">📌 الحالة</label><select id="modalProductStatus" class="input-field"><option value="active">✅ متوفر</option><option value="inactive">⛔ غير متوفر</option></select></div>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <label class="flex items-center gap-2 text-sm text-dark"><input type="checkbox" id="modalProductFeatured"> ⭐ منتج مميز</label>
-                    <label class="flex items-center gap-2 text-sm text-dark"><input type="checkbox" id="modalProductPopular"> 🔥 الأكثر مبيعاً</label>
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-dark-light">🖼️ صورة المنتج</label>
-                    <div class="file-upload" id="imageUploadArea">
-                        <input type="file" id="modalProductImage" accept="image/*" onchange="previewImage(event)">
-                        <label for="modalProductImage" class="cursor-pointer block text-center py-2">
-                            <i class="fas fa-cloud-upload-alt text-3xl text-yellow-500"></i>
-                            <p class="text-sm text-dark-light">اسحب الصورة هنا أو اضغط للاختيار</p>
-                        </label>
-                        <div id="imagePreview" class="hidden mt-2">
-                            <img id="previewImg" class="w-32 h-32 object-contain rounded-lg border border-gray-200 dark:border-gray-600 mx-auto">
-                            <button type="button" onclick="removeImage()" class="text-red-500 text-xs mt-1">🗑️ إزالة الصورة</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex gap-2 mt-4">
-                    <button type="button" onclick="saveProduct()" class="btn-save flex-1">💾 حفظ المنتج</button>
-                    <button type="button" onclick="closeModal('productModal')" class="btn-cancel flex-1">إلغاء</button>
-                </div>
+                <div class="grid grid-cols-2 gap-2"><div><label class="text-xs font-bold text-dark-light">💰 السعر (ج.س)</label><input type="number" id="modalProductPrice" class="input-field" placeholder="0" required></div><div><label class="text-xs font-bold text-dark-light">🏷️ سعر الخصم (ج.س)</label><input type="number" id="modalProductDiscount" class="input-field" placeholder="0"></div></div>
+                <div class="grid grid-cols-2 gap-2"><div><label class="text-xs font-bold text-dark-light">📂 القسم</label><select id="modalProductCategory" class="input-field"><option value="games">🎮 ألعاب</option><option value="subscriptions">⭐ اشتراكات</option><option value="cards">💳 بطاقات</option><option value="services">⚡ خدمات</option></select></div><div><label class="text-xs font-bold text-dark-light">🎮 الفئة الفرعية</label><select id="modalProductGame" class="input-field"><option value="pubg">PUBG Mobile</option><option value="freefire">FreeFire</option><option value="clash">Clash of Clans</option><option value="efootball">eFootball</option><option value="roblox">Roblox</option><option value="netflix">Netflix</option><option value="spotify">Spotify</option><option value="chatgpt">ChatGPT</option><option value="googleplay">Google Play</option><option value="apple">Apple</option><option value="steam">Steam</option></select></div></div>
+                <div class="grid grid-cols-2 gap-2"><div><label class="text-xs font-bold text-dark-light">📦 المخزون</label><input type="number" id="modalProductStock" class="input-field" placeholder="الكمية" value="0"></div><div><label class="text-xs font-bold text-dark-light">📌 الحالة</label><select id="modalProductStatus" class="input-field"><option value="active">✅ متوفر</option><option value="inactive">⛔ غير متوفر</option></select></div></div>
+                <div class="grid grid-cols-2 gap-2"><label class="flex items-center gap-2 text-sm text-dark"><input type="checkbox" id="modalProductFeatured"> ⭐ منتج مميز</label><label class="flex items-center gap-2 text-sm text-dark"><input type="checkbox" id="modalProductPopular"> 🔥 الأكثر مبيعاً</label></div>
+                <div><label class="text-xs font-bold text-dark-light">🖼️ صورة المنتج</label><div class="file-upload" id="imageUploadArea"><input type="file" id="modalProductImage" accept="image/*" onchange="previewImage(event)"><label for="modalProductImage" class="cursor-pointer block text-center py-2"><i class="fas fa-cloud-upload-alt text-3xl text-yellow-500"></i><p class="text-sm text-dark-light">اسحب الصورة هنا أو اضغط للاختيار</p></label><div id="imagePreview" class="hidden mt-2"><img id="previewImg" class="w-32 h-32 object-contain rounded-lg border border-gray-200 dark:border-gray-600 mx-auto"><button type="button" onclick="removeImage()" class="text-red-500 text-xs mt-1">🗑️ إزالة الصورة</button></div></div></div>
+                <div class="flex gap-2 mt-4"><button type="button" onclick="saveProduct()" class="btn-save flex-1">💾 حفظ المنتج</button><button type="button" onclick="closeModal('productModal')" class="btn-cancel flex-1">إلغاء</button></div>
             </form>
         </div>
     </div>
 
-    <!-- ===== مودال تفاصيل العميل ===== -->
+    <!-- مودال تفاصيل العميل -->
     <div class="modal-overlay" id="customerModal">
-        <div class="modal-box">
-            <button class="close-modal" onclick="closeModal('customerModal')">&times;</button>
-            <h3 id="customerModalTitle">👤 تفاصيل العميل</h3>
-            <div id="customerModalBody"></div>
-            <div class="flex gap-2 mt-4 flex-wrap">
-                <button onclick="closeModal('customerModal')" class="btn-cancel flex-1">إغلاق</button>
-            </div>
-        </div>
+        <div class="modal-box"><button class="close-modal" onclick="closeModal('customerModal')">&times;</button><h3 id="customerModalTitle">👤 تفاصيل العميل</h3><div id="customerModalBody"></div><div class="flex gap-2 mt-4 flex-wrap"><button onclick="closeModal('customerModal')" class="btn-cancel flex-1">إغلاق</button></div></div>
     </div>
 
-    <!-- ===== مودال تعديل العميل ===== -->
+    <!-- مودال تعديل العميل -->
     <div class="modal-overlay" id="editCustomerModal">
-        <div class="modal-box">
-            <button class="close-modal" onclick="closeModal('editCustomerModal')">&times;</button>
-            <h3 id="editCustomerTitle">✏️ تعديل بيانات العميل</h3>
-            <div id="editCustomerBody"></div>
-            <div class="flex gap-2 mt-4">
-                <button onclick="saveCustomerEdit()" class="btn-save flex-1">💾 حفظ التغييرات</button>
-                <button onclick="closeModal('editCustomerModal')" class="btn-cancel flex-1">إلغاء</button>
-            </div>
-        </div>
+        <div class="modal-box"><button class="close-modal" onclick="closeModal('editCustomerModal')">&times;</button><h3 id="editCustomerTitle">✏️ تعديل بيانات العميل</h3><div id="editCustomerBody"></div><div class="flex gap-2 mt-4"><button onclick="saveCustomerEdit()" class="btn-save flex-1">💾 حفظ التغييرات</button><button onclick="closeModal('editCustomerModal')" class="btn-cancel flex-1">إلغاء</button></div></div>
     </div>
 
-    <!-- ===== مودال إدارة الرصيد ===== -->
+    <!-- مودال إدارة الرصيد -->
     <div class="modal-overlay" id="balanceModal">
-        <div class="modal-box">
-            <button class="close-modal" onclick="closeModal('balanceModal')">&times;</button>
-            <h3>💰 إدارة الرصيد</h3>
-            <div id="balanceModalBody"></div>
-            <div class="flex gap-2 mt-4">
-                <button onclick="confirmBalanceAdd()" class="btn-save flex-1">➕ إضافة رصيد</button>
-                <button onclick="confirmBalanceDeduct()" class="btn-danger flex-1">➖ خصم رصيد</button>
-            </div>
-            <button onclick="closeModal('balanceModal')" class="btn-cancel w-full mt-2">إلغاء</button>
-        </div>
+        <div class="modal-box"><button class="close-modal" onclick="closeModal('balanceModal')">&times;</button><h3>💰 إدارة الرصيد</h3><div id="balanceModalBody"></div><div class="flex gap-2 mt-4"><button onclick="confirmBalanceAdd()" class="btn-save flex-1">➕ إضافة رصيد</button><button onclick="confirmBalanceDeduct()" class="btn-danger flex-1">➖ خصم رصيد</button></div><button onclick="closeModal('balanceModal')" class="btn-cancel w-full mt-2">إلغاء</button></div>
     </div>
 
-    <!-- ===== مودال تفاصيل الطلب ===== -->
+    <!-- مودال تفاصيل الطلب -->
     <div class="modal-overlay" id="orderModal">
-        <div class="modal-box">
-            <button class="close-modal" onclick="closeModal('orderModal')">&times;</button>
-            <h3 id="orderModalTitle">📋 تفاصيل الطلب</h3>
-            <div id="orderModalBody"></div>
-            <div class="flex gap-2 mt-4 flex-wrap">
-                <button onclick="closeModal('orderModal')" class="btn-cancel flex-1">إغلاق</button>
-            </div>
-        </div>
+        <div class="modal-box"><button class="close-modal" onclick="closeModal('orderModal')">&times;</button><h3 id="orderModalTitle">📋 تفاصيل الطلب</h3><div id="orderModalBody"></div><div class="flex gap-2 mt-4 flex-wrap"><button onclick="closeModal('orderModal')" class="btn-cancel flex-1">إغلاق</button></div></div>
     </div>
 
     <!-- ===== Toast ===== -->
@@ -2196,4 +1900,4 @@
     </script>
 
 </body>
-                                    </html>
+    </html>
