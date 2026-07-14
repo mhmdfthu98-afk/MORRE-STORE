@@ -1079,7 +1079,7 @@
         function loadTransactions(uid) {
             const q = query(
                 collection(db, "transactions"),
-                where("uID", "==", uid),
+                where("userId", "==", uid),
                 orderBy("timestamp", "desc")
             );
 
