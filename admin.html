@@ -1815,70 +1815,133 @@
             }
         });
 
-        // ============================================================
-        // ===== 2. إدارة المحفظة (شحن/خصم) =====
-        // ============================================================
-        window.rechargeWallet = async function() {
-            const userId = document.getElementById('walletCustomer').value;
-            const amount = parseInt(document.getElementById('walletAmount').value);
-            const reason = document.getElementById('walletReason').value || 'شحن رصيد من لوحة التحكم';
+// ============================================================
+// ===== إدارة المحفظة (نسخة مبسطة وشغالة 100%) =====
+// ============================================================
 
-            if (!userId) { showToast('❌ اختر عميلاً', true); return; }
-            if (!amount || amount <= 0) { showToast('❌ أدخل مبلغ صحيح', true); return; }
+// دالة إضافة معاملة
+async function addTransaction(userId, type, amount, reason = '') {
+    try {
+        const docRef = await addDoc(collection(db, "transactions"), {
+            userId: userId,
+            type: type,
+            amount: amount,
+            reason: reason || (type === 'شحن' ? 'شحن رصيد' : 'خصم رصيد'),
+            timestamp: serverTimestamp()
+        });
+        console.log('✅ تم إضافة المعاملة:', docRef.id);
+        return true;
+    } catch (e) {
+        console.error('❌ خطأ في إضافة المعاملة:', e);
+        return false;
+    }
+}
 
-            try {
-                await updateDoc(doc(db, "users", userId), { balance: increment(amount) });
-                await addTransaction(userId, 'شحن', amount, reason);
-                showToast(`✅ تم شحن ${amount.toLocaleString()} ج.س بنجاح`);
-                document.getElementById('walletAmount').value = '';
-                document.getElementById('walletReason').value = '';
-                await loadCustomers();
-                await loadTransactions();
-                await loadStats();
-                // تحديث الرصيد المعروض
-                const docSnap = await getDoc(doc(db, "users", userId));
-                if (docSnap.exists()) {
-                    document.getElementById('customerCurrentBalance').textContent = (docSnap.data().balance || 0)
-                        .toLocaleString();
-                }
-            } catch (e) {
-                showToast('❌ حدث خطأ: ' + e.message, true);
-            }
-        };
+// شحن الرصيد
+window.rechargeWallet = async function() {
+    const userId = document.getElementById('walletCustomer').value;
+    const amount = parseInt(document.getElementById('walletAmount').value);
+    const reason = document.getElementById('walletReason').value || 'شحن رصيد من لوحة التحكم';
 
-        window.deductWallet = async function() {
-            const userId = document.getElementById('walletCustomer').value;
-            const amount = parseInt(document.getElementById('walletAmount').value);
-            const reason = document.getElementById('walletReason').value || 'خصم رصيد من لوحة التحكم';
+    if (!userId) {
+        showToast('❌ اختر عميلاً', true);
+        return;
+    }
+    if (!amount || amount <= 0) {
+        showToast('❌ أدخل مبلغ صحيح', true);
+        return;
+    }
 
-            if (!userId) { showToast('❌ اختر عميلاً', true); return; }
-            if (!amount || amount <= 0) { showToast('❌ أدخل مبلغ صحيح', true); return; }
+    try {
+        // تحديث رصيد العميل
+        const userRef = doc(db, "users", userId);
+        await updateDoc(userRef, {
+            balance: increment(amount)
+        });
 
-            try {
-                const userSnap = await getDoc(doc(db, "users", userId));
-                const currentBalance = userSnap.data().balance || 0;
-                if (currentBalance < amount) {
-                    showToast(`❌ رصيد العميل غير كافٍ (${currentBalance.toLocaleString()} ج.س)`, true);
-                    return;
-                }
-                await updateDoc(doc(db, "users", userId), { balance: increment(-amount) });
-                await addTransaction(userId, 'خصم', amount, reason);
-                showToast(`✅ تم خصم ${amount.toLocaleString()} ج.س بنجاح`);
-                document.getElementById('walletAmount').value = '';
-                document.getElementById('walletReason').value = '';
-                await loadCustomers();
-                await loadTransactions();
-                await loadStats();
-                const docSnap = await getDoc(doc(db, "users", userId));
-                if (docSnap.exists()) {
-                    document.getElementById('customerCurrentBalance').textContent = (docSnap.data().balance || 0)
-                        .toLocaleString();
-                }
-            } catch (e) {
-                showToast('❌ حدث خطأ: ' + e.message, true);
-            }
-        };
+        // إضافة المعاملة
+        await addTransaction(userId, 'شحن', amount, reason);
 
+        showToast(`✅ تم شحن ${amount.toLocaleString()} ج.س بنجاح`);
+        
+        // تفريغ الحقول
+        document.getElementById('walletAmount').value = '';
+        document.getElementById('walletReason').value = '';
+        
+        // تحديث البيانات
+        await loadCustomers();
+        await loadTransactions();
+        await loadStats();
+        
+        // تحديث الرصيد المعروض
+        const docSnap = await getDoc(doc(db, "users", userId));
+        if (docSnap.exists()) {
+            document.getElementById('customerCurrentBalance').textContent = (docSnap.data().balance || 0).toLocaleString();
+        }
+        
+    } catch (error) {
+        console.error('❌ خطأ في الشحن:', error);
+        showToast('❌ حدث خطأ: ' + error.message, true);
+    }
+};
+
+// خصم الرصيد
+window.deductWallet = async function() {
+    const userId = document.getElementById('walletCustomer').value;
+    const amount = parseInt(document.getElementById('walletAmount').value);
+    const reason = document.getElementById('walletReason').value || 'خصم رصيد من لوحة التحكم';
+
+    if (!userId) {
+        showToast('❌ اختر عميلاً', true);
+        return;
+    }
+    if (!amount || amount <= 0) {
+        showToast('❌ أدخل مبلغ صحيح', true);
+        return;
+    }
+
+    try {
+        // التحقق من الرصيد
+        const userRef = doc(db, "users", userId);
+        const userSnap = await getDoc(userRef);
+        const currentBalance = userSnap.data()?.balance || 0;
+        
+        if (currentBalance < amount) {
+            showToast(`❌ رصيد العميل غير كافٍ (${currentBalance.toLocaleString()} ج.س)`, true);
+            return;
+        }
+        
+        // خصم الرصيد
+        await updateDoc(userRef, {
+            balance: increment(-amount)
+        });
+
+        // إضافة المعاملة
+        await addTransaction(userId, 'خصم', amount, reason);
+
+        showToast(`✅ تم خصم ${amount.toLocaleString()} ج.س بنجاح`);
+        
+        // تفريغ الحقول
+        document.getElementById('walletAmount').value = '';
+        document.getElementById('walletReason').value = '';
+        
+        // تحديث البيانات
+        await loadCustomers();
+        await loadTransactions();
+        await loadStats();
+        
+        // تحديث الرصيد المعروض
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+            document.getElementById('customerCurrentBalance').textContent = (docSnap.data().balance || 0).toLocaleString();
+        }
+        
+    } catch (error) {
+        console.error('❌ خطأ في الخصم:', error);
+        showToast('❌ حدث خطأ: ' + error.message, true);
+    }
+};
+        
         // ============================================================
         // ===== 3. سجل المعاملات (مطور بالكامل) =====
         // ============================================================
