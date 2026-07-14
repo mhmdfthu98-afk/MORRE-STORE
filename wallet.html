@@ -145,7 +145,7 @@
             color: #fca5a5;
         }
 
-        /* ===== Payment Methods - FIXED ===== */
+        /* ===== Payment Methods ===== */
         .payment-methods {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -715,7 +715,7 @@
 
         <!-- ===== رأس الصفحة ===== -->
         <div class="back-header">
-            <a href="/" class="back-btn">
+            <a href="index.html" class="back-btn">
                 <i class="fas fa-arrow-right"></i> رجوع
             </a>
             <div class="page-title">💰 محفظتي</div>
@@ -731,14 +731,13 @@
             </div>
         </div>
 
-        <!-- ===== طرق الإيداع السريع (بأحجام صحيحة) ===== -->
+        <!-- ===== طرق الإيداع السريع ===== -->
         <div class="glass-card">
             <div class="deposit-section-title">
                 <i class="fas fa-plus-circle"></i> اختر طريقة الإيداع
             </div>
             <div class="payment-methods">
 
-                <!-- RedotPay -->
                 <a href="https://wa.me/249991305468?text=أريد%20شحن%20محفظتي%20عبر%20RedotPay" target="_blank" class="pm-item">
                     <div class="pm-img">
                         <img src="https://i.postimg.cc/L54q1fQz/6feb9ec0dc4a917f20ee4499659d56ce.jpg" alt="RedotPay" loading="lazy">
@@ -747,7 +746,6 @@
                     <div class="pm-desc">بطاقة افتراضية</div>
                 </a>
 
-                <!-- بنكك -->
                 <a href="https://wa.me/249991305468?text=أريد%20شحن%20محفظتي%20عبر%20بنكك" target="_blank" class="pm-item">
                     <div class="pm-img">
                         <img src="https://i.postimg.cc/yN5nn6CP/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك" loading="lazy">
@@ -756,7 +754,6 @@
                     <div class="pm-desc">تحويل بنكي</div>
                 </a>
 
-                <!-- Binance -->
                 <a href="https://wa.me/249991305468?text=أريد%20شحن%20محفظتي%20عبر%20Binance" target="_blank" class="pm-item">
                     <div class="pm-img">
                         <img src="https://i.postimg.cc/9QZkDq6G/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance" loading="lazy">
@@ -765,7 +762,6 @@
                     <div class="pm-desc">عملات رقمية</div>
                 </a>
 
-                <!-- MyCash -->
                 <a href="https://wa.me/249991305468?text=أريد%20شحن%20محفظتي%20عبر%20MyCash" target="_blank" class="pm-item">
                     <div class="pm-img">
                         <img src="https://i.postimg.cc/26hdw4wN/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash" loading="lazy">
@@ -988,7 +984,7 @@
 
     <!-- ===== الشريط السفلي ===== -->
     <div class="bottom-nav">
-        <a href="/" class="nav-item">
+        <a href="index.html" class="nav-item">
             <i class="fas fa-home"></i>
             <span>الرئيسية</span>
         </a>
@@ -1079,7 +1075,7 @@
             });
         }
 
-        // ========== جلب سجل المعاملات من Firebase ==========
+        // ========== جلب سجل المعاملات من Firebase (معدل) ==========
         function loadTransactions(uid) {
             const q = query(
                 collection(db, "transactions"),
@@ -1101,44 +1097,60 @@
                     return;
                 }
 
-                const icons = {
-                    'إيداع': 'deposit',
-                    'سحب': 'withdraw',
-                    'شراء': 'purchase',
-                    'استرداد': 'refund'
-                };
-
-                const statusMap = {
-                    'قيد المراجعة': 'pending',
-                    'مكتملة': 'completed',
-                    'مرفوضة': 'rejected'
-                };
-
                 let html = '';
                 snapshot.forEach(doc => {
                     const tx = doc.data();
                     const date = tx.timestamp?.toDate ? new Date(tx.timestamp.toDate()).toLocaleString(
-                    'ar-SD') : 'غير محدد';
-                    const iconClass = icons[tx.type] || 'deposit';
-                    const statusClass = statusMap[tx.status] || 'pending';
+                        'ar-SD') : 'غير محدد';
 
-                    const sign = tx.type === 'إيداع' || tx.type === 'استرداد' ? '+' : '-';
-                    const colorClass = tx.type === 'إيداع' || tx.type === 'استرداد' ? 'positive' : 'negative';
+                    // تحديد نوع المعاملة وأيقونتها
+                    let iconClass = 'deposit';
+                    let icon = 'fa-arrow-down';
+                    let title = tx.type || 'معاملة';
+
+                    if (tx.type === 'إيداع' || tx.type === 'شحن') {
+                        iconClass = 'deposit';
+                        icon = 'fa-arrow-down';
+                        title = 'إيداع';
+                    } else if (tx.type === 'سحب' || tx.type === 'خصم') {
+                        iconClass = 'withdraw';
+                        icon = 'fa-arrow-up';
+                        title = 'سحب';
+                    } else if (tx.type === 'شراء') {
+                        iconClass = 'purchase';
+                        icon = 'fa-shopping-cart';
+                        title = 'شراء';
+                    } else if (tx.type === 'استرداد') {
+                        iconClass = 'refund';
+                        icon = 'fa-undo';
+                        title = 'استرداد';
+                    }
+
+                    const sign = (tx.type === 'إيداع' || tx.type === 'شحن' || tx.type === 'استرداد') ? '+' : '-';
+                    const colorClass = (tx.type === 'إيداع' || tx.type === 'شحن' || tx.type === 'استرداد') ? 'positive' : 'negative';
+                    
+                    // حالة المعاملة
+                    const status = tx.status || 'قيد المراجعة';
+                    let statusClass = 'pending';
+                    if (status === 'مكتمل' || status === 'مكتملة') statusClass = 'completed';
+                    else if (status === 'مرفوض' || status === 'مرفوضة') statusClass = 'rejected';
+
+                    const displayName = tx.title || title;
 
                     html += `
                             <div class="transaction-item">
                                 <div style="display:flex;align-items:center;">
                                     <div class="tx-icon ${iconClass}">
-                                        <i class="fas ${tx.type === 'إيداع' ? 'fa-arrow-down' : tx.type === 'سحب' ? 'fa-arrow-up' : tx.type === 'شراء' ? 'fa-shopping-cart' : 'fa-undo'}"></i>
+                                        <i class="fas ${icon}"></i>
                                     </div>
                                     <div class="tx-info">
-                                        <div class="tx-title">${tx.type} - ${tx.title || ''}</div>
+                                        <div class="tx-title">${displayName}</div>
                                         <div class="tx-date">${date}</div>
                                     </div>
                                 </div>
                                 <div style="text-align:left;">
                                     <div class="tx-amount ${colorClass}">${sign}${(tx.amount || 0).toLocaleString()} ج.س</div>
-                                    <span class="tx-status ${statusClass}">${tx.status || 'قيد المراجعة'}</span>
+                                    <span class="tx-status ${statusClass}">${status}</span>
                                 </div>
                             </div>
                         `;
@@ -1353,7 +1365,7 @@
             } else {
                 showToast('❌ يرجى تسجيل الدخول أولاً');
                 setTimeout(() => {
-                    window.location.href = '/';
+                    window.location.href = 'index.html';
                 }, 1500);
             }
         });
@@ -1365,4 +1377,4 @@
     </script>
 
 </body>
-    </html>
+                </html>
