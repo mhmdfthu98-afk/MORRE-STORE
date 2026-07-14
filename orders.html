@@ -124,6 +124,52 @@
             background: rgba(255,255,255,0.3);
         }
 
+        /* ===== البحث برقم الطلب ===== */
+        .search-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .search-box .search-input {
+            flex: 1;
+            min-width: 120px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            background: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+            font-family: 'Cairo', sans-serif;
+            transition: 0.2s;
+        }
+        .search-box .search-input:focus {
+            outline: none;
+            border-color: #d97706;
+            background: white;
+        }
+        .search-box .search-btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: none;
+            background: #f59e0b;
+            color: white;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .search-box .search-btn:hover {
+            background: #d97706;
+            transform: scale(1.02);
+        }
+        .search-box .search-btn.reset {
+            background: #e2e8f0;
+            color: #64748b;
+        }
+        .search-box .search-btn.reset:hover {
+            background: #cbd5e1;
+        }
+
         /* بطاقة الطلب */
         .order-card {
             background: #f8fafc;
@@ -619,16 +665,18 @@
             color: #1e293b;
         }
 
-        /* المؤقت */
-        .order-timer {
-            font-size: 0.65rem;
-            color: #94a3b8;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+        .search-box .search-input {
+            background: rgba(255,255,255,0.6);
+            border: 1px solid #e2e8f0;
         }
-        .order-timer i {
-            color: #d97706;
+        .dark .search-box .search-input {
+            background: rgba(30,41,59,0.6);
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+        .dark .search-box .search-input:focus {
+            background: #1e293b;
+            border-color: #d97706;
         }
     </style>
 </head>
@@ -638,7 +686,7 @@
 
         <!-- ===== رأس الصفحة ===== -->
         <div class="back-header">
-            <a href="/" class="back-btn">
+            <a href="index.html" class="back-btn">
                 <i class="fas fa-arrow-right"></i> رجوع
             </a>
             <div class="page-title">📦 طلباتي</div>
@@ -652,6 +700,16 @@
                 <button class="tab-btn" data-status="progress">⚡ قيد التنفيذ <span class="count" id="countProgress">0</span></button>
                 <button class="tab-btn" data-status="done">✅ مكتمل <span class="count" id="countDone">0</span></button>
                 <button class="tab-btn" data-status="cancelled">❌ ملغي <span class="count" id="countCancelled">0</span></button>
+            </div>
+        </div>
+
+        <!-- ===== البحث برقم الطلب ===== -->
+        <div class="glass-card" style="padding: 12px 16px;">
+            <div class="search-box">
+                <input type="text" id="searchOrderInput" class="search-input" placeholder="🔍 بحث برقم الطلب أو اسم المنتج..." oninput="filterOrdersList()">
+                <input type="text" id="searchOrderIdInput" class="search-input" style="max-width:160px;" placeholder="🔢 رقم الطلب" oninput="filterOrdersList()">
+                <button class="search-btn" onclick="searchOrderById()">🔍 بحث</button>
+                <button class="search-btn reset" onclick="resetOrderSearch()">🔄 إعادة تعيين</button>
             </div>
         </div>
 
@@ -696,11 +754,11 @@
 
     <!-- ===== الشريط السفلي ===== -->
     <div class="bottom-nav">
-        <a href="/" class="nav-item">
+        <a href="index.html" class="nav-item">
             <i class="fas fa-home"></i>
             <span>الرئيسية</span>
         </a>
-        <a href="#" onclick="window.location.href='support.html'" class="nav-item">
+        <a href="support.html" class="nav-item">
             <i class="fas fa-headset"></i>
             <span>الدعم</span>
         </a>
@@ -739,9 +797,8 @@
         // ========== بيانات المستخدم ==========
         let currentUser = null;
         let allOrders = [];
+        let filteredOrders = [];
         let currentFilter = 'all';
-        let selectedOrderId = null;
-        let selectedRating = 0;
 
         // ========== صور الفئات ==========
         const categoryImages = {
@@ -766,7 +823,7 @@
                         <i class="fas fa-box-open"></i>
                         <h3>📭 ليس لديك أي طلبات حالياً</h3>
                         <p style="color:#64748b;font-size:0.9rem;">ابدأ بالتسوق لإضافة أول طلب لك</p>
-                        <a href="/" class="btn-shop">🛍️ الذهاب إلى المتجر</a>
+                        <a href="index.html" class="btn-shop">🛍️ الذهاب إلى المتجر</a>
                     </div>
                 `;
                 return;
@@ -857,8 +914,86 @@
                 filtered = allOrders.filter(o => o.status === 'ملغي' || o.status === 'فشل');
             }
             
+            filteredOrders = filtered;
             renderOrders(filtered);
         }
+
+        // ========== البحث في الطلبات ==========
+        function filterOrdersList() {
+            const searchTerm = document.getElementById('searchOrderInput').value.toLowerCase().trim();
+            const orderId = document.getElementById('searchOrderIdInput').value.trim();
+            
+            let filtered = [...allOrders];
+            
+            // تصفية حسب التبويب أولاً
+            if (currentFilter === 'pending') {
+                filtered = filtered.filter(o => o.status === 'قيد الانتظار' || o.status === 'قيد المراجعة');
+            } else if (currentFilter === 'progress') {
+                filtered = filtered.filter(o => o.status === 'جاري التنفيذ');
+            } else if (currentFilter === 'done') {
+                filtered = filtered.filter(o => o.status === 'مكتمل');
+            } else if (currentFilter === 'cancelled') {
+                filtered = filtered.filter(o => o.status === 'ملغي' || o.status === 'فشل');
+            }
+            
+            // البحث بالاسم
+            if (searchTerm) {
+                filtered = filtered.filter(o =>
+                    (o.id || '').toLowerCase().includes(searchTerm) ||
+                    (o.product || '').toLowerCase().includes(searchTerm) ||
+                    (o.gameID || '').toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // البحث برقم الطلب
+            if (orderId) {
+                filtered = filtered.filter(o =>
+                    o.id === orderId ||
+                    o.id.includes(orderId) ||
+                    o.id.substring(0, 8) === orderId ||
+                    o.id.substring(0, 12) === orderId
+                );
+            }
+            
+            filteredOrders = filtered;
+            renderOrders(filtered);
+        }
+        window.filterOrdersList = filterOrdersList;
+
+        // ========== البحث برقم الطلب ==========
+        function searchOrderById() {
+            const orderId = document.getElementById('searchOrderIdInput').value.trim();
+            if (!orderId) {
+                showToast('❌ أدخل رقم الطلب');
+                return;
+            }
+            
+            const filtered = allOrders.filter(o =>
+                o.id === orderId ||
+                o.id.includes(orderId) ||
+                o.id.substring(0, 8) === orderId ||
+                o.id.substring(0, 12) === orderId
+            );
+            
+            if (filtered.length === 0) {
+                showToast('❌ لا يوجد طلب بهذا الرقم');
+                renderOrders(allOrders);
+                return;
+            }
+            
+            renderOrders(filtered);
+            showToast(`✅ تم العثور على ${filtered.length} طلب`);
+        }
+        window.searchOrderById = searchOrderById;
+
+        // ========== إعادة تعيين البحث ==========
+        function resetOrderSearch() {
+            document.getElementById('searchOrderInput').value = '';
+            document.getElementById('searchOrderIdInput').value = '';
+            filterOrders(currentFilter);
+            showToast('🔄 تم إعادة تعيين البحث');
+        }
+        window.resetOrderSearch = resetOrderSearch;
 
         // ========== جلب الطلبات من Firebase ==========
         function loadOrders(uid) {
@@ -884,7 +1019,6 @@
 
         // ========== فتح تفاصيل الطلب ==========
         window.openOrderDetail = async function(orderId) {
-            selectedOrderId = orderId;
             const order = allOrders.find(o => o.id === orderId);
             if (!order) {
                 showToast('❌ الطلب غير موجود');
@@ -913,7 +1047,6 @@
             const date = order.timestamp?.toDate ? new Date(order.timestamp.toDate()).toLocaleString('ar-SD') : 'غير محدد';
             const image = categoryImages[order.game] || 'https://via.placeholder.com/80';
 
-            // تحديد مراحل التتبع
             const steps = [
                 { key: 'received', label: 'تم الاستلام' },
                 { key: 'review', label: 'قيد المراجعة' },
@@ -1077,7 +1210,7 @@
             if (!order) { showToast('❌ الطلب غير موجود'); return; }
             showToast('🔄 جاري إعادة توجيهك لشراء ' + order.product);
             setTimeout(() => {
-                window.location.href = '/';
+                window.location.href = 'index.html';
             }, 1500);
         };
 
@@ -1104,6 +1237,9 @@
         };
 
         // ========== نظام التقييم ==========
+        let selectedRating = 0;
+        let selectedOrderId = null;
+
         window.setRating = function(value) {
             selectedRating = value;
             const stars = document.querySelectorAll('#ratingStars i');
@@ -1160,7 +1296,7 @@
             } else {
                 showToast('❌ يرجى تسجيل الدخول أولاً');
                 setTimeout(() => {
-                    window.location.href = '/';
+                    window.location.href = 'index.html';
                 }, 1500);
             }
         });
