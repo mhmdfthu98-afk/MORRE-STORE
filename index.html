@@ -3308,6 +3308,152 @@
         document.getElementById('editModal').addEventListener('click', function(e) {
             if (e.target === this) closeEditModal();
         });
+        // ===== التبديل بين تسجيل الدخول وإنشاء الحساب =====
+function switchToRegister() {
+    document.querySelector('.login-card .welcome h2').textContent = '📝 إنشاء حساب جديد';
+    document.querySelector('.login-card .welcome p').textContent = 'أدخل بياناتك لإنشاء حساب جديد';
+    
+    const form = document.getElementById('loginForm');
+    form.innerHTML = `
+        <div class="form-group">
+            <label>الاسم الكامل</label>
+            <div class="input-wrapper">
+                <i class="fas fa-user"></i>
+                <input type="text" id="regName" placeholder="أدخل اسمك الكامل" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>اسم المستخدم (فريد)</label>
+            <div class="input-wrapper">
+                <i class="fas fa-at"></i>
+                <input type="text" id="regUsername" placeholder="اسم المستخدم" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>البريد الإلكتروني</label>
+            <div class="input-wrapper">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="regEmail" placeholder="example@email.com" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>رقم الهاتف</label>
+            <div class="input-wrapper">
+                <i class="fas fa-phone"></i>
+                <input type="tel" id="regPhone" placeholder="0912345678" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>كلمة المرور</label>
+            <div class="input-wrapper">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="regPassword" placeholder="أدخل كلمة المرور" required>
+                <button type="button" class="toggle-password" onclick="toggleLoginPassword()">
+                    <i class="fas fa-eye" id="loginPasswordIcon"></i>
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>تأكيد كلمة المرور</label>
+            <div class="input-wrapper">
+                <i class="fas fa-check-circle"></i>
+                <input type="password" id="regConfirmPassword" placeholder="أعد كتابة كلمة المرور" required>
+                <button type="button" class="toggle-password" onclick="toggleLoginPassword()">
+                    <i class="fas fa-eye" id="loginPasswordIcon"></i>
+                </button>
+            </div>
+        </div>
+        <div class="terms-check" style="display:flex;align-items:flex-start;gap:8px;font-size:0.75rem;color:#64748b;margin-bottom:14px;">
+            <input type="checkbox" id="termsCheck" style="width:18px;height:18px;accent-color:#f59e0b;margin-top:1px;flex-shrink:0;cursor:pointer;">
+            <label for="termsCheck">أوافق على <a href="#" onclick="showLoginToast('📜 سيتم عرض الشروط والأحكام', 'info')">الشروط والأحكام</a> وسياسة الخصوصية</label>
+        </div>
+        <button type="submit" class="btn-login" id="registerBtn">
+            <i class="fas fa-user-plus ml-2"></i> إنشاء الحساب
+        </button>
+        <div class="auth-footer" style="margin-top:12px;">
+            لديك حساب بالفعل؟ <a href="#" onclick="switchToLogin()">تسجيل الدخول</a>
+        </div>
+    `;
+    
+    document.getElementById('registerBtn').onclick = function(e) {
+        e.preventDefault();
+        handleRegister();
+    };
+    
+    document.querySelector('.login-card .divider').style.display = 'none';
+    document.querySelector('.login-card .social-login').style.display = 'none';
+    document.querySelector('.login-card .features').style.display = 'none';
+}
+
+function switchToLogin() {
+    location.reload();
+}
+
+async function handleRegister() {
+    const name = document.getElementById('regName').value.trim();
+    const username = document.getElementById('regUsername').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const phone = document.getElementById('regPhone').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const confirm = document.getElementById('regConfirmPassword').value;
+    const terms = document.getElementById('termsCheck').checked;
+    const btn = document.getElementById('registerBtn');
+
+    if (!name || !username || !email || !phone || !password || !confirm) {
+        showLoginToast('❌ جميع الحقول مطلوبة', 'error');
+        return;
+    }
+
+    if (password.length < 6) {
+        showLoginToast('❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
+        return;
+    }
+
+    if (password !== confirm) {
+        showLoginToast('❌ كلمة المرور غير متطابقة', 'error');
+        return;
+    }
+
+    if (!terms) {
+        showLoginToast('❌ يجب الموافقة على الشروط والأحكام', 'error');
+        return;
+    }
+
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري إنشاء الحساب...';
+    btn.disabled = true;
+
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        const walletID = Math.floor(100000 + Math.random() * 900000).toString();
+
+        await setDoc(doc(db, "users", user.uid), {
+            name: name,
+            username: username,
+            email: email,
+            phone: phone,
+            walletID: walletID,
+            balance: 0,
+            img: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&size=100&background=f59e0b&color=fff&bold=true`,
+            createdAt: serverTimestamp(),
+            lastLogin: serverTimestamp(),
+            isActive: true,
+            isVerified: false
+        });
+
+        showLoginToast(`✅ تم إنشاء الحساب بنجاح! رقم محفظتك: #${walletID}`, 'success');
+        setTimeout(() => location.reload(), 1500);
+    } catch (error) {
+        let msg = '❌ حدث خطأ في إنشاء الحساب';
+        if (error.code === 'auth/email-already-in-use') msg = '❌ هذا البريد الإلكتروني مستخدم بالفعل';
+        else if (error.code === 'auth/invalid-email') msg = '❌ البريد الإلكتروني غير صحيح';
+        else if (error.code === 'auth/weak-password') msg = '❌ كلمة المرور ضعيفة جداً';
+        showLoginToast(msg, 'error');
+    } finally {
+        btn.innerHTML = '<i class="fas fa-user-plus ml-2"></i> إنشاء الحساب';
+        btn.disabled = false;
+    }
+}
     </script>
 
 </body>
