@@ -1,0 +1,22 @@
+{
+  "name": "MORRE STORE",
+  "short_name": "MORRE",
+  "description": "متجر شامل للخدمات الرقمية - شحن سريع وآمن",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fef08a",
+  "theme_color": "#f59e0b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/T2jF7JFz/Black-And-White-Illustrative-Gaming-Logo-20260610-185928-0000.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/T2jF7JFz/Black-And-White-Illustrative-Gaming-Logo-20260610-185928-0000.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
