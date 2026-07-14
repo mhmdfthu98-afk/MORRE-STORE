@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -1587,6 +1588,23 @@
         }
 
         // ============================================================
+        // ===== دالة إضافة معاملة (مساعد) - ضعها هنا أولاً =====
+        // ============================================================
+        async function addTransaction(userId, type, amount, reason = '') {
+            try {
+                await addDoc(collection(db, "transactions"), {
+                    userId: userId,
+                    type: type,
+                    amount: amount,
+                    reason: reason || (type === 'شحن' ? 'شحن رصيد' : 'خصم رصيد'),
+                    timestamp: serverTimestamp()
+                });
+            } catch (e) {
+                console.error('Error adding transaction:', e);
+            }
+        }
+
+        // ============================================================
         // ===== 1. جلب العملاء (مطور بالكامل) =====
         // ============================================================
         async function loadCustomers() {
@@ -1864,20 +1882,6 @@
         // ============================================================
         // ===== 3. سجل المعاملات (مطور بالكامل) =====
         // ============================================================
-        async function addTransaction(userId, type, amount, reason = '') {
-            try {
-                await addDoc(collection(db, "transactions"), {
-                    userId: userId,
-                    type: type,
-                    amount: amount,
-                    reason: reason || (type === 'شحن' ? 'شحن رصيد' : 'خصم رصيد'),
-                    timestamp: serverTimestamp()
-                });
-            } catch (e) {
-                console.error('Error adding transaction:', e);
-            }
-        }
-
         async function loadTransactions() {
             try {
                 const snap = await getDocs(query(collection(db, "transactions"), orderBy("timestamp", "desc")));
@@ -2410,44 +2414,43 @@
             }
         };
 
-        
         // ============================================================
-// ===== 15. تشغيل لوحة التحكم (معدل للأداء) =====
-// ============================================================
+        // ===== 15. تشغيل لوحة التحكم (معدل للأداء) =====
+        // ============================================================
 
-// ===== تحسين الأداء: تحميل البيانات بالتوازي =====
-async function loadAllData() {
-    showToast('⏳ جاري تحميل البيانات...');
-    
-    try {
-        // تحميل جميع البيانات بالتوازي (أسرع)
-        await Promise.all([
-            loadStats(),
-            loadCustomers(),
-            loadOrders(),
-            loadProducts(),
-            loadTransactions(),
-            loadCodes()
-        ]);
-        
-        showToast('✅ تم تحميل جميع البيانات بنجاح');
-    } catch (e) {
-        console.error('Error loading data:', e);
-        showToast('⚠️ حدث خطأ في تحميل بعض البيانات', true);
-    }
-}
+        // ===== تحسين الأداء: تحميل البيانات بالتوازي =====
+        async function loadAllData() {
+            showToast('⏳ جاري تحميل البيانات...');
 
-onAuthStateChanged(auth, async (user) => {
-    if (user) {
-        currentUser = user;
-        if (checkAdmin(user)) {
-            await loadAllData(); // تحميل كل شيء مرة واحدة بدلاً من كل على حدة
+            try {
+                // تحميل جميع البيانات بالتوازي (أسرع)
+                await Promise.all([
+                    loadStats(),
+                    loadCustomers(),
+                    loadOrders(),
+                    loadProducts(),
+                    loadTransactions(),
+                    loadCodes()
+                ]);
+
+                showToast('✅ تم تحميل جميع البيانات بنجاح');
+            } catch (e) {
+                console.error('Error loading data:', e);
+                showToast('⚠️ حدث خطأ في تحميل بعض البيانات', true);
+            }
         }
-    } else {
-        showToast('❌ يرجى تسجيل الدخول', true);
-        setTimeout(() => window.location.href = 'index.html', 1500);
-    }
-});
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                if (checkAdmin(user)) {
+                    await loadAllData(); // تحميل كل شيء مرة واحدة بدلاً من كل على حدة
+                }
+            } else {
+                showToast('❌ يرجى تسجيل الدخول', true);
+                setTimeout(() => window.location.href = 'index.html', 1500);
+            }
+        });
 
         // ============================================================
         // ===== 16. الوضع الليلي =====
@@ -2470,4 +2473,4 @@ onAuthStateChanged(auth, async (user) => {
     </script>
 
 </body>
-    </html>
+</html>
