@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -11,7 +10,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
 
-        /* ===== الأساسيات ===== */
         * {
             font-family: 'Cairo', sans-serif;
             margin: 0;
@@ -26,7 +24,6 @@
             padding-bottom: 80px;
         }
 
-        /* ===== الشريط الجانبي ===== */
         .sidebar {
             position: fixed;
             top: 0;
@@ -103,194 +100,6 @@
             margin: 8px 0;
         }
 
-        /* ===== المظهر المظلم ===== */
-        .dark .sidebar {
-            background: #0f172a;
-        }
-        .dark body {
-            background: #0f172a;
-        }
-        .dark .glass-card {
-            background: #1e293b !important;
-            border-color: #334155 !important;
-        }
-        .dark .stat-card {
-            background: #1e293b !important;
-            border-color: #334155 !important;
-        }
-        .dark .stat-card .number {
-            color: #f1f5f9 !important;
-        }
-        .dark .stat-card .label {
-            color: #94a3b8 !important;
-        }
-        .dark .table-wrap table th {
-            background: #0f172a !important;
-            color: #f1f5f9 !important;
-        }
-        .dark .table-wrap table td {
-            color: #f1f5f9 !important;
-            border-color: #334155 !important;
-        }
-        .dark .table-wrap table tr:hover td {
-            background: #0f172a !important;
-        }
-        .dark .input-field {
-            background: #0f172a !important;
-            color: #f1f5f9 !important;
-            border-color: #334155 !important;
-        }
-        .dark .input-field:focus {
-            border-color: #f59e0b !important;
-        }
-        .dark .tab-btn {
-            background: #1e293b !important;
-            border-color: #334155 !important;
-            color: #94a3b8 !important;
-        }
-        .dark .tab-btn.active {
-            background: #f59e0b !important;
-            color: #0f172a !important;
-        }
-        .dark .back-btn {
-            background: rgba(30, 41, 59, 0.6) !important;
-            color: #f1f5f9 !important;
-            border-color: #334155 !important;
-        }
-        .dark .back-btn:hover {
-            background: rgba(30, 41, 59, 0.8) !important;
-        }
-        .dark .admin-menu .menu-item {
-            background: #1e293b !important;
-            border-color: #334155 !important;
-        }
-        .dark .admin-menu .menu-item .title {
-            color: #f1f5f9 !important;
-        }
-        .dark .admin-menu .menu-item .desc {
-            color: #94a3b8 !important;
-        }
-        .dark .game-card,
-        .dark .product-item {
-            background: #1e293b !important;
-            border-color: #334155 !important;
-        }
-        .dark .game-card .game-name,
-        .dark .product-item .p-name {
-            color: #f1f5f9 !important;
-        }
-        .dark .game-card .game-desc,
-        .dark .product-item .p-price {
-            color: #94a3b8 !important;
-        }
-        .dark .game-card .game-badge {
-            background: #78350f !important;
-            color: #fbbf24 !important;
-        }
-        .dark .section-title {
-            color: #f1f5f9 !important;
-        }
-        .dark .bottom-nav {
-            background: rgba(30, 41, 59, 0.95) !important;
-            border-top-color: rgba(255, 255, 255, 0.05) !important;
-        }
-        .dark .bottom-nav .nav-item {
-            color: #64748b !important;
-        }
-        .dark .bottom-nav .nav-item.active {
-            color: #fbbf24 !important;
-        }
-        .dark .toast {
-            background: #f1f5f9 !important;
-            color: #1e293b !important;
-        }
-        .dark .modal-box {
-            background: #1e293b !important;
-        }
-        .dark .modal-box h3 {
-            color: #f1f5f9 !important;
-        }
-        .dark .modal-box input,
-        .dark .modal-box select,
-        .dark .modal-box textarea {
-            background: #0f172a !important;
-            border-color: #334155 !important;
-            color: #f1f5f9 !important;
-        }
-        .dark .modal-box .btn-cancel {
-            background: #334155 !important;
-            color: #f1f5f9 !important;
-        }
-        .dark .modal-box .wallet-display {
-            background: #78350f !important;
-            color: #fbbf24 !important;
-        }
-        .dark .order-item {
-            background: #1e293b !important;
-            border-color: #334155 !important;
-        }
-        .dark .order-item .order-id {
-            color: #f1f5f9 !important;
-        }
-        .dark .order-item .order-product {
-            color: #f1f5f9 !important;
-        }
-        .dark .order-item .order-date {
-            color: #94a3b8 !important;
-        }
-        .dark .tx-item {
-            border-color: #334155 !important;
-        }
-        .dark .tx-item .tx-info .tx-title {
-            color: #f1f5f9 !important;
-        }
-        .dark .profile-card {
-            background: #1e293b !important;
-            border-color: #334155 !important;
-        }
-        .dark .profile-card .name {
-            color: #f1f5f9 !important;
-        }
-        .dark .profile-card .stats .stat-item .num {
-            color: #f1f5f9 !important;
-        }
-        .dark .info-item {
-            background: #1e293b !important;
-            border-color: #334155 !important;
-        }
-        .dark .info-item .value {
-            color: #f1f5f9 !important;
-        }
-        .dark .menu-btn {
-            background: #1e293b !important;
-            border-color: #334155 !important;
-            color: #f1f5f9 !important;
-        }
-        .dark .profile-card .wallet {
-            background: #78350f !important;
-            color: #fbbf24 !important;
-        }
-        .dark .profile-card .stats {
-            border-color: #334155 !important;
-        }
-        .dark .customer-item {
-            background: #1e293b !important;
-            border-color: #334155 !important;
-        }
-        .dark .customer-item .customer-info .name {
-            color: #f1f5f9 !important;
-        }
-        .dark .customer-item .customer-balance {
-            color: #fbbf24 !important;
-        }
-        .dark .tx-item .tx-info .tx-title {
-            color: #f1f5f9 !important;
-        }
-        .dark .tx-item .tx-info .tx-date {
-            color: #94a3b8 !important;
-        }
-
-        /* ===== الحاويات ===== */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -309,7 +118,6 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
         }
 
-        /* ===== رأس الصفحة ===== */
         .back-header {
             display: flex;
             align-items: center;
@@ -354,7 +162,6 @@
             background: rgba(255, 255, 255, 0.8);
         }
 
-        /* ===== الإحصائيات ===== */
         .stat-card {
             background: white;
             border-radius: 14px;
@@ -376,9 +183,6 @@
             color: #94a3b8;
             font-weight: 600;
         }
-        .stat-card .icon {
-            font-size: 1.2rem;
-        }
         .stat-card.gold .number {
             color: #d97706;
         }
@@ -391,9 +195,6 @@
         .stat-card.purple .number {
             color: #7c3aed;
         }
-        .stat-card.red .number {
-            color: #dc2626;
-        }
         .stat-card.pink .number {
             color: #ec4899;
         }
@@ -401,7 +202,6 @@
             color: #0d9488;
         }
 
-        /* ===== تبويبات ===== */
         .tab-content {
             display: none;
         }
@@ -409,7 +209,6 @@
             display: block;
         }
 
-        /* ===== جداول ===== */
         .table-wrap {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
@@ -436,7 +235,6 @@
             background: #f8fafc;
         }
 
-        /* ===== المودال ===== */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -521,47 +319,7 @@
             cursor: pointer;
             margin-top: 8px;
         }
-        .modal-box .wallet-display {
-            background: #fef3c7;
-            padding: 10px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 700;
-            color: #d97706;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-        .modal-box .customer-info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-        .modal-box .customer-info-grid .info-item {
-            background: #f8fafc;
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid #f1f5f9;
-        }
-        .modal-box .customer-info-grid .info-item .label {
-            font-size: 0.6rem;
-            color: #94a3b8;
-            font-weight: 600;
-        }
-        .modal-box .customer-info-grid .info-item .value {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #1e293b;
-        }
-        .dark .modal-box .customer-info-grid .info-item {
-            background: #0f172a;
-            border-color: #334155;
-        }
-        .dark .modal-box .customer-info-grid .info-item .value {
-            color: #f1f5f9;
-        }
 
-        /* ===== الأزرار ===== */
         .btn-sm {
             padding: 4px 10px;
             border-radius: 8px;
@@ -607,13 +365,6 @@
         .btn-sm.outline:hover {
             border-color: #d97706;
         }
-        .btn-sm.purple {
-            background: #7c3aed;
-            color: white;
-        }
-        .btn-sm.purple:hover {
-            background: #6d28d9;
-        }
 
         .input-field {
             width: 100%;
@@ -630,7 +381,6 @@
             background: rgba(255, 255, 255, 0.8);
         }
 
-        /* ===== حالة ===== */
         .status-badge {
             padding: 2px 10px;
             border-radius: 12px;
@@ -663,7 +413,6 @@
             color: #dc2626;
         }
 
-        /* ===== قائمة سريعة ===== */
         .admin-menu {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -699,7 +448,6 @@
             color: #94a3b8;
         }
 
-        /* ===== عملاء ===== */
         .customer-item {
             padding: 10px 12px;
             background: white;
@@ -733,7 +481,6 @@
             font-size: 0.85rem;
         }
 
-        /* ===== سجل المعاملات ===== */
         .tx-item {
             display: flex;
             justify-content: space-between;
@@ -794,7 +541,6 @@
             color: #dc2626;
         }
 
-        /* ===== الشريط السفلي ===== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -836,7 +582,6 @@
             color: #d97706;
         }
 
-        /* ===== Toast ===== */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -859,7 +604,6 @@
             transform: translateX(-50%) translateY(-10px);
         }
 
-        /* ===== منتجات ===== */
         .game-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -901,6 +645,29 @@
             padding: 1px 8px;
             border-radius: 8px;
             margin-top: 2px;
+        }
+
+        .modal-box .customer-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .modal-box .customer-info-grid .info-item {
+            background: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #f1f5f9;
+        }
+        .modal-box .customer-info-grid .info-item .label {
+            font-size: 0.6rem;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+        .modal-box .customer-info-grid .info-item .value {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1e293b;
         }
 
         @media (max-width: 480px) {
@@ -955,6 +722,201 @@
             table td {
                 padding: 4px 6px;
             }
+        }
+
+        /* Dark mode */
+        .dark .sidebar {
+            background: #0f172a;
+        }
+        .dark body {
+            background: #0f172a;
+        }
+        .dark .glass-card {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        .dark .stat-card {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        .dark .stat-card .number {
+            color: #f1f5f9 !important;
+        }
+        .dark .stat-card .label {
+            color: #94a3b8 !important;
+        }
+        .dark .table-wrap table th {
+            background: #0f172a !important;
+            color: #f1f5f9 !important;
+        }
+        .dark .table-wrap table td {
+            color: #f1f5f9 !important;
+            border-color: #334155 !important;
+        }
+        .dark .table-wrap table tr:hover td {
+            background: #0f172a !important;
+        }
+        .dark .input-field {
+            background: #0f172a !important;
+            color: #f1f5f9 !important;
+            border-color: #334155 !important;
+        }
+        .dark .input-field:focus {
+            border-color: #f59e0b !important;
+        }
+        .dark .toast {
+            background: #f1f5f9 !important;
+            color: #1e293b !important;
+        }
+        .dark .modal-box {
+            background: #1e293b !important;
+        }
+        .dark .modal-box h3 {
+            color: #f1f5f9 !important;
+        }
+        .dark .modal-box input,
+        .dark .modal-box select,
+        .dark .modal-box textarea {
+            background: #0f172a !important;
+            border-color: #334155 !important;
+            color: #f1f5f9 !important;
+        }
+        .dark .modal-box .btn-cancel {
+            background: #334155 !important;
+            color: #f1f5f9 !important;
+        }
+        .dark .modal-box .customer-info-grid .info-item {
+            background: #0f172a;
+            border-color: #334155;
+        }
+        .dark .modal-box .customer-info-grid .info-item .value {
+            color: #f1f5f9;
+        }
+        .dark .customer-item {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        .dark .customer-item .customer-info .name {
+            color: #f1f5f9 !important;
+        }
+        .dark .customer-item .customer-balance {
+            color: #fbbf24 !important;
+        }
+        .dark .tx-item {
+            border-color: #334155 !important;
+        }
+        .dark .tx-item .tx-info .tx-title {
+            color: #f1f5f9 !important;
+        }
+        .dark .tx-item .tx-info .tx-date {
+            color: #94a3b8 !important;
+        }
+        .dark .game-card,
+        .dark .product-item {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        .dark .game-card .game-name,
+        .dark .product-item .p-name {
+            color: #f1f5f9 !important;
+        }
+        .dark .game-card .game-desc,
+        .dark .product-item .p-price {
+            color: #94a3b8 !important;
+        }
+        .dark .game-card .game-badge {
+            background: #78350f !important;
+            color: #fbbf24 !important;
+        }
+        .dark .bottom-nav {
+            background: rgba(30, 41, 59, 0.95) !important;
+            border-top-color: rgba(255, 255, 255, 0.05) !important;
+        }
+        .dark .bottom-nav .nav-item {
+            color: #64748b !important;
+        }
+        .dark .bottom-nav .nav-item.active {
+            color: #fbbf24 !important;
+        }
+        .dark .admin-menu .menu-item {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        .dark .admin-menu .menu-item .title {
+            color: #f1f5f9 !important;
+        }
+        .dark .admin-menu .menu-item .desc {
+            color: #94a3b8 !important;
+        }
+        .dark .back-btn {
+            background: rgba(30, 41, 59, 0.6) !important;
+            color: #f1f5f9 !important;
+            border-color: #334155 !important;
+        }
+        .dark .back-btn:hover {
+            background: rgba(30, 41, 59, 0.8) !important;
+        }
+        .dark .menu-toggle {
+            background: rgba(30, 41, 59, 0.6) !important;
+            color: #f1f5f9 !important;
+            border-color: #334155 !important;
+        }
+        .dark .menu-toggle:hover {
+            background: rgba(30, 41, 59, 0.8) !important;
+        }
+        .dark .tab-btn {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+            color: #94a3b8 !important;
+        }
+        .dark .tab-btn.active {
+            background: #f59e0b !important;
+            color: #0f172a !important;
+        }
+        .dark .section-title {
+            color: #f1f5f9 !important;
+        }
+        .dark .order-item {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        .dark .order-item .order-id {
+            color: #f1f5f9 !important;
+        }
+        .dark .order-item .order-product {
+            color: #f1f5f9 !important;
+        }
+        .dark .order-item .order-date {
+            color: #94a3b8 !important;
+        }
+        .dark .profile-card {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        .dark .profile-card .name {
+            color: #f1f5f9 !important;
+        }
+        .dark .profile-card .stats .stat-item .num {
+            color: #f1f5f9 !important;
+        }
+        .dark .info-item {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+        }
+        .dark .info-item .value {
+            color: #f1f5f9 !important;
+        }
+        .dark .menu-btn {
+            background: #1e293b !important;
+            border-color: #334155 !important;
+            color: #f1f5f9 !important;
+        }
+        .dark .profile-card .wallet {
+            background: #78350f !important;
+            color: #fbbf24 !important;
+        }
+        .dark .profile-card .stats {
+            border-color: #334155 !important;
         }
     </style>
 </head>
@@ -1031,11 +993,8 @@
             </button>
         </div>
 
-        <!-- ========================================================== -->
         <!-- ===== 1. Dashboard ===== -->
-        <!-- ========================================================== -->
         <div id="tab-dashboard" class="tab-content active">
-            <!-- الإحصائيات -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                 <div class="stat-card gold text-center">
                     <div class="number" id="totalCustomers">0</div>
@@ -1067,7 +1026,6 @@
                 </div>
             </div>
 
-            <!-- قائمة سريعة -->
             <div class="admin-menu">
                 <div class="menu-item" onclick="switchTab('customers')">
                     <i class="fas fa-users"></i>
@@ -1102,20 +1060,14 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
-        <!-- ===== 2. العملاء (مطور بالكامل) ===== -->
-        <!-- ========================================================== -->
+        <!-- ===== 2. العملاء ===== -->
         <div id="tab-customers" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">👥 إدارة العملاء</h3>
-
-                <!-- بحث -->
                 <div class="flex gap-2 mb-3">
                     <input type="text" id="searchCustomer" class="input-field" placeholder="🔍 بحث بالاسم أو البريد أو الهاتف..." oninput="filterCustomers()">
                     <button onclick="resetCustomerSearch()" class="btn-sm gold">إعادة تعيين</button>
                 </div>
-
-                <!-- الإحصائيات السريعة -->
                 <div class="grid grid-cols-3 gap-2 mb-3 text-center text-xs">
                     <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded-lg">
                         <span class="font-bold text-dark" id="totalCustomersCount">0</span>
@@ -1130,8 +1082,6 @@
                         <span class="text-dark-light"> محظورون</span>
                     </div>
                 </div>
-
-                <!-- جدول العملاء -->
                 <div class="table-wrap">
                     <table>
                         <thead>
@@ -1158,9 +1108,7 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
         <!-- ===== 3. الطلبات ===== -->
-        <!-- ========================================================== -->
         <div id="tab-orders" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">📋 إدارة الطلبات</h3>
@@ -1193,13 +1141,10 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
-        <!-- ===== 4. المحفظة (مطور بالكامل) ===== -->
-        <!-- ========================================================== -->
+        <!-- ===== 4. المحفظة ===== -->
         <div id="tab-wallet" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">💰 إدارة المحافظ</h3>
-
                 <div class="space-y-3">
                     <div>
                         <label class="text-xs font-bold text-dark-light">👤 اختيار العميل</label>
@@ -1227,7 +1172,6 @@
                         <button onclick="deductWallet()" class="btn-sm red flex-1">➖ خصم الرصيد</button>
                     </div>
                 </div>
-
                 <div class="mt-4">
                     <h4 class="font-bold text-dark text-sm mb-2">📊 إجمالي رصيد المحافظ</h4>
                     <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-xl text-center">
@@ -1238,28 +1182,22 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
-        <!-- ===== 5. سجل المعاملات (مطور بالكامل) ===== -->
-        <!-- ========================================================== -->
+        <!-- ===== 5. سجل المعاملات ===== -->
         <div id="tab-transactions" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">📊 سجل المعاملات</h3>
-
                 <div class="flex gap-2 mb-3">
                     <input type="date" id="filterDate" class="input-field" style="max-width: 180px;">
                     <button onclick="filterTransactions()" class="btn-sm gold">تصفية</button>
                     <button onclick="resetTransactionFilter()" class="btn-sm outline">إعادة تعيين</button>
                 </div>
-
                 <div id="transactionsList">
                     <div class="text-center text-dark-light py-4">جاري التحميل...</div>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================================== -->
         <!-- ===== 6. المنتجات ===== -->
-        <!-- ========================================================== -->
         <div id="tab-products" class="tab-content">
             <div class="glass-card">
                 <div class="flex justify-between items-center mb-3">
@@ -1295,9 +1233,7 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
         <!-- ===== 7. الألعاب ===== -->
-        <!-- ========================================================== -->
         <div id="tab-games" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">🎮 إدارة الألعاب</h3>
@@ -1328,9 +1264,7 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
         <!-- ===== 8. الاشتراكات ===== -->
-        <!-- ========================================================== -->
         <div id="tab-subscriptions" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">⭐ إدارة الاشتراكات</h3>
@@ -1354,9 +1288,7 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
         <!-- ===== 9. البطاقات ===== -->
-        <!-- ========================================================== -->
         <div id="tab-cards" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">💳 إدارة البطاقات</h3>
@@ -1375,9 +1307,7 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
         <!-- ===== 10. الأكواد ===== -->
-        <!-- ========================================================== -->
         <div id="tab-codes" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">🎟️ إدارة الأكواد الرقمية</h3>
@@ -1406,9 +1336,7 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
         <!-- ===== 11. العروض ===== -->
-        <!-- ========================================================== -->
         <div id="tab-offers" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">🎁 إدارة العروض والخصومات</h3>
@@ -1424,9 +1352,7 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
         <!-- ===== 12. التقارير ===== -->
-        <!-- ========================================================== -->
         <div id="tab-reports" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">📊 التقارير والتحليلات</h3>
@@ -1442,9 +1368,7 @@
             </div>
         </div>
 
-        <!-- ========================================================== -->
         <!-- ===== 13. الإعدادات ===== -->
-        <!-- ========================================================== -->
         <div id="tab-settings" class="tab-content">
             <div class="glass-card">
                 <h3 class="font-bold text-dark mb-3">⚙️ إعدادات النظام</h3>
@@ -1588,7 +1512,7 @@
         }
 
         // ============================================================
-        // ===== دالة إضافة معاملة (مساعد) - ضعها هنا أولاً =====
+        // ===== دالة إضافة معاملة (مرة واحدة فقط) =====
         // ============================================================
         async function addTransaction(userId, type, amount, reason = '') {
             try {
@@ -1605,7 +1529,7 @@
         }
 
         // ============================================================
-        // ===== 1. جلب العملاء (مطور بالكامل) =====
+        // ===== 1. جلب العملاء =====
         // ============================================================
         async function loadCustomers() {
             try {
@@ -1630,14 +1554,12 @@
                     });
                 });
 
-                // تحديث الإحصائيات
                 document.getElementById('totalCustomersCount').textContent = allCustomers.length;
                 document.getElementById('activeCustomersCount').textContent = activeCount;
                 document.getElementById('bannedCustomersCount').textContent = bannedCount;
                 document.getElementById('totalCustomers').textContent = allCustomers.length;
                 document.getElementById('customerBadge').textContent = allCustomers.length;
 
-                // تحديث قائمة العملاء في المحفظة
                 const walletSelect = document.getElementById('walletCustomer');
                 walletSelect.innerHTML = '<option value="">-- اختر عميلاً --</option>';
                 allCustomers.forEach(c => {
@@ -1647,7 +1569,6 @@
                     walletSelect.appendChild(option);
                 });
 
-                // عرض الجدول
                 renderCustomersTable(allCustomers);
             } catch (e) {
                 console.error('Error loading customers:', e);
@@ -1691,7 +1612,6 @@
             table.innerHTML = html;
         }
 
-        // ===== البحث في العملاء =====
         window.filterCustomers = function() {
             const term = document.getElementById('searchCustomer').value.toLowerCase().trim();
             if (!term) {
@@ -1711,7 +1631,6 @@
             renderCustomersTable(allCustomers);
         };
 
-        // ===== فتح مودال العميل =====
         window.openCustomerModal = async function(customerId) {
             try {
                 const docSnap = await getDoc(doc(db, "users", customerId));
@@ -1772,7 +1691,6 @@
             }
         };
 
-        // ===== حظر/تفعيل =====
         window.toggleBan = async function(customerId, isBanned) {
             if (!confirm(`⚠️ هل أنت متأكد من ${isBanned ? 'تفعيل' : 'حظر'} هذا العميل؟`)) return;
             try {
@@ -1784,7 +1702,6 @@
             }
         };
 
-        // ===== حذف العميل =====
         window.deleteCustomer = async function(customerId) {
             if (!confirm('⚠️ تحذير: هل أنت متأكد من حذف هذا العميل نهائياً؟')) return;
             if (!confirm('تأكيد نهائي: لا يمكن التراجع عن هذا الإجراء!')) return;
@@ -1815,135 +1732,71 @@
             }
         });
 
-// ============================================================
-// ===== إدارة المحفظة (نسخة مبسطة وشغالة 100%) =====
-// ============================================================
-
-// دالة إضافة معاملة
-async function addTransaction(userId, type, amount, reason = '') {
-    try {
-        const docRef = await addDoc(collection(db, "transactions"), {
-            userId: userId,
-            type: type,
-            amount: amount,
-            reason: reason || (type === 'شحن' ? 'شحن رصيد' : 'خصم رصيد'),
-            timestamp: serverTimestamp()
-        });
-        console.log('✅ تم إضافة المعاملة:', docRef.id);
-        return true;
-    } catch (e) {
-        console.error('❌ خطأ في إضافة المعاملة:', e);
-        return false;
-    }
-}
-
-// شحن الرصيد
-window.rechargeWallet = async function() {
-    const userId = document.getElementById('walletCustomer').value;
-    const amount = parseInt(document.getElementById('walletAmount').value);
-    const reason = document.getElementById('walletReason').value || 'شحن رصيد من لوحة التحكم';
-
-    if (!userId) {
-        showToast('❌ اختر عميلاً', true);
-        return;
-    }
-    if (!amount || amount <= 0) {
-        showToast('❌ أدخل مبلغ صحيح', true);
-        return;
-    }
-
-    try {
-        // تحديث رصيد العميل
-        const userRef = doc(db, "users", userId);
-        await updateDoc(userRef, {
-            balance: increment(amount)
-        });
-
-        // إضافة المعاملة
-        await addTransaction(userId, 'شحن', amount, reason);
-
-        showToast(`✅ تم شحن ${amount.toLocaleString()} ج.س بنجاح`);
-        
-        // تفريغ الحقول
-        document.getElementById('walletAmount').value = '';
-        document.getElementById('walletReason').value = '';
-        
-        // تحديث البيانات
-        await loadCustomers();
-        await loadTransactions();
-        await loadStats();
-        
-        // تحديث الرصيد المعروض
-        const docSnap = await getDoc(doc(db, "users", userId));
-        if (docSnap.exists()) {
-            document.getElementById('customerCurrentBalance').textContent = (docSnap.data().balance || 0).toLocaleString();
-        }
-        
-    } catch (error) {
-        console.error('❌ خطأ في الشحن:', error);
-        showToast('❌ حدث خطأ: ' + error.message, true);
-    }
-};
-
-// خصم الرصيد
-window.deductWallet = async function() {
-    const userId = document.getElementById('walletCustomer').value;
-    const amount = parseInt(document.getElementById('walletAmount').value);
-    const reason = document.getElementById('walletReason').value || 'خصم رصيد من لوحة التحكم';
-
-    if (!userId) {
-        showToast('❌ اختر عميلاً', true);
-        return;
-    }
-    if (!amount || amount <= 0) {
-        showToast('❌ أدخل مبلغ صحيح', true);
-        return;
-    }
-
-    try {
-        // التحقق من الرصيد
-        const userRef = doc(db, "users", userId);
-        const userSnap = await getDoc(userRef);
-        const currentBalance = userSnap.data()?.balance || 0;
-        
-        if (currentBalance < amount) {
-            showToast(`❌ رصيد العميل غير كافٍ (${currentBalance.toLocaleString()} ج.س)`, true);
-            return;
-        }
-        
-        // خصم الرصيد
-        await updateDoc(userRef, {
-            balance: increment(-amount)
-        });
-
-        // إضافة المعاملة
-        await addTransaction(userId, 'خصم', amount, reason);
-
-        showToast(`✅ تم خصم ${amount.toLocaleString()} ج.س بنجاح`);
-        
-        // تفريغ الحقول
-        document.getElementById('walletAmount').value = '';
-        document.getElementById('walletReason').value = '';
-        
-        // تحديث البيانات
-        await loadCustomers();
-        await loadTransactions();
-        await loadStats();
-        
-        // تحديث الرصيد المعروض
-        const docSnap = await getDoc(userRef);
-        if (docSnap.exists()) {
-            document.getElementById('customerCurrentBalance').textContent = (docSnap.data().balance || 0).toLocaleString();
-        }
-        
-    } catch (error) {
-        console.error('❌ خطأ في الخصم:', error);
-        showToast('❌ حدث خطأ: ' + error.message, true);
-    }
-};
-        
         // ============================================================
-        // ===== 3. سجل المعاملات (مطور بالكامل) =====
+        // ===== 2. إدارة المحفظة (شحن/خصم) =====
+        // ============================================================
+        window.rechargeWallet = async function() {
+            const userId = document.getElementById('walletCustomer').value;
+            const amount = parseInt(document.getElementById('walletAmount').value);
+            const reason = document.getElementById('walletReason').value || 'شحن رصيد من لوحة التحكم';
+
+            if (!userId) { showToast('❌ اختر عميلاً', true); return; }
+            if (!amount || amount <= 0) { showToast('❌ أدخل مبلغ صحيح', true); return; }
+
+            try {
+                await updateDoc(doc(db, "users", userId), { balance: increment(amount) });
+                await addTransaction(userId, 'شحن', amount, reason);
+                showToast(`✅ تم شحن ${amount.toLocaleString()} ج.س بنجاح`);
+                document.getElementById('walletAmount').value = '';
+                document.getElementById('walletReason').value = '';
+                await loadCustomers();
+                await loadTransactions();
+                await loadStats();
+                const docSnap = await getDoc(doc(db, "users", userId));
+                if (docSnap.exists()) {
+                    document.getElementById('customerCurrentBalance').textContent = (docSnap.data().balance || 0)
+                        .toLocaleString();
+                }
+            } catch (e) {
+                showToast('❌ حدث خطأ: ' + e.message, true);
+            }
+        };
+
+        window.deductWallet = async function() {
+            const userId = document.getElementById('walletCustomer').value;
+            const amount = parseInt(document.getElementById('walletAmount').value);
+            const reason = document.getElementById('walletReason').value || 'خصم رصيد من لوحة التحكم';
+
+            if (!userId) { showToast('❌ اختر عميلاً', true); return; }
+            if (!amount || amount <= 0) { showToast('❌ أدخل مبلغ صحيح', true); return; }
+
+            try {
+                const userSnap = await getDoc(doc(db, "users", userId));
+                const currentBalance = userSnap.data().balance || 0;
+                if (currentBalance < amount) {
+                    showToast(`❌ رصيد العميل غير كافٍ (${currentBalance.toLocaleString()} ج.س)`, true);
+                    return;
+                }
+                await updateDoc(doc(db, "users", userId), { balance: increment(-amount) });
+                await addTransaction(userId, 'خصم', amount, reason);
+                showToast(`✅ تم خصم ${amount.toLocaleString()} ج.س بنجاح`);
+                document.getElementById('walletAmount').value = '';
+                document.getElementById('walletReason').value = '';
+                await loadCustomers();
+                await loadTransactions();
+                await loadStats();
+                const docSnap = await getDoc(doc(db, "users", userId));
+                if (docSnap.exists()) {
+                    document.getElementById('customerCurrentBalance').textContent = (docSnap.data().balance || 0)
+                        .toLocaleString();
+                }
+            } catch (e) {
+                showToast('❌ حدث خطأ: ' + e.message, true);
+            }
+        };
+
+        // ============================================================
+        // ===== 3. سجل المعاملات =====
         // ============================================================
         async function loadTransactions() {
             try {
@@ -1953,7 +1806,6 @@ window.deductWallet = async function() {
                     allTransactions.push({ id: doc.id, ...doc.data() });
                 });
                 renderTransactions(allTransactions);
-                // تحديث إجمالي رصيد المحافظ
                 await updateTotalWalletBalance();
             } catch (e) {
                 console.error('Error loading transactions:', e);
@@ -1978,7 +1830,6 @@ window.deductWallet = async function() {
                 const sign = tx.type === 'شحن' || tx.type === 'شراء' ? '+' : '-';
                 const date = tx.timestamp?.toDate ? new Date(tx.timestamp.toDate()).toLocaleString('ar-SD') : 'الآن';
 
-                // جلب اسم العميل
                 let customerName = 'مستخدم';
                 if (tx.userId) {
                     try {
@@ -2026,7 +1877,6 @@ window.deductWallet = async function() {
             renderTransactions(allTransactions);
         };
 
-        // ===== تحديث إجمالي رصيد المحافظ =====
         async function updateTotalWalletBalance() {
             try {
                 const snap = await getDocs(collection(db, "users"));
@@ -2067,7 +1917,6 @@ window.deductWallet = async function() {
                 });
                 document.getElementById('totalRevenue').textContent = totalRevenue.toLocaleString() + ' ج.س';
 
-                // أكثر منتج مبيعاً
                 if (!ordersSnap.empty) {
                     const productCount = {};
                     ordersSnap.forEach(doc => {
@@ -2478,15 +2327,12 @@ window.deductWallet = async function() {
         };
 
         // ============================================================
-        // ===== 15. تشغيل لوحة التحكم (معدل للأداء) =====
+        // ===== 15. تشغيل لوحة التحكم =====
         // ============================================================
-
-        // ===== تحسين الأداء: تحميل البيانات بالتوازي =====
         async function loadAllData() {
             showToast('⏳ جاري تحميل البيانات...');
 
             try {
-                // تحميل جميع البيانات بالتوازي (أسرع)
                 await Promise.all([
                     loadStats(),
                     loadCustomers(),
@@ -2495,7 +2341,6 @@ window.deductWallet = async function() {
                     loadTransactions(),
                     loadCodes()
                 ]);
-
                 showToast('✅ تم تحميل جميع البيانات بنجاح');
             } catch (e) {
                 console.error('Error loading data:', e);
@@ -2507,7 +2352,7 @@ window.deductWallet = async function() {
             if (user) {
                 currentUser = user;
                 if (checkAdmin(user)) {
-                    await loadAllData(); // تحميل كل شيء مرة واحدة بدلاً من كل على حدة
+                    await loadAllData();
                 }
             } else {
                 showToast('❌ يرجى تسجيل الدخول', true);
@@ -2536,4 +2381,4 @@ window.deductWallet = async function() {
     </script>
 
 </body>
-</html>
+                                    </html>
