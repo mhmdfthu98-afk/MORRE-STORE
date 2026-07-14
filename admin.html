@@ -1225,26 +1225,38 @@
         }
 
         // ============================================================
-        // ===== دالة إضافة معاملة (المعدلة) =====
+        // ===== دالة إضافة معاملة (بنفس شكل المعاملات القديمة) =====
         // ============================================================
         async function addTransaction(userId, type, amount, reason = '') {
             try {
-                console.log('📝 جاري إضافة معاملة:', { userId, type, amount, reason });
+                // جلب بيانات المستخدم للحصول على walletID
+                const userSnap = await getDoc(doc(db, "users", userId));
+                const userData = userSnap.exists() ? userSnap.data() : {};
+                const walletID = userData.walletID || '000000';
+                
+                console.log('📝 جاري إضافة المعاملة...');
+                console.log('👤 معرف العميل:', userId);
+                console.log('💰 المبلغ:', amount);
+                console.log('📌 النوع:', type);
+                console.log('🔑 رقم المحفظة:', walletID);
 
                 const docRef = await addDoc(collection(db, "transactions"), {
+                    admin: "mhmdfthu98@gmail.com",   // ✅ نفس الحقل القديم
+                    amount: amount,                   // ✅ نفس الحقل القديم
+                    targetWallet: walletID,           // ✅ نفس الحقل القديم
+                    timestamp: serverTimestamp(),     // ✅ نفس الحقل القديم
+                    // حقول إضافية للتوافق مع النظام الجديد
                     userId: userId,
                     type: type,
-                    amount: amount,
-                    reason: reason || (type === 'شحن' ? 'شحن رصيد' : 'خصم رصيد'),
-                    timestamp: serverTimestamp()
+                    reason: reason || (type === 'شحن' ? 'شحن رصيد' : 'خصم رصيد')
                 });
 
                 console.log('✅ تم إضافة المعاملة بنجاح! ID:', docRef.id);
-                showToast('✅ تم تسجيل المعاملة بنجاح');
+                showToast('✅ تم تسجيل المعاملة');
                 return true;
             } catch (error) {
                 console.error('❌ خطأ في إضافة المعاملة:', error);
-                showToast('❌ حدث خطأ في إضافة المعاملة', true);
+                showToast('❌ خطأ في تسجيل المعاملة: ' + error.message, true);
                 return false;
             }
         }
@@ -1386,7 +1398,7 @@
         });
 
         // ============================================================
-        // ===== 2. المحفظة (معدلة) =====
+        // ===== 2. المحفظة (شحن/خصم) =====
         // ============================================================
         window.rechargeWallet = async function() {
             const userId = document.getElementById('walletCustomer').value;
@@ -1408,11 +1420,8 @@
                 });
                 console.log('✅ تم تحديث الرصيد');
 
-                // 2. إضافة المعاملة
-                const result = await addTransaction(userId, 'شحن', amount, reason);
-                if (!result) {
-                    showToast('⚠️ تم الشحن ولكن حدث خطأ في تسجيل المعاملة', true);
-                }
+                // 2. إضافة المعاملة (بالشكل القديم)
+                await addTransaction(userId, 'شحن', amount, reason);
 
                 showToast(`✅ تم شحن ${amount.toLocaleString()} ج.س بنجاح`);
                 document.getElementById('walletAmount').value = '';
@@ -1460,10 +1469,7 @@
                 });
                 console.log('✅ تم تحديث الرصيد');
 
-                const result = await addTransaction(userId, 'خصم', amount, reason);
-                if (!result) {
-                    showToast('⚠️ تم الخصم ولكن حدث خطأ في تسجيل المعاملة', true);
-                }
+                await addTransaction(userId, 'خصم', amount, reason);
 
                 showToast(`✅ تم خصم ${amount.toLocaleString()} ج.س بنجاح`);
                 document.getElementById('walletAmount').value = '';
@@ -1945,4 +1951,4 @@
     </script>
 
 </body>
-                        </html>
+    </html>
