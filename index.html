@@ -4,25 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>MORRE STORE | متجر شامل للخدمات الرقمية</title>
-    
-    <!-- ===== Tailwind ===== -->
     <script src="https://cdn.tailwindcss.com">
     </script>
-    
-    <!-- ===== Font Awesome ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- ============================================ -->
-    <!-- ===== PWA - تطبيق الموبايل ===== -->
-    <!-- ============================================ -->
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="https://i.postimg.cc/T2jF7JFz/Black-And-White-Illustrative-Gaming-Logo-20260610-185928-0000.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#f59e0b">
-    <meta name="application-name" content="MORRE STORE">
-    <meta name="apple-mobile-web-app-title" content="MORRE">
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
         * {
@@ -1471,6 +1455,14 @@
 </head>
 <body>
 
+    <!-- شاشة تحذير WebView -->
+    <div id="webview-warning" style="display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: #fef08a; text-align: center; position: fixed; top:0;left:0;right:0;bottom:0;z-index:20000; color: #1e293b;">
+        <h2 class="text-2xl font-bold mb-4">⛔ لا يمكن تسجيل الدخول من هذا التطبيق</h2>
+        <p class="mb-4">يرجى فتح هذا الرابط في متصفح خارجي مثل Chrome أو Safari.</p>
+        <button id="open-browser-btn" class="action-btn">فتح في المتصفح</button>
+        <button id="copy-link-btn" class="action-btn-outline mt-2">نسخ الرابط</button>
+    </div>
+
     <!-- ===== شاشة التحميل ===== -->
     <div id="loading-screen" class="fixed inset-0 bg-white/70 backdrop-blur flex items-center justify-center z-50">
         <div class="loader-spin"></div>
@@ -1636,6 +1628,11 @@
                                 <option value="redotpay">💳 فيزا Redotpay</option>
                                 <option value="tiktok">🎵 تيك توك</option>
                                 <option value="ai">🤖 الذكاء الاصطناعي</option>
+                                <option value="fcmobile">⚽ FC Mobile</option>
+                                <option value="playstation">🎮 بلاي ستيشن</option>
+                                <option value="mastercard">💳 ماستر كارد</option>
+                                <option value="clashroyale">👑 كلاش رويال</option>
+                                <option value="canva">🎨 كانفا</option>
                             </select>
                             <input type="text" id="productName" placeholder="اسم المنتج">
                             <input type="number" id="productPrice" placeholder="السعر (جنيه)">
@@ -1668,78 +1665,103 @@
                 </div>
             </div>
 
-            <!-- ========== الصفحة الرئيسية ========== -->
+            <!-- ========== الصفحة الرئيسية (معدلة بالصور الجديدة) ========== -->
             <div id="homePage" class="home-page">
                 <h2 class="text-2xl font-black text-dark mb-6 text-center">🌟 جميع الخدمات</h2>
 
-                <!-- قسم الألعاب -->
+                <!-- ===== قسم الألعاب ===== -->
                 <div class="section-title">
                     <span class="section-icon">🎮</span> الألعاب
                 </div>
                 <div class="service-grid">
                     <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'pubg')">
-                        <img src="https://i.ibb.co/20tqyP6s/4ff592f1-0de2-421f-bd99-514dd525d512.png" alt="PUBG" class="service-icon">
+                        <img src="https://i.postimg.cc/SN4TQSGQ/file-000000000ae07243bf080d232a76158e.png" alt="PUBG" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">ببجي PUBG</h3>
                         <p class="text-dark-light text-xs">شحن فوري</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'efootball')">
-                        <img src="https://i.ibb.co/RkCSn7yX/a7934c4c-ed36-4662-b9cc-7bc04c57abf3.png" alt="eFootball" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">eFootball</h3>
-                        <p class="text-dark-light text-xs">كوينز وباقات</p>
-                    </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'clash')">
-                        <img src="https://i.ibb.co/ZpS1L23Z/71ce3435-2342-43ff-aad3-0f65c7e6e837.png" alt="Clash of Clans" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">كلاش أوف كلانس</h3>
-                        <p class="text-dark-light text-xs">تذاكر وجواهر</p>
-                    </div>
                     <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'freefire')">
-                        <img src="https://i.ibb.co/LMh98T2/4bf2c240-db85-47c5-b211-3d0a5cf192df.png" alt="FreeFire" class="service-icon">
+                        <img src="https://i.postimg.cc/x8DsznDp/file-0000000095d871f4a98ae4b5e7f7563e.png" alt="FreeFire" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">فري فاير FreeFire</h3>
                         <p class="text-dark-light text-xs">شحن فوري</p>
                     </div>
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'clash')">
+                        <img src="https://i.postimg.cc/MpdrrCRh/file-0000000019f87246a34879d95dafc72f.png" alt="Clash of Clans" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">كلاش أوف كلانس</h3>
+                        <p class="text-dark-light text-xs">تذاكر وجواهر</p>
+                    </div>
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'efootball')">
+                        <img src="https://i.postimg.cc/wBRccZkL/file-000000005ce47246b4bbf4d41780d381.png" alt="eFootball" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">eFootball</h3>
+                        <p class="text-dark-light text-xs">كوينز وباقات</p>
+                    </div>
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'fcmobile')">
+                        <img src="https://i.postimg.cc/W3nDMwxn/file-00000000115871f4b4da53b76bf17dba.png" alt="FC Mobile" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">⚽ FC Mobile</h3>
+                        <p class="text-dark-light text-xs">شحن العملات</p>
+                    </div>
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'clashroyale')">
+                        <img src="https://i.postimg.cc/NFKg58tH/file-00000000f02c71f484a929bd216e03fe.png" alt="Clash Royale" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">👑 كلاش رويال</h3>
+                        <p class="text-dark-light text-xs">جواهر وبطاقات</p>
+                    </div>
                 </div>
 
-                <!-- قسم الاشتراكات -->
+                <!-- ===== قسم البطاقات والخدمات ===== -->
+                <div class="section-title">
+                    <span class="section-icon">💳</span> البطاقات والخدمات
+                </div>
+                <div class="service-grid">
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'googleplay')">
+                        <img src="https://i.postimg.cc/fWcCP4Qr/file-00000000ad487243bcd48c5b955d8fb6.png" alt="Google Play" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">جوجل بلاي</h3>
+                        <p class="text-dark-light text-xs">بطاقات شحن</p>
+                    </div>
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'redotpay')">
+                        <img src="https://i.postimg.cc/8CX9s2z9/file-000000005a4071f49c1a71cba81c7f07.png" alt="Redotpay" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">فيزا Redotpay</h3>
+                        <p class="text-dark-light text-xs">بطاقة افتراضية</p>
+                    </div>
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'mastercard')">
+                        <img src="https://i.postimg.cc/h4Zvcvnj/file-00000000b79871f4950e84a15754235b.png" alt="Mastercard" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">💳 ماستر كارد</h3>
+                        <p class="text-dark-light text-xs">بطاقات ائتمانية</p>
+                    </div>
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'playstation')">
+                        <img src="https://i.postimg.cc/3xvdLTPK/file-00000000ffb071f4841c7a113b560c90.png" alt="PlayStation" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">🎮 بلاي ستيشن</h3>
+                        <p class="text-dark-light text-xs">بطاقات شحن</p>
+                    </div>
+                </div>
+
+                <!-- ===== قسم الاشتراكات ===== -->
                 <div class="section-title">
                     <span class="section-icon">📺</span> الاشتراكات
                 </div>
                 <div class="service-grid">
                     <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'netflix')">
-                        <img src="https://i.ibb.co/HTqk43z8/4054fb24-7c84-445b-b62e-c15d5ed4fe8b.png" alt="Netflix" class="service-icon">
+                        <img src="https://i.postimg.cc/KzLfFwkT/file-00000000a72471f4a83694b4182dcb9a.png" alt="Netflix" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">نتفليكس Netflix</h3>
                         <p class="text-dark-light text-xs">اشتراكات شهرية</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'ai')">
-                        <img src="https://i.ibb.co/zVDbcgnW/c8f040a9-48ad-4e5e-8203-f941fbf94ad6.png" alt="AI" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">الذكاء الاصطناعي</h3>
-                        <p class="text-dark-light text-xs">ChatGPT - Gemini</p>
-                    </div>
                     <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'tiktok')">
-                        <img src="https://i.ibb.co/j93NWK9T/f74413af-29eb-4da4-917d-e347c7698ed7.png" alt="TikTok" class="service-icon">
+                        <img src="https://i.postimg.cc/ryRXRwW8/file-000000003b7471f4a1bff18c344d7df3.png" alt="TikTok" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">تيك توك TikTok</h3>
                         <p class="text-dark-light text-xs">عملات تيك توك</p>
                     </div>
-                </div>
-
-                <!-- قسم البطاقات -->
-                <div class="section-title">
-                    <span class="section-icon">💳</span> البطاقات
-                </div>
-                <div class="service-grid">
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'googleplay')">
-                        <img src="https://i.ibb.co/LhNr3W7Y/f0bf22d7-2b70-419a-8c74-898d8a251e56.png" alt="Google Play" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">جوجل بلاي</h3>
-                        <p class="text-dark-light text-xs">بطاقات شحن</p>
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'ai')">
+                        <img src="https://i.postimg.cc/HsWwPV2p/file-0000000088c872469e0e816aeeacf79f.png" alt="AI" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">الذكاء الاصطناعي</h3>
+                        <p class="text-dark-light text-xs">ChatGPT - Gemini</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'redotpay')">
-                        <img src="https://i.ibb.co/ksqdJcgH/e96c9669-6446-4942-b760-a507d492a2b8.png" alt="Redotpay" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">فيزا Redotpay</h3>
-                        <p class="text-dark-light text-xs">بطاقة افتراضية</p>
+                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'canva')">
+                        <img src="https://i.postimg.cc/bwczw2Bz/file-00000000e2ec71f4a8288cc59567b21c.png" alt="Canva" class="service-icon">
+                        <h3 class="text-dark font-bold mt-2">🎨 كانفا Canva</h3>
+                        <p class="text-dark-light text-xs">اشتراك Pro</p>
                     </div>
                 </div>
             </div>
 
-            <!-- ========== صفحات الفئات ========== -->
+            <!-- ========== صفحات الفئات (يتم إنشاؤها تلقائياً) ========== -->
             <div id="category-pubg" class="category-page">
                 <div class="category-header">
                     <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -1754,13 +1776,6 @@
                 </div>
                 <div id="freefireGrid" class="product-grid"></div>
             </div>
-            <div id="category-efootball" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">⚽ شحن eFootball</h2>
-                </div>
-                <div id="efootballGrid" class="product-grid"></div>
-            </div>
             <div id="category-clash" class="category-page">
                 <div class="category-header">
                     <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
@@ -1768,26 +1783,33 @@
                 </div>
                 <div id="clashGrid" class="product-grid"></div>
             </div>
+            <div id="category-efootball" class="category-page">
+                <div class="category-header">
+                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+                    <h2 class="page-title">⚽ شحن eFootball</h2>
+                </div>
+                <div id="efootballGrid" class="product-grid"></div>
+            </div>
+            <div id="category-fcmobile" class="category-page">
+                <div class="category-header">
+                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+                    <h2 class="page-title">⚽ شحن FC Mobile</h2>
+                </div>
+                <div id="fcmobileGrid" class="product-grid"></div>
+            </div>
+            <div id="category-clashroyale" class="category-page">
+                <div class="category-header">
+                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+                    <h2 class="page-title">👑 شحن كلاش رويال</h2>
+                </div>
+                <div id="clashroyaleGrid" class="product-grid"></div>
+            </div>
             <div id="category-netflix" class="category-page">
                 <div class="category-header">
                     <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
                     <h2 class="page-title">🎬 اشتراك نتفليكس</h2>
                 </div>
                 <div id="netflixGrid" class="product-grid"></div>
-            </div>
-            <div id="category-googleplay" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">🛍️ بطاقات جوجل بلاي</h2>
-                </div>
-                <div id="googleplayGrid" class="product-grid"></div>
-            </div>
-            <div id="category-redotpay" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">💳 فيزا Redotpay الافتراضية</h2>
-                </div>
-                <div id="redotpayGrid" class="product-grid"></div>
             </div>
             <div id="category-tiktok" class="category-page">
                 <div class="category-header">
@@ -1802,6 +1824,41 @@
                     <h2 class="page-title">🤖 اشتراكات الذكاء الاصطناعي</h2>
                 </div>
                 <div id="aiGrid" class="product-grid"></div>
+            </div>
+            <div id="category-canva" class="category-page">
+                <div class="category-header">
+                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+                    <h2 class="page-title">🎨 اشتراك كانفا Canva</h2>
+                </div>
+                <div id="canvaGrid" class="product-grid"></div>
+            </div>
+            <div id="category-googleplay" class="category-page">
+                <div class="category-header">
+                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+                    <h2 class="page-title">🛍️ بطاقات جوجل بلاي</h2>
+                </div>
+                <div id="googleplayGrid" class="product-grid"></div>
+            </div>
+            <div id="category-redotpay" class="category-page">
+                <div class="category-header">
+                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+                    <h2 class="page-title">💳 فيزا Redotpay</h2>
+                </div>
+                <div id="redotpayGrid" class="product-grid"></div>
+            </div>
+            <div id="category-mastercard" class="category-page">
+                <div class="category-header">
+                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+                    <h2 class="page-title">💳 ماستر كارد</h2>
+                </div>
+                <div id="mastercardGrid" class="product-grid"></div>
+            </div>
+            <div id="category-playstation" class="category-page">
+                <div class="category-header">
+                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+                    <h2 class="page-title">🎮 بلاي ستيشن</h2>
+                </div>
+                <div id="playstationGrid" class="product-grid"></div>
             </div>
 
             <!-- ========== صفحة تفاصيل المنتج ========== -->
@@ -2372,17 +2429,22 @@
         };
         let editMode = '';
 
-        // ========== صور الفئات ==========
+        // ========== صور الفئات (جديدة) ==========
         const categoryImages = {
-            pubg: 'https://i.ibb.co/20tqyP6s/4ff592f1-0de2-421f-bd99-514dd525d512.png',
-            freefire: 'https://i.ibb.co/LMh98T2/4bf2c240-db85-47c5-b211-3d0a5cf192df.png',
-            clash: 'https://i.ibb.co/ZpS1L23Z/71ce3435-2342-43ff-aad3-0f65c7e6e837.png',
-            efootball: 'https://i.ibb.co/RkCSn7yX/a7934c4c-ed36-4662-b9cc-7bc04c57abf3.png',
-            netflix: 'https://i.ibb.co/HTqk43z8/4054fb24-7c84-445b-b62e-c15d5ed4fe8b.png',
-            googleplay: 'https://i.ibb.co/LhNr3W7Y/f0bf22d7-2b70-419a-8c74-898d8a251e56.png',
-            redotpay: 'https://i.ibb.co/ksqdJcgH/e96c9669-6446-4942-b760-a507d492a2b8.png',
-            tiktok: 'https://i.ibb.co/j93NWK9T/f74413af-29eb-4da4-917d-e347c7698ed7.png',
-            ai: 'https://i.ibb.co/zVDbcgnW/c8f040a9-48ad-4e5e-8203-f941fbf94ad6.png'
+            pubg: 'https://i.postimg.cc/SN4TQSGQ/file-000000000ae07243bf080d232a76158e.png',
+            freefire: 'https://i.postimg.cc/x8DsznDp/file-0000000095d871f4a98ae4b5e7f7563e.png',
+            clash: 'https://i.postimg.cc/MpdrrCRh/file-0000000019f87246a34879d95dafc72f.png',
+            efootball: 'https://i.postimg.cc/wBRccZkL/file-000000005ce47246b4bbf4d41780d381.png',
+            fcmobile: 'https://i.postimg.cc/W3nDMwxn/file-00000000115871f4b4da53b76bf17dba.png',
+            clashroyale: 'https://i.postimg.cc/NFKg58tH/file-00000000f02c71f484a929bd216e03fe.png',
+            netflix: 'https://i.postimg.cc/KzLfFwkT/file-00000000a72471f4a83694b4182dcb9a.png',
+            tiktok: 'https://i.postimg.cc/ryRXRwW8/file-000000003b7471f4a1bff18c344d7df3.png',
+            ai: 'https://i.postimg.cc/HsWwPV2p/file-0000000088c872469e0e816aeeacf79f.png',
+            canva: 'https://i.postimg.cc/bwczw2Bz/file-00000000e2ec71f4a8288cc59567b21c.png',
+            googleplay: 'https://i.postimg.cc/fWcCP4Qr/file-00000000ad487243bcd48c5b955d8fb6.png',
+            redotpay: 'https://i.postimg.cc/8CX9s2z9/file-000000005a4071f49c1a71cba81c7f07.png',
+            mastercard: 'https://i.postimg.cc/h4Zvcvnj/file-00000000b79871f4950e84a15754235b.png',
+            playstation: 'https://i.postimg.cc/3xvdLTPK/file-00000000ffb071f4841c7a113b560c90.png'
         };
 
         // ========== أسماء الفئات ==========
@@ -2391,11 +2453,16 @@
             freefire: '🔥 فري فاير FreeFire',
             clash: '👑 كلاش أوف كلانس',
             efootball: '⚽ eFootball',
+            fcmobile: '⚽ FC Mobile',
+            clashroyale: '👑 كلاش رويال',
             netflix: '🎬 نتفليكس',
+            tiktok: '🎵 تيك توك',
+            ai: '🤖 الذكاء الاصطناعي',
+            canva: '🎨 كانفا Canva',
             googleplay: '🛍️ جوجل بلاي',
             redotpay: '💳 فيزا Redotpay',
-            tiktok: '🎵 تيك توك',
-            ai: '🤖 الذكاء الاصطناعي'
+            mastercard: '💳 ماستر كارد',
+            playstation: '🎮 بلاي ستيشن'
         };
 
         // ========== المنتجات الافتراضية ==========
@@ -2425,17 +2492,17 @@
                 { name: "750 كوينز", price: 37000 },
                 { name: "مجموعة مورينو + 150 كوينز", price: 28000 }
             ],
+            fcmobile: [
+                { name: "1000 نقطة", price: 15000 },
+                { name: "2000 نقطة", price: 30000 }
+            ],
+            clashroyale: [
+                { name: "100 جوهرة", price: 5000 },
+                { name: "500 جوهرة", price: 25000 }
+            ],
             netflix: [
                 { name: "نتفليكس Standard + إعلانات", price: 55000 },
                 { name: "نتفليكس Standard بدون إعلانات", price: 120000 }
-            ],
-            googleplay: [
-                { name: "بطاقة جوجل بلاي 5$", price: 30000 },
-                { name: "بطاقة جوجل بلاي 10$", price: 60000 }
-            ],
-            redotpay: [
-                { name: "حساب Redotpay موثق", price: 120000 },
-                { name: "حساب موثق + فيزا Redotpay", price: 180000 }
             ],
             tiktok: [
                 { name: "114 عملة تيك توك", price: 6000 },
@@ -2446,6 +2513,26 @@
                 { name: "ChatGPT Plus - شهر", price: 120000 },
                 { name: "ChatGPT Go - شهر", price: 45000 },
                 { name: "Gemini Pro - شهر", price: 75000 }
+            ],
+            canva: [
+                { name: "Canva Pro - شهر", price: 50000 },
+                { name: "Canva Pro - سنة", price: 450000 }
+            ],
+            googleplay: [
+                { name: "بطاقة جوجل بلاي 5$", price: 30000 },
+                { name: "بطاقة جوجل بلاي 10$", price: 60000 }
+            ],
+            redotpay: [
+                { name: "حساب Redotpay موثق", price: 120000 },
+                { name: "حساب موثق + فيزا Redotpay", price: 180000 }
+            ],
+            mastercard: [
+                { name: "بطاقة ماستر كارد 10$", price: 60000 },
+                { name: "بطاقة ماستر كارد 25$", price: 150000 }
+            ],
+            playstation: [
+                { name: "بطاقة بلاي ستيشن 10$", price: 60000 },
+                { name: "بطاقة بلاي ستيشن 25$", price: 150000 }
             ]
         };
 
@@ -2454,11 +2541,16 @@
             freefire: [],
             clash: [],
             efootball: [],
+            fcmobile: [],
+            clashroyale: [],
             netflix: [],
+            tiktok: [],
+            ai: [],
+            canva: [],
             googleplay: [],
             redotpay: [],
-            tiktok: [],
-            ai: []
+            mastercard: [],
+            playstation: []
         };
 
         // ========== دالة فتح واتساب ==========
@@ -2703,11 +2795,16 @@
                     freefire: [],
                     clash: [],
                     efootball: [],
+                    fcmobile: [],
+                    clashroyale: [],
                     netflix: [],
+                    tiktok: [],
+                    ai: [],
+                    canva: [],
                     googleplay: [],
                     redotpay: [],
-                    tiktok: [],
-                    ai: []
+                    mastercard: [],
+                    playstation: []
                 };
                 if (!productsSnap.empty) {
                     productsSnap.forEach(doc => {
@@ -2743,11 +2840,16 @@
                     freefire: [],
                     clash: [],
                     efootball: [],
+                    fcmobile: [],
+                    clashroyale: [],
                     netflix: [],
+                    tiktok: [],
+                    ai: [],
+                    canva: [],
                     googleplay: [],
                     redotpay: [],
-                    tiktok: [],
-                    ai: []
+                    mastercard: [],
+                    playstation: []
                 };
                 renderAllProducts();
                 loadManageProducts();
@@ -2848,9 +2950,7 @@
 
         // ========== عرض المنتجات في الفئات ==========
         function renderAllProducts() {
-            const categories = ['pubg', 'freefire', 'clash', 'efootball', 'netflix', 'googleplay', 'redotpay', 'tiktok',
-                'ai'
-            ];
+            const categories = ['pubg', 'freefire', 'clash', 'efootball', 'fcmobile', 'clashroyale', 'netflix', 'tiktok', 'ai', 'canva', 'googleplay', 'redotpay', 'mastercard', 'playstation'];
 
             categories.forEach(cat => {
                 const grid = document.getElementById(`${cat}Grid`);
@@ -3062,11 +3162,16 @@
                     freefire: '🔥 فري فاير',
                     clash: '👑 كلاش',
                     efootball: '⚽ eFootball',
+                    fcmobile: '⚽ FC Mobile',
+                    clashroyale: '👑 كلاش رويال',
                     netflix: '🎬 نتفليكس',
+                    tiktok: '🎵 تيك توك',
+                    ai: '🤖 ذكاء اصطناعي',
+                    canva: '🎨 كانفا',
                     googleplay: '🛍️ جوجل بلاي',
                     redotpay: '💳 فيزا',
-                    tiktok: '🎵 تيك توك',
-                    ai: '🤖 ذكاء اصطناعي'
+                    mastercard: '💳 ماستر كارد',
+                    playstation: '🎮 بلاي ستيشن'
                 };
                 let html = '';
                 productsSnap.forEach(doc => {
@@ -3450,6 +3555,18 @@
             }
         });
 
+        function isWebView() {
+            const ua = navigator.userAgent;
+            if (ua.indexOf('wv') > -1) return true;
+            if (/iPhone|iPad|iPod/.test(ua) && !ua.includes('Safari')) return true;
+            return false;
+        }
+        if (isWebView()) {
+            document.getElementById('loading-screen').classList.add('hidden');
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('main-app').classList.add('hidden');
+            document.getElementById('webview-warning').style.display = 'flex';
+        }
         document.getElementById('open-browser-btn').onclick = () => { window.location.href = window.location.href; };
         document.getElementById('copy-link-btn').onclick = () => {
             navigator.clipboard.writeText(window.location.href).then(() => alert('تم نسخ الرابط'));
