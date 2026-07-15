@@ -1471,14 +1471,6 @@
 </head>
 <body>
 
-    <!-- شاشة تحذير WebView -->
-    <div id="webview-warning" style="display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: #fef08a; text-align: center; position: fixed; top:0;left:0;right:0;bottom:0;z-index:20000; color: #1e293b;">
-        <h2 class="text-2xl font-bold mb-4">⛔ لا يمكن تسجيل الدخول من هذا التطبيق</h2>
-        <p class="mb-4">يرجى فتح هذا الرابط في متصفح خارجي مثل Chrome أو Safari.</p>
-        <button id="open-browser-btn" class="action-btn">فتح في المتصفح</button>
-        <button id="copy-link-btn" class="action-btn-outline mt-2">نسخ الرابط</button>
-    </div>
-
     <!-- ===== شاشة التحميل ===== -->
     <div id="loading-screen" class="fixed inset-0 bg-white/70 backdrop-blur flex items-center justify-center z-50">
         <div class="loader-spin"></div>
@@ -3458,18 +3450,6 @@
             }
         });
 
-        function isWebView() {
-            const ua = navigator.userAgent;
-            if (ua.indexOf('wv') > -1) return true;
-            if (/iPhone|iPad|iPod/.test(ua) && !ua.includes('Safari')) return true;
-            return false;
-        }
-        if (isWebView()) {
-            document.getElementById('loading-screen').classList.add('hidden');
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('main-app').classList.add('hidden');
-            document.getElementById('webview-warning').style.display = 'flex';
-        }
         document.getElementById('open-browser-btn').onclick = () => { window.location.href = window.location.href; };
         document.getElementById('copy-link-btn').onclick = () => {
             navigator.clipboard.writeText(window.location.href).then(() => alert('تم نسخ الرابط'));
