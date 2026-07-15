@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>سلة المشتريات - MORRE STORE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Tahoma', system-ui, sans-serif;
+        }
+
+        body {
+            background: #f4f7fc;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-wrapper {
+            max-width: 1200px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.15);
+            padding: 30px 25px;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        /* header */
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e9edf4;
+            padding-bottom: 20px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .cart-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0a1e3c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-header h1 i {
+            color: #d4af37;
+        }
+
+        .store-badge {
+            background: #0a1e3c;
+            color: #d4af37;
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .store-badge i {
+            color: #f5c542;
+        }
+
+        /* cart empty */
+        .empty-cart {
+            text-align: center;
+            padding: 70px 20px;
+        }
+
+        .empty-cart i {
+            font-size: 80px;
+            color: #d4af37;
+            opacity: 0.6;
+            margin-bottom: 20px;
+        }
+
+        .empty-cart h3 {
+            font-size: 26px;
+            color: #0a1e3c;
+            margin-bottom: 8px;
+        }
+
+        .empty-cart p {
+            color: #4a5a72;
+            font-size: 18px;
+            margin-bottom: 28px;
+        }
+
+        .btn-gold {
+            background: #d4af37;
+            color: #0a1e3c;
+            padding: 12px 34px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .btn-gold:hover {
+            background: #c49a2c;
+            transform: scale(1.02);
+            box-shadow: 0 6px 14px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-outline-dark {
+            background: transparent;
+            border: 2px solid #0a1e3c;
+            color: #0a1e3c;
+            padding: 10px 22px;
+            border-radius: 60px;
+            font-weight: 600;
+            transition: 0.2s;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-outline-dark:hover {
+            background: #0a1e3c;
+            color: #fff;
+        }
+
+        .btn-danger-soft {
+            background: #fee8e8;
+            color: #b91c1c;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-danger-soft:hover {
+            background: #fcd5d5;
+        }
+
+        /* cart items */
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: #f9fafe;
+            padding: 14px 16px;
+            border-radius: 20px;
+            border: 1px solid #eef2f7;
+            transition: 0.15s;
+            flex-wrap: wrap;
+        }
+
+        .cart-item:hover {
+            background: #f4f8ff;
+            border-color: #d4af37;
+        }
+
+        .item-img {
+            width: 70px;
+            height: 70px;
+            background: #e3e9f2;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: #0a1e3c;
+            flex-shrink: 0;
+        }
+
+        .item-info {
+            flex: 2 1 180px;
+        }
+
+        .item-info h4 {
+            font-size: 18px;
+            color: #0a1e3c;
+            font-weight: 700;
+        }
+
+        .item-info .category {
+            font-size: 13px;
+            color: #6f7d94;
+            background: #eef2f7;
+            padding: 2px 12px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .item-price {
+            font-weight: 700;
+            color: #0a1e3c;
+            font-size: 18px;
+            min-width: 80px;
+        }
+
+        .item-qty {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            padding: 4px 10px;
+            border-radius: 60px;
+            border: 1px solid #dce2ec;
+        }
+
+        .item-qty button {
+            background: transparent;
+            border: none;
+            font-size: 20px;
+            font-weight: 700;
+            width: 32px;
+            height: 32px;
+            border-radius: 60px;
+            cursor: pointer;
+            color: #0a1e3c;
+            transition: 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-qty button:hover {
+            background: #d4af37;
+            color: #fff;
+        }
+
+        .item-qty span {
+            font-weight: 700;
+            font-size: 18px;
+            min-width: 28px;
+            text-align: center;
+        }
+
+        .item-total {
+            font-weight: 700;
+            color: #0a1e3c;
+            min-width: 90px;
+            font-size: 18px;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 6px;
+            margin-right: auto;
+        }
+
+        /* summary */
+        .summary-section {
+            margin-top: 32px;
+            background: #f9fafe;
+            border-radius: 28px;
+            padding: 24px 28px;
+            border: 1px solid #eef2f7;
+        }
+
+        .summary-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px 40px;
+            justify-content: space-between;
+        }
+
+        .summary-left {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex: 2 1 280px;
+        }
+
+        .summary-right {
+            flex: 1 1 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            padding: 6px 0;
+            border-bottom: 1px dashed #dce2ec;
+        }
+
+        .summary-row.total {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 20px;
+            color: #0a1e3c;
+            margin-top: 6px;
+        }
+
+        .summary-row.total span:last-child {
+            color: #d4af37;
+        }
+
+        .coupon-area {
+            display: flex;
+            gap: 10px;
+            margin-top: 4px;
+            flex-wrap: wrap;
+        }
+
+        .coupon-area input {
+            flex: 1;
+            padding: 12px 16px;
+            border-radius: 60px;
+            border: 1px solid #dce2ec;
+            font-size: 15px;
+            background: white;
+            min-width: 140px;
+        }
+
+        .coupon-area input:focus {
+            outline: 2px solid #d4af37;
+            border-color: transparent;
+        }
+
+        .coupon-area .btn-gold {
+            padding: 12px 24px;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .coupon-feedback {
+            font-size: 14px;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .coupon-feedback.success {
+            color: #1f8b4c;
+        }
+
+        .coupon-feedback.error {
+            color: #b91c1c;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .action-buttons .btn-gold {
+            flex: 1 1 auto;
+            justify-content: center;
+        }
+
+        /* checkout review */
+        .checkout-review {
+            margin-top: 30px;
+            border-top: 2px solid #d4af37;
+            padding-top: 24px;
+        }
+
+        .review-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+
+        .payment-methods label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f9fafe;
+            padding: 10px 20px;
+            border-radius: 60px;
+            border: 1px solid #dce2ec;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .payment-methods input[type="radio"] {
+            accent-color: #d4af37;
+            width: 18px;
+            height: 18px;
+        }
+
+        .payment-methods label:has(input:checked) {
+            border-color: #d4af37;
+            background: #fef9e6;
+        }
+
+        /* responsive */
+        @media (max-width: 750px) {
+            .cart-wrapper {
+                padding: 18px 12px;
+            }
+            .cart-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .item-img {
+                width: 100%;
+                height: 120px;
+            }
+            .item-actions {
+                margin-right: 0;
+                justify-content: flex-end;
+            }
+            .summary-grid {
+                flex-direction: column;
+            }
+            .coupon-area input {
+                min-width: 100%;
+            }
+            .cart-header h1 {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .item-qty button {
+                width: 28px;
+                height: 28px;
+            }
+            .item-total {
+                min-width: 70px;
+            }
+        }
+
+        /* utils */
+        .hidden {
+            display: none !important;
+        }
+        .mt-2 { margin-top: 8px; }
+        .mb-2 { margin-bottom: 8px; }
+        .text-center { text-align: center; }
+        .flex-center { display: flex; align-items: center; gap: 8px; }
+    </style>
+</head>
+<body>
+    <div class="cart-wrapper" id="app">
+        <!-- header -->
+        <div class="cart-header">
+            <h1><i class="fas fa-shopping-basket"></i> سلة المشتريات</h1>
+            <div class="store-badge"><i class="fas fa-store"></i> MORRE STORE</div>
+        </div>
+
+        <!-- cart container -->
+        <div id="cartContainer">
+            <!-- سيتم ملئه بواسطة js -->
+        </div>
+
+        <!-- summary + actions (يظهر فقط عند وجود منتجات) -->
+        <div id="summaryArea" class="hidden">
+            <div class="summary-section">
+                <div class="summary-grid">
+                    <div class="summary-left">
+                        <div class="summary-row"><span>عدد المنتجات</span><span id="totalItems">0</span></div>
+                        <div class="summary-row"><span>إجمالي السعر</span><span id="subtotal">0.00 ج.س.م</span></div>
+                        <div class="summary-row"><span>الخصم</span><span id="discount">0.00 ج.س.م</span></div>
+                        <div class="summary-row"><span>الرسوم</span><span id="fees">0.00 ج.س.م</span></div>
+                        <div class="summary-row total"><span>المبلغ النهائي</span><span id="totalPrice">0.00 ج.س.م</span></div>
+                    </div>
+                    <div class="summary-right">
+                        <div class="coupon-area">
+                            <input type="text" id="couponInput" placeholder="أدخل كود الخصم" />
+                            <button class="btn-gold" id="applyCouponBtn"><i class="fas fa-ticket-alt"></i> تطبيق</button>
+                        </div>
+                        <div id="couponFeedback" class="coupon-feedback"></div>
+                        <div class="action-buttons">
+                            <button class="btn-outline-dark" id="continueShoppingBtn"><i class="fas fa-arrow-right"></i> متابعة التسوق</button>
+                            <button class="btn-danger-soft" id="clearCartBtn"><i class="fas fa-trash-alt"></i> إفراغ السلة</button>
+                            <button class="btn-gold" id="checkoutBtn"><i class="fas fa-check-circle"></i> إتمام الطلب</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- منطقة مراجعة الطلب (تظهر عند الضغط على إتمام الطلب) -->
+            <div id="checkoutReview" class="checkout-review hidden">
+                <h3 style="color:#0a1e3c; margin-bottom:12px;"><i class="fas fa-clipboard-list"></i> مراجعة الطلب</h3>
+                <div id="reviewItems"></div>
+                <div style="margin:16px 0; font-size:18px; font-weight:700;">المبلغ النهائي: <span id="reviewTotal">0.00 ج.س.م</span></div>
+                <div class="payment-methods">
+                    <label><input type="radio" name="payment" value="cash" checked> الدفع عند الاستلام</label>
+                    <label><input type="radio" name="payment" value="card"> بطاقة ائتمان</label>
+                    <label><input type="radio" name="payment" value="wallet"> محفظة رقمية</label>
+                </div>
+                <button class="btn-gold" id="confirmOrderBtn" style="width:100%; justify-content:center;"><i class="fas fa-check"></i> تأكيد الطلب</button>
+                <button class="btn-outline-dark" id="backToCartBtn" style="margin-top:10px;"><i class="fas fa-arrow-left"></i> العودة إلى السلة</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ---------- بيانات وهمية ----------
+            // هيكل المنتج: { id, name, category, price, imageIcon, qty }
+            let cart = [];
+
+            // محاكاة تحميل بيانات من localStorage
+            function loadCart() {
+                const stored = localStorage.getItem('morre_cart');
+                if (stored) {
+                    try {
+                        cart = JSON.parse(stored);
+                        // التأكد من أن الكميات أرقام
+                        cart = cart.map(item => ({ ...item, qty: Number(item.qty) || 1 }));
+                    } catch (e) { cart = []; }
+                } else {
+                    // منتجات افتراضية لعرض توضيحي
+                    cart = [
+                        { id: 1, name: 'سماعة لاسلكية', category: 'إلكترونيات', price: 120, imageIcon: 'fa-headphones', qty: 2 },
+                        { id: 2, name: 'حقيبة جلدية', category: 'إكسسوارات', price: 85, imageIcon: 'fa-bag', qty: 1 },
+                        { id: 3, name: 'ساعة رقمية', category: 'ساعات', price: 210, imageIcon: 'fa-clock', qty: 1 }
+                    ];
+                }
+                saveCart();
+            }
+
+            function saveCart() {
+                localStorage.setItem('morre_cart', JSON.stringify(cart));
+            }
+
+            // عناصر DOM
+            const cartContainer = document.getElementById('cartContainer');
+            const summaryArea = document.getElementById('summaryArea');
+            const totalItemsEl = document.getElementById('totalItems');
+            const subtotalEl = document.getElementById('subtotal');
+            const discountEl = document.getElementById('discount');
+            const feesEl = document.getElementById('fees');
+            const totalPriceEl = document.getElementById('totalPrice');
+            const couponInput = document.getElementById('couponInput');
+            const applyCouponBtn = document.getElementById('applyCouponBtn');
+            const couponFeedback = document.getElementById('couponFeedback');
+            const continueShoppingBtn = document.getElementById('continueShoppingBtn');
+            const clearCartBtn = document.getElementById('clearCartBtn');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const checkoutReview = document.getElementById('checkoutReview');
+            const reviewItems = document.getElementById('reviewItems');
+            const reviewTotal = document.getElementById('reviewTotal');
+            const confirmOrderBtn = document.getElementById('confirmOrderBtn');
+            const backToCartBtn = document.getElementById('backToCartBtn');
+
+            // حالة الخصم
+            let discountAmount = 0;
+            let appliedCoupon = '';
+
+            // الرسوم الثابتة
+            const SHIPPING_FEE = 15;
+
+            // ---------- وظائف العرض ----------
+            function renderCart() {
+                if (!cart || cart.length === 0) {
+                    cartContainer.innerHTML = `
+                        <div class="empty-cart">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>سلة المشتريات فارغة</h3>
+                            <p>أضف بعض المنتجات للبدء في التسوق</p>
+                            <button class="btn-gold" id="goShopBtn"><i class="fas fa-store"></i> الذهاب إلى المتجر</button>
+                        </div>
+                    `;
+                    summaryArea.classList.add('hidden');
+                    checkoutReview.classList.add('hidden');
+                    // ربط زر الذهاب إلى المتجر
+                    document.getElementById('goShopBtn')?.addEventListener('click', function() {
+                        alert('سيتم توجيهك إلى المتجر (محاكاة)');
+                    });
+                    return;
+                }
+
+                // بناء عناصر السلة
+                let html = `<div class="cart-items">`;
+                cart.forEach((item, index) => {
+                    const itemTotal = (item.price * item.qty).toFixed(2);
+                    html += `
+                        <div class="cart-item" data-index="${index}">
+                            <div class="item-img"><i class="fas ${item.imageIcon || 'fa-box'}"></i></div>
+                            <div class="item-info">
+                                <h4>${item.name}</h4>
+                                <span class="category">${item.category || 'عام'}</span>
+                            </div>
+                            <div class="item-price">${item.price.toFixed(2)} ج.س.م</div>
+                            <div class="item-qty">
+                                <button class="qty-minus" data-index="${index}">−</button>
+                                <span>${item.qty}</span>
+                                <button class="qty-plus" data-index="${index}">+</button>
+                            </div>
+                            <div class="item-total">${itemTotal} ج.س.م</div>
+                            <div class="item-actions">
+                                <button class="btn-danger-soft remove-item" data-index="${index}"><i class="fas fa-times"></i> حذف</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+                cartContainer.innerHTML = html;
+
+                // ربط الأحداث لكل زر
+                document.querySelectorAll('.qty-plus').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        const idx = parseInt(this.dataset.index);
+                        changeQty(idx, 1);
+                    });
+                });
+                document.querySelectorAll('.qty-minus').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        const idx = parseInt(this.dataset.index);
+                        changeQty(idx, -1);
+                    });
+                });
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        const idx = parseInt(this.dataset.index);
+                        removeItem(idx);
+                    });
+                });
+
+                // عرض الملخص
+                summaryArea.classList.remove('hidden');
+                checkoutReview.classList.add('hidden');
+                updateSummary();
+                // إعادة تعيين رسالة الكوبون
+                couponFeedback.textContent = '';
+                couponFeedback.className = 'coupon-feedback';
+                appliedCoupon = '';
+                discountAmount = 0;
+            }
+
+            // تغيير الكمية
+            function changeQty(index, delta) {
+                if (!cart[index]) return;
+                const newQty = cart[index].qty + delta;
+                if (newQty < 1) {
+                    // إذا صارت 0 نحذف المنتج
+                    removeItem(index);
+                    return;
+                }
+                cart[index].qty = newQty;
+                saveCart();
+                renderCart();
+            }
+
+            // حذف منتج
+            function removeItem(index) {
+                if (!cart[index]) return;
+                cart.splice(index, 1);
+                saveCart();
+                renderCart();
+            }
+
+            // تحديث الملخص
+            function updateSummary() {
+                let totalItems = 0;
+                let subtotal = 0;
+                cart.forEach(item => {
+                    totalItems += item.qty;
+                    subtotal += item.price * item.qty;
+                });
+
+                // الخصم (يتم تطبيقه عبر الكوبون)
+                const discount = discountAmount;
+                const fees = cart.length > 0 ? SHIPPING_FEE : 0;
+                const finalTotal = subtotal - discount + fees;
+
+                totalItemsEl.textContent = totalItems;
+                subtotalEl.textContent = subtotal.toFixed(2) + ' ج.س.م';
+                discountEl.textContent = discount.toFixed(2) + ' ج.س.م';
+                feesEl.textContent = fees.toFixed(2) + ' ج.س.م';
+                totalPriceEl.textContent = finalTotal.toFixed(2) + ' ج.س.م';
+            }
+
+            // تطبيق الكوبون (محاكاة)
+            function applyCoupon(code) {
+                code = code.trim().toUpperCase();
+                if (!code) {
+                    couponFeedback.textContent = 'الرجاء إدخال كود الخصم';
+                    couponFeedback.className = 'coupon-feedback error';
+                    return false;
+                }
+                // كوبونات وهمية
+                const validCoupons = {
+                    'SAVE10': 10,
+                    'SAVE20': 20,
+                    'MORRE15': 15
+                };
+                if (validCoupons[code] !== undefined) {
+                    const discountValue = validCoupons[code];
+                    // حساب الخصم على الإجمالي الحالي (قبل الخصم)
+                    let subtotal = 0;
+                    cart.forEach(item => { subtotal += item.price * item.qty; });
+                    const maxDiscount = Math.min(discountValue, subtotal);
+                    discountAmount = maxDiscount;
+                    appliedCoupon = code;
+                    couponFeedback.textContent = `✅ تم تطبيق الكوبون ${code} بقيمة ${discountValue} ج.س.م`;
+                    couponFeedback.className = 'coupon-feedback success';
+                    updateSummary();
+                    return true;
+                } else {
+                    couponFeedback.textContent = '❌ كود خصم غير صالح';
+                    couponFeedback.className = 'coupon-feedback error';
+                    discountAmount = 0;
+                    appliedCoupon = '';
+                    updateSummary();
+                    return false;
+                }
+            }
+
+            // عرض مراجعة الطلب
+            function showCheckoutReview() {
+                if (cart.length === 0) return;
+                checkoutReview.classList.remove('hidden');
+                // بناء مراجعة المنتجات
+                let html = '';
+                cart.forEach(item => {
+                    html += `
+                        <div class="review-item">
+                            <span><i class="fas ${item.imageIcon || 'fa-box'}"></i> ${item.name} (×${item.qty})</span>
+                            <span>${(item.price * item.qty).toFixed(2)} ج.س.م</span>
+                        </div>
+                    `;
+                });
+                reviewItems.innerHTML = html;
+                // المبلغ النهائي
+                let subtotal = 0;
+                cart.forEach(item => { subtotal += item.price * item.qty; });
+                const final = subtotal - discountAmount + (cart.length > 0 ? SHIPPING_FEE : 0);
+                reviewTotal.textContent = final.toFixed(2) + ' ج.س.م';
+            }
+
+            // ---------- الأحداث ----------
+            // تطبيق الكوبون
+            applyCouponBtn.addEventListener('click', function() {
+                const code = couponInput.value;
+                applyCoupon(code);
+            });
+
+            couponInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    applyCouponBtn.click();
+                }
+            });
+
+            // متابعة التسوق
+            continueShoppingBtn.addEventListener('click', function() {
+                alert('سيتم توجيهك إلى صفحة المنتجات (محاكاة)');
+            });
+
+            // إفراغ السلة
+            clearCartBtn.addEventListener('click', function() {
+                if (cart.length === 0) return;
+                if (confirm('هل أنت متأكد من إفراغ سلة المشتريات بالكامل؟')) {
+                    cart = [];
+                    saveCart();
+                    renderCart();
+                    // إخفاء المراجعة
+                    checkoutReview.classList.add('hidden');
+                }
+            });
+
+            // إتمام الطلب -> عرض مراجعة
+            checkoutBtn.addEventListener('click', function() {
+                if (cart.length === 0) return;
+                showCheckoutReview();
+                // تمرير إلى المراجعة
+                checkoutReview.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
+            // العودة إلى السلة من المراجعة
+            backToCartBtn.addEventListener('click', function() {
+                checkoutReview.classList.add('hidden');
+            });
+
+            // تأكيد الطلب
+            confirmOrderBtn.addEventListener('click', function() {
+                const paymentMethod = document.querySelector('input[name="payment"]:checked');
+                const method = paymentMethod ? paymentMethod.value : 'غير محدد';
+                alert(`✅ تم تأكيد الطلب بنجاح!\nطريقة الدفع: ${method}\nشكراً لتسوقك من MORRE STORE`);
+                // تفريغ السلة بعد التأكيد
+                cart = [];
+                saveCart();
+                renderCart();
+                checkoutReview.classList.add('hidden');
+            });
+
+            // تهيئة السلة
+            loadCart();
+            renderCart();
+
+            // ربط زر الذهاب إلى المتجر (في حالة السلة الفارغة)
+            document.addEventListener('click', function(e) {
+                if (e.target && e.target.id === 'goShopBtn') {
+                    alert('سيتم توجيهك إلى المتجر (محاكاة)');
+                }
+            });
+
+        })();
+    </script>
+</body>
+</html>
