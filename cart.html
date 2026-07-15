@@ -68,6 +68,18 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
         }
+        .card-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-title i {
+            color: #d97706;
+        }
         .cart-item {
             display: flex;
             gap: 12px;
@@ -449,10 +461,10 @@
         .dark .cart-actions .btn-action.outline:hover {
             border-color: #fbbf24;
         }
-        .dark .empty-state h3 {
+        .dark .empty-cart h3 {
             color: #f1f5f9;
         }
-        .dark .empty-state i {
+        .dark .empty-cart i {
             color: #475569;
         }
         .dark .bottom-nav {
@@ -490,8 +502,8 @@
 
         <!-- ===== كود الخصم ===== -->
         <div class="glass-card" id="couponSection">
-            <div class="card-title" style="font-size:1rem;font-weight:800;color:#1e293b;margin-bottom:12px;display:flex;align-items:center;gap:10px;">
-                <i class="fas fa-ticket" style="color:#d97706;"></i> كود الخصم
+            <div class="card-title">
+                <i class="fas fa-ticket"></i> كود الخصم
             </div>
             <div class="coupon-input">
                 <input type="text" id="couponCode" placeholder="أدخل كود الخصم">
@@ -502,8 +514,8 @@
 
         <!-- ===== ملخص الطلب ===== -->
         <div class="glass-card" id="orderSummary">
-            <div class="card-title" style="font-size:1rem;font-weight:800;color:#1e293b;margin-bottom:12px;display:flex;align-items:center;gap:10px;">
-                <i class="fas fa-calculator" style="color:#d97706;"></i> ملخص الطلب
+            <div class="card-title">
+                <i class="fas fa-calculator"></i> ملخص الطلب
             </div>
             <div id="summaryContent">
                 <div class="summary-row">
@@ -567,10 +579,39 @@
     <!-- ===== Toast ===== -->
     <div id="toast" class="toast"></div>
 
-    <script>
+    <script type="module">
+        // ========== استيراد Firebase ==========
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import {
+            getFirestore,
+            doc,
+            getDoc,
+            setDoc,
+            updateDoc,
+            onSnapshot,
+            collection,
+            addDoc,
+            serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC0jzecEwKgHpxHpTi8Y-_bwwfzVdtgf3E",
+            authDomain: "khasmshop.firebaseapp.com",
+            projectId: "khasmshop",
+            storageBucket: "khasmshop.firebasestorage.app",
+            messagingSenderId: "238182001615",
+            appId: "1:238182001615:web:d77391030a40a481b440ba"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
         // ========== بيانات السلة ==========
         let cart = [];
         let appliedCoupon = null;
+        let currentUser = null;
         const COUPONS = {
             'MORRE10': { discount: 10, type: 'percentage' },
             'MORRE25': { discount: 25, type: 'percentage' },
@@ -597,16 +638,76 @@
             playstation: 'https://i.postimg.cc/3xvdLTPK/file-00000000ffb071f4841c7a113b560c90.png',
             spotify: 'https://i.postimg.cc/QxJDkgkg/file-00000000373071f4a3c74cba8713a3c9.png'
         };
-
         const defaultImage = 'https://via.placeholder.com/200?text=No+Image';
 
-        // ========== تحميل السلة من localStorage ==========
-        function loadCart() {
+        // ========== Toast ==========
+        function showToast(msg, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.className = 'toast';
+            if (type === 'success') toast.classList.add('success');
+            else if (type === 'error') toast.classList.add('error');
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ========== تحميل السلة من Firebase ==========
+        async function loadCartFromFirebase(uid) {
+            try {
+                const cartRef = doc(db, "carts", uid);
+                const cartSnap = await getDoc(cartRef);
+                if (cartSnap.exists()) {
+                    const data = cartSnap.data();
+                    cart = data.items || [];
+                    appliedCoupon = data.coupon || null;
+                    if (data.couponCode) {
+                        document.getElementById('couponCode').value = data.couponCode;
+                        document.getElementById('couponMessage').textContent = '✅ كود الخصم مفعل';
+                        document.getElementById('couponMessage').style.color = '#059669';
+                    }
+                } else {
+                    // إنشاء سلة جديدة للمستخدم
+                    await setDoc(cartRef, {
+                        items: [],
+                        coupon: null,
+                        couponCode: null,
+                        updatedAt: serverTimestamp()
+                    });
+                    cart = [];
+                }
+                renderCart();
+            } catch (e) {
+                console.error('Error loading cart:', e);
+                // استخدام localStorage كنسخة احتياطية
+                loadCartFromLocal();
+            }
+        }
+
+        // ========== حفظ السلة في Firebase ==========
+        async function saveCartToFirebase(uid) {
+            try {
+                const cartRef = doc(db, "carts", uid);
+                await setDoc(cartRef, {
+                    items: cart,
+                    coupon: appliedCoupon,
+                    couponCode: appliedCoupon ? document.getElementById('couponCode').value.trim().toUpperCase() : null,
+                    updatedAt: serverTimestamp()
+                }, { merge: true });
+                console.log('✅ Cart saved to Firebase');
+            } catch (e) {
+                console.error('Error saving cart:', e);
+                // استخدام localStorage كنسخة احتياطية
+                saveCartToLocal();
+            }
+        }
+
+        // ========== localStorage (احتياطي) ==========
+        function loadCartFromLocal() {
             try {
                 const saved = localStorage.getItem('morre_cart');
                 if (saved) {
                     cart = JSON.parse(saved);
-                    // التحقق من صحة البيانات
                     if (!Array.isArray(cart)) cart = [];
                 }
             } catch (e) {
@@ -615,13 +716,16 @@
             renderCart();
         }
 
-        // ========== حفظ السلة ==========
-        function saveCart() {
+        function saveCartToLocal() {
             localStorage.setItem('morre_cart', JSON.stringify(cart));
         }
 
-        // ========== إضافة منتج للسلة ==========
-        function addToCart(product) {
+        // ========== إضافة منتج للسلة (من أي مكان) ==========
+        window.addToCart = function(product) {
+            if (!currentUser) {
+                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                return;
+            }
             const existing = cart.find(item => item.id === product.id);
             if (existing) {
                 existing.quantity += 1;
@@ -635,10 +739,11 @@
                     quantity: 1
                 });
             }
-            saveCart();
+            saveCartToFirebase(currentUser.uid);
+            updateCartBadge();
             showToast('✅ تم إضافة المنتج إلى السلة', 'success');
             renderCart();
-        }
+        };
 
         // ========== عرض السلة ==========
         function renderCart() {
@@ -689,33 +794,37 @@
 
             container.innerHTML = html;
             updateSummary();
+            updateCartBadge();
         }
 
         // ========== تحديث الكمية ==========
-        function updateQuantity(index, change) {
+        window.updateQuantity = function(index, change) {
+            if (!currentUser) return;
             if (cart[index]) {
                 cart[index].quantity += change;
                 if (cart[index].quantity <= 0) {
                     cart.splice(index, 1);
                 }
-                saveCart();
+                saveCartToFirebase(currentUser.uid);
                 renderCart();
                 showToast('🔄 تم تحديث الكمية', 'info');
             }
-        }
+        };
 
         // ========== حذف منتج ==========
-        function removeItem(index) {
+        window.removeItem = function(index) {
+            if (!currentUser) return;
             if (confirm('⚠️ هل أنت متأكد من حذف هذا المنتج من السلة؟')) {
                 cart.splice(index, 1);
-                saveCart();
+                saveCartToFirebase(currentUser.uid);
                 renderCart();
                 showToast('🗑️ تم حذف المنتج', 'info');
             }
-        }
+        };
 
         // ========== إفراغ السلة ==========
-        function clearCart() {
+        window.clearCart = function() {
+            if (!currentUser) return;
             if (cart.length === 0) {
                 showToast('📭 السلة فارغة بالفعل', 'info');
                 return;
@@ -725,11 +834,11 @@
                 appliedCoupon = null;
                 document.getElementById('couponCode').value = '';
                 document.getElementById('couponMessage').textContent = '';
-                saveCart();
+                saveCartToFirebase(currentUser.uid);
                 renderCart();
                 showToast('🗑️ تم إفراغ السلة', 'info');
             }
-        }
+        };
 
         // ========== تحديث الملخص ==========
         function updateSummary() {
@@ -782,7 +891,11 @@
         }
 
         // ========== تطبيق كود الخصم ==========
-        function applyCoupon() {
+        window.applyCoupon = function() {
+            if (!currentUser) {
+                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                return;
+            }
             const code = document.getElementById('couponCode').value.trim().toUpperCase();
             const messageEl = document.getElementById('couponMessage');
 
@@ -802,49 +915,106 @@
                 messageEl.textContent = '✅ تم تطبيق كود الخصم بنجاح!';
                 messageEl.style.color = '#059669';
                 showToast('🎉 تم تطبيق الخصم بنجاح!', 'success');
+                saveCartToFirebase(currentUser.uid);
                 updateSummary();
             } else {
                 messageEl.textContent = '❌ كود الخصم غير صحيح';
                 messageEl.style.color = '#dc2626';
                 showToast('❌ كود الخصم غير صحيح', 'error');
             }
-        }
+        };
 
         // ========== إتمام الطلب ==========
-        function checkout() {
+        window.checkout = async function() {
+            if (!currentUser) {
+                showToast('❌ يرجى تسجيل الدخول أولاً', 'error');
+                return;
+            }
             if (cart.length === 0) {
                 showToast('❌ السلة فارغة! أضف منتجات أولاً', 'error');
                 return;
             }
 
             const total = document.getElementById('totalPrice').textContent;
-            if (confirm(`🛒 هل أنت متأكد من إتمام الطلب بقيمة ${total}؟`)) {
-                // هنا يمكن إرسال الطلب إلى Firebase
-                showToast('✅ تم إتمام الطلب بنجاح! سيتم التواصل معك قريباً', 'success');
-                // تفريغ السلة بعد الطلب
+            if (!confirm(`🛒 هل أنت متأكد من إتمام الطلب بقيمة ${total}؟`)) return;
+
+            try {
+                // إنشاء طلب في Firebase
+                const orderData = {
+                    uID: currentUser.uid,
+                    uName: currentUser.displayName || 'مستخدم',
+                    items: cart.map(item => ({
+                        name: item.name,
+                        price: item.price,
+                        quantity: item.quantity,
+                        category: item.category,
+                        image: item.image
+                    })),
+                    subtotal: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                    discount: 0,
+                    fee: 0,
+                    total: parseInt(total.replace(/[^0-9]/g, '')),
+                    coupon: appliedCoupon || null,
+                    status: 'قيد المراجعة',
+                    timestamp: serverTimestamp(),
+                    paymentMethod: 'محفظة'
+                };
+
+                // حساب الخصم والرسوم
+                if (appliedCoupon) {
+                    const coupon = COUPONS[appliedCoupon];
+                    if (coupon.type === 'percentage') {
+                        orderData.discount = (orderData.subtotal * coupon.discount) / 100;
+                    } else if (coupon.type === 'fixed') {
+                        orderData.discount = coupon.discount;
+                    }
+                }
+
+                await addDoc(collection(db, "orders"), orderData);
+
+                // تفريغ السلة
                 cart = [];
                 appliedCoupon = null;
                 document.getElementById('couponCode').value = '';
                 document.getElementById('couponMessage').textContent = '';
-                saveCart();
+                await saveCartToFirebase(currentUser.uid);
+
+                showToast('✅ تم إتمام الطلب بنجاح! سيتم التواصل معك قريباً', 'success');
                 renderCart();
+
+                // التوجيه إلى صفحة الطلبات بعد 2 ثانية
+                setTimeout(() => {
+                    window.location.href = 'orders.html';
+                }, 2000);
+
+            } catch (e) {
+                console.error('Error placing order:', e);
+                showToast('❌ حدث خطأ في إتمام الطلب', 'error');
+            }
+        };
+
+        // ========== تحديث عدد السلة في الأيقونة ==========
+        function updateCartBadge() {
+            const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const badge = document.getElementById('cartBadge');
+            if (badge) {
+                badge.textContent = total > 0 ? total : '';
+                badge.style.display = total > 0 ? 'flex' : 'none';
             }
         }
 
-        // ========== Toast ==========
-        function showToast(msg, type = 'info') {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.className = 'toast';
-            if (type === 'success') toast.classList.add('success');
-            else if (type === 'error') toast.classList.add('error');
-            toast.classList.add('show');
-            clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-
-        // ========== تحميل الصفحة ==========
-        loadCart();
+        // ========== تشغيل الصفحة ==========
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                await loadCartFromFirebase(user.uid);
+            } else {
+                currentUser = null;
+                // إذا كان المستخدم غير مسجل، استخدم localStorage
+                loadCartFromLocal();
+                showToast('👋 مرحباً! سجل دخولك لحفظ سلة المشتريات', 'info');
+            }
+        });
 
         // ========== الوضع الليلي ==========
         if (localStorage.getItem('theme') === 'dark') {
