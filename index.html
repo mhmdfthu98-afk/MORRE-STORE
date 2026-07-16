@@ -2159,18 +2159,7 @@
     <!-- ===== Toast لتسجيل الدخول ===== -->
     <div id="login-toast" class="login-toast"></div>
 
-    <!-- ===== Service Worker - PWA ===== -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(function(registration) {
-                    console.log('✅ Service Worker Registered');
-                })
-                .catch(function(error) {
-                    console.log('❌ Service Worker Failed:', error);
-                });
-        }
-    </script>
+    <!-- ===== Service Worker - PWA ===== --<link rel="manifest" href="/manifest.json">>
 
     <script type="module">
         // ========== استيراد Firebase ==========
