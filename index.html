@@ -2199,6 +2199,8 @@
         let currentOrder = null;
         let editingProductId = null;
         let currentProductId = null;
+        let cart = [];
+let cartCount = 0;
 
         // ========== إظهار زر لوحة التحكم للأدمن فقط ==========
         onAuthStateChanged(auth, (user) => {
