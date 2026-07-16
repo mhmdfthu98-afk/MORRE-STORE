@@ -1579,22 +1579,23 @@
                     <div id="adminAdd" class="admin-tab-content">
                         <div class="space-y-3">
                             <select id="productGame" class="w-full">
-                                <option value="pubg">🎮 ببجي PUBG</option>
-                                <option value="freefire">🔥 فري فاير FreeFire</option>
-                                <option value="clash">👑 كلاش أوف كلانس</option>
-                                <option value="efootball">⚽ eFootball</option>
-                                <option value="netflix">🎬 نتفليكس</option>
-                                <option value="googleplay">🛍️ جوجل بلاي</option>
-                                <option value="redotpay">💳 فيزا Redotpay</option>
-                                <option value="tiktok">🎵 تيك توك</option>
-                                <option value="ai">🤖 الذكاء الاصطناعي</option>
-                                <option value="fcmobile">⚽ FC Mobile</option>
-                                <option value="playstation">🎮 بلاي ستيشن</option>
-                                <option value="mastercard">💳 ماستر كارد</option>
-                                <option value="clashroyale">👑 كلاش رويال</option>
-                                <option value="canva">🎨 كانفا</option>
-                                <option value="tod">🎵 TOD</option>
-                            </select>
+    <option value="pubg">🎮 ببجي PUBG</option>
+    <option value="freefire">🔥 فري فاير FreeFire</option>
+    <option value="clash">👑 كلاش أوف كلانس</option>
+    <option value="efootball">⚽ eFootball</option>
+    <option value="netflix">🎬 نتفليكس</option>
+    <option value="googleplay">🛍️ جوجل بلاي</option>
+    <option value="redotpay">💳 فيزا Redotpay</option>
+    <option value="tiktok">🎵 عملات تيك توك</option>
+    <option value="tiktokservices">📈 خدمات تيك توك</option>
+    <option value="ai">🤖 الذكاء الاصطناعي</option>
+    <option value="fcmobile">⚽ FC Mobile</option>
+    <option value="playstation">🎮 بلاي ستيشن</option>
+    <option value="mastercard">💳 ماستر كارد</option>
+    <option value="clashroyale">👑 كلاش رويال</option>
+    <option value="canva">🎨 كانفا</option>
+    <option value="tod">🎵 TOD</option>
+</select>
                             <input type="text" id="productName" placeholder="اسم المنتج">
                             <input type="number" id="productPrice" placeholder="السعر (جنيه)">
                             <button onclick="addNewProduct()" class="w-full action-btn">➕ إضافة المنتج</button>
@@ -1704,11 +1705,6 @@
                         <h3 class="text-dark font-bold mt-2">نتفليكس Netflix</h3>
                         <p class="text-dark-light text-xs">اشتراكات شهرية</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'tiktok')">
-                        <img src="https://i.postimg.cc/ryRXRwW8/file-000000003b7471f4a1bff18c344d7df3.png" alt="TikTok" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">تيك توك TikTok</h3>
-                        <p class="text-dark-light text-xs">عملات تيك توك</p>
-                    </div>
                     <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'ai')">
                         <img src="https://i.postimg.cc/HsWwPV2p/file-0000000088c872469e0e816aeeacf79f.png" alt="AI" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">الذكاء الاصطناعي</h3>
@@ -1726,6 +1722,24 @@
                     </div>
                 </div>
             </div>
+            <!-- ===== قسم خدمات سوشل ميديا ===== -->
+<div class="section-title">
+    <span class="section-icon">📱</span> خدمات سوشل ميديا
+</div>
+<div class="service-grid">
+    <!-- عملات تيك توك -->
+    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'tiktok')">
+        <img src="https://i.postimg.cc/ryRXRwW8/file-000000003b7471f4a1bff18c344d7df3.png" alt="TikTok" class="service-icon">
+        <h3 class="text-dark font-bold mt-2">🎵 عملات تيك توك</h3>
+        <p class="text-dark-light text-xs">شحن عملات تيك توك</p>
+    </div>
+    <!-- خدمات تيك توك (متابعين - مشاهدات - لايكات) -->
+    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'tiktokservices')">
+        <img src="https://i.postimg.cc/qqXsYnsm/file-00000000bcc471f490768db414d1e77b.png" alt="خدمات تيك توك" class="service-icon">
+        <h3 class="text-dark font-bold mt-2">📈 خدمات تيك توك</h3>
+        <p class="text-dark-light text-xs">متابعين - مشاهدات - لايكات</p>
+    </div>
+</div>
 
             <!-- ========== صفحات الفئات ========== -->
             <div id="category-pubg" class="category-page">
@@ -1833,6 +1847,14 @@
                 </div>
                 <div id="todGrid" class="product-grid"></div>
             </div>
+            <!-- ===== صفحة فئة خدمات تيك توك ===== -->
+<div id="category-tiktokservices" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">📈 خدمات تيك توك</h2>
+    </div>
+    <div id="tiktokservicesGrid" class="product-grid"></div>
+</div>
 
             <!-- ========== صفحة تفاصيل المنتج ========== -->
             <div id="productDetailPage" class="product-detail-page">
@@ -2392,24 +2414,24 @@
             playstation: 'https://i.postimg.cc/3xvdLTPK/file-00000000ffb071f4841c7a113b560c90.png'
         };
 
-        // ========== أسماء الفئات ==========
-        const categoryNames = {
-            pubg: '🎮 ببجي PUBG',
-            freefire: '🔥 فري فاير FreeFire',
-            clash: '👑 كلاش أوف كلانس',
-            efootball: '⚽ eFootball',
-            fcmobile: '⚽ FC Mobile',
-            clashroyale: '👑 كلاش رويال',
-            netflix: '🎬 نتفليكس',
-            tiktok: '🎵 تيك توك',
-            ai: '🤖 الذكاء الاصطناعي',
-            canva: '🎨 كانفا Canva',
-            tod: '🎵 TOD',
-            googleplay: '🛍️ جوجل بلاي',
-            redotpay: '💳 فيزا Redotpay',
-            mastercard: '💳 ماستر كارد',
-            playstation: '🎮 بلاي ستيشن'
-        };
+        const catNames = {
+    pubg: '🎮 ببجي',
+    freefire: '🔥 فري فاير',
+    clash: '👑 كلاش',
+    efootball: '⚽ eFootball',
+    fcmobile: '⚽ FC Mobile',
+    clashroyale: '👑 كلاش رويال',
+    netflix: '🎬 نتفليكس',
+    tiktok: '🎵 عملات تيك توك',
+    tiktokservices: '📈 خدمات تيك توك',
+    ai: '🤖 ذكاء اصطناعي',
+    canva: '🎨 كانفا',
+    tod: '🎵 TOD',
+    googleplay: '🛍️ جوجل بلاي',
+    redotpay: '💳 فيزا',
+    mastercard: '💳 ماستر كارد',
+    playstation: '🎮 بلاي ستيشن'
+};
 
         // ========== المنتجات الافتراضية ==========
         const defaultProducts = {
