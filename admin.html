@@ -8,34 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
-
-        * {
-            font-family: 'Cairo', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        body {
-            background: #f1f5f9;
-            min-height: 100vh;
-            overflow-x: hidden;
-            padding-bottom: 80px;
-        }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: -280px;
-            width: 280px;
-            height: 100%;
-            background: #0f172a;
-            z-index: 1000;
-            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 20px 16px;
-            overflow-y: auto;
-            box-shadow: -4px 0 30px rgba(0, 0, 0, 0.3);
-        }
+        * { font-family: 'Cairo', sans-serif; margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: #f1f5f9; min-height: 100vh; overflow-x: hidden; padding-bottom: 80px; }
+        .sidebar { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: #0f172a; z-index: 1000; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); padding: 20px 16px; overflow-y: auto; box-shadow: -4px 0 30px rgba(0,0,0,0.3); }
         .sidebar.open { right: 0; }
         .sidebar .logo { text-align: center; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 16px; }
         .sidebar .logo span { font-size: 1.5rem; font-weight: 900; background: linear-gradient(135deg, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -46,40 +21,24 @@
         .sidebar .menu-item i { width: 22px; font-size: 1rem; text-align: center; }
         .sidebar .menu-item .badge { margin-right: auto; background: #ef4444; color: white; font-size: 0.55rem; padding: 1px 8px; border-radius: 10px; }
         .sidebar .menu-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 8px 0; }
-
         .container { max-width: 1200px; margin: 0 auto; padding: 16px; }
         .glass-card { background: rgba(255,255,255,0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); border-radius: 1.5rem; padding: 20px; transition: all 0.3s ease; }
-        .glass-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
-
         .back-header { display: flex; align-items: center; gap: 12px; padding: 12px 0; margin-bottom: 8px; }
-        .back-header .back-btn { background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 8px 16px; color: #1e293b; font-weight: 700; cursor: pointer; transition: 0.2s; text-decoration: none; display: flex; align-items: center; gap: 6px; font-size: 0.9rem; }
-        .back-header .back-btn:hover { background: rgba(255,255,255,0.8); }
+        .back-header .back-btn { background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 8px 16px; color: #1e293b; font-weight: 700; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px; font-size: 0.9rem; }
         .back-header .page-title { font-size: 1.1rem; font-weight: 900; color: #1e293b; }
         .menu-toggle { background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 8px 12px; color: #1e293b; cursor: pointer; transition: 0.2s; font-size: 1.1rem; }
-        .menu-toggle:hover { background: rgba(255,255,255,0.8); }
-
         .stat-card { background: white; border-radius: 14px; padding: 16px; border: 1px solid #f1f5f9; transition: all 0.3s ease; }
         .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
         .stat-card .number { font-size: 1.6rem; font-weight: 900; color: #1e293b; }
         .stat-card .label { font-size: 0.65rem; color: #94a3b8; font-weight: 600; }
-        .stat-card.gold .number { color: #d97706; }
-        .stat-card.green .number { color: #059669; }
-        .stat-card.blue .number { color: #2563eb; }
-        .stat-card.purple .number { color: #7c3aed; }
-        .stat-card.pink .number { color: #ec4899; }
-        .stat-card.teal .number { color: #0d9488; }
-        .stat-card.red .number { color: #dc2626; }
-
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-
         .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
         table th { background: #f1f5f9; color: #1e293b; font-weight: 700; padding: 8px 10px; text-align: right; white-space: nowrap; }
         table td { padding: 8px 10px; border-bottom: 1px solid #f1f5f9; color: #1e293b; }
         table tr:hover td { background: #f8fafc; }
-        table tr { cursor: pointer; transition: 0.2s; }
-
+        table tr { cursor: pointer; }
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 99999; display: none; align-items: center; justify-content: center; padding: 20px; }
         .modal-overlay.active { display: flex; }
         .modal-box { background: white; border-radius: 16px; padding: 24px; max-width: 700px; width: 100%; max-height: 90vh; overflow-y: auto; }
@@ -87,1044 +46,767 @@
         .modal-box .close-modal { float: left; background: none; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer; }
         .modal-box input, .modal-box select, .modal-box textarea { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.9rem; margin-bottom: 10px; background: #f8fafc; }
         .modal-box input:focus, .modal-box select:focus, .modal-box textarea:focus { outline: none; border-color: #f59e0b; background: white; }
-        .modal-box .btn-save { width: 100%; padding: 12px; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; font-weight: 800; border: none; border-radius: 10px; font-size: 1rem; cursor: pointer; transition: 0.3s; }
-        .modal-box .btn-save:hover { transform: scale(1.02); box-shadow: 0 8px 25px rgba(245,158,11,0.3); }
+        .modal-box .btn-save { width: 100%; padding: 12px; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; font-weight: 800; border: none; border-radius: 10px; font-size: 1rem; cursor: pointer; }
         .modal-box .btn-cancel { width: 100%; padding: 10px; background: #f1f5f9; color: #1e293b; font-weight: 700; border: none; border-radius: 10px; font-size: 0.9rem; cursor: pointer; margin-top: 8px; }
-        .modal-box .btn-danger { width: 100%; padding: 12px; background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; font-weight: 800; border: none; border-radius: 10px; font-size: 1rem; cursor: pointer; transition: 0.3s; }
-        .modal-box .btn-danger:hover { transform: scale(1.02); box-shadow: 0 8px 25px rgba(220,38,38,0.3); }
-
         .btn-sm { padding: 4px 10px; border-radius: 8px; font-size: 0.6rem; font-weight: 700; border: none; cursor: pointer; transition: 0.2s; }
         .btn-sm.gold { background: #f59e0b; color: white; }
-        .btn-sm.gold:hover { background: #d97706; }
         .btn-sm.green { background: #059669; color: white; }
-        .btn-sm.green:hover { background: #047857; }
         .btn-sm.red { background: #dc2626; color: white; }
-        .btn-sm.red:hover { background: #b91c1c; }
         .btn-sm.blue { background: #2563eb; color: white; }
-        .btn-sm.blue:hover { background: #1d4ed8; }
         .btn-sm.outline { background: transparent; color: #1e293b; border: 1px solid #e2e8f0; }
-        .btn-sm.outline:hover { border-color: #d97706; }
         .btn-sm.purple { background: #7c3aed; color: white; }
-        .btn-sm.purple:hover { background: #6d28d9; }
-
-        .input-field { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.85rem; background: rgba(255,255,255,0.6); transition: 0.2s; }
-        .input-field:focus { outline: none; border-color: #f59e0b; background: rgba(255,255,255,0.8); }
-
+        .input-field { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #e2e8f0; font-size: 0.85rem; background: rgba(255,255,255,0.6); }
+        .input-field:focus { outline: none; border-color: #f59e0b; }
         .status-badge { padding: 2px 10px; border-radius: 12px; font-size: 0.6rem; font-weight: 700; display: inline-block; }
         .status-badge.pending { background: #fef3c7; color: #d97706; }
-        .status-badge.progress { background: #dbeafe; color: #2563eb; }
         .status-badge.done { background: #d1fae5; color: #059669; }
         .status-badge.cancelled { background: #fee2e2; color: #dc2626; }
         .status-badge.active { background: #d1fae5; color: #059669; }
         .status-badge.banned { background: #fee2e2; color: #dc2626; }
         .status-badge.review { background: #fef3c7; color: #d97706; }
-
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-top: 1px solid rgba(0,0,0,0.05); display: flex; justify-content: space-around; padding: 6px 0 10px; z-index: 9999; }
-        .bottom-nav .nav-item { display: flex; flex-direction: column; align-items: center; color: #94a3b8; font-size: 0.55rem; font-weight: 700; cursor: pointer; background: transparent; border: none; padding: 4px 12px; transition: 0.3s; text-decoration: none; }
-        .bottom-nav .nav-item i { font-size: 1.3rem; transition: 0.3s; }
-        .bottom-nav .nav-item.active { color: #d97706; }
-        .bottom-nav .nav-item.active i { transform: translateY(-2px); }
-        .bottom-nav .nav-item:hover { color: #d97706; }
-
+        .bottom-nav .nav-item { display: flex; flex-direction: column; align-items: center; color: #94a3b8; font-size: 0.55rem; font-weight: 700; cursor: pointer; text-decoration: none; padding: 4px 12px; transition: 0.3s; }
+        .bottom-nav .nav-item i { font-size: 1.3rem; }
+        .bottom-nav .nav-item:hover, .bottom-nav .nav-item.active { color: #d97706; }
         .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: #1e293b; color: white; padding: 10px 20px; border-radius: 10px; font-size: 0.8rem; font-weight: 600; z-index: 999999; opacity: 0; transition: 0.3s; pointer-events: none; white-space: nowrap; }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(-10px); }
-
-        /* ===== أنماط خاصة بالكوبونات ===== */
-        .coupon-code { font-family: 'Courier New', monospace; background: #fef3c7; padding: 4px 12px; border-radius: 8px; font-weight: 900; color: #d97706; letter-spacing: 1px; cursor: pointer; transition: 0.2s; display: inline-block; }
-        .coupon-code:hover { background: #fde68a; transform: scale(1.05); }
-        .coupon-code.copied { background: #d1fae5; color: #059669; }
-        .toggle-switch { position: relative; display: inline-block; width: 44px; height: 24px; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: 0.3s; border-radius: 24px; }
-        .toggle-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%; }
-        input:checked + .toggle-slider { background-color: #059669; }
-        input:checked + .toggle-slider:before { transform: translateX(20px); }
+        .coupon-code { font-family: 'Courier New', monospace; background: #fef3c7; padding: 4px 12px; border-radius: 8px; font-weight: 900; color: #d97706; letter-spacing: 1px; cursor: pointer; display: inline-block; }
+        .coupon-code:hover { background: #fde68a; }
         .chip { display: inline-flex; align-items: center; gap: 4px; background: #f1f5f9; padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; font-weight: 600; margin: 2px; cursor: pointer; transition: 0.2s; }
         .chip.selected { background: #fef3c7; color: #d97706; border: 1px solid #fbbf24; }
-        .chip:hover { background: #e2e8f0; }
-
-        .dark .sidebar { background: #0f172a; }
-        .dark body { background: #0f172a; }
-        .dark .glass-card { background: #1e293b !important; border-color: #334155 !important; }
-        .dark .stat-card { background: #1e293b !important; border-color: #334155 !important; }
-        .dark .stat-card .number { color: #f1f5f9 !important; }
-        .dark .stat-card .label { color: #94a3b8 !important; }
-        .dark .table-wrap table th { background: #0f172a !important; color: #f1f5f9 !important; }
-        .dark .table-wrap table td { color: #f1f5f9 !important; border-color: #334155 !important; }
-        .dark .table-wrap table tr:hover td { background: #0f172a !important; }
-        .dark .input-field { background: #0f172a !important; color: #f1f5f9 !important; border-color: #334155 !important; }
-        .dark .input-field:focus { border-color: #f59e0b !important; }
-        .dark .toast { background: #f1f5f9 !important; color: #1e293b !important; }
-        .dark .modal-box { background: #1e293b !important; }
-        .dark .modal-box h3 { color: #f1f5f9 !important; }
-        .dark .modal-box input, .dark .modal-box select, .dark .modal-box textarea { background: #0f172a !important; border-color: #334155 !important; color: #f1f5f9 !important; }
-        .dark .modal-box .btn-cancel { background: #334155 !important; color: #f1f5f9 !important; }
-        .dark .coupon-code { background: #78350f !important; color: #fbbf24 !important; }
-        .dark .chip { background: #334155 !important; }
+        .avatar-sm { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #f59e0b; }
+        .avatar-md { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #f59e0b; margin: 0 auto; }
+        .order-timeline { position: relative; padding-right: 20px; }
+        .order-timeline::before { content: ''; position: absolute; right: 5px; top: 0; bottom: 0; width: 2px; background: #e2e8f0; }
+        .order-timeline .timeline-item { position: relative; padding-bottom: 16px; }
+        .order-timeline .timeline-item::before { content: ''; position: absolute; right: -14px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: #d97706; border: 2px solid #d97706; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+        .product-card { background: white; border-radius: 12px; border: 1px solid #f1f5f9; overflow: hidden; transition: all 0.3s ease; }
+        .product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); border-color: #d97706; }
+        .product-card .product-image { width: 100%; height: 160px; object-fit: cover; }
+        .product-card .product-body { padding: 12px; }
+        .product-card .product-name { font-weight: 700; color: #1e293b; font-size: 0.85rem; }
+        .product-card .product-price { font-weight: 900; color: #d97706; font-size: 1rem; }
+        .product-card .product-price .old-price { text-decoration: line-through; color: #94a3b8; font-size: 0.7rem; margin-right: 4px; }
+        .product-card .image-wrap { position: relative; }
+        .product-card .product-badge { position: absolute; top: 8px; right: 8px; background: #d97706; color: white; font-size: 0.55rem; font-weight: 700; padding: 2px 10px; border-radius: 12px; }
+        .file-upload { border: 2px dashed #e2e8f0; border-radius: 10px; padding: 20px; text-align: center; cursor: pointer; transition: 0.2s; background: #f8fafc; }
+        .file-upload:hover { border-color: #d97706; background: #fef3c7; }
+        .file-upload input { display: none; }
+        .file-upload label { cursor: pointer; color: #64748b; font-weight: 600; }
+        .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+        .game-card { background: white; border-radius: 12px; padding: 14px 10px; border: 1px solid #f1f5f9; text-align: center; cursor: pointer; transition: all 0.3s ease; }
+        .game-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); border-color: #f59e0b; }
+        .game-card .game-icon { font-size: 2rem; display: block; }
+        .game-card .game-name { font-size: 0.75rem; font-weight: 700; color: #1e293b; }
+        .admin-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .admin-menu .menu-card { background: white; border-radius: 12px; padding: 14px 10px; border: 1px solid #f1f5f9; text-align: center; cursor: pointer; transition: all 0.3s ease; }
+        .admin-menu .menu-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); border-color: #f59e0b; }
+        .admin-menu .menu-card i { font-size: 1.5rem; display: block; margin-bottom: 4px; color: #d97706; }
+        @media (max-width: 480px) {
+            .container { padding: 10px; }
+            .stat-card .number { font-size: 1.2rem; }
+            .modal-box { padding: 16px; max-width: 100%; margin: 10px; }
+            table { font-size: 0.65rem; }
+            table th, table td { padding: 4px 6px; }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+            .game-grid { grid-template-columns: 1fr 1fr; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- ===== الشريط الجانبي ===== -->
-    <div class="sidebar" id="sidebar">
-        <div class="logo"><span>MORRE</span><small>لوحة التحكم</small></div>
-        <div class="menu-item" data-tab="dashboard" onclick="switchTab('dashboard')"><i class="fas fa-chart-pie"></i> الرئيسية</div>
-        <div class="menu-item" data-tab="customers" onclick="switchTab('customers')"><i class="fas fa-users"></i> العملاء <span class="badge" id="customerBadge">0</span></div>
-        <div class="menu-item" data-tab="orders" onclick="switchTab('orders')"><i class="fas fa-clipboard-list"></i> الطلبات <span class="badge" id="orderBadge">0</span></div>
-        <div class="menu-item" data-tab="wallet" onclick="switchTab('wallet')"><i class="fas fa-wallet"></i> المحفظة</div>
-        <div class="menu-item" data-tab="transactions" onclick="switchTab('transactions')"><i class="fas fa-history"></i> سجل المعاملات</div>
-        <div class="menu-item" data-tab="products" onclick="switchTab('products')"><i class="fas fa-box"></i> المنتجات</div>
-        <div class="menu-item active" data-tab="coupons" onclick="switchTab('coupons')"><i class="fas fa-ticket-alt"></i> إدارة الكوبونات</div>
-        <div class="menu-item" data-tab="games" onclick="switchTab('games')"><i class="fas fa-gamepad"></i> الألعاب</div>
-        <div class="menu-item" data-tab="subscriptions" onclick="switchTab('subscriptions')"><i class="fas fa-star"></i> الاشتراكات</div>
-        <div class="menu-item" data-tab="cards" onclick="switchTab('cards')"><i class="fas fa-credit-card"></i> البطاقات</div>
-        <div class="menu-item" data-tab="codes" onclick="switchTab('codes')"><i class="fas fa-key"></i> الأكواد</div>
-        <div class="menu-item" data-tab="offers" onclick="switchTab('offers')"><i class="fas fa-tags"></i> العروض</div>
-        <div class="menu-item" data-tab="reports" onclick="switchTab('reports')"><i class="fas fa-chart-bar"></i> التقارير</div>
-        <div class="menu-item" data-tab="settings" onclick="switchTab('settings')"><i class="fas fa-cog"></i> الإعدادات</div>
-        <div class="menu-divider"></div>
-        <div class="menu-item" onclick="window.location.href='index.html'"><i class="fas fa-store"></i> العودة للمتجر</div>
-        <div class="menu-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</div>
+<!-- ===== الشريط الجانبي ===== -->
+<div class="sidebar" id="sidebar">
+    <div class="logo"><span>MORRE</span><small>لوحة التحكم</small></div>
+    <div class="menu-item active" data-tab="dashboard" onclick="switchTab('dashboard')"><i class="fas fa-chart-pie"></i> الرئيسية</div>
+    <div class="menu-item" data-tab="customers" onclick="switchTab('customers')"><i class="fas fa-users"></i> العملاء <span class="badge" id="customerBadge">0</span></div>
+    <div class="menu-item" data-tab="orders" onclick="switchTab('orders')"><i class="fas fa-clipboard-list"></i> الطلبات <span class="badge" id="orderBadge">0</span></div>
+    <div class="menu-item" data-tab="wallet" onclick="switchTab('wallet')"><i class="fas fa-wallet"></i> المحفظة</div>
+    <div class="menu-item" data-tab="transactions" onclick="switchTab('transactions')"><i class="fas fa-history"></i> سجل المعاملات</div>
+    <div class="menu-item" data-tab="products" onclick="switchTab('products')"><i class="fas fa-box"></i> المنتجات</div>
+    <div class="menu-item" data-tab="coupons" onclick="switchTab('coupons')"><i class="fas fa-ticket-alt"></i> إدارة الكوبونات</div>
+    <div class="menu-item" data-tab="games" onclick="switchTab('games')"><i class="fas fa-gamepad"></i> الألعاب</div>
+    <div class="menu-item" data-tab="subscriptions" onclick="switchTab('subscriptions')"><i class="fas fa-star"></i> الاشتراكات</div>
+    <div class="menu-item" data-tab="cards" onclick="switchTab('cards')"><i class="fas fa-credit-card"></i> البطاقات</div>
+    <div class="menu-item" data-tab="codes" onclick="switchTab('codes')"><i class="fas fa-key"></i> الأكواد</div>
+    <div class="menu-item" data-tab="offers" onclick="switchTab('offers')"><i class="fas fa-tags"></i> العروض</div>
+    <div class="menu-item" data-tab="reports" onclick="switchTab('reports')"><i class="fas fa-chart-bar"></i> التقارير</div>
+    <div class="menu-item" data-tab="settings" onclick="switchTab('settings')"><i class="fas fa-cog"></i> الإعدادات</div>
+    <div class="menu-divider"></div>
+    <div class="menu-item" onclick="window.location.href='index.html'"><i class="fas fa-store"></i> العودة للمتجر</div>
+    <div class="menu-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</div>
+</div>
+
+<!-- ===== المحتوى الرئيسي ===== -->
+<div class="container">
+    <div class="back-header">
+        <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+        <div class="page-title" id="pageTitle">📊 الرئيسية</div>
+        <button onclick="window.location.href='index.html'" class="back-btn" style="margin-right:auto;"><i class="fas fa-store"></i> المتجر</button>
     </div>
 
-    <!-- ===== المحتوى الرئيسي ===== -->
-    <div class="container">
-
-        <!-- ===== رأس الصفحة ===== -->
-        <div class="back-header">
-            <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-            <div class="page-title" id="pageTitle">🎫 إدارة الكوبونات</div>
-            <button onclick="window.location.href='index.html'" class="back-btn" style="margin-right:auto;"><i class="fas fa-store"></i> المتجر</button>
+    <!-- Dashboard -->
+    <div id="tab-dashboard" class="tab-content active">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+            <div class="stat-card text-center"><div class="number" id="totalCustomers" style="color:#d97706;">0</div><div class="label">👥 إجمالي العملاء</div></div>
+            <div class="stat-card text-center"><div class="number" id="totalOrders" style="color:#059669;">0</div><div class="label">📋 إجمالي الطلبات</div></div>
+            <div class="stat-card text-center"><div class="number" id="pendingOrders" style="color:#2563eb;">0</div><div class="label">⏳ طلبات معلقة</div></div>
+            <div class="stat-card text-center"><div class="number" id="totalRevenue" style="color:#7c3aed;">0</div><div class="label">💰 إجمالي الإيرادات</div></div>
         </div>
+        <div class="admin-menu grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div class="menu-card" onclick="switchTab('customers')"><i class="fas fa-users"></i><div class="text-sm font-bold">العملاء</div><div class="text-xs text-gray-500">إدارة الحسابات</div></div>
+            <div class="menu-card" onclick="switchTab('orders')"><i class="fas fa-clipboard-list"></i><div class="text-sm font-bold">الطلبات</div><div class="text-xs text-gray-500">مراجعة - تنفيذ</div></div>
+            <div class="menu-card" onclick="switchTab('coupons')"><i class="fas fa-ticket-alt"></i><div class="text-sm font-bold">الكوبونات</div><div class="text-xs text-gray-500">إدارة الخصومات</div></div>
+            <div class="menu-card" onclick="switchTab('wallet')"><i class="fas fa-wallet"></i><div class="text-sm font-bold">المحفظة</div><div class="text-xs text-gray-500">شحن - خصم</div></div>
+            <div class="menu-card" onclick="switchTab('products')"><i class="fas fa-box"></i><div class="text-sm font-bold">المنتجات</div><div class="text-xs text-gray-500">إضافة - تعديل</div></div>
+            <div class="menu-card" onclick="switchTab('reports')"><i class="fas fa-chart-bar"></i><div class="text-sm font-bold">التقارير</div><div class="text-xs text-gray-500">تحليلات وإحصائيات</div></div>
+        </div>
+    </div>
 
-        <!-- ========================================================== -->
-        <!-- ===== 1. Dashboard ===== -->
-        <!-- ========================================================== -->
-        <div id="tab-dashboard" class="tab-content">
+    <!-- العملاء -->
+    <div id="tab-customers" class="tab-content">
+        <div class="glass-card">
+            <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+                <div><h3 class="text-xl font-bold">👥 إدارة العملاء</h3></div>
+                <button onclick="refreshCustomers()" class="btn-sm outline">🔄 تحديث</button>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
+                <div class="stat-card text-center"><div class="number text-blue-600" id="totalCustomersCount">0</div><div class="label">👥 إجمالي العملاء</div></div>
+                <div class="stat-card text-center"><div class="number text-green-600" id="activeCustomersCount">0</div><div class="label">✅ نشطون</div></div>
+                <div class="stat-card text-center"><div class="number text-red-600" id="bannedCustomersCount">0</div><div class="label">⛔ محظورون</div></div>
+                <div class="stat-card text-center"><div class="number text-yellow-600" id="totalBalanceCount">0</div><div class="label">💰 إجمالي الرصيد</div></div>
+                <div class="stat-card text-center"><div class="number text-purple-600" id="totalOrdersCount">0</div><div class="label">📦 إجمالي الطلبات</div></div>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+                <input type="text" id="searchCustomer" class="input-field flex-1 min-w-[150px]" placeholder="🔍 بحث..." oninput="filterCustomers()">
+                <select id="filterStatus" class="input-field" style="max-width:140px;" onchange="filterCustomers()"><option value="all">📌 الكل</option><option value="active">✅ نشط</option><option value="banned">⛔ محظور</option></select>
+                <button onclick="resetCustomerFilters()" class="btn-sm outline">🔄</button>
+            </div>
+            <div class="table-wrap"><table><thead><tr><th>#</th><th>الاسم</th><th>البريد</th><th>الهاتف</th><th>المحفظة</th><th>الرصيد</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody id="customersTable"></tbody></table></div>
+        </div>
+    </div>
+
+    <!-- الطلبات -->
+    <div id="tab-orders" class="tab-content">
+        <div class="glass-card">
+            <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+                <div><h3 class="text-xl font-bold">📋 إدارة الطلبات</h3></div>
+                <button onclick="refreshOrders()" class="btn-sm outline">🔄 تحديث</button>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
+                <div class="stat-card text-center"><div class="number text-blue-600" id="totalOrdersCountOrders">0</div><div class="label">📋 إجمالي</div></div>
+                <div class="stat-card text-center"><div class="number text-yellow-600" id="pendingOrdersCount">0</div><div class="label">⏳ معلقة</div></div>
+                <div class="stat-card text-center"><div class="number text-blue-600" id="reviewOrdersCount">0</div><div class="label">📌 مراجعة</div></div>
+                <div class="stat-card text-center"><div class="number text-green-600" id="completedOrdersCount">0</div><div class="label">✅ مكتملة</div></div>
+                <div class="stat-card text-center"><div class="number text-purple-600" id="totalRevenueCount">0</div><div class="label">💰 الإيرادات</div></div>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+                <input type="text" id="searchOrder" class="input-field flex-1 min-w-[150px]" placeholder="🔍 بحث..." oninput="filterOrders()">
+                <select id="filterOrderStatus" class="input-field" style="max-width:140px;" onchange="filterOrders()"><option value="all">📌 الكل</option><option value="قيد الانتظار">⏳ قيد الانتظار</option><option value="جاري التنفيذ">⚡ جاري التنفيذ</option><option value="مكتمل">✅ مكتمل</option><option value="ملغي">❌ ملغي</option></select>
+                <button onclick="resetOrderFilters()" class="btn-sm outline">🔄</button>
+            </div>
+            <div class="table-wrap"><table><thead><tr><th>#</th><th>رقم الطلب</th><th>العميل</th><th>المنتج</th><th>المبلغ</th><th>التاريخ</th><th>الحالة</th><th>إجراءات</th></tr></thead><tbody id="ordersTable"></tbody></table></div>
+        </div>
+    </div>
+
+    <!-- المحفظة -->
+    <div id="tab-wallet" class="tab-content">
+        <div class="glass-card">
+            <h3 class="font-bold mb-3">💰 إدارة المحافظ</h3>
+            <select id="walletCustomer" class="input-field mb-3"><option value="">-- اختر عميلاً --</option></select>
+            <div class="bg-yellow-50 p-3 rounded-xl text-center mb-3"><span class="text-2xl font-black text-yellow-600" id="customerCurrentBalance">0</span><span> ج.س</span></div>
+            <input type="number" id="walletAmount" class="input-field mb-2" placeholder="المبلغ">
+            <input type="text" id="walletReason" class="input-field mb-3" placeholder="سبب العملية">
+            <div class="flex gap-2"><button onclick="rechargeWallet()" class="btn-sm gold flex-1">➕ شحن</button><button onclick="deductWallet()" class="btn-sm red flex-1">➖ خصم</button></div>
+        </div>
+    </div>
+
+    <!-- سجل المعاملات -->
+    <div id="tab-transactions" class="tab-content">
+        <div class="glass-card">
+            <h3 class="font-bold mb-3">📊 سجل المعاملات</h3>
+            <div id="transactionsList"></div>
+        </div>
+    </div>
+
+    <!-- المنتجات -->
+    <div id="tab-products" class="tab-content">
+        <div class="glass-card">
+            <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+                <div><h3 class="text-xl font-bold">📦 إدارة المنتجات</h3></div>
+                <button onclick="openAddProductModal()" class="btn-sm gold">➕ إضافة منتج</button>
+            </div>
+            <div id="productsGrid" class="product-grid"></div>
+        </div>
+    </div>
+
+    <!-- ===== 🎫 إدارة الكوبونات ===== -->
+    <div id="tab-coupons" class="tab-content">
+        <div class="glass-card">
+            <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+                <div><h3 class="text-xl font-bold">🎫 إدارة الكوبونات</h3><p class="text-sm text-gray-500">إنشاء وإدارة أكواد الخصم</p></div>
+                <div class="flex gap-2">
+                    <button onclick="openCouponModal()" class="btn-sm gold">➕ إضافة كوبون</button>
+                    <button onclick="openCouponReports()" class="btn-sm purple">📊 التقارير</button>
+                    <button onclick="refreshCoupons()" class="btn-sm outline">🔄 تحديث</button>
+                </div>
+            </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-                <div class="stat-card gold text-center"><div class="number" id="totalCustomers">0</div><div class="label">👥 إجمالي العملاء</div></div>
-                <div class="stat-card green text-center"><div class="number" id="totalOrders">0</div><div class="label">📋 إجمالي الطلبات</div></div>
-                <div class="stat-card blue text-center"><div class="number" id="pendingOrders">0</div><div class="label">⏳ طلبات معلقة</div></div>
-                <div class="stat-card purple text-center"><div class="number" id="totalRevenue">0</div><div class="label">💰 إجمالي الإيرادات</div></div>
-                <div class="stat-card pink text-center"><div class="number" id="totalProducts">0</div><div class="label">📦 إجمالي المنتجات</div></div>
-                <div class="stat-card teal text-center"><div class="number" id="completedOrders">0</div><div class="label">✅ طلبات مكتملة</div></div>
-                <div class="stat-card gold text-center" style="grid-column: span 2;"><div class="number" id="topProduct">-</div><div class="label">🏆 أكثر منتج مبيعاً</div></div>
+                <div class="stat-card text-center"><div class="number" style="color:#d97706;" id="totalCoupons">0</div><div class="label">🎫 إجمالي الكوبونات</div></div>
+                <div class="stat-card text-center"><div class="number" style="color:#059669;" id="activeCoupons">0</div><div class="label">✅ كوبونات نشطة</div></div>
+                <div class="stat-card text-center"><div class="number" style="color:#dc2626;" id="expiredCoupons">0</div><div class="label">⏰ كوبونات منتهية</div></div>
+                <div class="stat-card text-center"><div class="number" style="color:#2563eb;" id="totalUsedCoupons">0</div><div class="label">🔢 مرات الاستخدام</div></div>
             </div>
-            <div class="admin-menu grid grid-cols-2 md:grid-cols-3 gap-3">
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-4 text-center border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-yellow-500 transition" onclick="switchTab('customers')">
-                    <i class="fas fa-users text-2xl text-yellow-500"></i><div class="font-bold text-dark text-sm">العملاء</div><div class="text-xs text-dark-light">إدارة الحسابات</div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-4 text-center border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-yellow-500 transition" onclick="switchTab('orders')">
-                    <i class="fas fa-clipboard-list text-2xl text-yellow-500"></i><div class="font-bold text-dark text-sm">الطلبات</div><div class="text-xs text-dark-light">مراجعة - تنفيذ</div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-4 text-center border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-yellow-500 transition" onclick="switchTab('coupons')">
-                    <i class="fas fa-ticket-alt text-2xl text-yellow-500"></i><div class="font-bold text-dark text-sm">الكوبونات</div><div class="text-xs text-dark-light">إدارة الخصومات</div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-4 text-center border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-yellow-500 transition" onclick="switchTab('wallet')">
-                    <i class="fas fa-wallet text-2xl text-yellow-500"></i><div class="font-bold text-dark text-sm">المحفظة</div><div class="text-xs text-dark-light">شحن - خصم</div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-4 text-center border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-yellow-500 transition" onclick="switchTab('transactions')">
-                    <i class="fas fa-history text-2xl text-yellow-500"></i><div class="font-bold text-dark text-sm">سجل المعاملات</div><div class="text-xs text-dark-light">جميع العمليات</div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-4 text-center border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-yellow-500 transition" onclick="switchTab('products')">
-                    <i class="fas fa-box text-2xl text-yellow-500"></i><div class="font-bold text-dark text-sm">المنتجات</div><div class="text-xs text-dark-light">إضافة - تعديل</div>
-                </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+                <input type="text" id="searchCoupon" class="input-field flex-1 min-w-[150px]" placeholder="🔍 بحث باسم أو كود الكوبون..." oninput="filterCoupons()">
+                <select id="filterCouponStatus" class="input-field" style="max-width:140px;" onchange="filterCoupons()"><option value="all">📌 الكل</option><option value="active">✅ نشط</option><option value="expired">⏰ منتهي</option><option value="inactive">⛔ معطل</option></select>
+                <select id="filterCouponType" class="input-field" style="max-width:140px;" onchange="filterCoupons()"><option value="all">📌 جميع الأنواع</option><option value="percentage">٪ نسبة مئوية</option><option value="fixed">💰 مبلغ ثابت</option></select>
+                <button onclick="resetCouponFilters()" class="btn-sm outline">🔄</button>
             </div>
-        </div>
-
-        <!-- ========================================================== -->
-        <!-- ===== 2. العملاء ===== -->
-        <!-- ========================================================== -->
-        <div id="tab-customers" class="tab-content">
-            <div class="glass-card">
-                <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
-                    <div><h3 class="text-xl font-bold text-dark">👥 إدارة العملاء</h3><p class="text-sm text-dark-light">إدارة جميع حسابات العملاء بسهولة</p></div>
-                    <button onclick="refreshCustomers()" class="btn-sm outline">🔄 تحديث</button>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-blue-600" id="totalCustomersCount">0</div><div class="text-xs text-dark-light">👥 إجمالي العملاء</div></div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-green-600" id="activeCustomersCount">0</div><div class="text-xs text-dark-light">✅ نشطون</div></div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-red-600" id="bannedCustomersCount">0</div><div class="text-xs text-dark-light">⛔ محظورون</div></div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-yellow-600" id="totalBalanceCount">0</div><div class="text-xs text-dark-light">💰 إجمالي الرصيد</div></div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-purple-600" id="totalOrdersCount">0</div><div class="text-xs text-dark-light">📦 إجمالي الطلبات</div></div>
-                </div>
-                <div class="flex flex-wrap gap-2 mb-4">
-                    <div class="flex-1 min-w-[150px]"><input type="text" id="searchCustomer" class="input-field" placeholder="🔍 بحث بالاسم أو البريد أو الهاتف..." oninput="filterCustomers()"></div>
-                    <select id="filterStatus" class="input-field" style="max-width:140px;" onchange="filterCustomers()"><option value="all">📌 الكل</option><option value="active">✅ نشط</option><option value="banned">⛔ محظور</option></select>
-                    <input type="date" id="filterDate" class="input-field" style="max-width:160px;" onchange="filterCustomers()">
-                    <button onclick="resetCustomerFilters()" class="btn-sm outline">🔄 إعادة تعيين</button>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead><tr><th>#</th><th>الصورة</th><th>الاسم</th><th>البريد</th><th>الهاتف</th><th>المحفظة</th><th>الرصيد</th><th>الطلبات</th><th>المشتريات</th><th>التسجيل</th><th>آخر دخول</th><th>الحالة</th><th>إجراءات</th></tr></thead>
-                        <tbody id="customersTable"><tr><td colspan="13" class="text-center text-dark-light py-8">جاري تحميل العملاء...</td></tr></tbody>
-                    </table>
-                </div>
+            <div class="table-wrap">
+                <table><thead><tr><th>#</th><th>اسم الكوبون</th><th>كود الخصم</th><th>النوع</th><th>القيمة</th><th>الحد الأدنى</th><th>الاستخدام</th><th>تاريخ الانتهاء</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+                <tbody id="couponsTable"><tr><td colspan="10" class="text-center py-8 text-gray-500">جاري تحميل الكوبونات...</td></tr></tbody></table>
             </div>
-        </div>
-
-        <!-- ========================================================== -->
-        <!-- ===== 3. الطلبات ===== -->
-        <!-- ========================================================== -->
-        <div id="tab-orders" class="tab-content">
-            <div class="glass-card">
-                <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
-                    <div><h3 class="text-xl font-bold text-dark">📋 إدارة الطلبات</h3><p class="text-sm text-dark-light">إدارة جميع طلبات العملاء بسهولة</p></div>
-                    <button onclick="refreshOrders()" class="btn-sm outline">🔄 تحديث</button>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-blue-600" id="totalOrdersCountOrders">0</div><div class="text-xs text-dark-light">📋 إجمالي الطلبات</div></div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-yellow-600" id="pendingOrdersCount">0</div><div class="text-xs text-dark-light">⏳ قيد الانتظار</div></div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-blue-600" id="reviewOrdersCount">0</div><div class="text-xs text-dark-light">📌 قيد المراجعة</div></div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-green-600" id="completedOrdersCount">0</div><div class="text-xs text-dark-light">✅ مكتمل</div></div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-purple-600" id="totalRevenueCount">0</div><div class="text-xs text-dark-light">💰 إجمالي الإيرادات</div></div>
-                </div>
-                <div class="flex flex-wrap gap-2 mb-4">
-                    <div class="flex-1 min-w-[150px]"><input type="text" id="searchOrder" class="input-field" placeholder="🔍 بحث برقم الطلب أو اسم العميل..." oninput="filterOrders()"></div>
-                    <select id="filterOrderStatus" class="input-field" style="max-width:140px;" onchange="filterOrders()"><option value="all">📌 الكل</option><option value="قيد الانتظار">⏳ قيد الانتظار</option><option value="قيد المراجعة">📌 قيد المراجعة</option><option value="جاري التنفيذ">⚡ جاري التنفيذ</option><option value="مكتمل">✅ مكتمل</option><option value="ملغي">❌ ملغي</option></select>
-                    <select id="filterPayment" class="input-field" style="max-width:140px;" onchange="filterOrders()"><option value="all">💳 جميع طرق الدفع</option><option value="محفظة">💰 محفظة</option><option value="بطاقة">💳 بطاقة</option><option value="تحويل">🏦 تحويل</option></select>
-                    <input type="date" id="filterOrderDate" class="input-field" style="max-width:160px;" onchange="filterOrders()">
-                    <button onclick="resetOrderFilters()" class="btn-sm outline">🔄 إعادة تعيين</button>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead><tr><th>#</th><th>رقم الطلب</th><th>العميل</th><th>المنتج</th><th>الكمية</th><th>المبلغ</th><th>طريقة الدفع</th><th>التاريخ</th><th>الحالة</th><th>إجراءات</th></tr></thead>
-                        <tbody id="ordersTable"><tr><td colspan="10" class="text-center text-dark-light py-8">جاري تحميل الطلبات...</td></tr></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================================== -->
-        <!-- ===== 4. المحفظة ===== -->
-        <!-- ========================================================== -->
-        <div id="tab-wallet" class="tab-content">
-            <div class="glass-card">
-                <h3 class="font-bold text-dark mb-3">💰 إدارة المحافظ</h3>
-                <div class="space-y-3">
-                    <div><label class="text-xs font-bold text-dark-light">👤 اختيار العميل</label><select id="walletCustomer" class="input-field"><option value="">-- اختر عميلاً --</option></select></div>
-                    <div><label class="text-xs font-bold text-dark-light">💳 رصيد العميل الحالي</label><div class="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-xl text-center"><span class="text-2xl font-black text-yellow-600" id="customerCurrentBalance">0</span><span class="text-dark-light"> ج.س</span></div></div>
-                    <div><label class="text-xs font-bold text-dark-light">💰 المبلغ</label><input type="number" id="walletAmount" class="input-field" placeholder="أدخل المبلغ"></div>
-                    <div><label class="text-xs font-bold text-dark-light">📝 سبب العملية</label><input type="text" id="walletReason" class="input-field" placeholder="سبب العملية (اختياري)"></div>
-                    <div class="flex gap-2"><button onclick="rechargeWallet()" class="btn-sm gold flex-1">➕ شحن الرصيد</button><button onclick="deductWallet()" class="btn-sm red flex-1">➖ خصم الرصيد</button></div>
-                </div>
-                <div class="mt-4"><h4 class="font-bold text-dark text-sm mb-2">📊 إجمالي رصيد المحافظ</h4><div class="bg-gray-100 dark:bg-gray-800 p-3 rounded-xl text-center"><span class="text-2xl font-black text-yellow-600" id="totalWalletBalance">0</span><span class="text-dark-light"> ج.س</span></div></div>
-            </div>
-        </div>
-
-        <!-- ========================================================== -->
-        <!-- ===== 5. سجل المعاملات ===== -->
-        <!-- ========================================================== -->
-        <div id="tab-transactions" class="tab-content">
-            <div class="glass-card">
-                <h3 class="font-bold text-dark mb-3">📊 سجل المعاملات</h3>
-                <div class="flex gap-2 mb-3"><input type="date" id="filterDate" class="input-field" style="max-width:180px;"><button onclick="filterTransactions()" class="btn-sm gold">تصفية</button><button onclick="resetTransactionFilter()" class="btn-sm outline">إعادة تعيين</button></div>
-                <div id="transactionsList"><div class="text-center text-dark-light py-4">جاري التحميل...</div></div>
-            </div>
-        </div>
-
-        <!-- ========================================================== -->
-        <!-- ===== 6. المنتجات ===== -->
-        <!-- ========================================================== -->
-        <div id="tab-products" class="tab-content">
-            <div class="glass-card">
-                <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
-                    <div><h3 class="text-xl font-bold text-dark">📦 إدارة المنتجات</h3><p class="text-sm text-dark-light">إدارة جميع منتجات المتجر بسهولة</p></div>
-                    <button onclick="openAddProductModal()" class="btn-sm gold">➕ إضافة منتج</button>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-blue-600" id="totalProductsCount">0</div><div class="text-xs text-dark-light">📦 إجمالي المنتجات</div></div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-green-600" id="activeProductsCount">0</div><div class="text-xs text-dark-light">✅ متوفر</div></div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-red-600" id="inactiveProductsCount">0</div><div class="text-xs text-dark-light">⛔ غير متوفر</div></div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-yellow-600" id="featuredProductsCount">0</div><div class="text-xs text-dark-light">⭐ مميز</div></div>
-                    <div class="bg-white dark:bg-gray-800 p-3 rounded-xl border border-gray-200 dark:border-gray-700 text-center"><div class="text-2xl font-black text-purple-600" id="totalProductsValue">0</div><div class="text-xs text-dark-light">💰 إجمالي القيمة</div></div>
-                </div>
-                <div class="flex flex-wrap gap-2 mb-4">
-                    <div class="flex-1 min-w-[150px]"><input type="text" id="searchProduct" class="input-field" placeholder="🔍 بحث باسم المنتج..." oninput="filterProducts()"></div>
-                    <select id="filterCategory" class="input-field" style="max-width:150px;" onchange="filterProducts()"><option value="all">📂 جميع الأقسام</option><option value="games">🎮 ألعاب</option><option value="subscriptions">⭐ اشتراكات</option><option value="cards">💳 بطاقات</option><option value="services">⚡ خدمات</option></select>
-                    <select id="filterStatusProduct" class="input-field" style="max-width:140px;" onchange="filterProducts()"><option value="all">📌 الكل</option><option value="active">✅ متوفر</option><option value="inactive">⛔ غير متوفر</option></select>
-                    <select id="filterSort" class="input-field" style="max-width:140px;" onchange="filterProducts()"><option value="newest">🆕 الأحدث</option><option value="priceLow">💰 السعر (منخفض)</option><option value="priceHigh">💰 السعر (مرتفع)</option><option value="popular">🔥 الأكثر مبيعاً</option></select>
-                    <button onclick="resetProductFilters()" class="btn-sm outline">🔄 إعادة تعيين</button>
-                </div>
-                <div id="productsGrid" class="product-grid"><div class="col-span-full text-center text-dark-light py-8"><i class="fas fa-box-open text-3xl block mb-2"></i>جاري تحميل المنتجات...</div></div>
-                <div class="table-wrap mt-4 hidden lg:block">
-                    <table><thead><tr><th>#</th><th>الصورة</th><th>الاسم</th><th>القسم</th><th>السعر</th><th>الخصم</th><th>المخزون</th><th>الحالة</th><th>المبيعات</th><th>إجراءات</th></tr></thead>
-                    <tbody id="productsTable"><tr><td colspan="10" class="text-center text-dark-light py-8">لا توجد منتجات</td></tr></tbody></table>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================================== -->
-        <!-- ===== 🎫 إدارة الكوبونات (القسم الجديد) ===== -->
-        <!-- ========================================================== -->
-        <div id="tab-coupons" class="tab-content active">
-            <div class="glass-card">
-                <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
-                    <div><h3 class="text-xl font-bold text-dark">🎫 إدارة الكوبونات</h3><p class="text-sm text-dark-light">إنشاء وإدارة أكواد الخصم بشكل كامل</p></div>
-                    <div class="flex gap-2">
-                        <button onclick="openCouponModal()" class="btn-sm gold">➕ إضافة كوبون</button>
-                        <button onclick="openCouponReports()" class="btn-sm purple">📊 التقارير</button>
-                        <button onclick="refreshCoupons()" class="btn-sm outline">🔄 تحديث</button>
-                    </div>
-                </div>
-
-                <!-- إحصائيات الكوبونات -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-                    <div class="stat-card gold text-center"><div class="number" id="totalCoupons">0</div><div class="label">🎫 إجمالي الكوبونات</div></div>
-                    <div class="stat-card green text-center"><div class="number" id="activeCoupons">0</div><div class="label">✅ كوبونات نشطة</div></div>
-                    <div class="stat-card red text-center"><div class="number" id="expiredCoupons">0</div><div class="label">⏰ كوبونات منتهية</div></div>
-                    <div class="stat-card blue text-center"><div class="number" id="totalUsedCoupons">0</div><div class="label">🔢 مرات الاستخدام</div></div>
-                </div>
-
-                <!-- فلترة الكوبونات -->
-                <div class="flex flex-wrap gap-2 mb-4">
-                    <div class="flex-1 min-w-[150px]"><input type="text" id="searchCoupon" class="input-field" placeholder="🔍 بحث باسم أو كود الكوبون..." oninput="filterCoupons()"></div>
-                    <select id="filterCouponStatus" class="input-field" style="max-width:140px;" onchange="filterCoupons()">
-                        <option value="all">📌 الكل</option>
-                        <option value="active">✅ نشط</option>
-                        <option value="expired">⏰ منتهي</option>
-                        <option value="inactive">⛔ معطل</option>
-                    </select>
-                    <select id="filterCouponType" class="input-field" style="max-width:140px;" onchange="filterCoupons()">
-                        <option value="all">📌 جميع الأنواع</option>
-                        <option value="percentage">٪ نسبة مئوية</option>
-                        <option value="fixed">💰 مبلغ ثابت</option>
-                    </select>
-                    <button onclick="resetCouponFilters()" class="btn-sm outline">🔄 إعادة تعيين</button>
-                </div>
-
-                <!-- جدول الكوبونات -->
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>اسم الكوبون</th>
-                                <th>كود الخصم</th>
-                                <th>النوع</th>
-                                <th>القيمة</th>
-                                <th>الحد الأدنى</th>
-                                <th>الحد الأقصى</th>
-                                <th>الاستخدام</th>
-                                <th>تاريخ البداية</th>
-                                <th>تاريخ الانتهاء</th>
-                                <th>الحالة</th>
-                                <th>إجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody id="couponsTable">
-                            <tr><td colspan="12" class="text-center text-dark-light py-8">جاري تحميل الكوبونات...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========================================================== -->
-        <!-- ===== باقي الأقسام ===== -->
-        <!-- ========================================================== -->
-        <div id="tab-games" class="tab-content">
-            <div class="glass-card"><h3 class="font-bold text-dark mb-3">🎮 إدارة الألعاب</h3><div class="game-grid"><div class="game-card"><span class="game-icon">🎮</span><div class="game-name">PUBG Mobile</div></div><div class="game-card"><span class="game-icon">🔥</span><div class="game-name">FreeFire</div></div></div></div>
-        </div>
-        <div id="tab-subscriptions" class="tab-content">
-            <div class="glass-card"><h3 class="font-bold text-dark mb-3">⭐ إدارة الاشتراكات</h3></div>
-        </div>
-        <div id="tab-cards" class="tab-content">
-            <div class="glass-card"><h3 class="font-bold text-dark mb-3">💳 إدارة البطاقات</h3></div>
-        </div>
-        <div id="tab-codes" class="tab-content">
-            <div class="glass-card"><h3 class="font-bold text-dark mb-3">🎟️ إدارة الأكواد الرقمية</h3></div>
-        </div>
-        <div id="tab-offers" class="tab-content">
-            <div class="glass-card"><h3 class="font-bold text-dark mb-3">🎁 إدارة العروض والخصومات</h3></div>
-        </div>
-        <div id="tab-reports" class="tab-content">
-            <div class="glass-card"><h3 class="font-bold text-dark mb-3">📊 التقارير والتحليلات</h3></div>
-        </div>
-        <div id="tab-settings" class="tab-content">
-            <div class="glass-card"><h3 class="font-bold text-dark mb-3">⚙️ إعدادات النظام</h3></div>
         </div>
     </div>
 
-    <!-- ===== الشريط السفلي ===== -->
-    <div class="bottom-nav">
-        <a href="index.html" class="nav-item"><i class="fas fa-home"></i><span>الرئيسية</span></a>
-        <a href="wallet.html" class="nav-item"><i class="fas fa-wallet"></i><span>المحفظة</span></a>
-        <a href="support.html" class="nav-item"><i class="fas fa-headset"></i><span>الدعم</span></a>
-        <a href="orders.html" class="nav-item"><i class="fas fa-box"></i><span>طلباتي</span></a>
-        <a href="account.html" class="nav-item"><i class="fas fa-user"></i><span>الحساب</span></a>
-    </div>
+    <!-- الألعاب -->
+    <div id="tab-games" class="tab-content"><div class="glass-card"><h3 class="font-bold mb-3">🎮 إدارة الألعاب</h3><div class="game-grid"><div class="game-card"><span class="game-icon">🎮</span><div class="game-name">PUBG Mobile</div></div><div class="game-card"><span class="game-icon">🔥</span><div class="game-name">FreeFire</div></div></div></div></div>
 
-    <!-- ===== مودال إضافة/تعديل كوبون ===== -->
-    <div class="modal-overlay" id="couponModal">
-        <div class="modal-box" style="max-width: 800px;">
-            <button class="close-modal" onclick="closeModal('couponModal')">&times;</button>
-            <h3 id="couponModalTitle">🎫 إضافة كوبون جديد</h3>
-            <form id="couponForm" class="space-y-3">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div>
-                        <label class="text-xs font-bold text-dark-light">📝 اسم الكوبون</label>
-                        <input type="text" id="couponName" class="input-field" placeholder="مثال: خصم العيد" required>
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-dark-light">🔑 كود الخصم</label>
-                        <div class="flex gap-2">
-                            <input type="text" id="couponCode" class="input-field flex-1" placeholder="مثال: EID2024" required>
-                            <button type="button" onclick="generateCouponCode()" class="btn-sm gold" title="توليد تلقائي">🎲</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <div>
-                        <label class="text-xs font-bold text-dark-light">📌 نوع الخصم</label>
-                        <select id="couponType" class="input-field" onchange="toggleMaxDiscount()">
-                            <option value="percentage">٪ نسبة مئوية</option>
-                            <option value="fixed">💰 مبلغ ثابت</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-dark-light">💲 قيمة الخصم</label>
-                        <input type="number" id="couponValue" class="input-field" placeholder="أدخل القيمة" required>
-                    </div>
-                    <div id="maxDiscountGroup">
-                        <label class="text-xs font-bold text-dark-light">🚫 الحد الأقصى للخصم</label>
-                        <input type="number" id="couponMaxDiscount" class="input-field" placeholder="للنسبة المئوية (اختياري)">
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <div>
-                        <label class="text-xs font-bold text-dark-light">📦 الحد الأدنى للطلب</label>
-                        <input type="number" id="couponMinOrder" class="input-field" placeholder="0" value="0">
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-dark-light">🔢 الحد الأقصى للاستخدام</label>
-                        <input type="number" id="couponUsageLimit" class="input-field" placeholder="غير محدود (اختياري)">
-                    </div>
-                    <div>
-                        <label class="text-xs font-bold text-dark-light">📅 تاريخ البداية</label>
-                        <input type="date" id="couponStartDate" class="input-field" required>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div>
-                        <label class="text-xs font-bold text-dark-light">📅 تاريخ الانتهاء</label>
-                        <input type="date" id="couponEndDate" class="input-field" required>
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <label class="flex items-center gap-2 text-sm text-dark">
-                            <input type="checkbox" id="couponPerUserOnce"> 👤 استخدام مرة واحدة لكل مستخدم
-                        </label>
-                        <label class="flex items-center gap-2 text-sm text-dark">
-                            <input type="checkbox" id="couponActive" checked> ✅ تفعيل الكوبون
-                        </label>
-                    </div>
-                </div>
+    <!-- الاشتراكات -->
+    <div id="tab-subscriptions" class="tab-content"><div class="glass-card"><h3 class="font-bold mb-3">⭐ الاشتراكات</h3></div></div>
 
-                <!-- اختيار المنتجات/الأقسام -->
-                <div>
-                    <label class="text-xs font-bold text-dark-light mb-2 block">📂 ينطبق على (اترك فارغاً للجميع)</label>
-                    <div class="flex gap-2 mb-2">
-                        <button type="button" class="btn-sm outline" onclick="switchCouponScope('all')" id="scopeAllBtn">🌐 جميع المنتجات</button>
-                        <button type="button" class="btn-sm outline" onclick="switchCouponScope('products')" id="scopeProductsBtn">📦 منتجات محددة</button>
-                        <button type="button" class="btn-sm outline" onclick="switchCouponScope('categories')" id="scopeCategoriesBtn">📂 أقسام محددة</button>
-                    </div>
-                    <div id="couponScopeProducts" class="hidden mt-2">
-                        <label class="text-xs text-dark-light">اختر المنتجات:</label>
-                        <div id="productsChips" class="flex flex-wrap gap-1 mt-1 max-h-32 overflow-y-auto"></div>
-                    </div>
-                    <div id="couponScopeCategories" class="hidden mt-2">
-                        <label class="text-xs text-dark-light">اختر الأقسام:</label>
-                        <div class="flex flex-wrap gap-2 mt-1">
-                            <span class="chip" data-cat="games" onclick="toggleChip(this)">🎮 ألعاب</span>
-                            <span class="chip" data-cat="subscriptions" onclick="toggleChip(this)">⭐ اشتراكات</span>
-                            <span class="chip" data-cat="cards" onclick="toggleChip(this)">💳 بطاقات</span>
-                            <span class="chip" data-cat="services" onclick="toggleChip(this)">⚡ خدمات</span>
-                        </div>
-                    </div>
-                </div>
+    <!-- البطاقات -->
+    <div id="tab-cards" class="tab-content"><div class="glass-card"><h3 class="font-bold mb-3">💳 البطاقات</h3></div></div>
 
-                <div class="flex gap-2 mt-4">
-                    <button type="button" onclick="saveCoupon()" class="btn-save flex-1">💾 حفظ الكوبون</button>
-                    <button type="button" onclick="closeModal('couponModal')" class="btn-cancel flex-1">إلغاء</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <!-- الأكواد -->
+    <div id="tab-codes" class="tab-content"><div class="glass-card"><h3 class="font-bold mb-3">🎟️ الأكواد الرقمية</h3></div></div>
 
-    <!-- ===== مودال تقارير الكوبونات ===== -->
-    <div class="modal-overlay" id="couponReportsModal">
-        <div class="modal-box" style="max-width: 800px;">
-            <button class="close-modal" onclick="closeModal('couponReportsModal')">&times;</button>
-            <h3>📊 تقارير الكوبونات</h3>
-            <div id="couponReportsBody">
-                <div class="grid grid-cols-2 gap-3 mb-4">
-                    <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-xl text-center">
-                        <div class="text-3xl font-black text-yellow-600" id="reportTotalDiscounts">0</div>
-                        <div class="text-xs text-dark-light">💰 إجمالي الخصومات المقدمة</div>
-                    </div>
-                    <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-xl text-center">
-                        <div class="text-3xl font-black text-green-600" id="reportMostUsedCoupon">-</div>
-                        <div class="text-xs text-dark-light">🏆 الكوبون الأكثر استخداماً</div>
-                    </div>
-                </div>
-                <h4 class="font-bold text-dark mb-2">📋 استخدامات الكوبونات</h4>
-                <div class="table-wrap">
-                    <table>
-                        <thead><tr><th>الكوبون</th><th>عدد الاستخدامات</th><th>إجمالي الخصم</th><th>آخر استخدام</th></tr></thead>
-                        <tbody id="couponUsageTable"><tr><td colspan="4" class="text-center text-dark-light">جاري التحميل...</td></tr></tbody>
-                    </table>
+    <!-- العروض -->
+    <div id="tab-offers" class="tab-content"><div class="glass-card"><h3 class="font-bold mb-3">🎁 العروض</h3></div></div>
+
+    <!-- التقارير -->
+    <div id="tab-reports" class="tab-content"><div class="glass-card"><h3 class="font-bold mb-3">📊 التقارير</h3></div></div>
+
+    <!-- الإعدادات -->
+    <div id="tab-settings" class="tab-content"><div class="glass-card"><h3 class="font-bold mb-3">⚙️ الإعدادات</h3></div></div>
+</div>
+
+<!-- الشريط السفلي -->
+<div class="bottom-nav">
+    <a href="index.html" class="nav-item"><i class="fas fa-home"></i><span>الرئيسية</span></a>
+    <a href="wallet.html" class="nav-item"><i class="fas fa-wallet"></i><span>المحفظة</span></a>
+    <a href="support.html" class="nav-item"><i class="fas fa-headset"></i><span>الدعم</span></a>
+    <a href="orders.html" class="nav-item"><i class="fas fa-box"></i><span>طلباتي</span></a>
+    <a href="account.html" class="nav-item"><i class="fas fa-user"></i><span>الحساب</span></a>
+</div>
+
+<!-- ===== مودال الكوبون ===== -->
+<div class="modal-overlay" id="couponModal">
+    <div class="modal-box" style="max-width:800px;">
+        <button class="close-modal" onclick="closeModal('couponModal')">&times;</button>
+        <h3 id="couponModalTitle">🎫 إضافة كوبون جديد</h3>
+        <div class="space-y-3">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div><label class="text-xs font-bold">📝 اسم الكوبون</label><input type="text" id="couponName" class="input-field" placeholder="مثال: خصم العيد"></div>
+                <div><label class="text-xs font-bold">🔑 كود الخصم</label><div class="flex gap-2"><input type="text" id="couponCode" class="input-field flex-1" placeholder="مثال: EID2024"><button type="button" onclick="generateCouponCode()" class="btn-sm gold">🎲</button></div></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div><label class="text-xs font-bold">📌 نوع الخصم</label><select id="couponType" class="input-field" onchange="toggleCouponMaxDiscount()"><option value="percentage">٪ نسبة مئوية</option><option value="fixed">💰 مبلغ ثابت</option></select></div>
+                <div><label class="text-xs font-bold">💲 قيمة الخصم</label><input type="number" id="couponValue" class="input-field" placeholder="أدخل القيمة"></div>
+                <div id="couponMaxDiscountGroup"><label class="text-xs font-bold">🚫 الحد الأقصى للخصم</label><input type="number" id="couponMaxDiscount" class="input-field" placeholder="للنسبة المئوية"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div><label class="text-xs font-bold">📦 الحد الأدنى للطلب</label><input type="number" id="couponMinOrder" class="input-field" placeholder="0" value="0"></div>
+                <div><label class="text-xs font-bold">🔢 الحد الأقصى للاستخدام</label><input type="number" id="couponUsageLimit" class="input-field" placeholder="غير محدود"></div>
+                <div><label class="text-xs font-bold">📅 تاريخ البداية</label><input type="date" id="couponStartDate" class="input-field"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div><label class="text-xs font-bold">📅 تاريخ الانتهاء</label><input type="date" id="couponEndDate" class="input-field"></div>
+                <div class="flex flex-col gap-2">
+                    <label class="flex items-center gap-2 text-sm"><input type="checkbox" id="couponPerUserOnce"> 👤 استخدام مرة واحدة لكل مستخدم</label>
+                    <label class="flex items-center gap-2 text-sm"><input type="checkbox" id="couponActive" checked> ✅ تفعيل الكوبون</label>
                 </div>
             </div>
-            <button onclick="closeModal('couponReportsModal')" class="btn-cancel w-full mt-3">إغلاق</button>
+            <div class="flex gap-2">
+                <button onclick="saveCoupon()" class="btn-save flex-1">💾 حفظ الكوبون</button>
+                <button onclick="closeModal('couponModal')" class="btn-cancel flex-1">إلغاء</button>
+            </div>
         </div>
     </div>
+</div>
 
-    <!-- ===== Toast ===== -->
-    <div id="toast" class="toast"></div>
+<!-- ===== مودال تقارير الكوبونات ===== -->
+<div class="modal-overlay" id="couponReportsModal">
+    <div class="modal-box" style="max-width:800px;">
+        <button class="close-modal" onclick="closeModal('couponReportsModal')">&times;</button>
+        <h3>📊 تقارير الكوبونات</h3>
+        <div class="grid grid-cols-2 gap-3 mb-4">
+            <div class="bg-yellow-50 p-4 rounded-xl text-center"><div class="text-3xl font-black text-yellow-600" id="reportTotalDiscounts">0</div><div class="text-xs">💰 إجمالي الخصومات</div></div>
+            <div class="bg-green-50 p-4 rounded-xl text-center"><div class="text-xl font-black text-green-600" id="reportMostUsedCoupon">-</div><div class="text-xs">🏆 الأكثر استخداماً</div></div>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th>الكوبون</th><th>عدد الاستخدامات</th><th>إجمالي الخصم</th></tr></thead><tbody id="couponUsageTable"></tbody></table></div>
+        <button onclick="closeModal('couponReportsModal')" class="btn-cancel w-full mt-3">إغلاق</button>
+    </div>
+</div>
 
-    <!-- ========================================================== -->
-    <!-- ===== JavaScript ===== -->
-    <!-- ========================================================== -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import {
-            getFirestore, doc, getDoc, getDocs, collection, query, where, orderBy,
-            updateDoc, setDoc, deleteDoc, onSnapshot, serverTimestamp, increment, addDoc
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<!-- مودال المنتج -->
+<div class="modal-overlay" id="productModal">
+    <div class="modal-box">
+        <button class="close-modal" onclick="closeModal('productModal')">&times;</button>
+        <h3 id="productModalTitle">➕ إضافة منتج جديد</h3>
+        <div class="space-y-3">
+            <input type="text" id="modalProductName" class="input-field" placeholder="اسم المنتج">
+            <textarea id="modalProductDesc" class="input-field" rows="3" placeholder="وصف المنتج"></textarea>
+            <div class="grid grid-cols-2 gap-2">
+                <input type="number" id="modalProductPrice" class="input-field" placeholder="السعر">
+                <input type="number" id="modalProductDiscount" class="input-field" placeholder="سعر الخصم">
+            </div>
+            <select id="modalProductCategory" class="input-field"><option value="games">🎮 ألعاب</option><option value="subscriptions">⭐ اشتراكات</option><option value="cards">💳 بطاقات</option></select>
+            <div class="file-upload"><input type="file" id="modalProductImage" accept="image/*" onchange="previewImage(event)"><label for="modalProductImage"><i class="fas fa-cloud-upload-alt text-3xl text-yellow-500"></i><p>اختر صورة</p></label><div id="imagePreview" class="hidden mt-2"><img id="previewImg" class="w-32 h-32 object-contain mx-auto"><button type="button" onclick="removeImage()" class="text-red-500 text-xs mt-1">🗑️ إزالة</button></div></div>
+            <div class="flex gap-2"><button onclick="saveProduct()" class="btn-save flex-1">💾 حفظ</button><button onclick="closeModal('productModal')" class="btn-cancel flex-1">إلغاء</button></div>
+        </div>
+    </div>
+</div>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyC0jzecEwKgHpxHpTi8Y-_bwwfzVdtgf3E",
-            authDomain: "khasmshop.firebaseapp.com",
-            projectId: "khasmshop",
-            storageBucket: "khasmshop.firebasestorage.app",
-            messagingSenderId: "238182001615",
-            appId: "1:238182001615:web:d77391030a40a481b440ba"
-        };
+<!-- مودال العميل -->
+<div class="modal-overlay" id="customerModal">
+    <div class="modal-box"><button class="close-modal" onclick="closeModal('customerModal')">&times;</button><h3>👤 تفاصيل العميل</h3><div id="customerModalBody"></div><button onclick="closeModal('customerModal')" class="btn-cancel w-full mt-3">إغلاق</button></div>
+</div>
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+<!-- Toast -->
+<div id="toast" class="toast"></div>
 
-        const ADMINS = ["mhmdfthu98@gmail.com"];
-        let currentUser = null;
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, getDocs, collection, query, where, orderBy, updateDoc, deleteDoc, serverTimestamp, increment, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // متغيرات عامة
-        let allCustomers = [], allOrders = [], allProducts = [], allTransactions = [], allCodes = [], allCoupons = [];
-        let selectedCustomerId = null, editingProductId = null, editingCouponId = null;
-        let couponScope = 'all';
-        let selectedProductIds = [], selectedCategoryIds = [];
+const firebaseConfig = {
+    apiKey: "AIzaSyC0jzecEwKgHpxHpTi8Y-_bwwfzVdtgf3E",
+    authDomain: "khasmshop.firebaseapp.com",
+    projectId: "khasmshop",
+    storageBucket: "khasmshop.firebasestorage.app",
+    messagingSenderId: "238182001615",
+    appId: "1:238182001615:web:d77391030a40a481b440ba"
+};
 
-        // ===== Toast =====
-        function showToast(msg, isError = false) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.style.background = isError ? '#dc2626' : '#1e293b';
-            toast.style.color = 'white';
-            toast.classList.add('show');
-            clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
-        }
-        window.showToast = showToast;
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const ADMINS = ["mhmdfthu98@gmail.com"];
+let currentUser = null;
+let allCustomers = [], allOrders = [], allProducts = [], allTransactions = [], allCoupons = [];
+let selectedCustomerId = null, editingProductId = null, editingCouponId = null;
 
-        function checkAdmin(user) {
-            if (!user || !ADMINS.includes(user.email)) {
-                showToast('⛔ غير مصرح بالوصول', true);
-                setTimeout(() => window.location.href = 'index.html', 2000);
-                return false;
-            }
-            return true;
-        }
+function showToast(msg, isError = false) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.style.background = isError ? '#dc2626' : '#1e293b';
+    toast.classList.add('show');
+    clearTimeout(toast._timeout);
+    toast._timeout = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+window.showToast = showToast;
 
-        // ===== Sidebar & Tabs =====
-        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
-        window.toggleSidebar = toggleSidebar;
+function checkAdmin(user) {
+    if (!user || !ADMINS.includes(user.email)) { showToast('⛔ غير مصرح', true); setTimeout(() => window.location.href = 'index.html', 2000); return false; }
+    return true;
+}
 
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            const target = document.getElementById('tab-' + tabName);
-            if (target) target.classList.add('active');
-            document.querySelectorAll('.sidebar .menu-item').forEach(el => el.classList.remove('active'));
-            const menuItem = document.querySelector(`.sidebar .menu-item[data-tab="${tabName}"]`);
-            if (menuItem) menuItem.classList.add('active');
-            const titles = {
-                dashboard: '📊 الرئيسية', customers: '👥 العملاء', orders: '📋 الطلبات',
-                wallet: '💰 المحفظة', transactions: '📊 سجل المعاملات', products: '📦 المنتجات',
-                coupons: '🎫 إدارة الكوبونات', games: '🎮 الألعاب', subscriptions: '⭐ الاشتراكات',
-                cards: '💳 البطاقات', codes: '🎟️ الأكواد', offers: '🎁 العروض',
-                reports: '📊 التقارير', settings: '⚙️ الإعدادات'
-            };
-            document.getElementById('pageTitle').textContent = titles[tabName] || tabName;
-            if (window.innerWidth < 768) document.getElementById('sidebar').classList.remove('open');
-            if (tabName === 'coupons') loadCoupons();
-        }
-        window.switchTab = switchTab;
+window.toggleSidebar = () => document.getElementById('sidebar').classList.toggle('open');
+window.closeModal = (id) => document.getElementById(id).classList.remove('active');
 
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        window.closeModal = closeModal;
+window.switchTab = function(tabName) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tabName)?.classList.add('active');
+    document.querySelectorAll('.sidebar .menu-item').forEach(el => el.classList.remove('active'));
+    document.querySelector(`.sidebar .menu-item[data-tab="${tabName}"]`)?.classList.add('active');
+    const titles = { dashboard: '📊 الرئيسية', customers: '👥 العملاء', orders: '📋 الطلبات', wallet: '💰 المحفظة', transactions: '📊 سجل المعاملات', products: '📦 المنتجات', coupons: '🎫 إدارة الكوبونات', games: '🎮 الألعاب', subscriptions: '⭐ الاشتراكات', cards: '💳 البطاقات', codes: '🎟️ الأكواد', offers: '🎁 العروض', reports: '📊 التقارير', settings: '⚙️ الإعدادات' };
+    document.getElementById('pageTitle').textContent = titles[tabName] || tabName;
+    if (window.innerWidth < 768) document.getElementById('sidebar').classList.remove('open');
+    if (tabName === 'coupons') loadCoupons();
+};
 
-        window.logout = function() {
-            if (confirm('⚠️ هل أنت متأكد من تسجيل الخروج؟')) {
-                signOut(auth);
-                showToast('👋 تم تسجيل الخروج');
-                setTimeout(() => window.location.href = 'index.html', 1500);
-            }
-        };
+window.logout = () => { if (confirm('تسجيل الخروج؟')) { signOut(auth); setTimeout(() => window.location.href = 'index.html', 1500); } };
 
-        // ============================================================
-        // ===== 🎫 نظام الكوبونات الكامل =====
-        // ============================================================
-
-        // تحميل الكوبونات من Firebase
-        async function loadCoupons() {
-            try {
-                const snap = await getDocs(collection(db, "coupons"));
-                allCoupons = [];
-                snap.forEach(doc => {
-                    const data = doc.data();
-                    // تحديث الحالة تلقائياً حسب التاريخ
-                    let status = data.status || 'active';
-                    const now = new Date();
-                    const endDate = data.endDate ? new Date(data.endDate) : null;
-                    if (status === 'active' && endDate && now > endDate) {
-                        status = 'expired';
-                        updateDoc(doc.ref, { status: 'expired' }).catch(() => {});
-                    }
-                    allCoupons.push({ id: doc.id, ...data, status });
-                });
-                renderCouponsTable(allCoupons);
-                updateCouponStats(allCoupons);
-            } catch (e) {
-                console.error('Error loading coupons:', e);
-                showToast('❌ حدث خطأ في تحميل الكوبونات', true);
-            }
-        }
-
-        // عرض الكوبونات في الجدول
-        function renderCouponsTable(coupons) {
-            const table = document.getElementById('couponsTable');
-            if (!coupons || coupons.length === 0) {
-                table.innerHTML = `<tr><td colspan="12" class="text-center text-dark-light py-8">🎫 لا توجد كوبونات</td></tr>`;
-                return;
-            }
-            let html = '';
-            coupons.forEach((c, index) => {
-                const statusClass = c.status === 'active' ? 'active' : (c.status === 'expired' ? 'cancelled' : 'banned');
-                const statusText = c.status === 'active' ? '✅ نشط' : (c.status === 'expired' ? '⏰ منتهي' : '⛔ معطل');
-                const typeText = c.discountType === 'percentage' ? '٪ نسبة' : '💰 ثابت';
-                const startDate = c.startDate || '-';
-                const endDate = c.endDate || '-';
-                const usageText = `${c.usedCount || 0}${c.usageLimit ? ' / ' + c.usageLimit : ''}`;
-                html += `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td class="font-bold">${c.name || '-'}</td>
-                        <td><span class="coupon-code" onclick="copyCouponCode('${c.code}')" title="اضغط لنسخ الكود">${c.code}</span></td>
-                        <td>${typeText}</td>
-                        <td class="font-bold">${c.discountValue || 0}${c.discountType === 'percentage' ? '%' : ' ج.س'}</td>
-                        <td>${(c.minOrderAmount || 0).toLocaleString()} ج.س</td>
-                        <td>${c.maxDiscountAmount ? c.maxDiscountAmount.toLocaleString() + ' ج.س' : '-'}</td>
-                        <td>${usageText}</td>
-                        <td class="text-sm">${startDate}</td>
-                        <td class="text-sm">${endDate}</td>
-                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                        <td>
-                            <button onclick="editCoupon('${c.id}')" class="btn-sm gold" title="تعديل">✏️</button>
-                            <button onclick="copyCouponCode('${c.code}')" class="btn-sm blue" title="نسخ الكود">📋</button>
-                            <button onclick="toggleCouponStatus('${c.id}')" class="btn-sm ${c.status === 'active' ? 'red' : 'green'}" title="${c.status === 'active' ? 'تعطيل' : 'تفعيل'}">${c.status === 'active' ? '⏸️' : '▶️'}</button>
-                            <button onclick="deleteCoupon('${c.id}')" class="btn-sm red" title="حذف">🗑️</button>
-                        </td>
-                    </tr>
-                `;
-            });
-            table.innerHTML = html;
-        }
-
-        // تحديث إحصائيات الكوبونات
-        function updateCouponStats(coupons) {
-            const total = coupons.length;
-            const active = coupons.filter(c => c.status === 'active').length;
-            const expired = coupons.filter(c => c.status === 'expired').length;
-            const totalUsed = coupons.reduce((sum, c) => sum + (c.usedCount || 0), 0);
-            document.getElementById('totalCoupons').textContent = total;
-            document.getElementById('activeCoupons').textContent = active;
-            document.getElementById('expiredCoupons').textContent = expired;
-            document.getElementById('totalUsedCoupons').textContent = totalUsed;
-        }
-
-        // فلترة الكوبونات
-        window.filterCoupons = function() {
-            const searchTerm = document.getElementById('searchCoupon').value.toLowerCase().trim();
-            const status = document.getElementById('filterCouponStatus').value;
-            const type = document.getElementById('filterCouponType').value;
-            let filtered = [...allCoupons];
-            if (searchTerm) {
-                filtered = filtered.filter(c =>
-                    (c.name || '').toLowerCase().includes(searchTerm) ||
-                    (c.code || '').toLowerCase().includes(searchTerm)
-                );
-            }
-            if (status !== 'all') filtered = filtered.filter(c => c.status === status);
-            if (type !== 'all') filtered = filtered.filter(c => c.discountType === type);
-            renderCouponsTable(filtered);
-        };
-
-        window.resetCouponFilters = function() {
-            document.getElementById('searchCoupon').value = '';
-            document.getElementById('filterCouponStatus').value = 'all';
-            document.getElementById('filterCouponType').value = 'all';
-            renderCouponsTable(allCoupons);
-        };
-
-        window.refreshCoupons = function() {
-            loadCoupons();
-            showToast('🔄 تم تحديث الكوبونات');
-        };
-
-        // نسخ كود الكوبون
-        window.copyCouponCode = function(code) {
-            navigator.clipboard.writeText(code).then(() => {
-                showToast('📋 تم نسخ الكود: ' + code);
-            }).catch(() => {
-                const input = document.createElement('input');
-                input.value = code;
-                document.body.appendChild(input);
-                input.select();
-                document.execCommand('copy');
-                document.body.removeChild(input);
-                showToast('📋 تم نسخ الكود: ' + code);
-            });
-        };
-
-        // توليد كود عشوائي
-        window.generateCouponCode = function() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let code = '';
-            for (let i = 0; i < 8; i++) {
-                code += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            document.getElementById('couponCode').value = code;
-            showToast('🎲 تم توليد كود: ' + code);
-        };
-
-        // تبديل نطاق الكوبون
-        window.switchCouponScope = function(scope) {
-            couponScope = scope;
-            document.getElementById('couponScopeProducts').classList.toggle('hidden', scope !== 'products');
-            document.getElementById('couponScopeCategories').classList.toggle('hidden', scope !== 'categories');
-            document.getElementById('scopeAllBtn').classList.toggle('bg-yellow-100', scope === 'all');
-            document.getElementById('scopeProductsBtn').classList.toggle('bg-yellow-100', scope === 'products');
-            document.getElementById('scopeCategoriesBtn').classList.toggle('bg-yellow-100', scope === 'categories');
-            if (scope === 'products') loadProductsChips();
-        };
-
-        // تحميل شرائح المنتجات
-        function loadProductsChips() {
-            const container = document.getElementById('productsChips');
-            if (allProducts.length === 0) {
-                container.innerHTML = '<span class="text-xs text-dark-light">لا توجد منتجات</span>';
-                return;
-            }
-            container.innerHTML = allProducts.map(p => `
-                <span class="chip ${selectedProductIds.includes(p.id) ? 'selected' : ''}" data-pid="${p.id}" onclick="toggleProductChip(this, '${p.id}')">
-                    ${p.name}
-                </span>
-            `).join('');
-        }
-
-        window.toggleProductChip = function(el, pid) {
-            el.classList.toggle('selected');
-            if (el.classList.contains('selected')) {
-                if (!selectedProductIds.includes(pid)) selectedProductIds.push(pid);
-            } else {
-                selectedProductIds = selectedProductIds.filter(id => id !== pid);
-            }
-        };
-
-        window.toggleChip = function(el) {
-            el.classList.toggle('selected');
-            const cat = el.dataset.cat;
-            if (el.classList.contains('selected')) {
-                if (!selectedCategoryIds.includes(cat)) selectedCategoryIds.push(cat);
-            } else {
-                selectedCategoryIds = selectedCategoryIds.filter(c => c !== cat);
-            }
-        };
-
-        // إظهار/إخفاء حقل الحد الأقصى
-        window.toggleMaxDiscount = function() {
-            const type = document.getElementById('couponType').value;
-            document.getElementById('maxDiscountGroup').style.display = type === 'percentage' ? 'block' : 'none';
-        };
-
-        // فتح مودال إضافة كوبون
-        window.openCouponModal = function() {
-            editingCouponId = null;
-            selectedProductIds = [];
-            selectedCategoryIds = [];
-            couponScope = 'all';
-            document.getElementById('couponModalTitle').textContent = '🎫 إضافة كوبون جديد';
-            document.getElementById('couponForm').reset();
-            document.getElementById('couponActive').checked = true;
-            document.getElementById('couponStartDate').value = new Date().toISOString().split('T')[0];
-            document.getElementById('couponEndDate').value = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-            document.getElementById('maxDiscountGroup').style.display = 'block';
-            document.getElementById('couponScopeProducts').classList.add('hidden');
-            document.getElementById('couponScopeCategories').classList.add('hidden');
-            document.getElementById('couponModal').classList.add('active');
-        };
-
-        // تعديل كوبون
-        window.editCoupon = async function(couponId) {
-            try {
-                const docSnap = await getDoc(doc(db, "coupons", couponId));
-                if (!docSnap.exists()) { showToast('❌ الكوبون غير موجود', true); return; }
-                const c = docSnap.data();
-                editingCouponId = couponId;
-                selectedProductIds = c.productIds || [];
-                selectedCategoryIds = c.categoryIds || [];
-                couponScope = c.scope || 'all';
-                document.getElementById('couponModalTitle').textContent = '✏️ تعديل الكوبون';
-                document.getElementById('couponName').value = c.name || '';
-                document.getElementById('couponCode').value = c.code || '';
-                document.getElementById('couponType').value = c.discountType || 'percentage';
-                document.getElementById('couponValue').value = c.discountValue || '';
-                document.getElementById('couponMaxDiscount').value = c.maxDiscountAmount || '';
-                document.getElementById('couponMinOrder').value = c.minOrderAmount || 0;
-                document.getElementById('couponUsageLimit').value = c.usageLimit || '';
-                document.getElementById('couponStartDate').value = c.startDate || '';
-                document.getElementById('couponEndDate').value = c.endDate || '';
-                document.getElementById('couponPerUserOnce').checked = c.perUserOnce || false;
-                document.getElementById('couponActive').checked = c.status === 'active';
-                document.getElementById('maxDiscountGroup').style.display = c.discountType === 'percentage' ? 'block' : 'none';
-                switchCouponScope(couponScope);
-                document.getElementById('couponModal').classList.add('active');
-            } catch (e) { showToast('❌ حدث خطأ: ' + e.message, true); }
-        };
-
-        // حفظ الكوبون
-        window.saveCoupon = async function() {
-            const name = document.getElementById('couponName').value.trim();
-            const code = document.getElementById('couponCode').value.trim().toUpperCase();
-            const discountType = document.getElementById('couponType').value;
-            const discountValue = parseFloat(document.getElementById('couponValue').value);
-            const maxDiscountAmount = document.getElementById('couponMaxDiscount').value ? parseFloat(document.getElementById('couponMaxDiscount').value) : null;
-            const minOrderAmount = parseFloat(document.getElementById('couponMinOrder').value) || 0;
-            const usageLimit = document.getElementById('couponUsageLimit').value ? parseInt(document.getElementById('couponUsageLimit').value) : null;
-            const startDate = document.getElementById('couponStartDate').value;
-            const endDate = document.getElementById('couponEndDate').value;
-            const perUserOnce = document.getElementById('couponPerUserOnce').checked;
-            const isActive = document.getElementById('couponActive').checked;
-
-            if (!name || !code || !discountValue || !startDate || !endDate) {
-                showToast('❌ جميع الحقول المطلوبة يجب ملؤها', true);
-                return;
-            }
-            if (discountType === 'percentage' && discountValue > 100) {
-                showToast('❌ نسبة الخصم لا يمكن أن تتجاوز 100%', true);
-                return;
-            }
-            if (new Date(endDate) <= new Date(startDate)) {
-                showToast('❌ تاريخ الانتهاء يجب أن يكون بعد تاريخ البداية', true);
-                return;
-            }
-
-            const couponData = {
-                name, code, discountType, discountValue,
-                maxDiscountAmount: discountType === 'percentage' ? maxDiscountAmount : null,
-                minOrderAmount, usageLimit, startDate, endDate, perUserOnce,
-                status: isActive ? 'active' : 'inactive',
-                scope: couponScope,
-                productIds: couponScope === 'products' ? selectedProductIds : [],
-                categoryIds: couponScope === 'categories' ? selectedCategoryIds : [],
-                updatedAt: serverTimestamp()
-            };
-
-            try {
-                if (editingCouponId) {
-                    await updateDoc(doc(db, "coupons", editingCouponId), couponData);
-                    showToast('✅ تم تحديث الكوبون بنجاح');
-                } else {
-                    couponData.usedCount = 0;
-                    couponData.createdAt = serverTimestamp();
-                    await addDoc(collection(db, "coupons"), couponData);
-                    showToast('✅ تم إنشاء الكوبون بنجاح');
-                }
-                closeModal('couponModal');
-                await loadCoupons();
-            } catch (e) {
-                showToast('❌ حدث خطأ: ' + e.message, true);
-            }
-        };
-
-        // تفعيل/تعطيل كوبون
-        window.toggleCouponStatus = async function(couponId) {
-            try {
-                const docSnap = await getDoc(doc(db, "coupons", couponId));
-                if (!docSnap.exists()) return;
-                const currentStatus = docSnap.data().status;
-                const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
-                if (!confirm(`⚠️ هل أنت متأكد من ${newStatus === 'active' ? 'تفعيل' : 'تعطيل'} هذا الكوبون؟`)) return;
-                await updateDoc(doc(db, "coupons", couponId), { status: newStatus, updatedAt: serverTimestamp() });
-                showToast(`✅ تم ${newStatus === 'active' ? 'تفعيل' : 'تعطيل'} الكوبون`);
-                await loadCoupons();
-            } catch (e) { showToast('❌ حدث خطأ: ' + e.message, true); }
-        };
-
-        // حذف كوبون
-        window.deleteCoupon = async function(couponId) {
-            if (!confirm('⚠️ هل أنت متأكد من حذف هذا الكوبون نهائياً؟')) return;
-            if (!confirm('⚠️ تأكيد نهائي: لا يمكن التراجع عن هذا الإجراء!')) return;
-            try {
-                await deleteDoc(doc(db, "coupons", couponId));
-                showToast('✅ تم حذف الكوبون بنجاح');
-                await loadCoupons();
-            } catch (e) { showToast('❌ حدث خطأ: ' + e.message, true); }
-        };
-
-        // فتح تقارير الكوبونات
-        window.openCouponReports = async function() {
-            document.getElementById('couponReportsModal').classList.add('active');
-            await loadCouponReports();
-        };
-
-        async function loadCouponReports() {
-            try {
-                const snap = await getDocs(collection(db, "coupons"));
-                let totalDiscounts = 0;
-                let mostUsed = { name: '-', count: 0 };
-                const usageData = [];
-                snap.forEach(doc => {
-                    const c = doc.data();
-                    const discountTotal = (c.usedCount || 0) * (c.discountValue || 0);
-                    totalDiscounts += discountTotal;
-                    if ((c.usedCount || 0) > mostUsed.count) {
-                        mostUsed = { name: c.name, count: c.usedCount || 0 };
-                    }
-                    usageData.push({
-                        name: c.name,
-                        code: c.code,
-                        usedCount: c.usedCount || 0,
-                        discountTotal,
-                        lastUsed: c.lastUsed || '-'
-                    });
-                });
-                usageData.sort((a, b) => b.usedCount - a.usedCount);
-                document.getElementById('reportTotalDiscounts').textContent = totalDiscounts.toLocaleString() + ' ج.س';
-                document.getElementById('reportMostUsedCoupon').textContent = mostUsed.name;
-                let html = '';
-                usageData.forEach(c => {
-                    html += `
-                        <tr>
-                            <td class="font-bold">${c.name}<br><span class="coupon-code text-xs">${c.code}</span></td>
-                            <td>${c.usedCount}</td>
-                            <td>${c.discountTotal.toLocaleString()} ج.س</td>
-                            <td class="text-sm">${c.lastUsed || '-'}</td>
-                        </tr>
-                    `;
-                });
-                document.getElementById('couponUsageTable').innerHTML = html || '<tr><td colspan="4" class="text-center text-dark-light">لا توجد بيانات</td></tr>';
-            } catch (e) {
-                console.error('Error loading reports:', e);
-            }
-        }
-
-        // ============================================================
-        // ===== باقي الوظائف =====
-        // ============================================================
-
-        async function loadStats() {
-            try {
-                const usersSnap = await getDocs(collection(db, "users"));
-                document.getElementById('totalCustomers').textContent = usersSnap.size;
-                const ordersSnap = await getDocs(collection(db, "orders"));
-                document.getElementById('totalOrders').textContent = ordersSnap.size;
-                const pendingSnap = await getDocs(query(collection(db, "orders"), where("status", "==", "قيد الانتظار")));
-                document.getElementById('pendingOrders').textContent = pendingSnap.size;
-                document.getElementById('orderBadge').textContent = pendingSnap.size;
-                const completedSnap = await getDocs(query(collection(db, "orders"), where("status", "==", "مكتمل")));
-                document.getElementById('completedOrders').textContent = completedSnap.size;
-                const productsSnap = await getDocs(collection(db, "products"));
-                document.getElementById('totalProducts').textContent = productsSnap.size;
-                let totalRevenue = 0;
-                ordersSnap.forEach(doc => { totalRevenue += doc.data().price || 0; });
-                document.getElementById('totalRevenue').textContent = totalRevenue.toLocaleString() + ' ج.س';
-            } catch (e) { console.error('Error loading stats:', e); }
-        }
-
-        async function loadCustomers() {
-            try {
-                const snap = await getDocs(collection(db, "users"));
-                allCustomers = [];
-                snap.forEach(doc => {
-                    const data = doc.data();
-                    allCustomers.push({ id: doc.id, ...data, isBanned: data.isBanned || false });
-                });
-                document.getElementById('customerBadge').textContent = allCustomers.length;
-                const walletSelect = document.getElementById('walletCustomer');
-                if (walletSelect) {
-                    walletSelect.innerHTML = '<option value="">-- اختر عميلاً --</option>';
-                    allCustomers.forEach(c => {
-                        walletSelect.innerHTML += `<option value="${c.id}">${c.name || 'مستخدم'} - ${c.email || 'لا يوجد بريد'}</option>`;
-                    });
-                }
-            } catch (e) { console.error('Error loading customers:', e); }
-        }
-
-        async function loadOrders() {
-            try {
-                const snap = await getDocs(query(collection(db, "orders"), orderBy("timestamp", "desc")));
-                allOrders = [];
-                snap.forEach(doc => { allOrders.push({ id: doc.id, ...doc.data() }); });
-                document.getElementById('orderBadge').textContent = allOrders.filter(o => o.status === 'قيد الانتظار').length;
-            } catch (e) { console.error('Error loading orders:', e); }
-        }
-
-        async function loadProducts() {
-            try {
-                const snap = await getDocs(collection(db, "products"));
-                allProducts = [];
-                snap.forEach(doc => { allProducts.push({ id: doc.id, ...doc.data() }); });
-            } catch (e) { console.error('Error loading products:', e); }
-        }
-
-        async function loadTransactions() {
-            try {
-                const snap = await getDocs(query(collection(db, "transactions"), orderBy("timestamp", "desc")));
-                allTransactions = [];
-                snap.forEach(doc => { allTransactions.push({ id: doc.id, ...doc.data() }); });
-            } catch (e) { console.error('Error loading transactions:', e); }
-        }
-
-        // ===== تشغيل لوحة التحكم =====
-        async function loadAllData() {
-            try {
-                await Promise.all([
-                    loadStats(), loadCustomers(), loadOrders(),
-                    loadProducts(), loadTransactions(), loadCoupons()
-                ]);
-            } catch (e) { console.error('Error loading data:', e); }
-        }
-
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                currentUser = user;
-                if (checkAdmin(user)) await loadAllData();
-            } else {
-                showToast('❌ يرجى تسجيل الدخول', true);
-                setTimeout(() => window.location.href = 'index.html', 1500);
-            }
+// ===== 🎫 نظام الكوبونات =====
+async function loadCoupons() {
+    try {
+        const snap = await getDocs(collection(db, "coupons"));
+        allCoupons = [];
+        snap.forEach(doc => {
+            const data = doc.data();
+            let status = data.status || 'active';
+            const now = new Date();
+            const endDate = data.endDate ? new Date(data.endDate) : null;
+            if (status === 'active' && endDate && now > endDate) { status = 'expired'; updateDoc(doc.ref, { status: 'expired' }).catch(() => {}); }
+            allCoupons.push({ id: doc.id, ...data, status });
         });
+        renderCouponsTable(allCoupons);
+        updateCouponStats(allCoupons);
+    } catch (e) { console.error(e); }
+}
 
-        // إغلاق المودالات
-        ['couponModal', 'couponReportsModal'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.addEventListener('click', function(e) { if (e.target === this) closeModal(id); });
-        });
+function renderCouponsTable(coupons) {
+    const table = document.getElementById('couponsTable');
+    if (!coupons.length) { table.innerHTML = '<tr><td colspan="10" class="text-center py-8">🎫 لا توجد كوبونات</td></tr>'; return; }
+    table.innerHTML = coupons.map((c, i) => {
+        const sc = c.status === 'active' ? 'active' : (c.status === 'expired' ? 'cancelled' : 'banned');
+        const st = c.status === 'active' ? '✅ نشط' : (c.status === 'expired' ? '⏰ منتهي' : '⛔ معطل');
+        return `<tr>
+            <td>${i+1}</td><td class="font-bold">${c.name||'-'}</td>
+            <td><span class="coupon-code" onclick="copyCouponCode('${c.code}')">${c.code}</span></td>
+            <td>${c.discountType==='percentage'?'٪ نسبة':'💰 ثابت'}</td>
+            <td class="font-bold">${c.discountValue||0}${c.discountType==='percentage'?'%':' ج.س'}</td>
+            <td>${(c.minOrderAmount||0).toLocaleString()} ج.س</td>
+            <td>${c.usedCount||0}${c.usageLimit?' / '+c.usageLimit:''}</td>
+            <td class="text-sm">${c.endDate||'-'}</td>
+            <td><span class="status-badge ${sc}">${st}</span></td>
+            <td>
+                <button onclick="editCoupon('${c.id}')" class="btn-sm gold">✏️</button>
+                <button onclick="copyCouponCode('${c.code}')" class="btn-sm blue">📋</button>
+                <button onclick="toggleCouponStatus('${c.id}')" class="btn-sm ${c.status==='active'?'red':'green'}">${c.status==='active'?'⏸️':'▶️'}</button>
+                <button onclick="deleteCoupon('${c.id}')" class="btn-sm red">🗑️</button>
+            </td></tr>`;
+    }).join('');
+}
 
-        if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+function updateCouponStats(coupons) {
+    document.getElementById('totalCoupons').textContent = coupons.length;
+    document.getElementById('activeCoupons').textContent = coupons.filter(c => c.status === 'active').length;
+    document.getElementById('expiredCoupons').textContent = coupons.filter(c => c.status === 'expired').length;
+    document.getElementById('totalUsedCoupons').textContent = coupons.reduce((s, c) => s + (c.usedCount || 0), 0);
+}
 
-        console.log('🖥️ MORRE STORE - Admin Panel with Coupons Loaded');
-    </script>
+window.filterCoupons = function() {
+    const s = document.getElementById('searchCoupon').value.toLowerCase().trim();
+    const status = document.getElementById('filterCouponStatus').value;
+    const type = document.getElementById('filterCouponType').value;
+    let f = [...allCoupons];
+    if (s) f = f.filter(c => (c.name||'').toLowerCase().includes(s) || (c.code||'').toLowerCase().includes(s));
+    if (status !== 'all') f = f.filter(c => c.status === status);
+    if (type !== 'all') f = f.filter(c => c.discountType === type);
+    renderCouponsTable(f);
+};
+
+window.resetCouponFilters = function() {
+    document.getElementById('searchCoupon').value = '';
+    document.getElementById('filterCouponStatus').value = 'all';
+    document.getElementById('filterCouponType').value = 'all';
+    renderCouponsTable(allCoupons);
+};
+
+window.refreshCoupons = () => { loadCoupons(); showToast('🔄 تم تحديث الكوبونات'); };
+
+window.copyCouponCode = (code) => { navigator.clipboard.writeText(code).then(() => showToast('📋 تم النسخ: ' + code)).catch(() => showToast('📋 تم النسخ: ' + code)); };
+
+window.generateCouponCode = () => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let code = ''; for (let i = 0; i < 8; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+    document.getElementById('couponCode').value = code;
+};
+
+window.toggleCouponMaxDiscount = () => {
+    document.getElementById('couponMaxDiscountGroup').style.display = document.getElementById('couponType').value === 'percentage' ? 'block' : 'none';
+};
+
+window.openCouponModal = function() {
+    editingCouponId = null;
+    document.getElementById('couponModalTitle').textContent = '🎫 إضافة كوبون جديد';
+    document.getElementById('couponName').value = '';
+    document.getElementById('couponCode').value = '';
+    document.getElementById('couponType').value = 'percentage';
+    document.getElementById('couponValue').value = '';
+    document.getElementById('couponMaxDiscount').value = '';
+    document.getElementById('couponMinOrder').value = '0';
+    document.getElementById('couponUsageLimit').value = '';
+    document.getElementById('couponStartDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('couponEndDate').value = new Date(Date.now() + 30*24*60*60*1000).toISOString().split('T')[0];
+    document.getElementById('couponPerUserOnce').checked = false;
+    document.getElementById('couponActive').checked = true;
+    document.getElementById('couponMaxDiscountGroup').style.display = 'block';
+    document.getElementById('couponModal').classList.add('active');
+};
+
+window.editCoupon = async function(couponId) {
+    try {
+        const snap = await getDoc(doc(db, "coupons", couponId));
+        if (!snap.exists()) { showToast('❌ غير موجود', true); return; }
+        const c = snap.data();
+        editingCouponId = couponId;
+        document.getElementById('couponModalTitle').textContent = '✏️ تعديل الكوبون';
+        document.getElementById('couponName').value = c.name || '';
+        document.getElementById('couponCode').value = c.code || '';
+        document.getElementById('couponType').value = c.discountType || 'percentage';
+        document.getElementById('couponValue').value = c.discountValue || '';
+        document.getElementById('couponMaxDiscount').value = c.maxDiscountAmount || '';
+        document.getElementById('couponMinOrder').value = c.minOrderAmount || 0;
+        document.getElementById('couponUsageLimit').value = c.usageLimit || '';
+        document.getElementById('couponStartDate').value = c.startDate || '';
+        document.getElementById('couponEndDate').value = c.endDate || '';
+        document.getElementById('couponPerUserOnce').checked = c.perUserOnce || false;
+        document.getElementById('couponActive').checked = c.status === 'active';
+        document.getElementById('couponMaxDiscountGroup').style.display = c.discountType === 'percentage' ? 'block' : 'none';
+        document.getElementById('couponModal').classList.add('active');
+    } catch (e) { showToast('❌ خطأ', true); }
+};
+
+window.saveCoupon = async function() {
+    const name = document.getElementById('couponName').value.trim();
+    const code = document.getElementById('couponCode').value.trim().toUpperCase();
+    const discountType = document.getElementById('couponType').value;
+    const discountValue = parseFloat(document.getElementById('couponValue').value);
+    const maxDiscountAmount = document.getElementById('couponMaxDiscount').value ? parseFloat(document.getElementById('couponMaxDiscount').value) : null;
+    const minOrderAmount = parseFloat(document.getElementById('couponMinOrder').value) || 0;
+    const usageLimit = document.getElementById('couponUsageLimit').value ? parseInt(document.getElementById('couponUsageLimit').value) : null;
+    const startDate = document.getElementById('couponStartDate').value;
+    const endDate = document.getElementById('couponEndDate').value;
+    const perUserOnce = document.getElementById('couponPerUserOnce').checked;
+    const isActive = document.getElementById('couponActive').checked;
+    if (!name || !code || !discountValue || !startDate || !endDate) { showToast('❌ املأ جميع الحقول', true); return; }
+    if (discountType === 'percentage' && discountValue > 100) { showToast('❌ النسبة لا تتجاوز 100%', true); return; }
+    if (new Date(endDate) <= new Date(startDate)) { showToast('❌ تاريخ الانتهاء بعد البداية', true); return; }
+    const data = { name, code, discountType, discountValue, maxDiscountAmount: discountType === 'percentage' ? maxDiscountAmount : null, minOrderAmount, usageLimit, startDate, endDate, perUserOnce, status: isActive ? 'active' : 'inactive', updatedAt: serverTimestamp() };
+    try {
+        if (editingCouponId) { await updateDoc(doc(db, "coupons", editingCouponId), data); showToast('✅ تم التحديث'); }
+        else { data.usedCount = 0; data.createdAt = serverTimestamp(); await addDoc(collection(db, "coupons"), data); showToast('✅ تم الإنشاء'); }
+        closeModal('couponModal'); await loadCoupons();
+    } catch (e) { showToast('❌ خطأ: ' + e.message, true); }
+};
+
+window.toggleCouponStatus = async function(couponId) {
+    const snap = await getDoc(doc(db, "coupons", couponId));
+    if (!snap.exists()) return;
+    const ns = snap.data().status === 'active' ? 'inactive' : 'active';
+    if (!confirm(`تغيير الحالة؟`)) return;
+    await updateDoc(doc(db, "coupons", couponId), { status: ns, updatedAt: serverTimestamp() });
+    showToast('✅ تم'); await loadCoupons();
+};
+
+window.deleteCoupon = async function(couponId) {
+    if (!confirm('حذف نهائي؟')) return;
+    await deleteDoc(doc(db, "coupons", couponId));
+    showToast('✅ تم الحذف'); await loadCoupons();
+};
+
+window.openCouponReports = async function() {
+    document.getElementById('couponReportsModal').classList.add('active');
+    const snap = await getDocs(collection(db, "coupons"));
+    let total = 0, most = { name: '-', count: 0 }, rows = '';
+    snap.forEach(doc => {
+        const c = doc.data(); const dt = (c.usedCount||0)*(c.discountValue||0); total += dt;
+        if ((c.usedCount||0) > most.count) most = { name: c.name, count: c.usedCount||0 };
+        rows += `<tr><td class="font-bold">${c.name}<br><span class="coupon-code text-xs">${c.code}</span></td><td>${c.usedCount||0}</td><td>${dt.toLocaleString()} ج.س</td></tr>`;
+    });
+    document.getElementById('reportTotalDiscounts').textContent = total.toLocaleString() + ' ج.س';
+    document.getElementById('reportMostUsedCoupon').textContent = most.name;
+    document.getElementById('couponUsageTable').innerHTML = rows || '<tr><td colspan="3" class="text-center">لا توجد بيانات</td></tr>';
+};
+
+// ===== Dashboard =====
+async function loadStats() {
+    const usersSnap = await getDocs(collection(db, "users"));
+    document.getElementById('totalCustomers').textContent = usersSnap.size;
+    const ordersSnap = await getDocs(collection(db, "orders"));
+    document.getElementById('totalOrders').textContent = ordersSnap.size;
+    const pendingSnap = await getDocs(query(collection(db, "orders"), where("status", "==", "قيد الانتظار")));
+    document.getElementById('pendingOrders').textContent = pendingSnap.size;
+    document.getElementById('orderBadge').textContent = pendingSnap.size;
+    let rev = 0; ordersSnap.forEach(d => { rev += d.data().price || 0; });
+    document.getElementById('totalRevenue').textContent = rev.toLocaleString() + ' ج.س';
+}
+
+// ===== العملاء =====
+async function loadCustomers() {
+    const snap = await getDocs(collection(db, "users"));
+    allCustomers = []; let ac = 0, bc = 0, tb = 0, to = 0;
+    snap.forEach(doc => {
+        const d = doc.data(); const ib = d.isBanned || false;
+        if (!ib) ac++; else bc++; tb += d.balance || 0; to += d.ordersCount || 0;
+        allCustomers.push({ id: doc.id, ...d, isBanned: ib });
+    });
+    document.getElementById('totalCustomersCount').textContent = allCustomers.length;
+    document.getElementById('activeCustomersCount').textContent = ac;
+    document.getElementById('bannedCustomersCount').textContent = bc;
+    document.getElementById('totalBalanceCount').textContent = tb.toLocaleString() + ' ج.س';
+    document.getElementById('totalOrdersCount').textContent = to;
+    document.getElementById('customerBadge').textContent = allCustomers.length;
+    const ws = document.getElementById('walletCustomer');
+    ws.innerHTML = '<option value="">-- اختر عميلاً --</option>';
+    allCustomers.forEach(c => { ws.innerHTML += `<option value="${c.id}">${c.name||'مستخدم'} - ${c.email||''}</option>`; });
+    renderCustomersTable(allCustomers);
+}
+
+function renderCustomersTable(customers) {
+    const t = document.getElementById('customersTable');
+    if (!customers.length) { t.innerHTML = '<tr><td colspan="8" class="text-center py-8">لا يوجد عملاء</td></tr>'; return; }
+    t.innerHTML = customers.map((c, i) => `<tr onclick="openCustomerModal('${c.id}')"><td>${i+1}</td><td class="font-bold">${c.name||'-'}</td><td>${c.email||'-'}</td><td>${c.phone||'-'}</td><td>#${c.walletID||'000000'}</td><td>${(c.balance||0).toLocaleString()} ج.س</td><td><span class="status-badge ${c.isBanned?'banned':'active'}">${c.isBanned?'⛔ محظور':'✅ نشط'}</span></td><td><button onclick="event.stopPropagation();toggleBan('${c.id}',${c.isBanned})" class="btn-sm ${c.isBanned?'green':'red'}">${c.isBanned?'🔓':'🔒'}</button></td></tr>`).join('');
+}
+
+window.filterCustomers = function() {
+    const s = document.getElementById('searchCustomer').value.toLowerCase().trim();
+    const st = document.getElementById('filterStatus').value;
+    let f = [...allCustomers];
+    if (s) f = f.filter(c => (c.name||'').toLowerCase().includes(s) || (c.email||'').toLowerCase().includes(s) || (c.phone||'').includes(s));
+    if (st !== 'all') f = f.filter(c => c.isBanned === (st === 'banned'));
+    renderCustomersTable(f);
+};
+window.resetCustomerFilters = () => { document.getElementById('searchCustomer').value = ''; document.getElementById('filterStatus').value = 'all'; renderCustomersTable(allCustomers); };
+window.refreshCustomers = () => { loadCustomers(); showToast('🔄 تم التحديث'); };
+
+async function openCustomerModal(cid) {
+    const snap = await getDoc(doc(db, "users", cid));
+    if (!snap.exists()) return;
+    const c = snap.data(); selectedCustomerId = cid;
+    document.getElementById('customerModalBody').innerHTML = `<div class="text-center mb-4"><img src="${c.img||`https://ui-avatars.com/api/?name=${c.name||'مستخدم'}&size=80&background=f59e0b&color=fff`}" class="avatar-md"><h4>${c.name||'مستخدم'}</h4></div><div class="grid grid-cols-2 gap-3"><div class="bg-gray-50 p-3 rounded-xl text-center"><div class="text-xs">📧 البريد</div><div class="font-bold">${c.email||'-'}</div></div><div class="bg-gray-50 p-3 rounded-xl text-center"><div class="text-xs">📱 الهاتف</div><div class="font-bold">${c.phone||'-'}</div></div><div class="bg-gray-50 p-3 rounded-xl text-center"><div class="text-xs">💰 الرصيد</div><div class="font-bold text-yellow-600">${(c.balance||0).toLocaleString()} ج.س</div></div><div class="bg-gray-50 p-3 rounded-xl text-center"><div class="text-xs">📦 الطلبات</div><div class="font-bold">${c.ordersCount||0}</div></div></div><div class="flex gap-2 mt-4"><button onclick="toggleBan('${cid}',${c.isBanned})" class="btn-sm ${c.isBanned?'green':'red'} flex-1">${c.isBanned?'🔓 تفعيل':'🔒 حظر'}</button></div>`;
+    document.getElementById('customerModal').classList.add('active');
+}
+window.openCustomerModal = openCustomerModal;
+
+window.toggleBan = async function(cid, ib) {
+    if (!confirm(`تأكيد ${ib?'تفعيل':'حظر'}؟`)) return;
+    await updateDoc(doc(db, "users", cid), { isBanned: !ib });
+    showToast('✅ تم'); await loadCustomers();
+};
+
+// ===== الطلبات =====
+async function loadOrders() {
+    const snap = await getDocs(query(collection(db, "orders"), orderBy("timestamp", "desc")));
+    allOrders = []; let rev = 0;
+    snap.forEach(doc => { const d = doc.data(); allOrders.push({ id: doc.id, ...d }); if (d.status === 'مكتمل') rev += d.price || 0; });
+    renderOrdersTable(allOrders);
+    document.getElementById('totalOrdersCountOrders').textContent = allOrders.length;
+    document.getElementById('pendingOrdersCount').textContent = allOrders.filter(o => o.status === 'قيد الانتظار').length;
+    document.getElementById('completedOrdersCount').textContent = allOrders.filter(o => o.status === 'مكتمل').length;
+    document.getElementById('totalRevenueCount').textContent = rev.toLocaleString() + ' ج.س';
+    document.getElementById('orderBadge').textContent = allOrders.filter(o => o.status === 'قيد الانتظار').length;
+}
+
+function renderOrdersTable(orders) {
+    const t = document.getElementById('ordersTable');
+    if (!orders.length) { t.innerHTML = '<tr><td colspan="8" class="text-center py-8">لا توجد طلبات</td></tr>'; return; }
+    t.innerHTML = orders.map((o, i) => {
+        const sc = { 'قيد الانتظار': 'pending', 'جاري التنفيذ': 'review', 'مكتمل': 'done', 'ملغي': 'cancelled' }[o.status] || 'pending';
+        return `<tr><td>${i+1}</td><td class="font-bold text-yellow-600">#${o.id.substring(0,8)}</td><td>${o.uName||'-'}</td><td>${o.product||'-'}</td><td>${(o.price||0).toLocaleString()} ج.س</td><td>${o.timestamp?.toDate?new Date(o.timestamp.toDate()).toLocaleString('ar-SD'):'-'}</td><td><span class="status-badge ${sc}">${o.status||'قيد الانتظار'}</span></td><td><button onclick="updateOrderStatus('${o.id}','مكتمل')" class="btn-sm green">✅</button> <button onclick="updateOrderStatus('${o.id}','ملغي')" class="btn-sm red">❌</button></td></tr>`;
+    }).join('');
+}
+
+window.filterOrders = function() {
+    const s = document.getElementById('searchOrder').value.toLowerCase().trim();
+    const st = document.getElementById('filterOrderStatus').value;
+    let f = [...allOrders];
+    if (s) f = f.filter(o => (o.id||'').toLowerCase().includes(s) || (o.uName||'').toLowerCase().includes(s) || (o.product||'').toLowerCase().includes(s));
+    if (st !== 'all') f = f.filter(o => o.status === st);
+    renderOrdersTable(f);
+};
+window.resetOrderFilters = () => { document.getElementById('searchOrder').value = ''; document.getElementById('filterOrderStatus').value = 'all'; renderOrdersTable(allOrders); };
+window.refreshOrders = () => { loadOrders(); showToast('🔄 تم التحديث'); };
+
+window.updateOrderStatus = async function(oid, status) {
+    if (!confirm(`تغيير الحالة إلى "${status}"؟`)) return;
+    await updateDoc(doc(db, "orders", oid), { status, updatedAt: serverTimestamp() });
+    showToast('✅ تم'); await loadOrders();
+};
+
+// ===== المحفظة =====
+document.getElementById('walletCustomer')?.addEventListener('change', async function() {
+    if (!this.value) { document.getElementById('customerCurrentBalance').textContent = '0'; return; }
+    const snap = await getDoc(doc(db, "users", this.value));
+    if (snap.exists()) document.getElementById('customerCurrentBalance').textContent = (snap.data().balance||0).toLocaleString();
+});
+
+window.rechargeWallet = async function() {
+    const uid = document.getElementById('walletCustomer').value;
+    const amt = parseInt(document.getElementById('walletAmount').value);
+    if (!uid || !amt || amt <= 0) { showToast('❌ بيانات غير صحيحة', true); return; }
+    await updateDoc(doc(db, "users", uid), { balance: increment(amt) });
+    await addDoc(collection(db, "transactions"), { userId: uid, type: 'شحن', amount: amt, admin: auth.currentUser?.email, timestamp: serverTimestamp() });
+    showToast('✅ تم الشحن'); document.getElementById('walletAmount').value = ''; await loadCustomers();
+};
+
+window.deductWallet = async function() {
+    const uid = document.getElementById('walletCustomer').value;
+    const amt = parseInt(document.getElementById('walletAmount').value);
+    if (!uid || !amt || amt <= 0) { showToast('❌ بيانات غير صحيحة', true); return; }
+    const snap = await getDoc(doc(db, "users", uid));
+    if ((snap.data().balance||0) < amt) { showToast('❌ رصيد غير كاف', true); return; }
+    await updateDoc(doc(db, "users", uid), { balance: increment(-amt) });
+    await addDoc(collection(db, "transactions"), { userId: uid, type: 'خصم', amount: amt, admin: auth.currentUser?.email, timestamp: serverTimestamp() });
+    showToast('✅ تم الخصم'); document.getElementById('walletAmount').value = ''; await loadCustomers();
+};
+
+// ===== سجل المعاملات =====
+async function loadTransactions() {
+    const snap = await getDocs(query(collection(db, "transactions"), orderBy("timestamp", "desc")));
+    allTransactions = [];
+    snap.forEach(doc => { allTransactions.push({ id: doc.id, ...doc.data() }); });
+    document.getElementById('transactionsList').innerHTML = allTransactions.length ? allTransactions.map(tx => `<div class="flex justify-between p-2 border-b"><div><span class="font-bold">${tx.type}</span><br><span class="text-xs">${tx.timestamp?.toDate?new Date(tx.timestamp.toDate()).toLocaleString('ar-SD'):'الآن'}</span></div><div class="font-bold ${tx.type==='شحن'?'text-green-600':'text-red-600'}">${tx.type==='شحن'?'+':'-'} ${(tx.amount||0).toLocaleString()} ج.س</div></div>`).join('') : '<div class="text-center py-4">لا توجد معاملات</div>';
+}
+
+// ===== المنتجات =====
+async function loadProducts() {
+    const snap = await getDocs(collection(db, "products"));
+    allProducts = [];
+    snap.forEach(doc => { allProducts.push({ id: doc.id, ...doc.data() }); });
+    renderProducts(allProducts);
+}
+
+function renderProducts(products) {
+    const g = document.getElementById('productsGrid');
+    if (!products.length) { g.innerHTML = '<div class="col-span-full text-center py-8">لا توجد منتجات</div>'; return; }
+    g.innerHTML = products.map(p => `<div class="product-card"><div class="image-wrap"><img src="${p.image||'https://via.placeholder.com/200'}" class="product-image">${p.isFeatured?'<span class="product-badge">⭐ مميز</span>':''}</div><div class="product-body"><div class="product-name">${p.name}</div><div class="product-price">${(p.price||0).toLocaleString()} ج.س</div><div class="flex gap-1 mt-2"><button onclick="editProduct('${p.id}')" class="btn-sm gold">✏️</button><button onclick="deleteProduct('${p.id}')" class="btn-sm red">🗑️</button></div></div></div>`).join('');
+}
+
+window.openAddProductModal = () => { editingProductId = null; document.getElementById('productModalTitle').textContent = '➕ إضافة منتج'; document.getElementById('modalProductName').value = ''; document.getElementById('modalProductPrice').value = ''; document.getElementById('modalProductDiscount').value = ''; document.getElementById('modalProductDesc').value = ''; document.getElementById('imagePreview').classList.add('hidden'); document.getElementById('productModal').classList.add('active'); };
+
+window.editProduct = async function(pid) {
+    const snap = await getDoc(doc(db, "products", pid));
+    if (!snap.exists()) return;
+    const p = snap.data(); editingProductId = pid;
+    document.getElementById('productModalTitle').textContent = '✏️ تعديل المنتج';
+    document.getElementById('modalProductName').value = p.name || '';
+    document.getElementById('modalProductPrice').value = p.price || '';
+    document.getElementById('modalProductDiscount').value = p.discountPrice || '';
+    document.getElementById('modalProductDesc').value = p.description || '';
+    document.getElementById('productModal').classList.add('active');
+};
+
+window.saveProduct = async function() {
+    const name = document.getElementById('modalProductName').value.trim();
+    const price = parseInt(document.getElementById('modalProductPrice').value);
+    if (!name || !price) { showToast('❌ املأ البيانات', true); return; }
+    const data = { name, price, description: document.getElementById('modalProductDesc').value, discountPrice: parseInt(document.getElementById('modalProductDiscount').value) || null, category: document.getElementById('modalProductCategory').value, updatedAt: serverTimestamp() };
+    if (editingProductId) { await updateDoc(doc(db, "products", editingProductId), data); } else { data.createdAt = serverTimestamp(); data.salesCount = 0; await addDoc(collection(db, "products"), data); }
+    closeModal('productModal'); await loadProducts(); showToast('✅ تم');
+};
+
+window.deleteProduct = async function(pid) { if (!confirm('حذف؟')) return; await deleteDoc(doc(db, "products", pid)); await loadProducts(); showToast('✅ تم'); };
+
+window.previewImage = function(e) {
+    const file = e.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => { document.getElementById('imagePreview').classList.remove('hidden'); document.getElementById('previewImg').src = ev.target.result; };
+    reader.readAsDataURL(file);
+};
+window.removeImage = () => { document.getElementById('imagePreview').classList.add('hidden'); document.getElementById('modalProductImage').value = ''; };
+
+// ===== تشغيل =====
+async function loadAllData() {
+    await Promise.all([loadStats(), loadCustomers(), loadOrders(), loadProducts(), loadTransactions(), loadCoupons()]);
+}
+
+onAuthStateChanged(auth, async (user) => {
+    if (user && checkAdmin(user)) { currentUser = user; await loadAllData(); }
+    else if (!user) { showToast('❌ سجل دخول', true); setTimeout(() => window.location.href = 'index.html', 1500); }
+});
+
+['couponModal','couponReportsModal','productModal','customerModal'].forEach(id => {
+    document.getElementById(id)?.addEventListener('click', function(e) { if (e.target === this) closeModal(id); });
+});
+
+console.log('🖥️ MORRE STORE - Admin Panel Ready');
+</script>
 </body>
-                                                                                                                                                                                                                                                                                  </html>
+</html>
