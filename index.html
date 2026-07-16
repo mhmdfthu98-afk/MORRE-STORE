@@ -2063,7 +2063,7 @@
             <button class="btn-cancel" onclick="closeEditModal()">إلغاء</button>
         </div>
     </div>
-<div id="orderModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-[99999] flex items-center justify-center p-4">
+    <div id="orderModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-[99999] flex items-center justify-center p-4">
     <div class="glass w-full max-w-md p-6 rounded-3xl text-dark" style="max-height:90vh;overflow-y:auto;">
         <h2 class="text-xl font-bold text-center text-dark mb-4">🛒 تأكيد بيانات الشحن</h2>
         <div class="space-y-3" id="orderFields">
@@ -2080,7 +2080,6 @@
         </div>
     </div>
 </div>
-
     <!-- ===== Toast لتسجيل الدخول ===== -->
     <div id="login-toast" class="login-toast"></div>
 
@@ -2899,66 +2898,115 @@ function getOrderFields(category) {
     return fields[category] || fields.googleplay;
 }  
 
-        // ========== عرض مودال الطلب ==========
-        function showOrderModal(product, price, category, productId) {
-            if (!userData) {
-                alert('❌ يرجى تسجيل الدخول أولاً');
-                return;
-            }
-            if (userData.balance < price) {
-                alert(
-                    `❌ رصيدك غير كافي!\n\nرصيدك الحالي: ${userData.balance.toLocaleString()} ج.س\nسعر المنتج: ${price.toLocaleString()} ج.س\n\nيرجى شحن محفظتك عبر زر "شحن المحفظة"`);
-                return;
-            }
-            currentOrder = { product, price, category, productId };
-            document.getElementById('modalProductName').innerHTML = `المنتج: ${product}`;
-            document.getElementById('modalProductPrice').innerHTML = `المبلغ: ${price.toLocaleString()} ج.س`;
-            document.getElementById('orderModal').classList.remove('hidden');
+// ========== عرض مودال الطلب ==========
+function showOrderModal(product, price, category, productId) {
+    if (!userData) {
+        alert('❌ يرجى تسجيل الدخول أولاً');
+        return;
+    }
+    if (userData.balance < price) {
+        alert(
+            `❌ رصيدك غير كافي!\n\nرصيدك الحالي: ${userData.balance.toLocaleString()} ج.س\nسعر المنتج: ${price.toLocaleString()} ج.س\n\nيرجى شحن محفظتك عبر زر "شحن المحفظة"`);
+        return;
+    }
+    currentOrder = { product, price, category, productId };
+    
+    // إنشاء حقول الشحن حسب اللعبة
+    const fields = getOrderFields(category);
+    const container = document.getElementById('orderFields');
+    let html = '';
+    
+    fields.forEach(field => {
+        const inputType = field.type || 'text';
+        const required = field.required ? 'required' : '';
+        const isWhatsapp = field.id === 'whatsapp';
+        
+        if (isWhatsapp) {
+            html += `
+                <div class="whatsapp-icon-input">
+                    <i class="fab fa-whatsapp"></i>
+                    <input id="modal_${field.id}" type="${inputType}" class="whatsapp-input" placeholder="${field.placeholder}" ${required}>
+                </div>
+            `;
+        } else {
+            html += `
+                <div>
+                    <label class="text-sm font-bold text-dark block mb-1">${field.label}</label>
+                    <input id="modal_${field.id}" type="${inputType}" placeholder="${field.placeholder}" ${required} class="w-full p-3 rounded-xl border border-gray-200 focus:border-yellow-500 focus:outline-none">
+                </div>
+            `;
         }
-        window.showOrderModal = showOrderModal;
+    });
+    
+    container.innerHTML = html;
+    
+    document.getElementById('modalProductName').innerHTML = `المنتج: ${product}`;
+    document.getElementById('modalProductPrice').innerHTML = `المبلغ: ${price.toLocaleString()} ج.س`;
+    document.getElementById('orderModal').classList.remove('hidden');
+}
+window.showOrderModal = showOrderModal;
 
-        window.closeOrderModal = () => {
-            document.getElementById('orderModal').classList.add('hidden');
-            currentOrder = null;
-            document.getElementById('modalGameID').value = '';
-            document.getElementById('modalGameName').value = '';
-            document.getElementById('modalRealName').value = '';
-            document.getElementById('modalWhatsApp').value = '';
-        };
-
-        // ========== تأكيد الطلب ==========
-        document.getElementById('confirmOrderBtn').onclick = async () => {
-            if (!currentOrder) { alert("❌ لا يوجد طلب نشط"); return; }
-            const gameID = document.getElementById('modalGameID')?.value.trim();
-            const gameName = document.getElementById('modalGameName')?.value.trim();
-            const realName = document.getElementById('modalRealName')?.value.trim();
-            const whatsapp = document.getElementById('modalWhatsApp')?.value.trim();
-            if (!gameID || !gameName || !realName || !whatsapp) { alert("❌ جميع الحقول مطلوبة!"); return; }
-            if (!whatsapp.match(/^[0-9]{10,15}$/)) { alert("❌ رقم واتساب غير صحيح!"); return; }
-            
-            try {
-                await runTransaction(db, async (transaction) => {
-                    const userRef = doc(db, "users", auth.currentUser.uid);
-                    const userSnap = await transaction.get(userRef);
-                    if ((userSnap.data().balance || 0) < currentOrder.price) throw "رصيد غير كاف";
-                    transaction.update(userRef, { balance: increment(-currentOrder.price) });
-                    transaction.set(doc(collection(db, "orders")), {
-                        uID: auth.currentUser.uid, uName: userData.name,
-                        product: currentOrder.product, price: currentOrder.price,
-                        game: currentOrder.category, gameID, gameName, realName, whatsapp,
-                        status: 'قيد الانتظار', timestamp: serverTimestamp()
-                    });
-                });
-                alert("✅ تم إرسال طلبك بنجاح!");
-                closeOrderModal();
-                document.getElementById('modalGameID').value = '';
-                document.getElementById('modalGameName').value = '';
-                document.getElementById('modalRealName').value = '';
-                document.getElementById('modalWhatsApp').value = '';
-            } catch (error) {
-                alert("❌ حدث خطأ: " + (typeof error === 'string' ? error : error.message));
+// ========== تأكيد الطلب ==========
+document.getElementById('confirmOrderBtn').onclick = async () => {
+    if (!currentOrder) { alert("❌ لا يوجد طلب نشط"); return; }
+    
+    // جمع البيانات من الحقول
+    const fields = getOrderFields(currentOrder.category);
+    const orderData = {};
+    let isValid = true;
+    
+    fields.forEach(field => {
+        const input = document.getElementById(`modal_${field.id}`);
+        if (input) {
+            const value = input.value.trim();
+            orderData[field.id] = value;
+            if (field.required && !value) {
+                isValid = false;
+                input.classList.add('border-red-500');
+            } else {
+                input.classList.remove('border-red-500');
             }
-        };
+        }
+    });
+    
+    // التحقق من رقم واتساب
+    if (orderData.whatsapp && !orderData.whatsapp.match(/^[0-9]{10,15}$/)) {
+        alert("❌ رقم واتساب غير صحيح!");
+        return;
+    }
+    
+    if (!isValid) {
+        alert("❌ جميع الحقول المطلوبة يجب تعبئتها!");
+        return;
+    }
+    
+    try {
+        await runTransaction(db, async (transaction) => {
+            const userRef = doc(db, "users", auth.currentUser.uid);
+            const userSnap = await transaction.get(userRef);
+            if ((userSnap.data().balance || 0) < currentOrder.price) throw "رصيد غير كاف";
+            transaction.update(userRef, { balance: increment(-currentOrder.price) });
+            
+            // حفظ الطلب مع جميع البيانات
+            transaction.set(doc(collection(db, "orders")), {
+                uID: auth.currentUser.uid,
+                uName: userData.name,
+                product: currentOrder.product,
+                price: currentOrder.price,
+                game: currentOrder.category,
+                ...orderData,
+                status: 'قيد الانتظار',
+                timestamp: serverTimestamp()
+            });
+        });
+        
+        alert("✅ تم إرسال طلبك بنجاح!");
+        closeOrderModal();
+        
+    } catch (error) {
+        alert("❌ حدث خطأ: " + (typeof error === 'string' ? error : error.message));
+    }
+};
 
         // ========== عرض المنتجات في الفئات ==========
         function renderAllProducts() {
@@ -3588,4 +3636,4 @@ function getOrderFields(category) {
         });
     </script>
 </body>
-                </html>
+    </html>
