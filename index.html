@@ -2897,6 +2897,14 @@ function getOrderFields(category) {
     };
     return fields[category] || fields.googleplay;
 }  
+// ========== إغلاق مودال الطلب ==========
+window.closeOrderModal = function() {
+    const modal = document.getElementById('orderModal');
+    if (modal) modal.classList.add('hidden');
+    currentOrder = null;
+    const container = document.getElementById('orderFields');
+    if (container) container.innerHTML = '';
+};
 
 // ========== عرض مودال الطلب ==========
 function showOrderModal(product, price, category, productId) {
