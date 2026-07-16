@@ -2142,6 +2142,20 @@
         </div>
     </div>
 
+    <!-- مودال السلة -->
+<div class="modal-overlay" id="cartModal">
+    <div class="modal-box" style="max-width:600px;">
+        <h3 style="display:flex;justify-content:space-between;align-items:center;">🛒 سلة المشتريات <button onclick="closeCartModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#94a3b8;">&times;</button></h3>
+        <div id="cartItems"><div class="text-center py-8 text-dark-light">جاري تحميل السلة...</div></div>
+        <div class="bg-yellow-50 p-4 rounded-xl mt-4 flex justify-between items-center">
+            <span class="font-bold text-dark">الإجمالي:</span>
+            <span class="text-2xl font-black text-yellow-600" id="cartTotal">0 ج.س</span>
+        </div>
+        <button onclick="checkoutCart()" class="btn-save w-full mt-3">💳 متابعة الشراء</button>
+        <button onclick="clearCart()" class="btn-cancel w-full mt-2">🗑️ تفريغ السلة</button>
+    </div>
+</div>
+
     <!-- ===== Toast لتسجيل الدخول ===== -->
     <div id="login-toast" class="login-toast"></div>
 
