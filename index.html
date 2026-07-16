@@ -2960,20 +2960,16 @@ document.getElementById('confirmOrderBtn').onclick = async () => {
     const whatsapp = document.getElementById('modalWhatsApp')?.value.trim();
     if (!gameID || !gameName || !realName || !whatsapp) { alert("❌ جميع الحقول مطلوبة!"); return; }
     if (!whatsapp.match(/^[0-9]{10,15}$/)) { alert("❌ رقم واتساب غير صحيح!"); return; }
-    
     const totalAmount = currentOrder.isCart ? currentOrder.total : currentOrder.price;
-    
     try {
         await runTransaction(db, async (transaction) => {
             const userRef = doc(db, "users", auth.currentUser.uid);
             const userSnap = await transaction.get(userRef);
             if ((userSnap.data().balance || 0) < totalAmount) throw "رصيد غير كاف";
             transaction.update(userRef, { balance: increment(-totalAmount) });
-            
             if (currentOrder.isCart) {
                 for (const item of currentOrder.items) {
-                    const orderRef = doc(collection(db, "orders"));
-                    transaction.set(orderRef, {
+                    transaction.set(doc(collection(db, "orders")), {
                         uID: auth.currentUser.uid, uName: userData.name,
                         product: item.name, price: item.price * item.quantity,
                         quantity: item.quantity, game: item.category,
@@ -2982,8 +2978,7 @@ document.getElementById('confirmOrderBtn').onclick = async () => {
                     });
                 }
             } else {
-                const orderRef = doc(collection(db, "orders"));
-                transaction.set(orderRef, {
+                transaction.set(doc(collection(db, "orders")), {
                     uID: auth.currentUser.uid, uName: userData.name,
                     product: currentOrder.product, price: currentOrder.price,
                     game: currentOrder.category, gameID, gameName, realName, whatsapp,
@@ -2991,12 +2986,10 @@ document.getElementById('confirmOrderBtn').onclick = async () => {
                 });
             }
         });
-        
         if (currentOrder.isCart) {
             await setDoc(doc(db, "carts", auth.currentUser.uid), { items: [], updatedAt: serverTimestamp() }, { merge: true });
             cart = []; updateCartCount();
         }
-        
         alert("✅ تم إرسال طلبك بنجاح!");
         closeOrderModal();
         document.getElementById('modalGameID').value = '';
@@ -3007,47 +3000,6 @@ document.getElementById('confirmOrderBtn').onclick = async () => {
         alert("❌ حدث خطأ: " + (typeof error === 'string' ? error : error.message));
     }
 };
-            const gameID = document.getElementById('modalGameID')?.value.trim();
-            const gameName = document.getElementById('modalGameName')?.value.trim();
-            const realName = document.getElementById('modalRealName')?.value.trim();
-            const whatsapp = document.getElementById('modalWhatsApp')?.value.trim();
-            if (!gameID || !gameName || !realName || !whatsapp) {
-                alert("❌ جميع الحقول مطلوبة!");
-                return;
-            }
-            if (!whatsapp.match(/^[0-9]{10,15}$/)) {
-                alert("❌ رقم واتساب غير صحيح! يجب أن يكون 10-15 رقم");
-                return;
-            }
-            try {
-                await runTransaction(db, async (transaction) => {
-                    const userRef = doc(db, "users", auth.currentUser.uid);
-                    const userSnap = await transaction.get(userRef);
-                    if (userSnap.data().balance < currentOrder.price) throw "رصيد غير كاف";
-                    transaction.update(userRef, { balance: increment(-currentOrder.price) });
-                    const orderData = {
-                        uID: auth.currentUser.uid,
-                        uName: userData.name,
-                        product: currentOrder.product,
-                        price: currentOrder.price,
-                        game: currentOrder.category,
-                        gameID,
-                        gameName,
-                        realName,
-                        whatsapp,
-                        status: 'قيد الانتظار',
-                        timestamp: serverTimestamp()
-                    };
-                    const orderRef = doc(collection(db, "orders"));
-                    transaction.set(orderRef, orderData);
-                    setTimeout(() => sendTelegramNotification(orderData), 1000);
-                });
-                alert("✅ تم إرسال طلبك بنجاح! سيتم التواصل معك عبر واتساب قريباً");
-                closeOrderModal();
-            } catch (error) {
-                alert("❌ حدث خطأ: " + error.message);
-            }
-        };
 
         // ========== عرض المنتجات في الفئات ==========
         function renderAllProducts() {
