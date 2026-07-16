@@ -2518,6 +2518,7 @@
             clashroyale: [],
             netflix: [],
             tiktok: [],
+            tiktokservices: []
             ai: [],
             canva: [],
             tod: [],
@@ -3034,7 +3035,7 @@ document.getElementById('confirmOrderBtn').onclick = async () => {
 
         // ========== عرض المنتجات في الفئات ==========
         function renderAllProducts() {
-            const categories = ['pubg', 'freefire', 'clash', 'efootball', 'fcmobile', 'clashroyale', 'netflix', 'tiktok', 'ai', 'canva', 'tod', 'googleplay', 'redotpay', 'mastercard', 'playstation'];
+          const categories = ['pubg', 'freefire', 'clash', 'efootball', 'fcmobile', 'clashroyale', 'netflix', 'tiktok', 'ai', 'canva', 'tod', 'googleplay', 'redotpay', 'mastercard', 'playstation', 'tiktokservices'];
 
             categories.forEach(cat => {
                 const grid = document.getElementById(`${cat}Grid`);
@@ -3243,6 +3244,7 @@ document.getElementById('confirmOrderBtn').onclick = async () => {
                     clashroyale: '👑 كلاش رويال',
                     netflix: '🎬 نتفليكس',
                     tiktok: '🎵 تيك توك',
+                    tiktokservices: '🎵 خدمات تيك توك'
                     ai: '🤖 ذكاء اصطناعي',
                     canva: '🎨 كانفا',
                     tod: '🎵 TOD',
