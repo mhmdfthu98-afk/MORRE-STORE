@@ -3725,6 +3725,10 @@ window.checkoutCart = function() {
             loadUserHistory(user.uid);
             if ('Notification' in window) Notification.requestPermission();
         }
+        // تحميل السلة
+getDoc(doc(db, "carts", user.uid)).then(snap => {
+    if (snap.exists()) { cart = snap.data().items || []; updateCartCount(); }
+});
 
         onAuthStateChanged(auth, async (user) => {
             const loading = document.getElementById('loading-screen');
