@@ -3786,6 +3786,9 @@ getDoc(doc(db, "carts", user.uid)).then(snap => {
         document.getElementById('editModal').addEventListener('click', function(e) {
             if (e.target === this) closeEditModal();
         });
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+    if (e.target === this) closeCartModal();
+});
     </script>
 
 </body>
