@@ -3047,9 +3047,109 @@ let cartCount = 0;
             });
         }
 
-        window.addToCart = function(productId) {
-            alert('🛒 تم إضافة المنتج إلى السلة!');
-        };
+        // ========== 🛒 نظام السلة ==========
+window.addToCart = async function(productId) {
+    if (!userData) { alert('❌ يرجى تسجيل الدخول أولاً'); return; }
+    const result = findProductById(productId);
+    if (!result) { alert('❌ المنتج غير موجود'); return; }
+    const { product } = result;
+    const cartRef = doc(db, "carts", auth.currentUser.uid);
+    const cartSnap = await getDoc(cartRef);
+    let items = cartSnap.exists() ? (cartSnap.data().items || []) : [];
+    const idx = items.findIndex(i => i.productId === productId);
+    if (idx >= 0) { items[idx].quantity += 1; }
+    else { items.push({ productId, name: product.name, price: product.price, quantity: 1, category: product.category, image: categoryImages[product.category] || 'https://via.placeholder.com/200' }); }
+    await setDoc(cartRef, { items, updatedAt: serverTimestamp() }, { merge: true });
+    cart = items; updateCartCount(); showToast(`✅ تم إضافة "${product.name}" إلى السلة`);
+};
+
+window.updateCartItemQuantity = async function(productId, delta) {
+    const cartRef = doc(db, "carts", auth.currentUser.uid);
+    const cartSnap = await getDoc(cartRef);
+    if (!cartSnap.exists()) return;
+    let items = cartSnap.data().items || [];
+    const idx = items.findIndex(i => i.productId === productId);
+    if (idx >= 0) { items[idx].quantity += delta; if (items[idx].quantity <= 0) items.splice(idx, 1); }
+    await setDoc(cartRef, { items, updatedAt: serverTimestamp() }, { merge: true });
+    cart = items; updateCartCount(); renderCartItems(items);
+};
+
+window.removeFromCart = async function(productId) {
+    if (!confirm('🗑️ حذف هذا المنتج من السلة؟')) return;
+    const cartRef = doc(db, "carts", auth.currentUser.uid);
+    const cartSnap = await getDoc(cartRef);
+    if (!cartSnap.exists()) return;
+    let items = cartSnap.data().items || [];
+    items = items.filter(i => i.productId !== productId);
+    await setDoc(cartRef, { items, updatedAt: serverTimestamp() }, { merge: true });
+    cart = items; updateCartCount(); renderCartItems(items); showToast('🗑️ تم الحذف');
+};
+
+window.clearCart = async function() {
+    if (!confirm('⚠️ تفريغ السلة بالكامل؟')) return;
+    await setDoc(doc(db, "carts", auth.currentUser.uid), { items: [], updatedAt: serverTimestamp() }, { merge: true });
+    cart = []; updateCartCount(); document.getElementById('cartModal').classList.remove('active'); showToast('🗑️ تم التفريغ');
+};
+
+window.openCartModal = async function() {
+    if (!userData) { alert('❌ يرجى تسجيل الدخول أولاً'); return; }
+    const cartSnap = await getDoc(doc(db, "carts", auth.currentUser.uid));
+    cart = cartSnap.exists() ? (cartSnap.data().items || []) : [];
+    renderCartItems(cart);
+    document.getElementById('cartModal').classList.add('active');
+};
+
+window.closeCartModal = function() { document.getElementById('cartModal').classList.remove('active'); };
+
+function renderCartItems(items) {
+    const container = document.getElementById('cartItems');
+    const totalEl = document.getElementById('cartTotal');
+    if (!items || !items.length) {
+        container.innerHTML = '<div class="text-center py-8"><i class="fas fa-shopping-cart text-4xl text-gray-300 block mb-3"></i><p class="text-dark-light">🛒 سلتك فارغة</p></div>';
+        totalEl.textContent = '0 ج.س';
+        return;
+    }
+    let total = 0;
+    container.innerHTML = items.map(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        return `<div class="cart-item">
+            <img src="${item.image}" alt="${item.name}">
+            <div class="flex-1 min-w-0">
+                <p class="font-bold text-dark text-sm truncate">${item.name}</p>
+                <p class="text-xs text-dark-light">${item.price.toLocaleString()} ج.س × ${item.quantity}</p>
+                <p class="font-bold text-yellow-600 text-sm">${itemTotal.toLocaleString()} ج.س</p>
+            </div>
+            <div class="flex items-center gap-1">
+                <button onclick="updateCartItemQuantity('${item.productId}',-1)" class="quantity-btn">-</button>
+                <span class="w-6 text-center text-sm font-bold">${item.quantity}</span>
+                <button onclick="updateCartItemQuantity('${item.productId}',1)" class="quantity-btn">+</button>
+            </div>
+            <button onclick="removeFromCart('${item.productId}')" class="text-red-400 hover:text-red-600 p-1"><i class="fas fa-trash"></i></button>
+        </div>`;
+    }).join('');
+    totalEl.textContent = total.toLocaleString() + ' ج.س';
+    updateCartCount();
+}
+
+function updateCartCount() {
+    cartCount = cart.reduce((sum, i) => sum + i.quantity, 0);
+    const badge = document.getElementById('cartBadge');
+    badge.textContent = cartCount;
+    badge.classList.toggle('show', cartCount > 0);
+}
+
+window.checkoutCart = function() {
+    if (!cart.length) { alert('❌ السلة فارغة'); return; }
+    const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+    if (userData.balance < total) { alert(`❌ رصيدك غير كافٍ!\nرصيدك: ${userData.balance.toLocaleString()} ج.س\nالمجموع: ${total.toLocaleString()} ج.س`); return; }
+    const names = cart.map(i => `${i.name} ×${i.quantity}`).join('<br>');
+    document.getElementById('modalProductName').innerHTML = names;
+    document.getElementById('modalProductPrice').textContent = `المجموع: ${total.toLocaleString()} ج.س`;
+    currentOrder = { isCart: true, items: [...cart], total };
+    document.getElementById('orderModal').classList.remove('hidden');
+    closeCartModal();
+};
 
         // ========== نظام التنقل ==========
         function navigateTo(page, param) {
