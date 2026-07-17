@@ -1589,7 +1589,7 @@
     <option value="redotpay">💳 فيزا Redotpay</option>
     <option value="tiktok">🎵 عملات تيك توك</option>
     <option value="tiktokservices">📈 خدمات تيك توك</option>
-    <option value="ai">🤖 الذكاء الاصطناعي</option>
+    <option value="ai_services">🤖 الذكاء الاصطناعي</option>
     <option value="fcmobile">⚽ FC Mobile</option>
     <option value="playstation">🎮 بلاي ستيشن</option>
     <option value="mastercard">💳 ماستر كارد</option>
@@ -1697,164 +1697,203 @@
                 </div>
 
                 <!-- ===== قسم الاشتراكات ===== -->
-                <div class="section-title">
-                    <span class="section-icon">📺</span> الاشتراكات
-                </div>
-                <div class="service-grid">
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'netflix')">
-                        <img src="https://i.postimg.cc/KzLfFwkT/file-00000000a72471f4a83694b4182dcb9a.png" alt="Netflix" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">نتفليكس Netflix</h3>
-                        <p class="text-dark-light text-xs">اشتراكات شهرية</p>
-                    </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'ai')">
-                        <img src="https://i.postimg.cc/HsWwPV2p/file-0000000088c872469e0e816aeeacf79f.png" alt="AI" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">الذكاء الاصطناعي</h3>
-                        <p class="text-dark-light text-xs">ChatGPT - Gemini</p>
-                    </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'canva')">
-                        <img src="https://i.postimg.cc/bwczw2Bz/file-00000000e2ec71f4a8288cc59567b21c.png" alt="Canva" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">🎨 كانفا Canva</h3>
-                        <p class="text-dark-light text-xs">اشتراك Pro</p>
-                    </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'tod')">
-                        <img src="https://i.postimg.cc/QxJDkgkg/file-00000000373071f4a3c74cba8713a3c9.png" alt="TOD" class="service-icon">
-                        <h3 class="text-dark font-bold mt-2">🎵 TOD</h3>
-                        <p class="text-dark-light text-xs">خدمات رقمية</p>
-                    </div>
-                </div>
-            </div>
+<div class="section-title">
+    <span class="section-icon">📺</span> الاشتراكات
+</div>
+<div class="service-grid">
+    <!-- نتفليكس -->
+    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'netflix')">
+        <img src="https://i.postimg.cc/KzLfFwkT/file-00000000a72471f4a83694b4182dcb9a.png" alt="Netflix" class="service-icon">
+        <h3 class="text-dark font-bold mt-2">نتفليكس Netflix</h3>
+        <p class="text-dark-light text-xs">اشتراكات شهرية</p>
+    </div>
+
+  <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'ai_services')">
+    <img src="https://i.postimg.cc/HsWwPV2p/file-0000000088c872469e0e816aeeacf79f.png" alt="AI" class="service-icon">
+    <h3 class="text-dark font-bold mt-2">الذكاء الاصطناعي</h3>
+    <p class="text-dark-light text-xs">ChatGPT - Gemini</p>
+</div>
+
+    <!-- كانفا -->
+    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'canva')">
+        <img src="https://i.postimg.cc/bwczw2Bz/file-00000000e2ec71f4a8288cc59567b21c.png" alt="Canva" class="service-icon">
+        <h3 class="text-dark font-bold mt-2">🎨 كانفا Canva</h3>
+        <p class="text-dark-light text-xs">اشتراك Pro</p>
+    </div>
+
+    <!-- TOD -->
+    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'tod')">
+        <img src="https://i.postimg.cc/QxJDkgkg/file-00000000373071f4a3c74cba8713a3c9.png" alt="TOD" class="service-icon">
+        <h3 class="text-dark font-bold mt-2">🎵 TOD</h3>
+        <p class="text-dark-light text-xs">خدمات رقمية</p>
+    </div>
+</div>
             <!-- ===== قسم خدمات سوشل ميديا ===== -->
 <div class="section-title">
     <span class="section-icon">📱</span> خدمات سوشل ميديا
 </div>
 <div class="service-grid">
-    <!-- عملات تيك توك -->
     <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'tiktok')">
-        <img src="https://i.postimg.cc/ryRXRwW8/file-000000003b7471f4a1bff18c344d7df3.png" alt="TikTok" class="service-icon">
-        <h3 class="text-dark font-bold mt-2">🎵 عملات تيك توك</h3>
-        <p class="text-dark-light text-xs">شحن عملات تيك توك</p>
-    </div>
-    <!-- خدمات تيك توك (متابعين - مشاهدات - لايكات) -->
-    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'tiktokservices')">
-        <img src="https://i.postimg.cc/qqXsYnsm/file-00000000bcc471f490768db414d1e77b.png" alt="خدمات تيك توك" class="service-icon">
-        <h3 class="text-dark font-bold mt-2">📈 خدمات تيك توك</h3>
-        <p class="text-dark-light text-xs">متابعين - مشاهدات - لايكات</p>
-    </div>
+    <img src="https://i.postimg.cc/ryRXRwW8/file-000000003b7471f4a1bff18c344d7df3.png" alt="TikTok" class="service-icon">
+    <h3 class="text-dark font-bold mt-2">🎵 عملات تيك توك</h3>
+    <p class="text-dark-light text-xs">شحن عملات تيك توك</p>
 </div>
 
-            <!-- ========== صفحات الفئات ========== -->
-            <div id="category-pubg" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">🎮 شحن ببجي PUBG</h2>
-                </div>
-                <div id="pubgGrid" class="product-grid"></div>
-            </div>
-            <div id="category-freefire" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">🔥 شحن فري فاير FreeFire</h2>
-                </div>
-                <div id="freefireGrid" class="product-grid"></div>
-            </div>
-            <div id="category-clash" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">👑 شحن كلاش أوف كلانس</h2>
-                </div>
-                <div id="clashGrid" class="product-grid"></div>
-            </div>
-            <div id="category-efootball" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">⚽ شحن eFootball</h2>
-                </div>
-                <div id="efootballGrid" class="product-grid"></div>
-            </div>
-            <div id="category-fcmobile" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">⚽ شحن FC Mobile</h2>
-                </div>
-                <div id="fcmobileGrid" class="product-grid"></div>
-            </div>
-            <div id="category-clashroyale" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">👑 شحن كلاش رويال</h2>
-                </div>
-                <div id="clashroyaleGrid" class="product-grid"></div>
-            </div>
-            <div id="category-netflix" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">🎬 اشتراك نتفليكس</h2>
-                </div>
-                <div id="netflixGrid" class="product-grid"></div>
-            </div>
-            <div id="category-tiktok" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">🎵 عملات تيك توك</h2>
-                </div>
-                <div id="tiktokGrid" class="product-grid"></div>
-            </div>
-            <div id="category-ai" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">🤖 اشتراكات الذكاء الاصطناعي</h2>
-                </div>
-                <div id="aiGrid" class="product-grid"></div>
-            </div>
-            <div id="category-canva" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">🎨 اشتراك كانفا Canva</h2>
-                </div>
-                <div id="canvaGrid" class="product-grid"></div>
-            </div>
-            <div id="category-googleplay" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">🛍️ بطاقات جوجل بلاي</h2>
-                </div>
-                <div id="googleplayGrid" class="product-grid"></div>
-            </div>
-            <div id="category-redotpay" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">💳 فيزا Redotpay</h2>
-                </div>
-                <div id="redotpayGrid" class="product-grid"></div>
-            </div>
-            <div id="category-mastercard" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">💳 ماستر كارد</h2>
-                </div>
-                <div id="mastercardGrid" class="product-grid"></div>
-            </div>
-            <div id="category-playstation" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">🎮 بلاي ستيشن</h2>
-                </div>
-                <div id="playstationGrid" class="product-grid"></div>
-            </div>
-            <div id="category-tod" class="category-page">
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">🎵 TOD</h2>
-                </div>
-                <div id="todGrid" class="product-grid"></div>
-            </div>
-            <!-- ===== صفحة فئة خدمات تيك توك ===== -->
+    <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'tiktokservices')">
+    <img src="https://i.postimg.cc/qqXsYnsm/file-00000000bcc471f490768db414d1e77b.png" alt="خدمات تيك توك" class="service-icon">
+    <h3 class="text-dark font-bold mt-2">📈 خدمات تيك توك</h3>
+    <p class="text-dark-light text-xs">متابعين - مشاهدات - لايكات</p>
+</div>
+
+<!-- ========== صفحات الفئات ========== -->
+
+<!-- صفحة PUBG -->
+<div id="category-pubg" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">🎮 شحن ببجي PUBG</h2>
+    </div>
+    <div id="pubgGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة FreeFire -->
+<div id="category-freefire" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">🔥 شحن فري فاير FreeFire</h2>
+    </div>
+    <div id="freefireGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة Clash of Clans -->
+<div id="category-clash" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">👑 شحن كلاش أوف كلانس</h2>
+    </div>
+    <div id="clashGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة eFootball -->
+<div id="category-efootball" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">⚽ شحن eFootball</h2>
+    </div>
+    <div id="efootballGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة FC Mobile -->
+<div id="category-fcmobile" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">⚽ شحن FC Mobile</h2>
+    </div>
+    <div id="fcmobileGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة Clash Royale -->
+<div id="category-clashroyale" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">👑 شحن كلاش رويال</h2>
+    </div>
+    <div id="clashroyaleGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة Netflix -->
+<div id="category-netflix" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">🎬 اشتراك نتفليكس</h2>
+    </div>
+    <div id="netflixGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة عملات تيك توك -->
+<div id="category-tiktok" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">🎵 عملات تيك توك</h2>
+    </div>
+    <div id="tiktokGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة خدمات تيك توك (جديد) -->
 <div id="category-tiktokservices" class="category-page">
     <div class="category-header">
         <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
         <h2 class="page-title">📈 خدمات تيك توك</h2>
     </div>
     <div id="tiktokservicesGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة الذكاء الاصطناعي (جديد) -->
+<div id="category-ai_services" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">🤖 اشتراكات الذكاء الاصطناعي</h2>
+    </div>
+    <div id="ai_servicesGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة Canva -->
+<div id="category-canva" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">🎨 اشتراك كانفا Canva</h2>
+    </div>
+    <div id="canvaGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة Google Play -->
+<div id="category-googleplay" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">🛍️ بطاقات جوجل بلاي</h2>
+    </div>
+    <div id="googleplayGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة Redotpay -->
+<div id="category-redotpay" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">💳 فيزا Redotpay</h2>
+    </div>
+    <div id="redotpayGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة Mastercard -->
+<div id="category-mastercard" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">💳 ماستر كارد</h2>
+    </div>
+    <div id="mastercardGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة PlayStation -->
+<div id="category-playstation" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">🎮 بلاي ستيشن</h2>
+    </div>
+    <div id="playstationGrid" class="product-grid"></div>
+</div>
+
+<!-- صفحة TOD -->
+<div id="category-tod" class="category-page">
+    <div class="category-header">
+        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+        <h2 class="page-title">🎵 TOD</h2>
+    </div>
+    <div id="todGrid" class="product-grid"></div>
+</div>
+
+<!-- ========== صفحة تفاصيل المنتج ========== -->
+<div id="productDetailPage" class="product-detail-page">
+    ...
 </div>
 
             <!-- ========== صفحة تفاصيل المنتج ========== -->
@@ -2478,6 +2517,20 @@
                 { name: "447 عملة تيك توك", price: 30000 },
                 { name: "897 عملة تيك توك", price: 60000 }
             ],
+            tiktokservices: [
+    { name: "100 متابع", price: 15000 },
+    { name: "250 متابع", price: 25000 },
+    { name: "500 متابع", price: 40000 },
+    { name: "1000 متابع", price: 75000 },
+    { name: "1000 مشاهدة", price: 10000 },
+    { name: "5000 مشاهدة", price: 35000 },
+    { name: "10000 مشاهدة", price: 60000 },
+    { name: "100 لايك", price: 5000 },
+    { name: "500 لايك", price: 20000 },
+    { name: "1000 لايك", price: 35000 },
+    { name: "100 تعليق", price: 15000 },
+    { name: "500 تعليق", price: 50000 }
+],
             ai_services: [
                 { name: "ChatGPT Plus - شهر", price: 120000 },
                 { name: "ChatGPT Go - شهر", price: 45000 },
@@ -3670,4 +3723,4 @@ document.getElementById('confirmOrderBtn').onclick = async () => {
         });
     </script>
 </body>
-</html>
+    </html>
