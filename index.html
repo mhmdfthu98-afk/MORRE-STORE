@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -2405,7 +2406,7 @@
             clashroyale: 'https://i.postimg.cc/NFKg58tH/file-00000000f02c71f484a929bd216e03fe.png',
             netflix: 'https://i.postimg.cc/KzLfFwkT/file-00000000a72471f4a83694b4182dcb9a.png',
             tiktok: 'https://i.postimg.cc/ryRXRwW8/file-000000003b7471f4a1bff18c344d7df3.png',
-            ai: 'https://i.postimg.cc/HsWwPV2p/file-0000000088c872469e0e816aeeacf79f.png',
+            ai_services: 'https://i.postimg.cc/HsWwPV2p/file-0000000088c872469e0e816aeeacf79f.png',
             canva: 'https://i.postimg.cc/bwczw2Bz/file-00000000e2ec71f4a8288cc59567b21c.png',
             tod: 'https://i.postimg.cc/QxJDkgkg/file-00000000373071f4a3c74cba8713a3c9.png',
             googleplay: 'https://i.postimg.cc/fWcCP4Qr/file-00000000ad487243bcd48c5b955d8fb6.png',
@@ -2424,7 +2425,7 @@
     netflix: '🎬 نتفليكس',
     tiktok: '🎵 عملات تيك توك',
     tiktokservices: '📈 خدمات تيك توك',
-    ai: '🤖 ذكاء اصطناعي',
+    ai_services: '🤖 ذكاء اصطناعي',
     canva: '🎨 كانفا',
     tod: '🎵 TOD',
     googleplay: '🛍️ جوجل بلاي',
@@ -2477,7 +2478,7 @@
                 { name: "447 عملة تيك توك", price: 30000 },
                 { name: "897 عملة تيك توك", price: 60000 }
             ],
-            ai: [
+            ai_services: [
                 { name: "ChatGPT Plus - شهر", price: 120000 },
                 { name: "ChatGPT Go - شهر", price: 45000 },
                 { name: "Gemini Pro - شهر", price: 75000 }
@@ -2518,8 +2519,8 @@
             clashroyale: [],
             netflix: [],
             tiktok: [],
-            tiktokservices: []
-            ai: [],
+            tiktokservices: [],
+            ai_services: [],
             canva: [],
             tod: [],
             googleplay: [],
@@ -2765,23 +2766,24 @@
             try {
                 await seedDefaultProducts();
                 const productsSnap = await getDocs(collection(db, "products"));
-                allProducts = {
-                    pubg: [],
-                    freefire: [],
-                    clash: [],
-                    efootball: [],
-                    fcmobile: [],
-                    clashroyale: [],
-                    netflix: [],
-                    tiktok: [],
-                    ai: [],
-                    canva: [],
-                    tod: [],
-                    googleplay: [],
-                    redotpay: [],
-                    mastercard: [],
-                    playstation: []
-                };
+               allProducts = {
+    pubg: [],
+    freefire: [],
+    clash: [],
+    efootball: [],
+    fcmobile: [],
+    clashroyale: [],
+    netflix: [],
+    tiktok: [],
+    tiktokservices: [],
+    ai_services: [],
+    canva: [],
+    tod: [],
+    googleplay: [],
+    redotpay: [],
+    mastercard: [],
+    playstation: []
+};
                 if (!productsSnap.empty) {
                     productsSnap.forEach(doc => {
                         const p = doc.data();
@@ -2812,22 +2814,23 @@
                 productsSnap.forEach(doc => batch.delete(doc.ref));
                 await batch.commit();
                 allProducts = {
-                    pubg: [],
-                    freefire: [],
-                    clash: [],
-                    efootball: [],
-                    fcmobile: [],
-                    clashroyale: [],
-                    netflix: [],
-                    tiktok: [],
-                    ai: [],
-                    canva: [],
-                    tod: [],
-                    googleplay: [],
-                    redotpay: [],
-                    mastercard: [],
-                    playstation: []
-                };
+    pubg: [],
+    freefire: [],
+    clash: [],
+    efootball: [],
+    fcmobile: [],
+    clashroyale: [],
+    netflix: [],
+    tiktok: [],
+    tiktokservices: [],
+    ai_services: [],
+    canva: [],
+    tod: [],
+    googleplay: [],
+    redotpay: [],
+    mastercard: [],
+    playstation: []
+};
                 renderAllProducts();
                 loadManageProducts();
                 alert("✅ تم حذف جميع المنتجات بنجاح!");
@@ -2902,15 +2905,20 @@ function getOrderFields(category) {
             { id: 'password', label: '🔑 كلمة السر تيك توك', placeholder: 'أدخل كلمة السر', required: true, type: 'password' },
             { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
         ],
-        ai: [
-            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
-        ],
+  ai_services: [
+    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+],
         canva: [
             { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
         ],
         tod: [
             { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
-        ]
+        ],
+        tiktokservices: [
+    { id: 'username', label: '👤 اسم المستخدم (Username)', placeholder: 'مثال: @user', required: true },
+    { id: 'link', label: '🔗 رابط الحساب', placeholder: 'https://www.tiktok.com/@user', required: true },
+    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+]
     };
     return fields[category] || fields.googleplay;
 }  
@@ -3035,7 +3043,7 @@ document.getElementById('confirmOrderBtn').onclick = async () => {
 
         // ========== عرض المنتجات في الفئات ==========
         function renderAllProducts() {
-          const categories = ['pubg', 'freefire', 'clash', 'efootball', 'fcmobile', 'clashroyale', 'netflix', 'tiktok', 'ai', 'canva', 'tod', 'googleplay', 'redotpay', 'mastercard', 'playstation', 'tiktokservices'];
+          const categories = ['pubg', 'freefire', 'clash', 'efootball', 'fcmobile', 'clashroyale', 'netflix', 'tiktok', 'ai_services', 'canva', 'tod', 'googleplay', 'redotpay', 'mastercard', 'playstation', 'tiktokservices'];
 
             categories.forEach(cat => {
                 const grid = document.getElementById(`${cat}Grid`);
@@ -3244,8 +3252,8 @@ document.getElementById('confirmOrderBtn').onclick = async () => {
                     clashroyale: '👑 كلاش رويال',
                     netflix: '🎬 نتفليكس',
                     tiktok: '🎵 تيك توك',
-                    tiktokservices: '🎵 خدمات تيك توك'
-                    ai: '🤖 ذكاء اصطناعي',
+                    tiktokservices: '🎵 خدمات تيك توك',
+                    ai_services: '🤖 ذكاء اصطناعي',
                     canva: '🎨 كانفا',
                     tod: '🎵 TOD',
                     googleplay: '🛍️ جوجل بلاي',
@@ -3662,4 +3670,4 @@ document.getElementById('confirmOrderBtn').onclick = async () => {
         });
     </script>
 </body>
-    </html>
+</html>
