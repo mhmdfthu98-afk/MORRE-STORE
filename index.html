@@ -3612,6 +3612,205 @@
         document.getElementById('editModal').addEventListener('click', function(e) {
             if (e.target === this) closeEditModal();
         });
+        <script>
+    // ===== حل سريع لمشكلة عدم ظهور المنتجات =====
+    
+    // بيانات المنتجات المحلية (بدون Firebase)
+    const localProducts = {
+        pubg: [
+            { id: 'p1', name: "325 شدة", price: 20000, category: 'pubg', isActive: true },
+            { id: 'p2', name: "60 شدة", price: 4000, category: 'pubg', isActive: true },
+            { id: 'p3', name: "1800 شدة", price: 100000, category: 'pubg', isActive: true },
+            { id: 'p4', name: "660 شدة", price: 38000, category: 'pubg', isActive: true }
+        ],
+        freefire: [
+            { id: 'f1', name: "110 جوهرة", price: 4500, category: 'freefire', isActive: true },
+            { id: 'f2', name: "231 جوهرة", price: 9000, category: 'freefire', isActive: true },
+            { id: 'f3', name: "583 جوهرة", price: 23000, category: 'freefire', isActive: true }
+        ],
+        tiktok: [
+            { id: 't1', name: "114 عملة تيك توك", price: 6000, category: 'tiktok', isActive: true },
+            { id: 't2', name: "447 عملة تيك توك", price: 30000, category: 'tiktok', isActive: true },
+            { id: 't3', name: "897 عملة تيك توك", price: 60000, category: 'tiktok', isActive: true }
+        ],
+        tiktokservices: [
+            { id: 'ts1', name: "100 متابع", price: 15000, category: 'tiktokservices', isActive: true },
+            { id: 'ts2', name: "250 متابع", price: 25000, category: 'tiktokservices', isActive: true },
+            { id: 'ts3', name: "500 متابع", price: 40000, category: 'tiktokservices', isActive: true },
+            { id: 'ts4', name: "1000 مشاهدة", price: 10000, category: 'tiktokservices', isActive: true }
+        ],
+        ai_services: [
+            { id: 'a1', name: "ChatGPT Plus - شهر", price: 120000, category: 'ai_services', isActive: true },
+            { id: 'a2', name: "ChatGPT Go - شهر", price: 45000, category: 'ai_services', isActive: true },
+            { id: 'a3', name: "Gemini Pro - شهر", price: 75000, category: 'ai_services', isActive: true }
+        ],
+        netflix: [
+            { id: 'n1', name: "نتفليكس Standard + إعلانات", price: 55000, category: 'netflix', isActive: true },
+            { id: 'n2', name: "نتفليكس Standard بدون إعلانات", price: 120000, category: 'netflix', isActive: true }
+        ],
+        canva: [
+            { id: 'c1', name: "Canva Pro - شهر", price: 50000, category: 'canva', isActive: true }
+        ],
+        tod: [
+            { id: 'to1', name: "باقة TOD شهر", price: 35000, category: 'tod', isActive: true }
+        ],
+        googleplay: [
+            { id: 'g1', name: "بطاقة جوجل بلاي 5$", price: 30000, category: 'googleplay', isActive: true }
+        ],
+        redotpay: [
+            { id: 'r1', name: "حساب Redotpay موثق", price: 120000, category: 'redotpay', isActive: true }
+        ],
+        mastercard: [
+            { id: 'm1', name: "بطاقة ماستر كارد 10$", price: 60000, category: 'mastercard', isActive: true }
+        ],
+        playstation: [
+            { id: 'ps1', name: "بطاقة بلاي ستيشن 10$", price: 60000, category: 'playstation', isActive: true }
+        ],
+        clash: [
+            { id: 'cl1', name: "التذكرة الذهبية", price: 27000, category: 'clash', isActive: true }
+        ],
+        efootball: [
+            { id: 'ef1', name: "130 كوينز", price: 6500, category: 'efootball', isActive: true }
+        ],
+        fcmobile: [
+            { id: 'fc1', name: "1000 نقطة", price: 15000, category: 'fcmobile', isActive: true }
+        ],
+        clashroyale: [
+            { id: 'cr1', name: "100 جوهرة", price: 5000, category: 'clashroyale', isActive: true }
+        ]
+    };
+
+    // أسماء الفئات
+    const categoryNames = {
+        pubg: '🎮 ببجي',
+        freefire: '🔥 فري فاير',
+        clash: '👑 كلاش',
+        efootball: '⚽ eFootball',
+        fcmobile: '⚽ FC Mobile',
+        clashroyale: '👑 كلاش رويال',
+        netflix: '🎬 نتفليكس',
+        tiktok: '🎵 عملات تيك توك',
+        tiktokservices: '📈 خدمات تيك توك',
+        ai_services: '🤖 ذكاء اصطناعي',
+        canva: '🎨 كانفا',
+        tod: '🎵 TOD',
+        googleplay: '🛍️ جوجل بلاي',
+        redotpay: '💳 فيزا',
+        mastercard: '💳 ماستر كارد',
+        playstation: '🎮 بلاي ستيشن'
+    };
+
+    const categoryImages = {
+        pubg: 'https://i.postimg.cc/SN4TQSGQ/file-000000000ae07243bf080d232a76158e.png',
+        freefire: 'https://i.postimg.cc/x8DsznDp/file-0000000095d871f4a98ae4b5e7f7563e.png',
+        clash: 'https://i.postimg.cc/MpdrrCRh/file-0000000019f87246a34879d95dafc72f.png',
+        efootball: 'https://i.postimg.cc/wBRccZkL/file-000000005ce47246b4bbf4d41780d381.png',
+        fcmobile: 'https://i.postimg.cc/W3nDMwxn/file-00000000115871f4b4da53b76bf17dba.png',
+        clashroyale: 'https://i.postimg.cc/NFKg58tH/file-00000000f02c71f484a929bd216e03fe.png',
+        netflix: 'https://i.postimg.cc/KzLfFwkT/file-00000000a72471f4a83694b4182dcb9a.png',
+        tiktok: 'https://i.postimg.cc/ryRXRwW8/file-000000003b7471f4a1bff18c344d7df3.png',
+        tiktokservices: 'https://i.postimg.cc/qqXsYnsm/file-00000000bcc471f490768db414d1e77b.png',
+        ai_services: 'https://i.postimg.cc/HsWwPV2p/file-0000000088c872469e0e816aeeacf79f.png',
+        canva: 'https://i.postimg.cc/bwczw2Bz/file-00000000e2ec71f4a8288cc59567b21c.png',
+        tod: 'https://i.postimg.cc/QxJDkgkg/file-00000000373071f4a3c74cba8713a3c9.png',
+        googleplay: 'https://i.postimg.cc/fWcCP4Qr/file-00000000ad487243bcd48c5b955d8fb6.png',
+        redotpay: 'https://i.postimg.cc/8CX9s2z9/file-000000005a4071f49c1a71cba81c7f07.png',
+        mastercard: 'https://i.postimg.cc/h4Zvcvnj/file-00000000b79871f4950e84a15754235b.png',
+        playstation: 'https://i.postimg.cc/3xvdLTPK/file-00000000ffb071f4841c7a113b560c90.png'
+    };
+
+    // دالة عرض المنتجات
+    function renderLocalProducts(category) {
+        const area = document.getElementById('productsArea');
+        if (!area) {
+            // إنشاء منطقة لعرض المنتجات إذا لم تكن موجودة
+            const main = document.querySelector('main');
+            if (main) {
+                const newArea = document.createElement('div');
+                newArea.id = 'productsArea';
+                newArea.className = 'mt-6';
+                main.appendChild(newArea);
+            }
+        }
+        
+        const area2 = document.getElementById('productsArea');
+        if (!area2) return;
+
+        const products = localProducts[category] || [];
+        const image = categoryImages[category] || 'https://via.placeholder.com/200';
+        const name = categoryNames[category] || category;
+
+        if (products.length === 0) {
+            area2.innerHTML = `
+                <div class="bg-white rounded-xl p-8 text-center">
+                    <i class="fas fa-box-open text-4xl text-gray-300"></i>
+                    <p class="text-gray-500 mt-2">لا توجد منتجات متاحة</p>
+                </div>
+            `;
+            return;
+        }
+
+        area2.innerHTML = `
+            <div class="bg-white rounded-xl p-4 shadow-lg">
+                <div class="flex items-center gap-3 mb-4">
+                    <button onclick="document.getElementById('productsArea').innerHTML=''" class="text-gray-500 hover:text-yellow-600">
+                        <i class="fas fa-arrow-right"></i> رجوع
+                    </button>
+                    <h2 class="text-xl font-bold">${name}</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    ${products.map(p => `
+                        <div class="border rounded-xl p-4 hover:shadow-lg transition">
+                            <img src="${image}" class="w-full h-32 object-contain">
+                            <h4 class="font-bold text-sm mt-2">${p.name}</h4>
+                            <p class="text-yellow-600 font-bold">${p.price.toLocaleString()} ج.س</p>
+                            <button onclick="alert('تم إضافة الطلب!')" class="w-full mt-2 bg-gray-800 text-white py-2 rounded-lg text-sm hover:bg-gray-900">
+                                <i class="fas fa-bolt"></i> اشترى الآن
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        
+        area2.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // تعديل دالة navigateTo
+    window.navigateTo = function(page, param) {
+        if (page === 'home') {
+            const area = document.getElementById('productsArea');
+            if (area) area.innerHTML = '';
+            document.getElementById('homePage').classList.remove('hidden');
+            document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
+            return;
+        }
+        
+        if (page === 'category' && param) {
+            // إخفاء الصفحة الرئيسية
+            document.getElementById('homePage').classList.add('hidden');
+            // إخفاء جميع صفحات الفئات
+            document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
+            
+            // عرض المنتجات في المنطقة المخصصة
+            renderLocalProducts(param);
+        }
+    };
+
+    // عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+        // إضافة منطقة لعرض المنتجات بعد الصفحة الرئيسية
+        const homePage = document.getElementById('homePage');
+        if (homePage) {
+            const area = document.createElement('div');
+            area.id = 'productsArea';
+            area.className = 'mt-6';
+            homePage.parentNode.insertBefore(area, homePage.nextSibling);
+        }
+        
+        console.log('✅ تم تحميل المنتجات المحلية بنجاح!');
+    });
+</script>
     </script>
 </body>
     </html>
