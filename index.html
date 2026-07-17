@@ -2121,23 +2121,17 @@
     <div id="orderModal" class="hidden fixed inset-0 bg-black/30 backdrop-blur z-[99999] flex items-center justify-center p-4">
         <div class="glass w-full max-w-md p-6 rounded-3xl text-dark">
             <h2 class="text-xl font-bold text-center text-dark mb-4">🛒 تأكيد بيانات الشحن</h2>
-            <div class="space-y-3">
-                <input id="modalGameID" type="text" placeholder="أيدي اللعبة (Player ID)">
-                <input id="modalGameName" type="text" placeholder="اسمك داخل اللعبة">
-                <input id="modalRealName" type="text" placeholder="الاسم الحقيقي">
-                <div class="whatsapp-icon-input">
-                    <i class="fab fa-whatsapp"></i>
-                    <input id="modalWhatsApp" type="tel" class="whatsapp-input" placeholder="رقم واتساب (مثال: 0991234567)">
-                </div>
-                <div class="bg-yellow-50 p-3 rounded-xl border border-yellow-200">
-                    <p class="font-bold text-yellow-dark">ملخص الطلب:</p>
-                    <p id="modalProductName" class="text-dark">المنتج: --</p>
-                    <p id="modalProductPrice" class="text-dark">المبلغ: -- ج.س</p>
-                </div>
-                <div class="flex gap-3 mt-4">
-                    <button onclick="closeOrderModal()" class="flex-1 bg-dark/5 py-2 rounded-xl">إلغاء</button>
-                    <button id="confirmOrderBtn" class="flex-1 action-btn">تأكيد</button>
-                </div>
+            <div class="space-y-3" id="orderFields">
+                <!-- الحقول تتغير حسب اللعبة -->
+            </div>
+            <div class="bg-yellow-50 p-3 rounded-xl border border-yellow-200 mt-4">
+                <p class="font-bold text-yellow-dark">ملخص الطلب:</p>
+                <p id="modalProductName" class="text-dark">المنتج: --</p>
+                <p id="modalProductPrice" class="text-dark">المبلغ: -- ج.س</p>
+            </div>
+            <div class="flex gap-3 mt-4">
+                <button onclick="closeOrderModal()" class="flex-1 bg-dark/5 py-2 rounded-xl">إلغاء</button>
+                <button id="confirmOrderBtn" class="flex-1 action-btn">تأكيد</button>
             </div>
         </div>
     </div>
@@ -3012,75 +3006,134 @@
             closeCartModal();
         };
 
+        // ========== تحديد حقول الشحن حسب اللعبة ==========
+        function getOrderFields(category) {
+            const fields = {
+                pubg: [
+                    { id: 'gameID', label: '🆔 معرف اللاعب (Player ID)', placeholder: 'مثال: 5123456789', required: true },
+                    { id: 'gameName', label: '🎮 اسمك داخل اللعبة', placeholder: 'اسمك في ببجي', required: true },
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                freefire: [
+                    { id: 'gameID', label: '🆔 معرف اللاعب (UID)', placeholder: 'مثال: 1234567890', required: true },
+                    { id: 'gameName', label: '🎮 اسمك داخل اللعبة', placeholder: 'اسمك في فري فاير', required: true },
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                clash: [
+                    { id: 'email', label: '📧 ايميل حساب Supercell', placeholder: 'example@email.com', required: true, type: 'email' },
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                clashroyale: [
+                    { id: 'gameID', label: '🆔 معرف اللاعب (Player Tag)', placeholder: 'مثال: #2ABC123XY', required: true },
+                    { id: 'gameName', label: '🎮 اسم اللاعب', placeholder: 'اسمك في كلاش رويال', required: true },
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                efootball: [
+                    { id: 'email', label: '📧 ايميل حساب Konami', placeholder: 'example@email.com', required: true, type: 'email' },
+                    { id: 'password', label: '🔑 كلمة السر حساب Konami', placeholder: 'أدخل كلمة السر', required: true, type: 'password' },
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                fcmobile: [
+                    { id: 'gameName', label: '🎮 اسم اللاعب', placeholder: 'اسمك في FC Mobile', required: true },
+                    { id: 'gameID', label: '🆔 Player UID', placeholder: 'مثال: 123456789', required: true },
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                googleplay: [
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                netflix: [
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                redotpay: [
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                mastercard: [
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                playstation: [
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                tiktok: [
+                    { id: 'email', label: '📧 بريد إلكتروني تيك توك', placeholder: 'example@email.com', required: true, type: 'email' },
+                    { id: 'password', label: '🔑 كلمة السر تيك توك', placeholder: 'أدخل كلمة السر', required: true, type: 'password' },
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                ai: [
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                canva: [
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                tod: [
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ],
+                tiktokservices: [
+                    { id: 'username', label: '👤 اسم المستخدم (Username)', placeholder: 'مثال: @user', required: true },
+                    { id: 'link', label: '🔗 رابط الحساب', placeholder: 'https://www.tiktok.com/@user', required: true },
+                    { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+                ]
+            };
+            return fields[category] || fields.googleplay;
+        }
+
         // ========== عرض مودال الطلب ==========
         window.showOrderModal = function(product, price, category, productId) {
+            // التحقق من تسجيل الدخول
             if (!userData) {
                 alert('❌ يرجى تسجيل الدخول أولاً');
                 return;
             }
-            if (userData.balance < price) {
+            
+            // التحقق من الرصيد
+            const userBalance = userData.balance || 0;
+            if (userBalance < price) {
                 alert(
-                    `❌ رصيدك غير كافي!\n\nرصيدك الحالي: ${userData.balance.toLocaleString()} ج.س\nسعر المنتج: ${price.toLocaleString()} ج.س\n\nيرجى شحن محفظتك عبر زر "شحن المحفظة"`);
+                    `❌ رصيدك غير كافي!\n\nرصيدك الحالي: ${userBalance.toLocaleString()} ج.س\nسعر المنتج: ${price.toLocaleString()} ج.س\n\nيرجى شحن محفظتك عبر زر "شحن المحفظة"`);
                 return;
             }
+            
             currentOrder = { product, price, category, productId, isCart: false };
+            
+            // إنشاء حقول الشحن حسب اللعبة
+            const fields = getOrderFields(category);
+            const container = document.getElementById('orderFields');
+            let html = '';
+            
+            fields.forEach(field => {
+                const inputType = field.type || 'text';
+                const required = field.required ? 'required' : '';
+                const isWhatsapp = field.id === 'whatsapp';
+                
+                if (isWhatsapp) {
+                    html += `
+                        <div class="whatsapp-icon-input">
+                            <i class="fab fa-whatsapp"></i>
+                            <input id="modal_${field.id}" type="${inputType}" class="whatsapp-input" placeholder="${field.placeholder}" ${required}>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div>
+                            <label class="text-sm font-bold text-dark block mb-1">${field.label}</label>
+                            <input id="modal_${field.id}" type="${inputType}" placeholder="${field.placeholder}" ${required} class="w-full p-3 rounded-xl border border-gray-200 focus:border-yellow-500 focus:outline-none">
+                        </div>
+                    `;
+                }
+            });
+            
+            container.innerHTML = html;
+            
             document.getElementById('modalProductName').innerHTML = `المنتج: ${product}`;
             document.getElementById('modalProductPrice').innerHTML = `المبلغ: ${price.toLocaleString()} ج.س`;
             document.getElementById('orderModal').classList.remove('hidden');
         };
 
-        window.closeOrderModal = () => {
+        // ========== إغلاق مودال الطلب ==========
+        window.closeOrderModal = function() {
             document.getElementById('orderModal').classList.add('hidden');
             currentOrder = null;
-            document.getElementById('modalGameID').value = '';
-            document.getElementById('modalGameName').value = '';
-            document.getElementById('modalRealName').value = '';
-            document.getElementById('modalWhatsApp').value = '';
-        };
-
-        document.getElementById('confirmOrderBtn').onclick = async () => {
-            if (!currentOrder) { alert("❌ لا يوجد طلب نشط"); return; }
-            const gameID = document.getElementById('modalGameID')?.value.trim();
-            const gameName = document.getElementById('modalGameName')?.value.trim();
-            const realName = document.getElementById('modalRealName')?.value.trim();
-            const whatsapp = document.getElementById('modalWhatsApp')?.value.trim();
-            if (!gameID || !gameName || !realName || !whatsapp) { alert("❌ جميع الحقول مطلوبة!"); return; }
-            if (!whatsapp.match(/^[0-9]{10,15}$/)) { alert("❌ رقم واتساب غير صحيح!"); return; }
-            const totalAmount = currentOrder.isCart ? currentOrder.total : currentOrder.price;
-            try {
-                await runTransaction(db, async (transaction) => {
-                    const userRef = doc(db, "users", auth.currentUser.uid);
-                    const userSnap = await transaction.get(userRef);
-                    if ((userSnap.data().balance || 0) < totalAmount) throw "رصيد غير كاف";
-                    transaction.update(userRef, { balance: increment(-totalAmount) });
-                    if (currentOrder.isCart) {
-                        for (const item of currentOrder.items) {
-                            transaction.set(doc(collection(db, "orders")), {
-                                uID: auth.currentUser.uid, uName: userData.name,
-                                product: item.name, price: item.price * item.quantity,
-                                quantity: item.quantity, game: item.category,
-                                gameID, gameName, realName, whatsapp,
-                                status: 'قيد الانتظار', timestamp: serverTimestamp()
-                            });
-                        }
-                    } else {
-                        transaction.set(doc(collection(db, "orders")), {
-                            uID: auth.currentUser.uid, uName: userData.name,
-                            product: currentOrder.product, price: currentOrder.price,
-                            game: currentOrder.category, gameID, gameName, realName, whatsapp,
-                            status: 'قيد الانتظار', timestamp: serverTimestamp()
-                        });
-                    }
-                });
-                if (currentOrder.isCart) {
-                    await setDoc(doc(db, "carts", auth.currentUser.uid), { items: [], updatedAt: serverTimestamp() }, { merge: true });
-                    cart = []; updateCartCount();
-                }
-                alert("✅ تم إرسال طلبك بنجاح!");
-                closeOrderModal();
-            } catch (error) {
-                alert("❌ حدث خطأ: " + (typeof error === 'string' ? error : error.message));
-            }
+            const container = document.getElementById('orderFields');
+            if (container) container.innerHTML = '';
         };
 
         // ========== نظام التنقل ==========
@@ -3131,7 +3184,7 @@
             } else if (page === 'product' && param) {
                 const result = findProductById(param);
                 if (result) {
-                    showProductDetail(result.product.id);
+                    // show product detail
                     document.title = `${result.product.name} - MORRE STORE`;
                 } else {
                     alert('❌ المنتج غير موجود أو تم حذفه');
@@ -3718,4 +3771,4 @@
     </script>
 
 </body>
-                            </html>
+                    </html>
