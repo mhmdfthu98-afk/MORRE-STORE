@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MORRE STORE | فري فاير</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>MORRE STORE | شحن فري فاير</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -58,11 +58,11 @@
             margin: 0.25rem 0;
         }
         .product-card .product-specs {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #64748b;
             text-align: center;
             margin: 0.5rem 0;
-            padding: 0.5rem;
+            padding: 0.4rem;
             background: #f8fafc;
             border-radius: 0.5rem;
             border: 1px dashed #e2e8f0;
@@ -82,6 +82,11 @@
         }
         .product-card .btn-buy-now:hover {
             background: #0f172a;
+        }
+        .product-card.selected {
+            border-color: #f59e0b;
+            border-width: 2px;
+            box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
         }
         .product-grid {
             display: grid;
@@ -157,21 +162,206 @@
             color: #64748b;
             font-size: 0.9rem;
         }
-        .specs-box {
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 1rem;
-            padding: 1rem 1.5rem;
-            margin: 1rem 0 1.5rem 0;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        .banner-image {
+            width: 100%;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid rgba(245, 158, 11, 0.3);
+        }
+        .banner-image img {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: contain;
+            background: white;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 0.6rem 0.5rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #64748b;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
             text-align: center;
         }
-        .specs-box p {
-            color: #475569;
-            font-size: 0.9rem;
-            line-height: 1.8;
+        .tab-btn.active {
+            background: #f59e0b;
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
         }
-        .specs-box strong {
+        .tab-btn:hover:not(.active) {
+            background: rgba(245, 158, 11, 0.1);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            border: 2px solid #e2e8f0;
+            background: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+            transition: 0.2s;
+            color: #1e293b;
+            font-family: 'Cairo', sans-serif;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #f59e0b;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+        .input-field::placeholder {
+            color: #94a3b8;
+        }
+
+        /* ===== مودال تأكيد الطلب ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            max-width: 520px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .modal-box h2 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #1e293b;
+            text-align: center;
+            border-bottom: 2px solid #f59e0b;
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .modal-box .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.9rem;
+        }
+        .modal-box .detail-row .label {
+            color: #64748b;
+            font-weight: 600;
+        }
+        .modal-box .detail-row .value {
+            color: #1e293b;
+            font-weight: 700;
+        }
+        .modal-box .detail-row .value.price {
             color: #d97706;
+        }
+        .modal-box .detail-row.total {
+            border-bottom: 2px solid #f59e0b;
+            padding: 0.75rem 0;
+            margin-top: 0.5rem;
+        }
+        .modal-box .detail-row.total .label {
+            font-size: 1rem;
+            color: #1e293b;
+        }
+        .modal-box .detail-row.total .value {
+            font-size: 1.2rem;
+            color: #d97706;
+        }
+        .modal-box .confirm-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .modal-box .confirm-actions button {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            border: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Cairo', sans-serif;
+        }
+        .modal-box .confirm-actions .btn-cancel {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+        .modal-box .confirm-actions .btn-cancel:hover {
+            background: #e2e8f0;
+        }
+        .modal-box .confirm-actions .btn-confirm {
+            background: #f59e0b;
+            color: white;
+        }
+        .modal-box .confirm-actions .btn-confirm:hover {
+            background: #d97706;
+            transform: scale(1.02);
+        }
+        .modal-box .note {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 0.75rem;
+            padding: 0.5rem;
+            background: #fef3c7;
+            border-radius: 0.5rem;
+        }
+        .modal-box .note i {
+            color: #f59e0b;
+        }
+        .dark .modal-box {
+            background: #1e293b;
+        }
+        .dark .modal-box h2 {
+            color: #f1f5f9;
+            border-bottom-color: #f59e0b;
+        }
+        .dark .modal-box .detail-row {
+            border-bottom-color: #334155;
+        }
+        .dark .modal-box .detail-row .label {
+            color: #94a3b8;
+        }
+        .dark .modal-box .detail-row .value {
+            color: #f1f5f9;
+        }
+        .dark .modal-box .detail-row.total .label {
+            color: #f1f5f9;
+        }
+        .dark .modal-box .confirm-actions .btn-cancel {
+            background: #334155;
+            color: #f1f5f9;
+        }
+        .dark .modal-box .confirm-actions .btn-cancel:hover {
+            background: #475569;
+        }
+        .dark .modal-box .note {
+            background: #78350f;
+            color: #fbbf24;
         }
 
         /* ===== الشريط العائم السفلي ===== */
@@ -257,12 +447,16 @@
         .dark .game-header { background: rgba(30, 41, 59, 0.6); }
         .dark .game-header .game-info h1 { color: #f1f5f9; }
         .dark .game-header .game-info p { color: #94a3b8; }
-        .dark .specs-box { background: rgba(30, 41, 59, 0.6); }
-        .dark .specs-box p { color: #94a3b8; }
         .dark .back-btn { background: rgba(30, 41, 59, 0.6); color: #f1f5f9; }
         .dark .back-btn:hover { background: rgba(30, 41, 59, 0.8); }
         .dark .section-title { color: #f1f5f9; }
         .dark .page-title { background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .dark .input-field { background: rgba(30, 41, 59, 0.6); color: #f1f5f9; border-color: #334155; }
+        .dark .input-field:focus { border-color: #f59e0b; background: rgba(30, 41, 59, 0.8); }
+        .dark .input-field::placeholder { color: #64748b; }
+        .dark .tab-btn { color: #94a3b8; }
+        .dark .tab-btn.active { background: #f59e0b; color: #1e293b; }
+        .dark .tab-btn:hover:not(.active) { background: rgba(245, 158, 11, 0.15); }
     </style>
 </head>
 <body>
@@ -277,35 +471,118 @@
             </a>
         </div>
 
+        <!-- ===== الصورة الكبيرة (Banner) ===== -->
+        <div class="banner-image">
+            <img src="https://i.postimg.cc/25cGKwjP/file-00000000f7b481f498122b1826474dc2.png" alt="Free Fire" />
+        </div>
+
         <!-- ===== هيدر اللعبة ===== -->
         <div class="game-header">
             <img src="https://i.postimg.cc/x8DsznDp/file-0000000095d871f4a98ae4b5e7f7563e.png" alt="Free Fire" class="game-icon">
             <div class="game-info">
-                <h1>🔥 فري فاير Free Fire</h1>
-                <p>اختر باقة الشحن المناسبة - شحن فوري وآمن</p>
+                <h1>🔥 Free Fire</h1>
+                <p>شحن جواهر فري فاير - شحن فوري عبر الـ ID</p>
             </div>
         </div>
 
-        <!-- ===== مواصفات عامة ===== -->
-        <div class="specs-box">
-            <p>
-                <strong>⚡ شحن فوري:</strong> يتم إضافة الجواهر إلى حسابك مباشرة بعد تأكيد الطلب.<br>
-                <strong>🔒 آمن 100%:</strong> نضمن لك عملية شحن آمنة دون أي مخاطر على حسابك.<br>
-                <strong>📱 دعم فني:</strong> فريق الدعم متواصل لحل أي استفسار أو مشكلة.<br>
-                <strong>💳 طرق دفع متعددة:</strong> بنكك، فوري، محفظة المتجر.
-            </p>
+        <!-- ===== تبويبات الشحن ===== -->
+        <div class="glass p-2 rounded-2xl mb-5 flex gap-2">
+            <button class="tab-btn active" data-tab="codes">
+                <i class="fas fa-ticket-alt ml-1"></i> أكواد
+            </button>
+            <button class="tab-btn" data-tab="id">
+                <i class="fas fa-id-card ml-1"></i> عبر ID
+            </button>
+            <button class="tab-btn" data-tab="account">
+                <i class="fas fa-user-circle ml-1"></i> عبر الحساب
+            </button>
         </div>
 
-        <!-- ===== شبكة المنتجات ===== -->
-        <div class="section-title">
-            <span class="section-icon">💎</span> اختر باقة الجواهر
+        <!-- ===== تبويب: أكواد ===== -->
+        <div class="tab-content active" id="tab-codes">
+            <div class="product-grid" id="codesGrid"></div>
         </div>
 
-        <div class="product-grid" id="freefireGrid">
-            <!-- سيتم تعبئتها بواسطة JavaScript -->
+        <!-- ===== تبويب: عبر ID ===== -->
+        <div class="tab-content" id="tab-id">
+            <div class="glass p-4 rounded-2xl mb-4">
+                <p class="text-dark text-sm font-semibold mb-3 text-center">
+                    <i class="fas fa-info-circle text-yellow-dark ml-1"></i>
+                    أدخل معرف اللاعب (ID) ورقم واتساب، ثم اختر الباقة المناسبة
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <input type="text" id="idPlayerId" class="input-field" placeholder="🆔 معرف اللاعب (ID)">
+                    <input type="tel" id="idWhatsapp" class="input-field" placeholder="📱 رقم واتساب للتواصل">
+                </div>
+            </div>
+            <div class="product-grid" id="idGrid"></div>
+        </div>
+
+        <!-- ===== تبويب: عبر الحساب ===== -->
+        <div class="tab-content" id="tab-account">
+            <div class="glass p-4 rounded-2xl mb-4">
+                <p class="text-dark text-sm font-semibold mb-3 text-center">
+                    <i class="fas fa-info-circle text-yellow-dark ml-1"></i>
+                    أدخل بيانات حسابك ورقم واتساب، ثم اختر الباقة المناسبة
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <input type="email" id="accountEmail" class="input-field" placeholder="📧 البريد الإلكتروني">
+                    <input type="password" id="accountPassword" class="input-field" placeholder="🔑 كلمة المرور">
+                    <input type="tel" id="accountWhatsapp" class="input-field" placeholder="📱 رقم واتساب للتواصل" style="grid-column: 1 / -1;">
+                </div>
+            </div>
+            <div class="product-grid" id="accountGrid"></div>
         </div>
 
     </main>
+
+    <!-- ===== مودال تأكيد الطلب ===== -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-box">
+            <h2>✅ تأكيد الطلب</h2>
+            <p style="text-align:center;color:#64748b;font-size:0.85rem;margin-bottom:1rem;">
+                راجع بيانات طلبك جيداً قبل تأكيد عملية الشراء.
+            </p>
+            <div id="orderDetails">
+                <div class="detail-row">
+                    <span class="label">🎮 اسم اللعبة</span>
+                    <span class="value" id="detailGame">فري فاير Free Fire</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">📦 المنتج</span>
+                    <span class="value" id="detailProduct">--</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">📋 طريقة الشحن</span>
+                    <span class="value" id="detailMethod">--</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">🆔 معرف اللاعب</span>
+                    <span class="value" id="detailPlayerId">--</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">📱 واتساب</span>
+                    <span class="value" id="detailWhatsapp">--</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">💰 السعر</span>
+                    <span class="value price" id="detailPrice">--</span>
+                </div>
+                <div class="detail-row total">
+                    <span class="label">💳 الإجمالي</span>
+                    <span class="value" id="detailTotal">--</span>
+                </div>
+            </div>
+            <div class="note">
+                <i class="fas fa-info-circle"></i>
+                بعد تأكيد الطلب وبدء تنفيذ عملية الشحن، قد لا يمكن تعديل أو إلغاء الطلب.
+            </div>
+            <div class="confirm-actions">
+                <button class="btn-cancel" onclick="closeModal()">✖ إلغاء</button>
+                <button class="btn-confirm" id="confirmOrderBtn">✔ تأكيد الطلب</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ===== الشريط العائم السفلي ===== -->
     <div class="bottom-nav">
@@ -330,8 +607,41 @@
     <!-- ===== Toast ===== -->
     <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 bg-dark text-white px-5 py-2.5 rounded-xl text-sm font-bold z-[99999] opacity-0 transition-all duration-300 pointer-events-none whitespace-nowrap dark:bg-white dark:text-dark"></div>
 
-    <script>
-        // ===== بيانات المنتجات (بدون صور) =====
+    <!-- ===== Firebase ===== -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"
+            }
+        }
+    </script>
+
+    <script type="module">
+        // =============================================
+        // ===== استيراد Firebase =====
+        // =============================================
+        import { initializeApp } from "firebase/app";
+        import { getFirestore, doc, setDoc, serverTimestamp, collection, addDoc } from "firebase/firestore";
+        import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC0jzecEwKgHpxHpTi8Y-_bwwfzVdtgf3E",
+            authDomain: "khasmshop.firebaseapp.com",
+            projectId: "khasmshop",
+            storageBucket: "khasmshop.firebasestorage.app",
+            messagingSenderId: "238182001615",
+            appId: "1:238182001615:web:d77391030a40a481b440ba"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // =============================================
+        // ===== بيانات المنتجات =====
+        // =============================================
         const products = [
             { amount: '110', price: 4500 },
             { amount: '231', price: 9000 },
@@ -340,61 +650,289 @@
             { amount: '2420', price: 95000 }
         ];
 
+        // =============================================
+        // ===== حالة التطبيق =====
+        // =============================================
+        let currentUser = null;
+        let currentTab = 'codes';
+        let selectedProduct = null;
+        let selectedTab = 'codes';
+
+        // =============================================
+        // ===== Toast =====
+        // =============================================
+        function showToast(msg, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.className = 'fixed bottom-20 left-1/2 -translate-x-1/2 px-5 py-2.5 rounded-xl text-sm font-bold z-[99999] transition-all duration-300 pointer-events-none whitespace-nowrap';
+            if (type === 'error') {
+                toast.classList.add('bg-red-500', 'text-white');
+            } else if (type === 'success') {
+                toast.classList.add('bg-green-500', 'text-white');
+            } else {
+                toast.classList.add('bg-dark', 'text-white', 'dark:bg-white', 'dark:text-dark');
+            }
+            toast.classList.remove('opacity-0');
+            toast.classList.add('opacity-100', 'translate-y-[-10px]');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-[-10px]');
+                toast.classList.add('opacity-0');
+            }, 3500);
+        }
+
+        // =============================================
         // ===== عرض المنتجات =====
-        function renderProducts() {
-            const grid = document.getElementById('freefireGrid');
+        // =============================================
+        function renderProducts(tab) {
+            const gridId = tab === 'codes' ? 'codesGrid' : tab === 'id' ? 'idGrid' : 'accountGrid';
+            const grid = document.getElementById(gridId);
             if (!grid) return;
 
+            const specText = tab === 'codes' ? '📱 كود شحن فوري' :
+                tab === 'id' ? '🆔 شحن عبر الـ ID' :
+                '👤 شحن عبر الحساب';
+
             grid.innerHTML = products.map(p => `
-                <div class="product-card" onclick="buyNow('${p.amount}', ${p.price})">
+                <div class="product-card" data-amount="${p.amount}" data-price="${p.price}" onclick="window.selectProduct(this, '${p.amount}', ${p.price})">
                     <div class="product-name">${p.amount} جوهرة</div>
                     <div class="product-price">${p.price.toLocaleString()} ج.س</div>
                     <div class="product-specs">
-                        ⚡ شحن فوري • 🔒 آمن 100% • 📱 يدخل مباشرة
+                        ⚡ شحن فوري • 🔒 آمن 100% • ${specText}
                     </div>
-                    <button class="btn-buy-now" onclick="event.stopPropagation(); buyNow('${p.amount}', ${p.price})">
+                    <button class="btn-buy-now" onclick="event.stopPropagation(); window.selectProduct(this.parentElement, '${p.amount}', ${p.price})">
                         <i class="fas fa-bolt ml-1"></i> اشترى الآن
                     </button>
                 </div>
             `).join('');
         }
 
-        // ===== وظيفة الشراء =====
-        function buyNow(amount, price) {
-            const msg = `مرحباً، أريد شراء ${amount} جوهرة فري فاير بسعر ${price.toLocaleString()} ج.س`;
-            window.open(`https://wa.me/2490991305468?text=${encodeURIComponent(msg)}`, '_blank');
-        }
-
-        // ===== Toast =====
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('opacity-100', 'translate-y-[-10px]');
-            toast.classList.remove('opacity-0');
-            clearTimeout(toast._timeout);
-            toast._timeout = setTimeout(() => {
-                toast.classList.remove('opacity-100', 'translate-y-[-10px]');
-                toast.classList.add('opacity-0');
-            }, 3000);
-        }
-
-        // ===== تفعيل الشريط السفلي =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // إزالة التنشيط من جميع الأزرار
-            document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
-            // تفعيل زر الرئيسية (لأننا في صفحة فري فاير)
-            const homeBtn = document.getElementById('nav-home');
-            if (homeBtn) homeBtn.classList.add('active');
+        // =============================================
+        // ===== اختيار المنتج =====
+        // =============================================
+        window.selectProduct = function(element, amount, price) {
+            // إزالة التحديد من جميع البطاقات في نفس الشبكة
+            const grid = element.closest('.product-grid');
+            if (grid) {
+                grid.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+            }
+            element.classList.add('selected');
+            selectedProduct = { amount, price };
             
-            // عرض المنتجات
-            renderProducts();
+            // الحصول على بيانات الشحن حسب التبويب النشط
+            const tab = document.querySelector('.tab-btn.active')?.dataset.tab || 'codes';
+            const shippingData = getShippingData(tab);
+            
+            if (!shippingData) {
+                showToast('⚠️ يرجى إدخال بيانات الشحن كاملة', 'error');
+                return;
+            }
+
+            // فتح مودال التأكيد
+            openConfirmModal(tab, amount, price, shippingData);
+        };
+
+        // =============================================
+        // ===== الحصول على بيانات الشحن =====
+        // =============================================
+        function getShippingData(tab) {
+            if (tab === 'codes') {
+                // الأكواد لا تحتاج بيانات إضافية
+                return { method: 'أكواد', playerId: 'كود الشحن', whatsapp: '' };
+            } else if (tab === 'id') {
+                const playerId = document.getElementById('idPlayerId')?.value.trim();
+                const whatsapp = document.getElementById('idWhatsapp')?.value.trim();
+                if (!playerId || !whatsapp) {
+                    showToast('⚠️ يرجى إدخال معرف اللاعب ورقم واتساب', 'error');
+                    return null;
+                }
+                if (!whatsapp.match(/^[0-9]{10,15}$/)) {
+                    showToast('⚠️ رقم واتساب غير صحيح', 'error');
+                    return null;
+                }
+                return { method: 'عبر ID', playerId, whatsapp };
+            } else if (tab === 'account') {
+                const email = document.getElementById('accountEmail')?.value.trim();
+                const password = document.getElementById('accountPassword')?.value.trim();
+                const whatsapp = document.getElementById('accountWhatsapp')?.value.trim();
+                if (!email || !password || !whatsapp) {
+                    showToast('⚠️ يرجى إدخال جميع بيانات الحساب', 'error');
+                    return null;
+                }
+                if (!whatsapp.match(/^[0-9]{10,15}$/)) {
+                    showToast('⚠️ رقم واتساب غير صحيح', 'error');
+                    return null;
+                }
+                return { method: 'عبر الحساب', playerId: email, whatsapp };
+            }
+            return null;
+        }
+
+        // =============================================
+        // ===== مودال تأكيد الطلب =====
+        // =============================================
+        function openConfirmModal(tab, amount, price, shippingData) {
+            const modal = document.getElementById('confirmModal');
+            document.getElementById('detailProduct').textContent = `${amount} جوهرة`;
+            document.getElementById('detailMethod').textContent = shippingData.method;
+            document.getElementById('detailPlayerId').textContent = shippingData.playerId;
+            document.getElementById('detailWhatsapp').textContent = shippingData.whatsapp || 'غير مطلوب';
+            document.getElementById('detailPrice').textContent = price.toLocaleString() + ' ج.س';
+            document.getElementById('detailTotal').textContent = price.toLocaleString() + ' ج.س';
+
+            // حفظ البيانات للاستخدام عند التأكيد
+            modal.dataset.tab = tab;
+            modal.dataset.amount = amount;
+            modal.dataset.price = price;
+            modal.dataset.playerId = shippingData.playerId;
+            modal.dataset.whatsapp = shippingData.whatsapp || '';
+            modal.dataset.method = shippingData.method;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.closeModal = function() {
+            const modal = document.getElementById('confirmModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        // =============================================
+        // ===== تأكيد الطلب وحفظه في Firebase =====
+        // =============================================
+        document.getElementById('confirmOrderBtn').addEventListener('click', async function() {
+            const modal = document.getElementById('confirmModal');
+            const tab = modal.dataset.tab;
+            const amount = modal.dataset.amount;
+            const price = parseInt(modal.dataset.price);
+            const playerId = modal.dataset.playerId;
+            const whatsapp = modal.dataset.whatsapp;
+            const method = modal.dataset.method;
+
+            if (!currentUser) {
+                showToast('⚠️ يرجى تسجيل الدخول أولاً', 'error');
+                return;
+            }
+
+            this.textContent = '⏳ جاري المعالجة...';
+            this.disabled = true;
+
+            try {
+                const orderData = {
+                    game: 'فري فاير Free Fire',
+                    product: `${amount} جوهرة`,
+                    method: method,
+                    playerId: playerId,
+                    whatsapp: whatsapp,
+                    price: price,
+                    status: 'قيد الانتظار',
+                    userId: currentUser.uid,
+                    userEmail: currentUser.email,
+                    createdAt: serverTimestamp()
+                };
+
+                // حفظ في Firebase
+                const docRef = await addDoc(collection(db, "orders"), orderData);
+                console.log('✅ تم حفظ الطلب بنجاح! ID:', docRef.id);
+
+                showToast('✅ تم إرسال طلبك بنجاح!', 'success');
+                closeModal();
+
+                // إعادة تعيين التحديد
+                document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+                selectedProduct = null;
+
+                // تنظيف الحقول
+                document.getElementById('idPlayerId').value = '';
+                document.getElementById('idWhatsapp').value = '';
+                document.getElementById('accountEmail').value = '';
+                document.getElementById('accountPassword').value = '';
+                document.getElementById('accountWhatsapp').value = '';
+
+                // فتح واتساب للتواصل
+                setTimeout(() => {
+                    window.open(`https://wa.me/2490991305468?text=مرحباً%20تم%20إرسال%20طلب%20شراء%20${amount}%20جوهرة%20فري%20فاير%20رقم%20الطلب%3A%20${docRef.id}`, '_blank');
+                }, 1000);
+
+            } catch (error) {
+                console.error('❌ خطأ في حفظ الطلب:', error);
+                showToast('❌ حدث خطأ في تأكيد الطلب', 'error');
+            } finally {
+                this.textContent = '✔ تأكيد الطلب';
+                this.disabled = false;
+            }
         });
 
-        // ===== الثيم =====
-        if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.classList.add('dark');
-        }
-    </script>
+        // =============================================
+        // ===== تبديل التبويبات =====
+        // =============================================
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
 
+                const tab = this.dataset.tab;
+                currentTab = tab;
+
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(`tab-${tab}`).classList.add('active');
+
+                // عرض المنتجات
+                renderProducts(tab);
+
+                // إزالة التحديد
+                document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+                selectedProduct = null;
+            });
+        });
+
+        // =============================================
+        // ===== المصادقة =====
+        // =============================================
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                console.log('✅ مستخدم مسجل دخول:', user.email);
+                // تفعيل الشريط السفلي
+                document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
+                document.getElementById('nav-home')?.classList.add('active');
+            } else {
+                currentUser = null;
+                console.log('⚠️ لم يتم تسجيل الدخول');
+                showToast('⚠️ يرجى تسجيل الدخول أولاً', 'error');
+                // توجيه إلى صفحة تسجيل الدخول
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }
+        });
+
+        // =============================================
+        // ===== التحميل الأولي =====
+        // =============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts('codes');
+            // تفعيل الشريط السفلي
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
+            document.getElementById('nav-home')?.classList.add('active');
+
+            // التحقق من الثيم
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        });
+
+        // =============================================
+        // ===== إغلاق المودال عند النقر خارجها =====
+        // =============================================
+        document.getElementById('confirmModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        console.log('🔥 MORRE STORE | فري فاير جاهز!');
+    </script>
 </body>
-</html>
+            </html>
