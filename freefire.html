@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MORRE STORE | فري فاير</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -27,19 +27,6 @@
             border-radius: 1.5rem;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 1.5rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.8);
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
         .product-card {
             background: white;
             border-radius: 0.75rem;
@@ -49,7 +36,7 @@
             border: 1px solid #f1f5f9;
             display: flex;
             flex-direction: column;
-            padding-bottom: 0.75rem;
+            padding: 1rem;
             cursor: pointer;
         }
         .product-card:hover {
@@ -57,64 +44,41 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
             border-color: #f59e0b;
         }
-        .product-card .product-image {
-            width: 100%;
-            height: 160px;
-            object-fit: contain;
-            background: #f8fafc;
-            padding: 0.75rem;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .product-card .product-info {
-            padding: 0.75rem 1rem 0.5rem;
-            flex: 1;
-        }
         .product-card .product-name {
-            font-size: 0.95rem;
-            font-weight: 700;
+            font-size: 1.1rem;
+            font-weight: 800;
             color: #1e293b;
-            margin-bottom: 0.25rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            height: 2.6rem;
+            text-align: center;
         }
         .product-card .product-price {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
             font-weight: 900;
             color: #d97706;
+            text-align: center;
             margin: 0.25rem 0;
         }
-        .product-card .product-rating {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            font-size: 0.75rem;
-            color: #f59e0b;
-            margin: 0.25rem 0;
-        }
-        .product-card .product-rating span {
-            color: #94a3b8;
-            margin-right: 0.25rem;
-        }
-        .product-card .product-actions {
-            padding: 0 1rem 0.75rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
+        .product-card .product-specs {
+            font-size: 0.8rem;
+            color: #64748b;
+            text-align: center;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            border: 1px dashed #e2e8f0;
         }
         .product-card .btn-buy-now {
             background: #1e293b;
             color: white;
             font-weight: 700;
-            padding: 0.5rem;
+            padding: 0.6rem;
             border-radius: 0.5rem;
             border: none;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             width: 100%;
+            margin-top: 0.5rem;
         }
         .product-card .btn-buy-now:hover {
             background: #0f172a;
@@ -133,17 +97,6 @@
         @media (min-width: 1024px) {
             .product-grid { grid-template-columns: repeat(4, 1fr); }
         }
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #1e293b;
-            margin: 2rem 0 1rem 0;
-            padding-right: 1rem;
-            border-right: 4px solid #f59e0b;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
         .back-btn {
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -152,6 +105,10 @@
             color: #1e293b;
             transition: all 0.3s ease;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         .back-btn:hover {
             background: rgba(255, 255, 255, 0.8);
@@ -163,72 +120,59 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .brand-name {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-            font-size: 1.5rem;
-        }
-        .brand-name-white {
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 800;
             color: #1e293b;
-            font-weight: 900;
-            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem 0;
+            padding-right: 1rem;
+            border-right: 4px solid #f59e0b;
         }
-        .simple-banner {
-            background: linear-gradient(135deg, #fef08a, #fde047);
-            height: 80px;
-            border-radius: 0 0 30px 30px;
+        .game-header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 1.5rem;
-            border-bottom: 2px solid rgba(245, 158, 11, 0.3);
-        }
-        .menu-btn {
-            background: rgba(255, 255, 255, 0.6);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 1rem 1.5rem;
+            border-radius: 1.5rem;
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .game-header .game-icon {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
             border-radius: 1rem;
-            padding: 0.5rem 1rem;
-            font-size: 1.2rem;
-            cursor: pointer;
+            background: white;
+            padding: 0.5rem;
+        }
+        .game-header .game-info h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
             color: #1e293b;
-            transition: 0.2s;
         }
-        .menu-btn:hover { background: rgba(255, 255, 255, 0.8); }
-        .action-btn {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: white;
-            font-weight: 800;
-            padding: 0.75rem 1.5rem;
+        .game-header .game-info p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .specs-box {
+            background: rgba(255, 255, 255, 0.6);
             border-radius: 1rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
         }
-        .action-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        .specs-box p {
+            color: #475569;
+            font-size: 0.9rem;
+            line-height: 1.8;
         }
-        .action-btn-outline {
-            background: transparent;
-            color: #1e293b;
-            font-weight: 700;
-            padding: 0.75rem 1.5rem;
-            border-radius: 1rem;
-            transition: all 0.3s ease;
-            border: 2px solid #f59e0b;
-            cursor: pointer;
+        .specs-box strong {
+            color: #d97706;
         }
-        .action-btn-outline:hover {
-            background: rgba(245, 158, 11, 0.1);
-            transform: scale(1.02);
-        }
-        .text-dark { color: #1e293b; }
-        .text-dark-light { color: #475569; }
-        .text-yellow-dark { color: #d97706; }
-        .border-yellow-dark { border-color: #d97706; }
 
         /* ===== الشريط العائم السفلي ===== */
         .bottom-nav {
@@ -290,51 +234,6 @@
                 font-size: 0.45rem;
             }
         }
-
-        .category-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-        .category-header .page-title { font-size: 1.8rem; }
-
-        @media (max-width: 480px) {
-            .category-header .page-title { font-size: 1.3rem; }
-            .product-card .product-image { height: 120px; }
-            .product-card .product-name {
-                font-size: 0.85rem;
-                height: 2.2rem;
-            }
-            .product-card .product-price { font-size: 1rem; }
-        }
-
-        /* ===== الوضع الليلي ===== */
-        .dark body {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-        }
-        .dark .glass { background: rgba(30, 41, 59, 0.7); }
-        .dark .glass-card { background: rgba(30, 41, 59, 0.6); }
-        .dark .glass-card h3 { color: #f1f5f9; }
-        .dark .glass-card p { color: #94a3b8; }
-        .dark .simple-banner {
-            background: linear-gradient(135deg, #1e293b, #334155);
-            border-bottom-color: #f59e0b;
-        }
-        .dark .brand-name-white { color: #f1f5f9; }
-        .dark .text-dark { color: #f1f5f9; }
-        .dark .text-dark-light { color: #94a3b8; }
-        .dark .back-btn {
-            background: rgba(30, 41, 59, 0.6);
-            color: #f1f5f9;
-        }
-        .dark .back-btn:hover { background: rgba(30, 41, 59, 0.8); }
-        .dark .menu-btn {
-            background: rgba(30, 41, 59, 0.6);
-            color: #f1f5f9;
-        }
-        .dark .menu-btn:hover { background: rgba(30, 41, 59, 0.8); }
         .dark .bottom-nav {
             background: rgba(30, 41, 59, 0.95);
             border-top-color: rgba(255, 255, 255, 0.05);
@@ -345,114 +244,65 @@
         .dark .bottom-nav .nav-item.active {
             color: #fbbf24;
         }
-        .dark .product-card {
-            background: #1e293b;
-            border-color: #334155;
+        .dark body {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
         }
-        .dark .product-card .product-image { background: #0f172a; }
+        .dark .glass { background: rgba(30, 41, 59, 0.7); }
+        .dark .product-card { background: #1e293b; border-color: #334155; }
         .dark .product-card .product-name { color: #f1f5f9; }
         .dark .product-card .product-price { color: #fbbf24; }
-        .dark .product-card .product-rating span { color: #94a3b8; }
-        .dark .product-card .btn-buy-now {
-            background: #f59e0b;
-            color: #1e293b;
-        }
+        .dark .product-card .product-specs { background: #0f172a; color: #94a3b8; border-color: #334155; }
+        .dark .product-card .btn-buy-now { background: #f59e0b; color: #1e293b; }
         .dark .product-card .btn-buy-now:hover { background: #d97706; }
-        .dark .action-btn-outline {
-            color: #f1f5f9;
-            border-color: #f59e0b;
-        }
-        .dark .action-btn-outline:hover {
-            background: rgba(245, 158, 11, 0.15);
-        }
-        .dark .section-title {
-            color: #f1f5f9;
-        }
+        .dark .game-header { background: rgba(30, 41, 59, 0.6); }
+        .dark .game-header .game-info h1 { color: #f1f5f9; }
+        .dark .game-header .game-info p { color: #94a3b8; }
+        .dark .specs-box { background: rgba(30, 41, 59, 0.6); }
+        .dark .specs-box p { color: #94a3b8; }
+        .dark .back-btn { background: rgba(30, 41, 59, 0.6); color: #f1f5f9; }
+        .dark .back-btn:hover { background: rgba(30, 41, 59, 0.8); }
+        .dark .section-title { color: #f1f5f9; }
+        .dark .page-title { background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
 <body>
 
-    <!-- ===== الهيدر ===== -->
-    <div class="simple-banner">
-        <button class="menu-btn" id="menuBtn"><i class="fas fa-bars text-xl"></i></button>
-        <div>
-            <span class="brand-name">MORRE</span> <span class="brand-name-white">STORE</span>
-        </div>
-        <div style="width: 70px;"></div>
-    </div>
-
     <!-- ===== المحتوى الرئيسي ===== -->
-    <main class="max-w-7xl mx-auto px-4 relative z-10 pb-32">
+    <main class="max-w-7xl mx-auto px-4 relative z-10 pb-32 pt-4">
 
-        <!-- ===== محفظة المستخدم ===== -->
-        <div class="glass p-5 text-dark mb-6 mt-4">
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div class="flex items-center gap-3 w-full sm:w-auto">
-                    <img id="uImg" class="w-12 h-12 rounded-full border-2 border-yellow-dark shadow-lg" src="https://via.placeholder.com/100">
-                    <div>
-                        <h2 id="uName" class="font-bold text-lg text-dark">...</h2>
-                        <div id="uWallet" class="text-xs text-yellow-dark bg-black/5 px-2 py-0.5 rounded-full mt-1">#000000</div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-3 w-full sm:w-auto">
-                    <div class="bg-black/5 px-4 py-2 rounded-xl text-center flex-1 sm:flex-none">
-                        <p class="text-xs text-dark-light">الرصيد</p>
-                        <p class="text-xl font-black text-yellow-dark"><span id="uBal">0</span> <small class="text-xs">ج.س</small></p>
-                    </div>
-                    <button id="logout-btn" class="w-10 h-10 bg-red-500/20 text-red-600 rounded-full hover:bg-red-500/30"><i class="fas fa-power-off"></i></button>
-                </div>
-            </div>
-            <div class="flex gap-3 mt-4">
-                <a href="#" onclick="openWalletWhatsApp()" class="action-btn text-center flex-1">
-                    <i class="fas fa-wallet ml-1"></i> شحن المحفظة
-                </a>
-                <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="action-btn-outline text-center flex-1">
-                    <i class="fas fa-headset ml-1"></i> خدمة العملاء
-                </a>
+        <!-- ===== زر رجوع ===== -->
+        <div class="mb-4">
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-right"></i> رجوع للمتجر
+            </a>
+        </div>
+
+        <!-- ===== هيدر اللعبة ===== -->
+        <div class="game-header">
+            <img src="https://i.postimg.cc/x8DsznDp/file-0000000095d871f4a98ae4b5e7f7563e.png" alt="Free Fire" class="game-icon">
+            <div class="game-info">
+                <h1>🔥 فري فاير Free Fire</h1>
+                <p>اختر باقة الشحن المناسبة - شحن فوري وآمن</p>
             </div>
         </div>
 
-        <!-- ===== صفحة فري فاير ===== -->
-        <div id="category-freefire" class="category-page active">
-            
-            <!-- ===== الهيدر ===== -->
-            <div class="category-header">
-                <a href="index.html" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</a>
-                <h2 class="page-title">🔥 Free Fire</h2>
-            </div>
+        <!-- ===== مواصفات عامة ===== -->
+        <div class="specs-box">
+            <p>
+                <strong>⚡ شحن فوري:</strong> يتم إضافة الجواهر إلى حسابك مباشرة بعد تأكيد الطلب.<br>
+                <strong>🔒 آمن 100%:</strong> نضمن لك عملية شحن آمنة دون أي مخاطر على حسابك.<br>
+                <strong>📱 دعم فني:</strong> فريق الدعم متواصل لحل أي استفسار أو مشكلة.<br>
+                <strong>💳 طرق دفع متعددة:</strong> بنكك، فوري، محفظة المتجر.
+            </p>
+        </div>
 
-            <!-- ===== الصورة الرئيسية ===== -->
-            <div class="mb-5 rounded-2xl overflow-hidden shadow-lg border-2 border-yellow-400/40 bg-white/50 backdrop-blur">
-                <img 
-                    src="https://i.postimg.cc/25cGKwjP/file-00000000f7b481f498122b1826474dc2.png" 
-                    alt="Free Fire" 
-                    class="w-full h-auto object-contain"
-                    style="max-height: 180px; width: 100%;"
-                />
-            </div>
+        <!-- ===== شبكة المنتجات ===== -->
+        <div class="section-title">
+            <span class="section-icon">💎</span> اختر باقة الجواهر
+        </div>
 
-            <!-- ===== وصف ===== -->
-            <div class="glass p-4 rounded-2xl mb-5 text-center border border-yellow-200/50">
-                <p class="text-dark text-sm font-semibold">
-                    ⚡ اختر باقة الشحن المناسبة - أدخل الـ ID الخاص بك - سيتم الإضافة مباشرة
-                </p>
-            </div>
-
-            <!-- ===== تبويبات ===== -->
-            <div class="flex gap-2 mb-5 bg-white/50 backdrop-blur p-2 rounded-2xl border border-yellow-200/50">
-                <button class="flex-1 py-2 px-3 rounded-xl text-sm font-bold text-dark bg-yellow-400/30 border border-yellow-400" id="ffTabCodes">
-                    <i class="fas fa-ticket-alt ml-1"></i> أكواد
-                </button>
-                <button class="flex-1 py-2 px-3 rounded-xl text-sm font-bold text-dark-light hover:bg-yellow-400/20 transition" id="ffTabId">
-                    <i class="fas fa-id-card ml-1"></i> ID
-                </button>
-                <button class="flex-1 py-2 px-3 rounded-xl text-sm font-bold text-dark-light hover:bg-yellow-400/20 transition" id="ffTabAccount">
-                    <i class="fas fa-user-circle ml-1"></i> عبر الحساب
-                </button>
-            </div>
-
-            <!-- ===== شبكة المنتجات ===== -->
-            <div id="freefireGrid" class="product-grid"></div>
+        <div class="product-grid" id="freefireGrid">
+            <!-- سيتم تعبئتها بواسطة JavaScript -->
         </div>
 
     </main>
@@ -471,10 +321,6 @@
             <i class="fas fa-headset"></i>
             <span>الدعم</span>
         </a>
-        <a href="orders.html" class="nav-item" id="nav-orders">
-            <i class="fas fa-box"></i>
-            <span>طلباتي</span>
-        </a>
         <a href="account.html" class="nav-item" id="nav-account">
             <i class="fas fa-user"></i>
             <span>الحساب</span>
@@ -485,6 +331,40 @@
     <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 bg-dark text-white px-5 py-2.5 rounded-xl text-sm font-bold z-[99999] opacity-0 transition-all duration-300 pointer-events-none whitespace-nowrap dark:bg-white dark:text-dark"></div>
 
     <script>
+        // ===== بيانات المنتجات (بدون صور) =====
+        const products = [
+            { amount: '110', price: 4500 },
+            { amount: '231', price: 9000 },
+            { amount: '583', price: 23000 },
+            { amount: '1180', price: 50000 },
+            { amount: '2420', price: 95000 }
+        ];
+
+        // ===== عرض المنتجات =====
+        function renderProducts() {
+            const grid = document.getElementById('freefireGrid');
+            if (!grid) return;
+
+            grid.innerHTML = products.map(p => `
+                <div class="product-card" onclick="buyNow('${p.amount}', ${p.price})">
+                    <div class="product-name">${p.amount} جوهرة</div>
+                    <div class="product-price">${p.price.toLocaleString()} ج.س</div>
+                    <div class="product-specs">
+                        ⚡ شحن فوري • 🔒 آمن 100% • 📱 يدخل مباشرة
+                    </div>
+                    <button class="btn-buy-now" onclick="event.stopPropagation(); buyNow('${p.amount}', ${p.price})">
+                        <i class="fas fa-bolt ml-1"></i> اشترى الآن
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // ===== وظيفة الشراء =====
+        function buyNow(amount, price) {
+            const msg = `مرحباً، أريد شراء ${amount} جوهرة فري فاير بسعر ${price.toLocaleString()} ج.س`;
+            window.open(`https://wa.me/2490991305468?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
         // ===== Toast =====
         function showToast(msg) {
             const toast = document.getElementById('toast');
@@ -497,131 +377,23 @@
                 toast.classList.add('opacity-0');
             }, 3000);
         }
-        window.showToast = showToast;
 
-        // ===== فتح واتساب =====
-        window.openWalletWhatsApp = function() {
-            window.open('https://wa.me/2490991305468?text=مرحباً%20أريد%20شحن%20محفظتي', '_blank');
-        };
+        // ===== تفعيل الشريط السفلي =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // إزالة التنشيط من جميع الأزرار
+            document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
+            // تفعيل زر الرئيسية (لأننا في صفحة فري فاير)
+            const homeBtn = document.getElementById('nav-home');
+            if (homeBtn) homeBtn.classList.add('active');
+            
+            // عرض المنتجات
+            renderProducts();
+        });
 
-        // ===== تبديل الثيم =====
+        // ===== الثيم =====
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         }
-
-        // ===== بيانات فري فاير =====
-        const ffPacks = {
-            codes: [
-                { amount: '100', price: '1.00' },
-                { amount: '200', price: '2.00' },
-                { amount: '500', price: '4.50' },
-                { amount: '1000', price: '8.50' },
-                { amount: '2000', price: '16.00' },
-                { amount: '5000', price: '38.00' }
-            ],
-            id: [
-                { amount: '100', price: '1.50' },
-                { amount: '300', price: '4.00' },
-                { amount: '600', price: '7.50' },
-                { amount: '1200', price: '14.00' },
-                { amount: '2500', price: '28.00' },
-                { amount: '6000', price: '65.00' }
-            ],
-            account: [
-                { amount: '150', price: '2.50' },
-                { amount: '400', price: '6.00' },
-                { amount: '800', price: '11.00' },
-                { amount: '1600', price: '21.00' },
-                { amount: '3500', price: '44.00' },
-                { amount: '8000', price: '95.00' }
-            ]
-        };
-
-        let ffCurrentTab = 'codes';
-
-        function renderFFProducts(tab) {
-            const grid = document.getElementById('freefireGrid');
-            if (!grid) return;
-            
-            const products = ffPacks[tab] || ffPacks.codes;
-            const categoryImage = 'https://i.postimg.cc/x8DsznDp/file-0000000095d871f4a98ae4b5e7f7563e.png';
-            
-            grid.innerHTML = products.map(p => `
-                <div class="product-card" onclick="window.showOrderModal('${p.amount} جوهرة', ${parseFloat(p.price) * 6000}, 'freefire', 'ff_${tab}_${p.amount}')">
-                    <img src="${categoryImage}" alt="Free Fire" class="product-image" loading="lazy">
-                    <div class="product-info">
-                        <div class="product-name">${p.amount} جوهرة</div>
-                        <div class="product-price">${(parseFloat(p.price) * 6000).toLocaleString()} ج.س</div>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            <span>(131 مراجعة)</span>
-                        </div>
-                    </div>
-                    <div class="product-actions">
-                        <button onclick="event.stopPropagation(); window.showOrderModal('${p.amount} جوهرة', ${parseFloat(p.price) * 6000}, 'freefire', 'ff_${tab}_${p.amount}')" class="btn-buy-now">
-                            <i class="fas fa-bolt ml-1"></i> اشترى الآن
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ===== أحداث التبويبات =====
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabCodes = document.getElementById('ffTabCodes');
-            const tabId = document.getElementById('ffTabId');
-            const tabAccount = document.getElementById('ffTabAccount');
-            
-            if (tabCodes) {
-                tabCodes.addEventListener('click', function() {
-                    document.querySelectorAll('#category-freefire .flex .flex-1').forEach(b => {
-                        b.classList.remove('bg-yellow-400/30', 'border-yellow-400', 'text-dark');
-                        b.classList.add('text-dark-light');
-                    });
-                    this.classList.add('bg-yellow-400/30', 'border-yellow-400', 'text-dark');
-                    this.classList.remove('text-dark-light');
-                    ffCurrentTab = 'codes';
-                    renderFFProducts('codes');
-                });
-            }
-            
-            if (tabId) {
-                tabId.addEventListener('click', function() {
-                    document.querySelectorAll('#category-freefire .flex .flex-1').forEach(b => {
-                        b.classList.remove('bg-yellow-400/30', 'border-yellow-400', 'text-dark');
-                        b.classList.add('text-dark-light');
-                    });
-                    this.classList.add('bg-yellow-400/30', 'border-yellow-400', 'text-dark');
-                    this.classList.remove('text-dark-light');
-                    ffCurrentTab = 'id';
-                    renderFFProducts('id');
-                });
-            }
-            
-            if (tabAccount) {
-                tabAccount.addEventListener('click', function() {
-                    document.querySelectorAll('#category-freefire .flex .flex-1').forEach(b => {
-                        b.classList.remove('bg-yellow-400/30', 'border-yellow-400', 'text-dark');
-                        b.classList.add('text-dark-light');
-                    });
-                    this.classList.add('bg-yellow-400/30', 'border-yellow-400', 'text-dark');
-                    this.classList.remove('text-dark-light');
-                    ffCurrentTab = 'account';
-                    renderFFProducts('account');
-                });
-            }
-            
-            renderFFProducts('codes');
-        });
-
-        // ===== شراء =====
-        window.showOrderModal = function(product, price, category, productId) {
-            alert(`✅ طلب شراء:\nالمنتج: ${product}\nالسعر: ${price.toLocaleString()} ج.س\n\nسيتم توجيهك إلى واتساب لإتمام الطلب`);
-            window.open(`https://wa.me/2490991305468?text=مرحباً%20أريد%20شراء%20${encodeURIComponent(product)}%20بسعر%20${price}%20جنيه`, '_blank');
-        };
-
-        // ===== إظهار زر الحساب نشط =====
-        document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
     </script>
 
 </body>
