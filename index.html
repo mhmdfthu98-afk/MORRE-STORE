@@ -1986,44 +1986,82 @@
             </div>
         </main>
 
-        <!-- ===== الشريط العائم السفلي (مع السلة) ===== -->
-        <div class="bottom-nav">
-            <a href="#" class="nav-item" id="nav-home" onclick="navigateTo('home')">
-                <i class="fas fa-home"></i>
-                <span>الرئيسية</span>
-            </a>
-            <a href="#" onclick="openCartModal()" class="nav-item" id="nav-cart">
-                <i class="fas fa-shopping-cart"></i>
-                <span>السلة</span>
-                <span class="cart-badge" id="cartBadge">0</span>
-            </a>
-            <a href="#" class="nav-item" id="nav-support" onclick="window.open('https://wa.me/2490991305468')">
-                <i class="fas fa-headset"></i>
-                <span>الدعم</span>
-            </a>
-            <a href="#" class="nav-item" id="nav-orders" onclick="alert('طلباتي')">
-                <i class="fas fa-box"></i>
-                <span>طلباتي</span>
-            </a>
-            <a href="#" class="nav-item" id="nav-account" onclick="openAccount()">
-                <i class="fas fa-user"></i>
-                <span>الحساب</span>
-            </a>
-            <!-- زر لوحة التحكم - يظهر فقط للأدمن -->
-            <a href="#" class="nav-item" id="nav-admin" style="display:none;" onclick="document.getElementById('adminPanel').classList.toggle('hidden')">
-                <i class="fas fa-cog"></i>
-                <span>لوحة التحكم</span>
-            </a>
-        </div>
+        <!-- ===== الشريط العائم السفلي ===== -->
+<div class="bottom-nav">
+    <a href="index.html" class="nav-item" id="nav-home">
+        <i class="fas fa-home"></i>
+        <span>الرئيسية</span>
+    </a>
+    <a href="wallet.html" class="nav-item" id="nav-wallet">
+        <i class="fas fa-wallet"></i>
+        <span>محفظتي</span>
+    </a>
+    <a href="cart.html" class="nav-item" id="nav-cart">
+        <i class="fas fa-shopping-cart"></i>
+        <span>السلة</span>
+        <span class="cart-badge" id="cartBadge">0</span>
+    </a>
+    <a href="support.html" class="nav-item" id="nav-support">
+        <i class="fas fa-headset"></i>
+        <span>الدعم</span>
+    </a>
+    <a href="orders.html" class="nav-item" id="nav-orders">
+        <i class="fas fa-box"></i>
+        <span>طلباتي</span>
+    </a>
+    <a href="account.html" class="nav-item" id="nav-account">
+        <i class="fas fa-user"></i>
+        <span>الحساب</span>
+    </a>
+    <a href="admin.html" class="nav-item" id="nav-admin" style="display:none;">
+        <i class="fas fa-cog"></i>
+        <span>لوحة التحكم</span>
+    </a>
+</div>
 
-        <!-- الشريط الجانبي -->
-        <div class="sidebar-overlay" id="sidebarOverlay"></div>
-        <div class="sidebar" id="sidebar">
-            <div class="text-center py-4 border-b border-dark/10">
-                <img id="sidebarImg" class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-dark" src="https://via.placeholder.com/100">
-                <h4 id="sidebarName" class="font-bold text-dark text-lg mt-2"></h4>
-                <p id="sidebarWallet" class="text-sm text-yellow-dark"></p>
-            </div>
+      <!-- الشريط الجانبي -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<div class="sidebar" id="sidebar">
+    <div class="text-center py-4 border-b border-dark/10">
+        <img id="sidebarImg" class="w-20 h-20 rounded-full mx-auto border-2 border-yellow-dark" src="https://via.placeholder.com/100">
+        <h4 id="sidebarName" class="font-bold text-dark text-lg mt-2"></h4>
+        <p id="sidebarWallet" class="text-sm text-yellow-dark"></p>
+    </div>
+    
+    <a href="index.html" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-home w-6"></i> الرئيسية
+    </a>
+    <a href="account.html" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-user w-6"></i> حسابي
+    </a>
+    <a href="wallet.html" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-wallet w-6"></i> محفظتي
+    </a>
+    <a href="cart.html" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-shopping-cart w-6"></i> السلة
+    </a>
+    <a href="orders.html" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-shopping-bag w-6"></i> طلباتي
+    </a>
+    <a href="#" onclick="openWalletWhatsApp(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-wallet w-6 text-yellow-dark"></i> شحن المحفظة
+    </a>
+    <a href="support.html" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fab fa-whatsapp w-6 text-green-500"></i> خدمة العملاء
+    </a>
+    <a href="admin.html" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl" id="sidebar-admin" style="display:none;">
+        <i class="fas fa-cog w-6 text-yellow-600"></i> لوحة التحكم
+    </a>
+    <div onclick="toggleSidebar(false); showPolicy('terms');" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer">
+        <i class="fas fa-file-alt w-6"></i> السياسات
+    </div>
+    <div onclick="toggleTheme()" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl cursor-pointer" id="themeToggleBtn">
+        <i class="fas fa-moon w-6"></i> الوضع الليلي
+    </div>
+    <a href="#" onclick="document.getElementById('logout-btn').click(); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
+        <i class="fas fa-sign-out-alt w-6"></i> تسجيل الخروج
+    </a>
+</div>
             
             <a href="#" onclick="navigateTo('home'); toggleSidebar(false);" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
                 <i class="fas fa-home w-6"></i> الرئيسية
@@ -3771,4 +3809,4 @@
     </script>
 
 </body>
-                    </html>
+    </html>
