@@ -1979,13 +1979,6 @@
                 </div>
             </div>
 
-            <!-- سجل الطلبات -->
-            <div class="mt-8">
-                <h3 class="text-2xl font-black text-dark mb-4 border-r-4 border-yellow-dark pr-3">📋 تاريخ طلباتي</h3>
-                <div id="userOrdersList" class="space-y-4"></div>
-            </div>
-        </main>
-
         <!-- ===== الشريط العائم السفلي ===== -->
 <div class="bottom-nav">
     <a href="index.html" class="nav-item" id="nav-home">
@@ -1995,11 +1988,6 @@
     <a href="wallet.html" class="nav-item" id="nav-wallet">
         <i class="fas fa-wallet"></i>
         <span>محفظتي</span>
-    </a>
-    <a href="cart.html" class="nav-item" id="nav-cart">
-        <i class="fas fa-shopping-cart"></i>
-        <span>السلة</span>
-        <span class="cart-badge" id="cartBadge">0</span>
     </a>
     <a href="support.html" class="nav-item" id="nav-support">
         <i class="fas fa-headset"></i>
@@ -2036,9 +2024,6 @@
     </a>
     <a href="wallet.html" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
         <i class="fas fa-wallet w-6"></i> محفظتي
-    </a>
-    <a href="cart.html" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
-        <i class="fas fa-shopping-cart w-6"></i> السلة
     </a>
     <a href="orders.html" class="flex items-center gap-3 p-3 hover:bg-yellow-50 rounded-xl">
         <i class="fas fa-shopping-bag w-6"></i> طلباتي
@@ -2171,20 +2156,6 @@
                 <button onclick="closeOrderModal()" class="flex-1 bg-dark/5 py-2 rounded-xl">إلغاء</button>
                 <button id="confirmOrderBtn" class="flex-1 action-btn">تأكيد</button>
             </div>
-        </div>
-    </div>
-
-    <!-- مودال السلة -->
-    <div class="modal-overlay" id="cartModal">
-        <div class="modal-box" style="max-width:600px;">
-            <h3 style="display:flex;justify-content:space-between;align-items:center;">🛒 سلة المشتريات <button onclick="closeCartModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#94a3b8;">&times;</button></h3>
-            <div id="cartItems"><div class="text-center py-8 text-dark-light">جاري تحميل السلة...</div></div>
-            <div class="bg-yellow-50 p-4 rounded-xl mt-4 flex justify-between items-center">
-                <span class="font-bold text-dark">الإجمالي:</span>
-                <span class="text-2xl font-black text-yellow-600" id="cartTotal">0 ج.س</span>
-            </div>
-            <button onclick="checkoutCart()" class="btn-save w-full mt-3">💳 متابعة الشراء</button>
-            <button onclick="clearCart()" class="btn-cancel w-full mt-2">🗑️ تفريغ السلة</button>
         </div>
     </div>
 
@@ -2927,9 +2898,6 @@
                                         </div>
                                     </div>
                                     <div class="product-actions">
-                                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="btn-add-cart">
-                                            <i class="fas fa-cart-plus ml-1"></i> إضافة إلى السلة
-                                        </button>
                                         <button onclick="event.stopPropagation(); window.showOrderModal('${p.name.replace(/'/g, "\\'")}', ${p.price}, '${p.category}', '${p.id}')" class="btn-buy-now">
                                             <i class="fas fa-bolt ml-1"></i> اشترى الآن
                                         </button>
@@ -2939,110 +2907,6 @@
                 }).join('');
             });
         }
-
-        // ========== 🛒 نظام السلة ==========
-        window.addToCart = async function(productId) {
-            if (!userData) { alert('❌ يرجى تسجيل الدخول أولاً'); return; }
-            const result = findProductById(productId);
-            if (!result) { alert('❌ المنتج غير موجود'); return; }
-            const { product } = result;
-            const cartRef = doc(db, "carts", auth.currentUser.uid);
-            const cartSnap = await getDoc(cartRef);
-            let items = cartSnap.exists() ? (cartSnap.data().items || []) : [];
-            const idx = items.findIndex(i => i.productId === productId);
-            if (idx >= 0) { items[idx].quantity += 1; }
-            else { items.push({ productId, name: product.name, price: product.price, quantity: 1, category: product.category, image: categoryImages[product.category] || 'https://via.placeholder.com/200' }); }
-            await setDoc(cartRef, { items, updatedAt: serverTimestamp() }, { merge: true });
-            cart = items; updateCartCount(); showToast(`✅ تم إضافة "${product.name}" إلى السلة`);
-        };
-
-        window.updateCartItemQuantity = async function(productId, delta) {
-            const cartRef = doc(db, "carts", auth.currentUser.uid);
-            const cartSnap = await getDoc(cartRef);
-            if (!cartSnap.exists()) return;
-            let items = cartSnap.data().items || [];
-            const idx = items.findIndex(i => i.productId === productId);
-            if (idx >= 0) { items[idx].quantity += delta; if (items[idx].quantity <= 0) items.splice(idx, 1); }
-            await setDoc(cartRef, { items, updatedAt: serverTimestamp() }, { merge: true });
-            cart = items; updateCartCount(); renderCartItems(items);
-        };
-
-        window.removeFromCart = async function(productId) {
-            if (!confirm('🗑️ حذف هذا المنتج من السلة؟')) return;
-            const cartRef = doc(db, "carts", auth.currentUser.uid);
-            const cartSnap = await getDoc(cartRef);
-            if (!cartSnap.exists()) return;
-            let items = cartSnap.data().items || [];
-            items = items.filter(i => i.productId !== productId);
-            await setDoc(cartRef, { items, updatedAt: serverTimestamp() }, { merge: true });
-            cart = items; updateCartCount(); renderCartItems(items); showToast('🗑️ تم الحذف');
-        };
-
-        window.clearCart = async function() {
-            if (!confirm('⚠️ تفريغ السلة بالكامل؟')) return;
-            await setDoc(doc(db, "carts", auth.currentUser.uid), { items: [], updatedAt: serverTimestamp() }, { merge: true });
-            cart = []; updateCartCount(); document.getElementById('cartModal').classList.remove('active'); showToast('🗑️ تم التفريغ');
-        };
-
-        window.openCartModal = async function() {
-            if (!userData) { alert('❌ يرجى تسجيل الدخول أولاً'); return; }
-            const cartSnap = await getDoc(doc(db, "carts", auth.currentUser.uid));
-            cart = cartSnap.exists() ? (cartSnap.data().items || []) : [];
-            renderCartItems(cart);
-            document.getElementById('cartModal').classList.add('active');
-        };
-
-        window.closeCartModal = function() { document.getElementById('cartModal').classList.remove('active'); };
-
-        function renderCartItems(items) {
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('cartTotal');
-            if (!items || !items.length) {
-                container.innerHTML = '<div class="text-center py-8"><i class="fas fa-shopping-cart text-4xl text-gray-300 block mb-3"></i><p class="text-dark-light">🛒 سلتك فارغة</p></div>';
-                totalEl.textContent = '0 ج.س';
-                return;
-            }
-            let total = 0;
-            container.innerHTML = items.map(item => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                return `<div class="cart-item">
-                    <img src="${item.image}" alt="${item.name}">
-                    <div class="flex-1 min-w-0">
-                        <p class="font-bold text-dark text-sm truncate">${item.name}</p>
-                        <p class="text-xs text-dark-light">${item.price.toLocaleString()} ج.س × ${item.quantity}</p>
-                        <p class="font-bold text-yellow-600 text-sm">${itemTotal.toLocaleString()} ج.س</p>
-                    </div>
-                    <div class="flex items-center gap-1">
-                        <button onclick="updateCartItemQuantity('${item.productId}',-1)" class="quantity-btn">-</button>
-                        <span class="w-6 text-center text-sm font-bold">${item.quantity}</span>
-                        <button onclick="updateCartItemQuantity('${item.productId}',1)" class="quantity-btn">+</button>
-                    </div>
-                    <button onclick="removeFromCart('${item.productId}')" class="text-red-400 hover:text-red-600 p-1"><i class="fas fa-trash"></i></button>
-                </div>`;
-            }).join('');
-            totalEl.textContent = total.toLocaleString() + ' ج.س';
-            updateCartCount();
-        }
-
-        function updateCartCount() {
-            cartCount = cart.reduce((sum, i) => sum + i.quantity, 0);
-            const badge = document.getElementById('cartBadge');
-            badge.textContent = cartCount;
-            badge.classList.toggle('show', cartCount > 0);
-        }
-
-        window.checkoutCart = function() {
-            if (!cart.length) { alert('❌ السلة فارغة'); return; }
-            const total = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-            if (userData.balance < total) { alert(`❌ رصيدك غير كافٍ!\nرصيدك: ${userData.balance.toLocaleString()} ج.س\nالمجموع: ${total.toLocaleString()} ج.س`); return; }
-            const names = cart.map(i => `${i.name} ×${i.quantity}`).join('<br>');
-            document.getElementById('modalProductName').innerHTML = names;
-            document.getElementById('modalProductPrice').textContent = `المجموع: ${total.toLocaleString()} ج.س`;
-            currentOrder = { isCart: true, items: [...cart], total };
-            document.getElementById('orderModal').classList.remove('hidden');
-            closeCartModal();
-        };
 
         // ========== تحديد حقول الشحن حسب اللعبة ==========
         function getOrderFields(category) {
@@ -3114,126 +2978,249 @@
             return fields[category] || fields.googleplay;
         }
 
-        // ========== عرض مودال الطلب ==========
-        window.showOrderModal = function(product, price, category, productId) {
-            // التحقق من تسجيل الدخول
-            if (!userData) {
-                alert('❌ يرجى تسجيل الدخول أولاً');
-                return;
-            }
-            
-            // التحقق من الرصيد
-            const userBalance = userData.balance || 0;
-            if (userBalance < price) {
-                alert(
-                    `❌ رصيدك غير كافي!\n\nرصيدك الحالي: ${userBalance.toLocaleString()} ج.س\nسعر المنتج: ${price.toLocaleString()} ج.س\n\nيرجى شحن محفظتك عبر زر "شحن المحفظة"`);
-                return;
-            }
-            
-            currentOrder = { product, price, category, productId, isCart: false };
-            
-            // إنشاء حقول الشحن حسب اللعبة
-            const fields = getOrderFields(category);
-            const container = document.getElementById('orderFields');
-            let html = '';
-            
-            fields.forEach(field => {
-                const inputType = field.type || 'text';
-                const required = field.required ? 'required' : '';
-                const isWhatsapp = field.id === 'whatsapp';
-                
-                if (isWhatsapp) {
-                    html += `
-                        <div class="whatsapp-icon-input">
-                            <i class="fab fa-whatsapp"></i>
-                            <input id="modal_${field.id}" type="${inputType}" class="whatsapp-input" placeholder="${field.placeholder}" ${required}>
-                        </div>
-                    `;
-                } else {
-                    html += `
-                        <div>
-                            <label class="text-sm font-bold text-dark block mb-1">${field.label}</label>
-                            <input id="modal_${field.id}" type="${inputType}" placeholder="${field.placeholder}" ${required} class="w-full p-3 rounded-xl border border-gray-200 focus:border-yellow-500 focus:outline-none">
-                        </div>
-                    `;
+// =============================================
+// ===== عرض مودال الطلب =====
+// =============================================
+window.showOrderModal = function(product, price, category, productId) {
+    if (!userData) {
+        alert('❌ يرجى تسجيل الدخول أولاً');
+        return;
+    }
+    if (userData.balance < price) {
+        alert(
+            `❌ رصيدك غير كافي!\n\nرصيدك الحالي: ${userData.balance.toLocaleString()} ج.س\nسعر المنتج: ${price.toLocaleString()} ج.س\n\nيرجى شحن محفظتك عبر زر "شحن المحفظة"`);
+        return;
+    }
+    currentOrder = { product, price, category, productId, isCart: false };
+    
+    // تحميل بيانات الشحن من localStorage
+    let savedShipping = null;
+    try {
+        const saved = localStorage.getItem('shippingData');
+        if (saved) {
+            savedShipping = JSON.parse(saved);
+        }
+    } catch(e) {
+        // تجاهل
+    }
+    
+    const fields = getOrderFields(category);
+    const container = document.getElementById('orderFields');
+    let html = '';
+    
+    fields.forEach(field => {
+        const inputType = field.type || 'text';
+        const required = field.required ? 'required' : '';
+        const isWhatsapp = field.id === 'whatsapp';
+        
+        if (isWhatsapp) {
+            html += `
+                <div class="whatsapp-icon-input">
+                    <i class="fab fa-whatsapp"></i>
+                    <input id="modal_${field.id}" type="${inputType}" class="whatsapp-input" placeholder="${field.placeholder}" ${required}>
+                </div>
+            `;
+        } else {
+            html += `
+                <div>
+                    <label class="text-sm font-bold text-dark block mb-1">${field.label}</label>
+                    <input id="modal_${field.id}" type="${inputType}" placeholder="${field.placeholder}" ${required} class="w-full p-3 rounded-xl border border-gray-200 focus:border-yellow-500 focus:outline-none">
+                </div>
+            `;
+        }
+    });
+    
+    container.innerHTML = html;
+    
+    // ملء الحقول بالبيانات المحفوظة
+    if (savedShipping) {
+        fields.forEach(field => {
+            const input = document.getElementById(`modal_${field.id}`);
+            if (input) {
+                if (field.id === 'whatsapp' && savedShipping.whatsapp) {
+                    input.value = savedShipping.whatsapp;
+                } else if (field.id === 'gameName' && savedShipping.name) {
+                    input.value = savedShipping.name;
+                } else if (field.id === 'realName' && savedShipping.name) {
+                    input.value = savedShipping.name;
+                } else if (field.id === 'name' && savedShipping.name) {
+                    input.value = savedShipping.name;
+                } else if (field.id === 'address' && savedShipping.address) {
+                    input.value = savedShipping.address;
+                } else if (field.id === 'email' && savedShipping.email) {
+                    input.value = savedShipping.email;
                 }
+            }
+        });
+    }
+    
+    document.getElementById('modalProductName').innerHTML = `المنتج: ${product}`;
+    document.getElementById('modalProductPrice').innerHTML = `المبلغ: ${price.toLocaleString()} ج.س`;
+    document.getElementById('orderModal').classList.remove('hidden');
+};
+
+// =============================================
+// ===== إغلاق مودال الطلب =====
+// =============================================
+window.closeOrderModal = function() {
+    const orderModal = document.getElementById('orderModal');
+    const container = document.getElementById('orderFields');
+    
+    if (orderModal) {
+        orderModal.classList.add('hidden');
+    }
+    
+    currentOrder = null;
+    
+    if (container) {
+        container.innerHTML = '';
+    }
+};
+
+// =============================================
+// ===== تأكيد الطلب =====
+// =============================================
+document.getElementById('confirmOrderBtn').onclick = async function() {
+    if (!currentOrder) {
+        alert("❌ لا يوجد طلب نشط");
+        return;
+    }
+    
+    const fields = getOrderFields(currentOrder.category);
+    const orderData = {};
+    let isValid = true;
+    
+    fields.forEach(field => {
+        const input = document.getElementById(`modal_${field.id}`);
+        if (input) {
+            const value = input.value.trim();
+            orderData[field.id] = value;
+            if (field.required && !value) {
+                isValid = false;
+                input.classList.add('border-red-500');
+            } else {
+                input.classList.remove('border-red-500');
+            }
+        }
+    });
+    
+    if (orderData.whatsapp && !orderData.whatsapp.match(/^[0-9]{10,15}$/)) {
+        alert("❌ رقم واتساب غير صحيح!");
+        return;
+    }
+    
+    if (!isValid) {
+        alert("❌ جميع الحقول المطلوبة يجب تعبئتها!");
+        return;
+    }
+    
+    // حفظ بيانات الشحن في localStorage
+    const shippingToSave = {
+        name: orderData.gameName || orderData.realName || orderData.name || '',
+        whatsapp: orderData.whatsapp || '',
+        email: orderData.email || '',
+        address: orderData.address || '',
+        gameID: orderData.gameID || '',
+        username: orderData.username || '',
+        link: orderData.link || ''
+    };
+    localStorage.setItem('shippingData', JSON.stringify(shippingToSave));
+    
+    try {
+        await runTransaction(db, async (transaction) => {
+            const userRef = doc(db, "users", auth.currentUser.uid);
+            const userSnap = await transaction.get(userRef);
+            
+            if ((userSnap.data().balance || 0) < currentOrder.price) {
+                throw new Error("رصيد غير كاف");
+            }
+            
+            transaction.update(userRef, { balance: increment(-currentOrder.price) });
+            
+            const orderRef = doc(collection(db, "orders"));
+            transaction.set(orderRef, {
+                uID: auth.currentUser.uid,
+                uName: userData.name,
+                product: currentOrder.product,
+                price: currentOrder.price,
+                game: currentOrder.category,
+                ...orderData,
+                shipping: shippingToSave,
+                status: 'قيد الانتظار',
+                timestamp: serverTimestamp()
             });
-            
-            container.innerHTML = html;
-            
-            document.getElementById('modalProductName').innerHTML = `المنتج: ${product}`;
-            document.getElementById('modalProductPrice').innerHTML = `المبلغ: ${price.toLocaleString()} ج.س`;
-            document.getElementById('orderModal').classList.remove('hidden');
-        };
+        });
+        
+        alert("✅ تم إرسال طلبك بنجاح!");
+        closeOrderModal();
+        
+    } catch (error) {
+        alert("❌ حدث خطأ: " + (typeof error === 'string' ? error : error.message));
+        console.error(error);
+    }
+};
 
-        // ========== إغلاق مودال الطلب ==========
-        window.closeOrderModal = function() {
-            document.getElementById('orderModal').classList.add('hidden');
-            currentOrder = null;
-            const container = document.getElementById('orderFields');
-            if (container) container.innerHTML = '';
-        };
+// =============================================
+// ===== نظام التنقل =====
+// =============================================
+function navigateTo(page, param) {
+    let hash = '';
+    if (page === 'home') {
+        hash = '#home';
+        setActiveNav('home');
+    } else if (page === 'category' && param) {
+        hash = '#category/' + param;
+    } else if (page === 'product' && param) {
+        hash = '#product/' + param;
+    } else {
+        hash = '#home';
+        setActiveNav('home');
+    }
+    window.location.hash = hash;
+}
+window.navigateTo = navigateTo;
 
-        // ========== نظام التنقل ==========
-        function navigateTo(page, param) {
-            let hash = '';
-            if (page === 'home') {
-                hash = '#home';
-                setActiveNav('home');
-            } else if (page === 'category' && param) {
-                hash = '#category/' + param;
-            } else if (page === 'product' && param) {
-                hash = '#product/' + param;
-            } else {
-                hash = '#home';
-                setActiveNav('home');
-            }
-            window.location.hash = hash;
+function handleRoute() {
+    const hash = window.location.hash || '#home';
+    
+    document.getElementById('homePage').classList.add('hidden');
+    document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
+    document.getElementById('productDetailPage').classList.remove('active');
+    document.getElementById('page-account').style.display = 'none';
+    document.getElementById('page-account').classList.remove('active');
+
+    if (hash === '#home' || hash === '') {
+        document.getElementById('homePage').classList.remove('hidden');
+        setActiveNav('home');
+        return;
+    }
+
+    const parts = hash.substring(1).split('/');
+    const page = parts[0];
+    const param = parts[1] || '';
+
+    if (page === 'category' && param) {
+        const target = document.getElementById(`category-${param}`);
+        if (target && allProducts[param] && allProducts[param].length > 0) {
+            target.classList.add('active');
+            document.title = `${categoryNames[param] || param} - MORRE STORE`;
+        } else {
+            navigateTo('home');
         }
-        window.navigateTo = navigateTo;
-
-        function handleRoute() {
-            const hash = window.location.hash || '#home';
-            
-            document.getElementById('homePage').classList.add('hidden');
-            document.querySelectorAll('.category-page').forEach(el => el.classList.remove('active'));
-            document.getElementById('productDetailPage').classList.remove('active');
-            document.getElementById('page-account').style.display = 'none';
-            document.getElementById('page-account').classList.remove('active');
-
-            if (hash === '#home' || hash === '') {
-                document.getElementById('homePage').classList.remove('hidden');
-                setActiveNav('home');
-                return;
-            }
-
-            const parts = hash.substring(1).split('/');
-            const page = parts[0];
-            const param = parts[1] || '';
-
-            if (page === 'category' && param) {
-                const target = document.getElementById(`category-${param}`);
-                if (target && allProducts[param] && allProducts[param].length > 0) {
-                    target.classList.add('active');
-                    document.title = `${categoryNames[param] || param} - MORRE STORE`;
-                } else {
-                    navigateTo('home');
-                }
-            } else if (page === 'product' && param) {
-                const result = findProductById(param);
-                if (result) {
-                    // show product detail
-                    document.title = `${result.product.name} - MORRE STORE`;
-                } else {
-                    alert('❌ المنتج غير موجود أو تم حذفه');
-                    navigateTo('home');
-                }
-            } else {
-                navigateTo('home');
-            }
+    } else if (page === 'product' && param) {
+        const result = findProductById(param);
+        if (result) {
+            document.title = `${result.product.name} - MORRE STORE`;
+        } else {
+            alert('❌ المنتج غير موجود أو تم حذفه');
+            navigateTo('home');
         }
+    } else {
+        navigateTo('home');
+    }
+}
 
-        window.addEventListener('hashchange', handleRoute);
+window.addEventListener('hashchange', handleRoute);
 
         // ========== دوال الأدمن ==========
         window.addNewProduct = async () => {
@@ -3809,4 +3796,4 @@
     </script>
 
 </body>
-    </html>
+                                                                                                                                                                                                                                       </html>
