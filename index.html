@@ -1689,11 +1689,6 @@
                         <h3 class="text-dark font-bold mt-2">ببجي PUBG</h3>
                         <p class="text-dark-light text-xs">شحن فوري</p>
                     </div>
-                    <div class="glass-card p-4 text-center service-card" onclick="window.location.href='freefire.html'">
-    <img src="https://i.postimg.cc/x8DsznDp/file-0000000095d871f4a98ae4b5e7f7563e.png" alt="FreeFire" class="service-icon">
-    <h3 class="text-dark font-bold mt-2">فري فاير FreeFire</h3>
-    <p class="text-dark-light text-xs">شحن فوري</p>
-</div>
                     <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'clash')">
                         <img src="https://i.postimg.cc/MpdrrCRh/file-0000000019f87246a34879d95dafc72f.png" alt="Clash of Clans" class="service-icon">
                         <h3 class="text-dark font-bold mt-2">كلاش أوف كلانس</h3>
@@ -1784,54 +1779,6 @@
                     <h2 class="page-title">🎮 شحن ببجي PUBG</h2>
                 </div>
                 <div id="pubgGrid" class="product-grid"></div>
-            </div>
-            <!-- ===== صفحة فري فاير (بعد التعديل - بنفس تصميم الصورة الأولى) ===== -->
-<div id="category-freefire" class="category-page">
-    
-    <!-- ===== الهيدر ===== -->
-    <div class="category-header">
-        <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-        <h2 class="page-title">🔥 Free Fire</h2>
-    </div>
-
-    <!-- ===== الصورة الرئيسية (الصورة التي أرسلتها) ===== -->
-    <div class="mb-5 rounded-2xl overflow-hidden shadow-lg border-2 border-yellow-400/40 bg-white/50 backdrop-blur">
-        <img 
-            src="https://i.postimg.cc/25cGKwjP/file-00000000f7b481f498122b1826474dc2.png" 
-            alt="Free Fire" 
-            class="w-full h-auto object-contain"
-            style="max-height: 180px; width: 100%;"
-        />
-    </div>
-
-    <!-- ===== وصف ===== -->
-    <div class="glass p-4 rounded-2xl mb-5 text-center border border-yellow-200/50">
-        <p class="text-dark text-sm font-semibold">
-            ⚡ اختر باقة الشحن المناسبة - أدخل الـ ID الخاص بك - سيتم الإضافة مباشرة
-        </p>
-    </div>
-
-    <!-- ===== تبويبات (زي الصورة الأولى) ===== -->
-    <div class="flex gap-2 mb-5 bg-white/50 backdrop-blur p-2 rounded-2xl border border-yellow-200/50">
-        <button class="flex-1 py-2 px-3 rounded-xl text-sm font-bold text-dark bg-yellow-400/30 border border-yellow-400" id="ffTabCodes">
-            <i class="fas fa-ticket-alt ml-1"></i> أكواد
-        </button>
-        <button class="flex-1 py-2 px-3 rounded-xl text-sm font-bold text-dark-light hover:bg-yellow-400/20 transition" id="ffTabId">
-            <i class="fas fa-id-card ml-1"></i> ID
-        </button>
-        <button class="flex-1 py-2 px-3 rounded-xl text-sm font-bold text-dark-light hover:bg-yellow-400/20 transition" id="ffTabAccount">
-            <i class="fas fa-user-circle ml-1"></i> عبر الحساب
-        </button>
-    </div>
-
-    <!-- ===== شبكة المنتجات (بطاقات زي الصورة الأولى) ===== -->
-    <div id="freefireGrid" class="product-grid"></div>
-</div>
-                <div class="category-header">
-                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
-                    <h2 class="page-title">🔥 شحن فري فاير FreeFire</h2>
-                </div>
-                <div id="freefireGrid" class="product-grid"></div>
             </div>
             <div id="category-clash" class="category-page">
                 <div class="category-header">
@@ -3790,113 +3737,6 @@ window.addEventListener('hashchange', handleRoute);
                 if (sidebarAdmin) sidebarAdmin.style.display = 'flex';
             }
         });
-        
-        // ========== تبديل تبويبات فري فاير ==========
-let ffCurrentTab = 'codes';
-
-const ffPacks = {
-    codes: [
-        { amount: '100', price: '1.00' },
-        { amount: '200', price: '2.00' },
-        { amount: '500', price: '4.50' },
-        { amount: '1000', price: '8.50' },
-        { amount: '2000', price: '16.00' },
-        { amount: '5000', price: '38.00' }
-    ],
-    id: [
-        { amount: '100', price: '1.50' },
-        { amount: '300', price: '4.00' },
-        { amount: '600', price: '7.50' },
-        { amount: '1200', price: '14.00' },
-        { amount: '2500', price: '28.00' },
-        { amount: '6000', price: '65.00' }
-    ],
-    account: [
-        { amount: '150', price: '2.50' },
-        { amount: '400', price: '6.00' },
-        { amount: '800', price: '11.00' },
-        { amount: '1600', price: '21.00' },
-        { amount: '3500', price: '44.00' },
-        { amount: '8000', price: '95.00' }
-    ]
-};
-
-function renderFFProducts(tab) {
-    const grid = document.getElementById('freefireGrid');
-    if (!grid) return;
-    
-    const products = ffPacks[tab] || ffPacks.codes;
-    const categoryImage = 'https://i.postimg.cc/x8DsznDp/file-0000000095d871f4a98ae4b5e7f7563e.png';
-    
-    grid.innerHTML = products.map(p => `
-        <div class="product-card" onclick="window.showOrderModal('${p.amount} جوهرة', ${parseFloat(p.price) * 6000}, 'freefire', 'ff_${tab}_${p.amount}')">
-            <img src="${categoryImage}" alt="Free Fire" class="product-image" loading="lazy">
-            <div class="product-info">
-                <div class="product-name">${p.amount} جوهرة</div>
-                <div class="product-price">${(parseFloat(p.price) * 6000).toLocaleString()} ج.س</div>
-                <div class="product-rating">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    <span>(131 مراجعة)</span>
-                </div>
-            </div>
-            <div class="product-actions">
-                <button onclick="event.stopPropagation(); window.showOrderModal('${p.amount} جوهرة', ${parseFloat(p.price) * 6000}, 'freefire', 'ff_${tab}_${p.amount}')" class="btn-buy-now">
-                    <i class="fas fa-bolt ml-1"></i> اشترى الآن
-                </button>
-            </div>
-        </div>
-    `).join('');
-}
-
-// ========== أحداث التبويبات ==========
-document.addEventListener('DOMContentLoaded', function() {
-    const tabCodes = document.getElementById('ffTabCodes');
-    const tabId = document.getElementById('ffTabId');
-    const tabAccount = document.getElementById('ffTabAccount');
-    
-    if (tabCodes) {
-        tabCodes.addEventListener('click', function() {
-            document.querySelectorAll('#category-freefire .flex .flex-1').forEach(b => {
-                b.classList.remove('bg-yellow-400/30', 'border-yellow-400', 'text-dark');
-                b.classList.add('text-dark-light');
-            });
-            this.classList.add('bg-yellow-400/30', 'border-yellow-400', 'text-dark');
-            this.classList.remove('text-dark-light');
-            ffCurrentTab = 'codes';
-            renderFFProducts('codes');
-        });
-    }
-    
-    if (tabId) {
-        tabId.addEventListener('click', function() {
-            document.querySelectorAll('#category-freefire .flex .flex-1').forEach(b => {
-                b.classList.remove('bg-yellow-400/30', 'border-yellow-400', 'text-dark');
-                b.classList.add('text-dark-light');
-            });
-            this.classList.add('bg-yellow-400/30', 'border-yellow-400', 'text-dark');
-            this.classList.remove('text-dark-light');
-            ffCurrentTab = 'id';
-            renderFFProducts('id');
-        });
-    }
-    
-    if (tabAccount) {
-        tabAccount.addEventListener('click', function() {
-            document.querySelectorAll('#category-freefire .flex .flex-1').forEach(b => {
-                b.classList.remove('bg-yellow-400/30', 'border-yellow-400', 'text-dark');
-                b.classList.add('text-dark-light');
-            });
-            this.classList.add('bg-yellow-400/30', 'border-yellow-400', 'text-dark');
-            this.classList.remove('text-dark-light');
-            ffCurrentTab = 'account';
-            renderFFProducts('account');
-        });
-    }
-    
-    // عرض التبويب الأول افتراضياً
-    renderFFProducts('codes');
-});
-        
     </script>
 
 </body>
