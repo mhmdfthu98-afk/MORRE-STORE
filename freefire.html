@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* ===== نفس الـ CSS الموجود ===== */
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
         * {
             font-family: 'Cairo', sans-serif;
@@ -56,16 +57,6 @@
             color: #d97706;
             text-align: center;
             margin: 0.25rem 0;
-        }
-        .product-card .product-specs {
-            font-size: 0.75rem;
-            color: #64748b;
-            text-align: center;
-            margin: 0.5rem 0;
-            padding: 0.4rem;
-            background: #f8fafc;
-            border-radius: 0.5rem;
-            border: 1px dashed #e2e8f0;
         }
         .product-card .btn-buy-now {
             background: #1e293b;
@@ -443,7 +434,6 @@
         .dark .product-card { background: #1e293b; border-color: #334155; }
         .dark .product-card .product-name { color: #f1f5f9; }
         .dark .product-card .product-price { color: #fbbf24; }
-        .dark .product-card .product-specs { background: #0f172a; color: #94a3b8; border-color: #334155; }
         .dark .product-card .btn-buy-now { background: #f59e0b; color: #1e293b; }
         .dark .product-card .btn-buy-now:hover { background: #d97706; }
         .dark .back-btn { background: rgba(30, 41, 59, 0.6); color: #f1f5f9; }
@@ -462,12 +452,10 @@
         .dark .detail-row .value { color: #f1f5f9; }
         .dark .detail-row.total .label { color: #f1f5f9; }
         .dark .confirm-actions .btn-cancel { background: #334155; color: #f1f5f9; }
-        .dark .confirm-actions .btn-cancel:hover { background: #475569; }
         .dark .note { background: #78350f; color: #fbbf24; }
         .dark .brand-name-white { color: #f1f5f9; }
         .dark .text-dark { color: #f1f5f9; }
         .dark .text-dark-light { color: #94a3b8; }
-        .dark .section-title { color: #f1f5f9; }
         .dark .simple-banner {
             background: linear-gradient(135deg, #1e293b, #334155);
             border-bottom-color: #f59e0b;
@@ -490,41 +478,13 @@
         <div style="width: 70px;"></div>
     </div>
 
-    <!-- ===== المحتوى الرئيسي ===== -->
+    <!-- ===== المحتوى الرئيسي (تم حذف المربع والرصيد وشحن المحفظة) ===== -->
     <main class="max-w-7xl mx-auto px-4 relative z-10 pb-32">
-
-        <!-- ===== محفظة المستخدم ===== -->
-        <div class="glass p-5 text-dark mb-6 mt-4">
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <div class="flex items-center gap-3 w-full sm:w-auto">
-                    <img id="uImg" class="w-12 h-12 rounded-full border-2 border-yellow-dark shadow-lg" src="https://via.placeholder.com/100">
-                    <div>
-                        <h2 id="uName" class="font-bold text-lg text-dark">...</h2>
-                        <div id="uWallet" class="text-xs text-yellow-dark bg-black/5 px-2 py-0.5 rounded-full mt-1">#000000</div>
-                    </div>
-                </div>
-                <div class="flex items-center gap-3 w-full sm:w-auto">
-                    <div class="bg-black/5 px-4 py-2 rounded-xl text-center flex-1 sm:flex-none">
-                        <p class="text-xs text-dark-light">الرصيد</p>
-                        <p class="text-xl font-black text-yellow-dark"><span id="uBal">0</span> <small class="text-xs">ج.س</small></p>
-                    </div>
-                    <button id="logout-btn" class="w-10 h-10 bg-red-500/20 text-red-600 rounded-full hover:bg-red-500/30"><i class="fas fa-power-off"></i></button>
-                </div>
-            </div>
-            <div class="flex gap-3 mt-4">
-                <a href="#" onclick="openWalletWhatsApp()" class="action-btn text-center flex-1">
-                    <i class="fas fa-wallet ml-1"></i> شحن المحفظة
-                </a>
-                <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="action-btn-outline text-center flex-1">
-                    <i class="fas fa-headset ml-1"></i> خدمة العملاء
-                </a>
-            </div>
-        </div>
 
         <!-- ===== صفحة فري فاير ===== -->
         <div id="category-freefire">
 
-            <!-- ===== الهيدر ===== -->
+            <!-- ===== زر الرجوع (موجود) ===== -->
             <div class="category-header">
                 <a href="index.html" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</a>
                 <h2 class="page-title">🔥 Free Fire</h2>
@@ -691,7 +651,7 @@
 
     <script type="module">
         import { initializeApp } from "firebase/app";
-        import { getFirestore, doc, collection, query, where, getDocs, updateDoc, increment, setDoc, serverTimestamp, addDoc, getDoc, onSnapshot, runTransaction } from "firebase/firestore";
+        import { getFirestore, doc, collection, query, where, getDocs, updateDoc, increment, setDoc, serverTimestamp, addDoc, getDoc, onSnapshot, runTransaction, orderBy } from "firebase/firestore";
         import { getAuth, onAuthStateChanged } from "firebase/auth";
 
         const firebaseConfig = {
@@ -712,14 +672,33 @@
         let currentTab = 'codes';
         let selectedProduct = null;
 
-        // ===== بيانات المنتجات الافتراضية =====
-        const defaultProducts = [
-            { amount: '110', price: 4500 },
-            { amount: '231', price: 9000 },
-            { amount: '583', price: 23000 },
-            { amount: '1180', price: 50000 },
-            { amount: '2420', price: 95000 }
-        ];
+        // ===== بيانات المنتجات الافتراضية حسب النوع =====
+        const defaultProductsByType = {
+            codes: [
+                { name: "100 جوهرة", price: 6000 },
+                { name: "200 جوهرة", price: 12000 },
+                { name: "500 جوهرة", price: 27000 },
+                { name: "1000 جوهرة", price: 51000 },
+                { name: "2000 جوهرة", price: 96000 },
+                { name: "5000 جوهرة", price: 228000 }
+            ],
+            id: [
+                { name: "100 جوهرة", price: 9000 },
+                { name: "300 جوهرة", price: 24000 },
+                { name: "600 جوهرة", price: 45000 },
+                { name: "1200 جوهرة", price: 84000 },
+                { name: "2500 جوهرة", price: 168000 },
+                { name: "6000 جوهرة", price: 390000 }
+            ],
+            account: [
+                { name: "150 جوهرة", price: 15000 },
+                { name: "400 جوهرة", price: 36000 },
+                { name: "800 جوهرة", price: 66000 },
+                { name: "1600 جوهرة", price: 126000 },
+                { name: "3500 جوهرة", price: 264000 },
+                { name: "8000 جوهرة", price: 570000 }
+            ]
+        };
 
         // ===== Toast =====
         function showToast(msg, type = 'info') {
@@ -742,7 +721,7 @@
             }, 3500);
         }
 
-        // ===== تحميل المنتجات =====
+        // ===== تحميل المنتجات حسب النوع =====
         async function loadProducts() {
             try {
                 const productsSnap = await getDocs(collection(db, "products"));
@@ -753,22 +732,35 @@
                 let products = [];
                 productsSnap.forEach(doc => {
                     const p = doc.data();
-                    if (p.category === 'freefire' && p.isActive !== false) {
+                    if (p.category === 'freefire' && p.isActive !== false && p.type === currentTab) {
                         products.push({ ...p, id: doc.id });
                     }
                 });
 
                 if (products.length === 0) {
-                    for (const p of defaultProducts) {
-                        await addDoc(collection(db, "products"), {
-                            name: `${p.amount} جوهرة`,
-                            price: p.price,
-                            category: 'freefire',
-                            isActive: true,
-                            createdAt: serverTimestamp()
-                        });
+                    // إضافة المنتجات الافتراضية لهذا النوع
+                    const defaultProducts = defaultProductsByType[currentTab] || [];
+                    if (defaultProducts.length > 0) {
+                        for (const p of defaultProducts) {
+                            await addDoc(collection(db, "products"), {
+                                name: p.name,
+                                price: p.price,
+                                category: 'freefire',
+                                type: currentTab,
+                                isActive: true,
+                                createdAt: serverTimestamp()
+                            });
+                        }
+                        loadProducts();
+                        return;
                     }
-                    loadProducts();
+                    grid.innerHTML = `
+                        <div class="empty-products col-span-full">
+                            <i class="fas fa-box-open"></i>
+                            <p>لا توجد منتجات في هذا القسم</p>
+                            <p class="text-sm mt-2">يمكنك إضافتها من لوحة التحكم</p>
+                        </div>
+                    `;
                     return;
                 }
 
@@ -776,38 +768,16 @@
 
             } catch (error) {
                 console.error('خطأ في تحميل المنتجات:', error);
-                const gridId = currentTab === 'codes' ? 'codesGrid' : currentTab === 'id' ? 'idGrid' : 'accountGrid';
-                const grid = document.getElementById(gridId);
-                if (grid) {
-                    const specText = currentTab === 'codes' ? '📱 كود شحن فوري' :
-                        currentTab === 'id' ? '🆔 شحن عبر الـ ID' :
-                        '👤 شحن عبر الحساب';
-                    grid.innerHTML = defaultProducts.map(p => `
-                        <div class="product-card" onclick="window.selectProduct(this, '${p.amount}', ${p.price})">
-                            <div class="product-name">${p.amount} جوهرة</div>
-                            <div class="product-price">${p.price.toLocaleString()} ج.س</div>
-                            <div class="product-specs">⚡ شحن فوري • 🔒 آمن 100% • ${specText}</div>
-                            <button class="btn-buy-now" onclick="event.stopPropagation(); window.selectProduct(this.parentElement, '${p.amount}', ${p.price})">
-                                <i class="fas fa-bolt ml-1"></i> اشترى الآن
-                            </button>
-                        </div>
-                    `).join('');
-                }
             }
         }
 
         function renderProducts(products, grid) {
-            const specText = currentTab === 'codes' ? '📱 كود شحن فوري' :
-                currentTab === 'id' ? '🆔 شحن عبر الـ ID' :
-                '👤 شحن عبر الحساب';
-
             grid.innerHTML = products.map(p => {
                 const amount = p.name.replace(' جوهرة', '');
                 return `
                     <div class="product-card" data-amount="${amount}" data-price="${p.price}" onclick="window.selectProduct(this, '${amount}', ${p.price})">
                         <div class="product-name">${p.name}</div>
                         <div class="product-price">${p.price.toLocaleString()} ج.س</div>
-                        <div class="product-specs">⚡ شحن فوري • 🔒 آمن 100% • ${specText}</div>
                         <button class="btn-buy-now" onclick="event.stopPropagation(); window.selectProduct(this.parentElement, '${amount}', ${p.price})">
                             <i class="fas fa-bolt ml-1"></i> اشترى الآن
                         </button>
@@ -940,7 +910,8 @@
                     userId: currentUser.uid,
                     userEmail: currentUser.email,
                     userName: userData?.name || 'مستخدم',
-                    createdAt: serverTimestamp()
+                    createdAt: serverTimestamp(),
+                    timestamp: serverTimestamp()
                 };
 
                 const docRef = await addDoc(collection(db, "orders"), orderData);
@@ -949,11 +920,9 @@
                 showToast('✅ تم إرسال طلبك بنجاح!', 'success');
                 closeModal();
 
-                // إعادة تعيين التحديد
                 document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
                 selectedProduct = null;
 
-                // تنظيف الحقول
                 document.getElementById('codesWhatsapp').value = '';
                 document.getElementById('idPlayerId').value = '';
                 document.getElementById('idWhatsapp').value = '';
@@ -997,12 +966,7 @@
                 const userSnap = await getDoc(userRef);
                 if (userSnap.exists()) {
                     userData = userSnap.data();
-                    document.getElementById('uName').innerText = userData.name;
-                    document.getElementById('uImg').src = userData.img || 'https://via.placeholder.com/100';
-                    document.getElementById('uBal').innerText = (userData.balance || 0).toLocaleString();
-                    document.getElementById('uWallet').innerText = `المحفظة: #${userData.walletID}`;
                 }
-                // تفعيل الشريط السفلي
                 document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
                 document.getElementById('nav-home')?.classList.add('active');
                 
@@ -1022,18 +986,16 @@
             document.documentElement.classList.add('dark');
         }
 
-        // ===== Toast =====
         window.showToast = showToast;
 
-        // ===== فتح واتساب =====
         window.openWalletWhatsApp = function() {
             window.open('https://wa.me/2490991305468?text=مرحباً%20أريد%20شحن%20محفظتي', '_blank');
         };
 
-        console.log('🔥 MORRE STORE | فري فاير جاهز مع Firebase!');
-        console.log('✅ الطلبات تُحفظ في Firebase وتظهر في لوحة التحكم');
-        console.log('✅ إدارة المنتجات متاحة من لوحة التحكم');
+        console.log('🔥 MORRE STORE | فري فاير جاهز!');
+        console.log('✅ تم حذف الرصيد وشحن المحفظة من الصفحة');
+        console.log('✅ زر الرجوع موجود');
     </script>
 
 </body>
-</html>
+    </html>
