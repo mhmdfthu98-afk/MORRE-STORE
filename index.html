@@ -3174,6 +3174,170 @@
                 if (sidebarAdmin) sidebarAdmin.style.display = 'flex';
             }
         });
+        // =============================================
+// ===== عرض مودال الطلب =====
+// =============================================
+window.showOrderModal = function(product, price, category, productId) {
+    // التحقق من تسجيل الدخول
+    if (!userData) {
+        alert('❌ يرجى تسجيل الدخول أولاً');
+        return;
+    }
+
+    // التحقق من الرصيد
+    if (userData.balance < price) {
+        alert(`❌ رصيدك غير كافي!\n\nرصيدك الحالي: ${userData.balance.toLocaleString()} ج.س\nسعر المنتج: ${price.toLocaleString()} ج.س\n\nيرجى شحن محفظتك عبر زر "شحن المحفظة"`);
+        return;
+    }
+
+    // حفظ الطلب الحالي
+    currentOrder = { product, price, category, productId, isCart: false };
+
+    // إظهار المودال
+    const modal = document.getElementById('orderModal');
+    if (!modal) {
+        alert('❌ حدث خطأ في النظام');
+        return;
+    }
+
+    // تحديث بيانات المودال
+    document.getElementById('modalProductName').innerHTML = `المنتج: ${product}`;
+    document.getElementById('modalProductPrice').innerHTML = `المبلغ: ${price.toLocaleString()} ج.س`;
+
+    // إظهار المودال
+    modal.classList.remove('hidden');
+    modal.style.display = 'flex';
+};
+
+// =============================================
+// ===== إغلاق مودال الطلب =====
+// =============================================
+window.closeOrderModal = function() {
+    const modal = document.getElementById('orderModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+    }
+    currentOrder = null;
+};
+
+// =============================================
+// ===== تأكيد الطلب =====
+// =============================================
+document.getElementById('confirmOrderBtn')?.addEventListener('click', async function() {
+    if (!currentOrder) {
+        alert("❌ لا يوجد طلب نشط");
+        return;
+    }
+
+    // جمع بيانات الشحن
+    const fields = document.querySelectorAll('#orderFields input');
+    const orderData = {};
+    let isValid = true;
+
+    fields.forEach(input => {
+        const value = input.value.trim();
+        orderData[input.id] = value;
+        if (input.hasAttribute('required') && !value) {
+            isValid = false;
+            input.classList.add('border-red-500');
+        } else {
+            input.classList.remove('border-red-500');
+        }
+    });
+
+    // التحقق من رقم واتساب
+    if (orderData.whatsapp && !orderData.whatsapp.match(/^[0-9]{10,15}$/)) {
+        alert("❌ رقم واتساب غير صحيح!");
+        return;
+    }
+
+    if (!isValid) {
+        alert("❌ جميع الحقول المطلوبة يجب تعبئتها!");
+        return;
+    }
+
+    this.textContent = '⏳ جاري المعالجة...';
+    this.disabled = true;
+
+    try {
+        // حفظ الطلب في Firebase
+        const orderRef = await addDoc(collection(db, "orders"), {
+            game: currentOrder.category || 'منتج رقمي',
+            product: currentOrder.product,
+            price: currentOrder.price,
+            status: 'قيد الانتظار',
+            userId: auth.currentUser.uid,
+            userEmail: auth.currentUser.email,
+            userName: userData?.name || 'مستخدم',
+            ...orderData,
+            createdAt: serverTimestamp(),
+            timestamp: serverTimestamp()
+        });
+
+        alert("✅ تم إرسال طلبك بنجاح!");
+        closeOrderModal();
+
+        // إعادة تعيين الحقول
+        document.querySelectorAll('#orderFields input').forEach(input => input.value = '');
+        document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+
+    } catch (error) {
+        console.error('❌ خطأ في حفظ الطلب:', error);
+        alert("❌ حدث خطأ في تأكيد الطلب");
+    } finally {
+        this.textContent = '✔ تأكيد الطلب';
+        this.disabled = false;
+    }
+});
+
+// =============================================
+// ===== حقول الشحن في المودال =====
+// =============================================
+function getOrderFields(category) {
+    const defaultFields = [
+        { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' },
+        { id: 'gameID', label: '🆔 معرف اللاعب (ID)', placeholder: 'أدخل معرف اللاعب', required: true },
+        { id: 'gameName', label: '🎮 اسم اللاعب', placeholder: 'أدخل اسمك في اللعبة', required: true }
+    ];
+
+    return defaultFields;
+}
+
+// =============================================
+// ===== إظهار المودال مع الحقول =====
+// =============================================
+window.showOrderModal = function(product, price, category, productId) {
+    if (!auth.currentUser) {
+        alert('❌ يرجى تسجيل الدخول أولاً');
+        return;
+    }
+
+    if (userData && userData.balance < price) {
+        alert(`❌ رصيدك غير كافي!\n\nرصيدك الحالي: ${userData.balance.toLocaleString()} ج.س\nسعر المنتج: ${price.toLocaleString()} ج.س`);
+        return;
+    }
+
+    currentOrder = { product, price, category, productId };
+
+    const fields = getOrderFields(category);
+    const container = document.getElementById('orderFields');
+    if (!container) return;
+
+    container.innerHTML = fields.map(field => `
+        <div>
+            <label class="text-sm font-bold text-dark block mb-1">${field.label}</label>
+            <input type="${field.type || 'text'}" id="${field.id}" placeholder="${field.placeholder}" ${field.required ? 'required' : ''} class="w-full p-3 rounded-xl border border-gray-200 focus:border-yellow-500 focus:outline-none">
+        </div>
+    `).join('');
+
+    document.getElementById('modalProductName').innerHTML = `المنتج: ${product}`;
+    document.getElementById('modalProductPrice').innerHTML = `المبلغ: ${price.toLocaleString()} ج.س`;
+
+    const modal = document.getElementById('orderModal');
+    modal.classList.remove('hidden');
+    modal.style.display = 'flex';
+};
 
         console.log('🚀 MORRE STORE جاهز بالكامل!');
         console.log('✅ فري فاير أصبحت داخل index.html مثل باقي الألعاب');
