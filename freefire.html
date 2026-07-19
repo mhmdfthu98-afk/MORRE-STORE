@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>MORRE STORE | شحن فري فاير</title>
+    <title>MORRE STORE | فري فاير</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -32,12 +32,12 @@
             border-radius: 0.75rem;
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
             border: 1px solid #f1f5f9;
             display: flex;
             flex-direction: column;
             padding: 1rem;
             cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .product-card:hover {
             transform: translateY(-4px);
@@ -75,7 +75,7 @@
             border-radius: 0.5rem;
             border: none;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: background 0.15s ease;
             font-size: 0.9rem;
             width: 100%;
             margin-top: 0.5rem;
@@ -108,7 +108,7 @@
             border-radius: 1rem;
             padding: 0.5rem 1.5rem;
             color: #1e293b;
-            transition: all 0.3s ease;
+            transition: background 0.15s ease;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
@@ -125,58 +125,158 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #1e293b;
-            margin: 1.5rem 0 1rem 0;
-            padding-right: 1rem;
-            border-right: 4px solid #f59e0b;
+        .brand-name {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            font-size: 1.5rem;
         }
-        .game-header {
+        .brand-name-white {
+            color: #1e293b;
+            font-weight: 900;
+            font-size: 1.5rem;
+        }
+        .simple-banner {
+            background: linear-gradient(135deg, #fef08a, #fde047);
+            height: 80px;
+            border-radius: 0 0 30px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            border-bottom: 2px solid rgba(245, 158, 11, 0.3);
+        }
+        .menu-btn {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 1rem;
+            padding: 0.5rem 1rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #1e293b;
+            transition: 0.2s;
+        }
+        .menu-btn:hover { background: rgba(255, 255, 255, 0.8); }
+        .action-btn {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            font-weight: 800;
+            padding: 0.75rem 1.5rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .action-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        }
+        .action-btn-outline {
+            background: transparent;
+            color: #1e293b;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid #f59e0b;
+            cursor: pointer;
+        }
+        .action-btn-outline:hover {
+            background: rgba(245, 158, 11, 0.1);
+            transform: scale(1.02);
+        }
+        .text-dark { color: #1e293b; }
+        .text-dark-light { color: #475569; }
+        .text-yellow-dark { color: #d97706; }
+        .border-yellow-dark { border-color: #d97706; }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 6px 0 10px 0;
+            z-index: 9999;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+        }
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            color: #94a3b8;
+            font-size: 0.55rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.15s ease;
+            padding: 4px 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: none;
+            background: transparent;
+        }
+        .bottom-nav .nav-item i {
+            font-size: 1.3rem;
+            transition: transform 0.15s ease;
+        }
+        .bottom-nav .nav-item span {
+            font-size: 0.55rem;
+            font-weight: 700;
+        }
+        .bottom-nav .nav-item.active {
+            color: #d97706;
+        }
+        .bottom-nav .nav-item.active i {
+            transform: translateY(-2px);
+        }
+        .bottom-nav .nav-item:hover {
+            color: #d97706;
+        }
+        @media (max-width: 480px) {
+            .bottom-nav .nav-item {
+                padding: 4px 6px;
+            }
+            .bottom-nav .nav-item i {
+                font-size: 1.1rem;
+            }
+            .bottom-nav .nav-item span {
+                font-size: 0.45rem;
+            }
+        }
+
+        .category-header {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 1.5rem;
             flex-wrap: wrap;
-            background: rgba(255, 255, 255, 0.5);
-            padding: 1rem 1.5rem;
-            border-radius: 1.5rem;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
         }
-        .game-header .game-icon {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-            border-radius: 1rem;
-            background: white;
-            padding: 0.5rem;
-        }
-        .game-header .game-info h1 {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #1e293b;
-        }
-        .game-header .game-info p {
-            color: #64748b;
-            font-size: 0.9rem;
-        }
+        .category-header .page-title { font-size: 1.8rem; }
+
         .banner-image {
             width: 100%;
             border-radius: 1.5rem;
             overflow: hidden;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             border: 2px solid rgba(245, 158, 11, 0.3);
         }
         .banner-image img {
             width: 100%;
             height: auto;
-            max-height: 200px;
+            max-height: 180px;
             object-fit: contain;
             background: white;
         }
+
         .tab-btn {
             flex: 1;
             padding: 0.6rem 0.5rem;
@@ -204,6 +304,7 @@
         .tab-content.active {
             display: block;
         }
+
         .input-field {
             width: 100%;
             padding: 0.75rem 1rem;
@@ -225,7 +326,7 @@
             color: #94a3b8;
         }
 
-        /* ===== مودال تأكيد الطلب ===== */
+        /* ===== مودال التأكيد ===== */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -259,43 +360,43 @@
             padding-bottom: 0.75rem;
             margin-bottom: 1rem;
         }
-        .modal-box .detail-row {
+        .detail-row {
             display: flex;
             justify-content: space-between;
             padding: 0.5rem 0;
             border-bottom: 1px solid #f1f5f9;
             font-size: 0.9rem;
         }
-        .modal-box .detail-row .label {
+        .detail-row .label {
             color: #64748b;
             font-weight: 600;
         }
-        .modal-box .detail-row .value {
+        .detail-row .value {
             color: #1e293b;
             font-weight: 700;
         }
-        .modal-box .detail-row .value.price {
+        .detail-row .value.price {
             color: #d97706;
         }
-        .modal-box .detail-row.total {
+        .detail-row.total {
             border-bottom: 2px solid #f59e0b;
             padding: 0.75rem 0;
             margin-top: 0.5rem;
         }
-        .modal-box .detail-row.total .label {
+        .detail-row.total .label {
             font-size: 1rem;
             color: #1e293b;
         }
-        .modal-box .detail-row.total .value {
+        .detail-row.total .value {
             font-size: 1.2rem;
             color: #d97706;
         }
-        .modal-box .confirm-actions {
+        .confirm-actions {
             display: flex;
             gap: 0.75rem;
             margin-top: 1.5rem;
         }
-        .modal-box .confirm-actions button {
+        .confirm-actions button {
             flex: 1;
             padding: 0.75rem;
             border-radius: 0.75rem;
@@ -306,22 +407,22 @@
             transition: 0.2s;
             font-family: 'Cairo', sans-serif;
         }
-        .modal-box .confirm-actions .btn-cancel {
+        .confirm-actions .btn-cancel {
             background: #f1f5f9;
             color: #1e293b;
         }
-        .modal-box .confirm-actions .btn-cancel:hover {
+        .confirm-actions .btn-cancel:hover {
             background: #e2e8f0;
         }
-        .modal-box .confirm-actions .btn-confirm {
+        .confirm-actions .btn-confirm {
             background: #f59e0b;
             color: white;
         }
-        .modal-box .confirm-actions .btn-confirm:hover {
+        .confirm-actions .btn-confirm:hover {
             background: #d97706;
             transform: scale(1.02);
         }
-        .modal-box .note {
+        .note {
             font-size: 0.75rem;
             color: #94a3b8;
             text-align: center;
@@ -330,110 +431,11 @@
             background: #fef3c7;
             border-radius: 0.5rem;
         }
-        .modal-box .note i {
+        .note i {
             color: #f59e0b;
         }
-        .dark .modal-box {
-            background: #1e293b;
-        }
-        .dark .modal-box h2 {
-            color: #f1f5f9;
-            border-bottom-color: #f59e0b;
-        }
-        .dark .modal-box .detail-row {
-            border-bottom-color: #334155;
-        }
-        .dark .modal-box .detail-row .label {
-            color: #94a3b8;
-        }
-        .dark .modal-box .detail-row .value {
-            color: #f1f5f9;
-        }
-        .dark .modal-box .detail-row.total .label {
-            color: #f1f5f9;
-        }
-        .dark .modal-box .confirm-actions .btn-cancel {
-            background: #334155;
-            color: #f1f5f9;
-        }
-        .dark .modal-box .confirm-actions .btn-cancel:hover {
-            background: #475569;
-        }
-        .dark .modal-box .note {
-            background: #78350f;
-            color: #fbbf24;
-        }
 
-        /* ===== الشريط العائم السفلي ===== */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 6px 0 10px 0;
-            z-index: 9999;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-        }
-        .bottom-nav .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            color: #94a3b8;
-            font-size: 0.55rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 4px 12px;
-            border-radius: 12px;
-            text-decoration: none;
-            border: none;
-            background: transparent;
-        }
-        .bottom-nav .nav-item i {
-            font-size: 1.3rem;
-            transition: all 0.3s ease;
-        }
-        .bottom-nav .nav-item span {
-            font-size: 0.55rem;
-            font-weight: 700;
-        }
-        .bottom-nav .nav-item.active {
-            color: #d97706;
-        }
-        .bottom-nav .nav-item.active i {
-            transform: translateY(-2px);
-        }
-        .bottom-nav .nav-item:hover {
-            color: #d97706;
-        }
-        @media (max-width: 480px) {
-            .bottom-nav .nav-item {
-                padding: 4px 6px;
-            }
-            .bottom-nav .nav-item i {
-                font-size: 1.1rem;
-            }
-            .bottom-nav .nav-item span {
-                font-size: 0.45rem;
-            }
-        }
-        .dark .bottom-nav {
-            background: rgba(30, 41, 59, 0.95);
-            border-top-color: rgba(255, 255, 255, 0.05);
-        }
-        .dark .bottom-nav .nav-item {
-            color: #64748b;
-        }
-        .dark .bottom-nav .nav-item.active {
-            color: #fbbf24;
-        }
+        /* ===== الوضع الليلي ===== */
         .dark body {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
         }
@@ -444,99 +446,192 @@
         .dark .product-card .product-specs { background: #0f172a; color: #94a3b8; border-color: #334155; }
         .dark .product-card .btn-buy-now { background: #f59e0b; color: #1e293b; }
         .dark .product-card .btn-buy-now:hover { background: #d97706; }
-        .dark .game-header { background: rgba(30, 41, 59, 0.6); }
-        .dark .game-header .game-info h1 { color: #f1f5f9; }
-        .dark .game-header .game-info p { color: #94a3b8; }
         .dark .back-btn { background: rgba(30, 41, 59, 0.6); color: #f1f5f9; }
         .dark .back-btn:hover { background: rgba(30, 41, 59, 0.8); }
-        .dark .section-title { color: #f1f5f9; }
-        .dark .page-title { background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .dark .input-field { background: rgba(30, 41, 59, 0.6); color: #f1f5f9; border-color: #334155; }
-        .dark .input-field:focus { border-color: #f59e0b; background: rgba(30, 41, 59, 0.8); }
-        .dark .input-field::placeholder { color: #64748b; }
+        .dark .bottom-nav { background: rgba(30, 41, 59, 0.95); }
+        .dark .bottom-nav .nav-item { color: #64748b; }
+        .dark .bottom-nav .nav-item.active { color: #fbbf24; }
         .dark .tab-btn { color: #94a3b8; }
         .dark .tab-btn.active { background: #f59e0b; color: #1e293b; }
-        .dark .tab-btn:hover:not(.active) { background: rgba(245, 158, 11, 0.15); }
+        .dark .input-field { background: rgba(30, 41, 59, 0.6); color: #f1f5f9; border-color: #334155; }
+        .dark .input-field:focus { border-color: #f59e0b; background: rgba(30, 41, 59, 0.8); }
+        .dark .modal-box { background: #1e293b; }
+        .dark .modal-box h2 { color: #f1f5f9; border-bottom-color: #f59e0b; }
+        .dark .detail-row { border-bottom-color: #334155; }
+        .dark .detail-row .label { color: #94a3b8; }
+        .dark .detail-row .value { color: #f1f5f9; }
+        .dark .detail-row.total .label { color: #f1f5f9; }
+        .dark .confirm-actions .btn-cancel { background: #334155; color: #f1f5f9; }
+        .dark .confirm-actions .btn-cancel:hover { background: #475569; }
+        .dark .note { background: #78350f; color: #fbbf24; }
+        .dark .brand-name-white { color: #f1f5f9; }
+        .dark .text-dark { color: #f1f5f9; }
+        .dark .text-dark-light { color: #94a3b8; }
+        .dark .section-title { color: #f1f5f9; }
+        .dark .simple-banner {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-bottom-color: #f59e0b;
+        }
+        .dark .action-btn-outline { color: #f1f5f9; border-color: #f59e0b; }
+        .dark .action-btn-outline:hover { background: rgba(245, 158, 11, 0.15); }
+        .dark .banner-image { border-color: rgba(245, 158, 11, 0.2); }
+        .dark .menu-btn { background: rgba(30, 41, 59, 0.6); color: #f1f5f9; }
+        .dark .menu-btn:hover { background: rgba(30, 41, 59, 0.8); }
     </style>
 </head>
 <body>
 
+    <!-- ===== الهيدر ===== -->
+    <div class="simple-banner">
+        <button class="menu-btn" id="menuBtn"><i class="fas fa-bars text-xl"></i></button>
+        <div>
+            <span class="brand-name">MORRE</span> <span class="brand-name-white">STORE</span>
+        </div>
+        <div style="width: 70px;"></div>
+    </div>
+
     <!-- ===== المحتوى الرئيسي ===== -->
-    <main class="max-w-7xl mx-auto px-4 relative z-10 pb-32 pt-4">
+    <main class="max-w-7xl mx-auto px-4 relative z-10 pb-32">
 
-        <!-- ===== زر رجوع ===== -->
-        <div class="mb-4">
-            <a href="index.html" class="back-btn">
-                <i class="fas fa-arrow-right"></i> رجوع للمتجر
-            </a>
-        </div>
-
-        <!-- ===== الصورة الكبيرة (Banner) ===== -->
-        <div class="banner-image">
-            <img src="https://i.postimg.cc/25cGKwjP/file-00000000f7b481f498122b1826474dc2.png" alt="Free Fire" />
-        </div>
-
-        <!-- ===== هيدر اللعبة ===== -->
-        <div class="game-header">
-            <img src="https://i.postimg.cc/x8DsznDp/file-0000000095d871f4a98ae4b5e7f7563e.png" alt="Free Fire" class="game-icon">
-            <div class="game-info">
-                <h1>🔥 Free Fire</h1>
-                <p>شحن جواهر فري فاير - شحن فوري عبر الـ ID</p>
-            </div>
-        </div>
-
-        <!-- ===== تبويبات الشحن ===== -->
-        <div class="glass p-2 rounded-2xl mb-5 flex gap-2">
-            <button class="tab-btn active" data-tab="codes">
-                <i class="fas fa-ticket-alt ml-1"></i> أكواد
-            </button>
-            <button class="tab-btn" data-tab="id">
-                <i class="fas fa-id-card ml-1"></i> عبر ID
-            </button>
-            <button class="tab-btn" data-tab="account">
-                <i class="fas fa-user-circle ml-1"></i> عبر الحساب
-            </button>
-        </div>
-
-        <!-- ===== تبويب: أكواد ===== -->
-        <div class="tab-content active" id="tab-codes">
-            <div class="product-grid" id="codesGrid"></div>
-        </div>
-
-        <!-- ===== تبويب: عبر ID ===== -->
-        <div class="tab-content" id="tab-id">
-            <div class="glass p-4 rounded-2xl mb-4">
-                <p class="text-dark text-sm font-semibold mb-3 text-center">
-                    <i class="fas fa-info-circle text-yellow-dark ml-1"></i>
-                    أدخل معرف اللاعب (ID) ورقم واتساب، ثم اختر الباقة المناسبة
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <input type="text" id="idPlayerId" class="input-field" placeholder="🆔 معرف اللاعب (ID)">
-                    <input type="tel" id="idWhatsapp" class="input-field" placeholder="📱 رقم واتساب للتواصل">
+        <!-- ===== محفظة المستخدم ===== -->
+        <div class="glass p-5 text-dark mb-6 mt-4">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <img id="uImg" class="w-12 h-12 rounded-full border-2 border-yellow-dark shadow-lg" src="https://via.placeholder.com/100">
+                    <div>
+                        <h2 id="uName" class="font-bold text-lg text-dark">...</h2>
+                        <div id="uWallet" class="text-xs text-yellow-dark bg-black/5 px-2 py-0.5 rounded-full mt-1">#000000</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <div class="bg-black/5 px-4 py-2 rounded-xl text-center flex-1 sm:flex-none">
+                        <p class="text-xs text-dark-light">الرصيد</p>
+                        <p class="text-xl font-black text-yellow-dark"><span id="uBal">0</span> <small class="text-xs">ج.س</small></p>
+                    </div>
+                    <button id="logout-btn" class="w-10 h-10 bg-red-500/20 text-red-600 rounded-full hover:bg-red-500/30"><i class="fas fa-power-off"></i></button>
                 </div>
             </div>
-            <div class="product-grid" id="idGrid"></div>
+            <div class="flex gap-3 mt-4">
+                <a href="#" onclick="openWalletWhatsApp()" class="action-btn text-center flex-1">
+                    <i class="fas fa-wallet ml-1"></i> شحن المحفظة
+                </a>
+                <a href="https://wa.me/2490991305468?text=مرحباً%20أحتاج%20مساعدة" target="_blank" class="action-btn-outline text-center flex-1">
+                    <i class="fas fa-headset ml-1"></i> خدمة العملاء
+                </a>
+            </div>
         </div>
 
-        <!-- ===== تبويب: عبر الحساب ===== -->
-        <div class="tab-content" id="tab-account">
-            <div class="glass p-4 rounded-2xl mb-4">
-                <p class="text-dark text-sm font-semibold mb-3 text-center">
-                    <i class="fas fa-info-circle text-yellow-dark ml-1"></i>
-                    أدخل بيانات حسابك ورقم واتساب، ثم اختر الباقة المناسبة
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <input type="email" id="accountEmail" class="input-field" placeholder="📧 البريد الإلكتروني">
-                    <input type="password" id="accountPassword" class="input-field" placeholder="🔑 كلمة المرور">
-                    <input type="tel" id="accountWhatsapp" class="input-field" placeholder="📱 رقم واتساب للتواصل" style="grid-column: 1 / -1;">
-                </div>
+        <!-- ===== صفحة فري فاير ===== -->
+        <div id="category-freefire">
+
+            <!-- ===== الهيدر ===== -->
+            <div class="category-header">
+                <a href="index.html" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</a>
+                <h2 class="page-title">🔥 Free Fire</h2>
             </div>
-            <div class="product-grid" id="accountGrid"></div>
+
+            <!-- ===== البانر ===== -->
+            <div class="banner-image">
+                <img src="https://i.postimg.cc/25cGKwjP/file-00000000f7b481f498122b1826474dc2.png" alt="Free Fire" />
+            </div>
+
+            <!-- ===== وصف ===== -->
+            <div class="glass p-4 rounded-2xl mb-5 text-center border border-yellow-200/50">
+                <p class="text-dark text-sm font-semibold">
+                    ⚡ اختر باقة الشحن المناسبة - أدخل البيانات المطلوبة - سيتم الإضافة مباشرة
+                </p>
+            </div>
+
+            <!-- ===== تبويبات ===== -->
+            <div class="flex gap-2 mb-5 bg-white/50 backdrop-blur p-2 rounded-2xl border border-yellow-200/50">
+                <button class="tab-btn active" data-tab="codes" id="ffTabCodes">
+                    <i class="fas fa-ticket-alt ml-1"></i> أكواد
+                </button>
+                <button class="tab-btn" data-tab="id" id="ffTabId">
+                    <i class="fas fa-id-card ml-1"></i> ID
+                </button>
+                <button class="tab-btn" data-tab="account" id="ffTabAccount">
+                    <i class="fas fa-user-circle ml-1"></i> عبر الحساب
+                </button>
+            </div>
+
+            <!-- ===== تبويب: أكواد ===== -->
+            <div class="tab-content active" id="tab-codes">
+                <div class="glass p-4 rounded-2xl mb-4">
+                    <p class="text-dark text-sm font-semibold mb-3 text-center">
+                        <i class="fas fa-info-circle text-yellow-dark ml-1"></i>
+                        أدخل رقم واتساب للتواصل، ثم اختر الباقة المناسبة
+                    </p>
+                    <div class="grid grid-cols-1 gap-3">
+                        <input type="tel" id="codesWhatsapp" class="input-field" placeholder="📱 رقم واتساب للتواصل">
+                    </div>
+                </div>
+                <div id="codesGrid" class="product-grid"></div>
+            </div>
+
+            <!-- ===== تبويب: عبر ID ===== -->
+            <div class="tab-content" id="tab-id">
+                <div class="glass p-4 rounded-2xl mb-4">
+                    <p class="text-dark text-sm font-semibold mb-3 text-center">
+                        <i class="fas fa-info-circle text-yellow-dark ml-1"></i>
+                        أدخل معرف اللاعب (ID) ورقم واتساب، ثم اختر الباقة المناسبة
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <input type="text" id="idPlayerId" class="input-field" placeholder="🆔 معرف اللاعب (ID)">
+                        <input type="tel" id="idWhatsapp" class="input-field" placeholder="📱 رقم واتساب للتواصل">
+                    </div>
+                </div>
+                <div id="idGrid" class="product-grid"></div>
+            </div>
+
+            <!-- ===== تبويب: عبر الحساب ===== -->
+            <div class="tab-content" id="tab-account">
+                <div class="glass p-4 rounded-2xl mb-4">
+                    <p class="text-dark text-sm font-semibold mb-3 text-center">
+                        <i class="fas fa-info-circle text-yellow-dark ml-1"></i>
+                        أدخل بيانات حسابك ورقم واتساب، ثم اختر الباقة المناسبة
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <input type="email" id="accountEmail" class="input-field" placeholder="📧 البريد الإلكتروني">
+                        <input type="password" id="accountPassword" class="input-field" placeholder="🔑 كلمة المرور">
+                        <input type="tel" id="accountWhatsapp" class="input-field" placeholder="📱 رقم واتساب للتواصل" style="grid-column:1/-1;">
+                    </div>
+                </div>
+                <div id="accountGrid" class="product-grid"></div>
+            </div>
+
         </div>
 
     </main>
 
-    <!-- ===== مودال تأكيد الطلب ===== -->
+    <!-- ===== الشريط العائم السفلي ===== -->
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-item" id="nav-home">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </a>
+        <a href="wallet.html" class="nav-item" id="nav-wallet">
+            <i class="fas fa-wallet"></i>
+            <span>محفظتي</span>
+        </a>
+        <a href="support.html" class="nav-item" id="nav-support">
+            <i class="fas fa-headset"></i>
+            <span>الدعم</span>
+        </a>
+        <a href="orders.html" class="nav-item" id="nav-orders">
+            <i class="fas fa-box"></i>
+            <span>طلباتي</span>
+        </a>
+        <a href="account.html" class="nav-item" id="nav-account">
+            <i class="fas fa-user"></i>
+            <span>الحساب</span>
+        </a>
+    </div>
+
+    <!-- ===== Toast ===== -->
+    <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 bg-dark text-white px-5 py-2.5 rounded-xl text-sm font-bold z-[99999] opacity-0 transition-all duration-300 pointer-events-none whitespace-nowrap dark:bg-white dark:text-dark"></div>
+
+    <!-- ===== مودال التأكيد ===== -->
     <div class="modal-overlay" id="confirmModal">
         <div class="modal-box">
             <h2>✅ تأكيد الطلب</h2>
@@ -546,7 +641,7 @@
             <div id="orderDetails">
                 <div class="detail-row">
                     <span class="label">🎮 اسم اللعبة</span>
-                    <span class="value" id="detailGame">فري فاير Free Fire</span>
+                    <span class="value">فري فاير Free Fire</span>
                 </div>
                 <div class="detail-row">
                     <span class="label">📦 المنتج</span>
@@ -584,30 +679,6 @@
         </div>
     </div>
 
-    <!-- ===== الشريط العائم السفلي ===== -->
-    <div class="bottom-nav">
-        <a href="index.html" class="nav-item" id="nav-home">
-            <i class="fas fa-home"></i>
-            <span>الرئيسية</span>
-        </a>
-        <a href="wallet.html" class="nav-item" id="nav-wallet">
-            <i class="fas fa-wallet"></i>
-            <span>محفظتي</span>
-        </a>
-        <a href="support.html" class="nav-item" id="nav-support">
-            <i class="fas fa-headset"></i>
-            <span>الدعم</span>
-        </a>
-        <a href="account.html" class="nav-item" id="nav-account">
-            <i class="fas fa-user"></i>
-            <span>الحساب</span>
-        </a>
-    </div>
-
-    <!-- ===== Toast ===== -->
-    <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 bg-dark text-white px-5 py-2.5 rounded-xl text-sm font-bold z-[99999] opacity-0 transition-all duration-300 pointer-events-none whitespace-nowrap dark:bg-white dark:text-dark"></div>
-
-    <!-- ===== Firebase ===== -->
     <script type="importmap">
         {
             "imports": {
@@ -619,11 +690,8 @@
     </script>
 
     <script type="module">
-        // =============================================
-        // ===== استيراد Firebase =====
-        // =============================================
         import { initializeApp } from "firebase/app";
-        import { getFirestore, doc, setDoc, serverTimestamp, collection, addDoc } from "firebase/firestore";
+        import { getFirestore, doc, collection, query, where, getDocs, updateDoc, increment, setDoc, serverTimestamp, addDoc, getDoc, onSnapshot, runTransaction } from "firebase/firestore";
         import { getAuth, onAuthStateChanged } from "firebase/auth";
 
         const firebaseConfig = {
@@ -639,10 +707,13 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        // =============================================
-        // ===== بيانات المنتجات =====
-        // =============================================
-        const products = [
+        let currentUser = null;
+        let userData = null;
+        let currentTab = 'codes';
+        let selectedProduct = null;
+
+        // ===== بيانات المنتجات الافتراضية =====
+        const defaultProducts = [
             { amount: '110', price: 4500 },
             { amount: '231', price: 9000 },
             { amount: '583', price: 23000 },
@@ -650,17 +721,7 @@
             { amount: '2420', price: 95000 }
         ];
 
-        // =============================================
-        // ===== حالة التطبيق =====
-        // =============================================
-        let currentUser = null;
-        let currentTab = 'codes';
-        let selectedProduct = null;
-        let selectedTab = 'codes';
-
-        // =============================================
         // ===== Toast =====
-        // =============================================
         function showToast(msg, type = 'info') {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
@@ -681,64 +742,113 @@
             }, 3500);
         }
 
-        // =============================================
-        // ===== عرض المنتجات =====
-        // =============================================
-        function renderProducts(tab) {
-            const gridId = tab === 'codes' ? 'codesGrid' : tab === 'id' ? 'idGrid' : 'accountGrid';
-            const grid = document.getElementById(gridId);
-            if (!grid) return;
+        // ===== تحميل المنتجات =====
+        async function loadProducts() {
+            try {
+                const productsSnap = await getDocs(collection(db, "products"));
+                const gridId = currentTab === 'codes' ? 'codesGrid' : currentTab === 'id' ? 'idGrid' : 'accountGrid';
+                const grid = document.getElementById(gridId);
+                if (!grid) return;
 
-            const specText = tab === 'codes' ? '📱 كود شحن فوري' :
-                tab === 'id' ? '🆔 شحن عبر الـ ID' :
-                '👤 شحن عبر الحساب';
+                let products = [];
+                productsSnap.forEach(doc => {
+                    const p = doc.data();
+                    if (p.category === 'freefire' && p.isActive !== false) {
+                        products.push({ ...p, id: doc.id });
+                    }
+                });
 
-            grid.innerHTML = products.map(p => `
-                <div class="product-card" data-amount="${p.amount}" data-price="${p.price}" onclick="window.selectProduct(this, '${p.amount}', ${p.price})">
-                    <div class="product-name">${p.amount} جوهرة</div>
-                    <div class="product-price">${p.price.toLocaleString()} ج.س</div>
-                    <div class="product-specs">
-                        ⚡ شحن فوري • 🔒 آمن 100% • ${specText}
-                    </div>
-                    <button class="btn-buy-now" onclick="event.stopPropagation(); window.selectProduct(this.parentElement, '${p.amount}', ${p.price})">
-                        <i class="fas fa-bolt ml-1"></i> اشترى الآن
-                    </button>
-                </div>
-            `).join('');
+                if (products.length === 0) {
+                    for (const p of defaultProducts) {
+                        await addDoc(collection(db, "products"), {
+                            name: `${p.amount} جوهرة`,
+                            price: p.price,
+                            category: 'freefire',
+                            isActive: true,
+                            createdAt: serverTimestamp()
+                        });
+                    }
+                    loadProducts();
+                    return;
+                }
+
+                renderProducts(products, grid);
+
+            } catch (error) {
+                console.error('خطأ في تحميل المنتجات:', error);
+                const gridId = currentTab === 'codes' ? 'codesGrid' : currentTab === 'id' ? 'idGrid' : 'accountGrid';
+                const grid = document.getElementById(gridId);
+                if (grid) {
+                    const specText = currentTab === 'codes' ? '📱 كود شحن فوري' :
+                        currentTab === 'id' ? '🆔 شحن عبر الـ ID' :
+                        '👤 شحن عبر الحساب';
+                    grid.innerHTML = defaultProducts.map(p => `
+                        <div class="product-card" onclick="window.selectProduct(this, '${p.amount}', ${p.price})">
+                            <div class="product-name">${p.amount} جوهرة</div>
+                            <div class="product-price">${p.price.toLocaleString()} ج.س</div>
+                            <div class="product-specs">⚡ شحن فوري • 🔒 آمن 100% • ${specText}</div>
+                            <button class="btn-buy-now" onclick="event.stopPropagation(); window.selectProduct(this.parentElement, '${p.amount}', ${p.price})">
+                                <i class="fas fa-bolt ml-1"></i> اشترى الآن
+                            </button>
+                        </div>
+                    `).join('');
+                }
+            }
         }
 
-        // =============================================
+        function renderProducts(products, grid) {
+            const specText = currentTab === 'codes' ? '📱 كود شحن فوري' :
+                currentTab === 'id' ? '🆔 شحن عبر الـ ID' :
+                '👤 شحن عبر الحساب';
+
+            grid.innerHTML = products.map(p => {
+                const amount = p.name.replace(' جوهرة', '');
+                return `
+                    <div class="product-card" data-amount="${amount}" data-price="${p.price}" onclick="window.selectProduct(this, '${amount}', ${p.price})">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-price">${p.price.toLocaleString()} ج.س</div>
+                        <div class="product-specs">⚡ شحن فوري • 🔒 آمن 100% • ${specText}</div>
+                        <button class="btn-buy-now" onclick="event.stopPropagation(); window.selectProduct(this.parentElement, '${amount}', ${p.price})">
+                            <i class="fas fa-bolt ml-1"></i> اشترى الآن
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
         // ===== اختيار المنتج =====
-        // =============================================
         window.selectProduct = function(element, amount, price) {
-            // إزالة التحديد من جميع البطاقات في نفس الشبكة
             const grid = element.closest('.product-grid');
             if (grid) {
                 grid.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
             }
             element.classList.add('selected');
             selectedProduct = { amount, price };
-            
-            // الحصول على بيانات الشحن حسب التبويب النشط
+
             const tab = document.querySelector('.tab-btn.active')?.dataset.tab || 'codes';
             const shippingData = getShippingData(tab);
-            
+
             if (!shippingData) {
                 showToast('⚠️ يرجى إدخال بيانات الشحن كاملة', 'error');
                 return;
             }
 
-            // فتح مودال التأكيد
             openConfirmModal(tab, amount, price, shippingData);
         };
 
-        // =============================================
         // ===== الحصول على بيانات الشحن =====
-        // =============================================
         function getShippingData(tab) {
             if (tab === 'codes') {
-                // الأكواد لا تحتاج بيانات إضافية
-                return { method: 'أكواد', playerId: 'كود الشحن', whatsapp: '' };
+                const whatsapp = document.getElementById('codesWhatsapp')?.value.trim();
+                if (!whatsapp) {
+                    showToast('⚠️ يرجى إدخال رقم واتساب للتواصل', 'error');
+                    return null;
+                }
+                if (!whatsapp.match(/^[0-9]{10,15}$/)) {
+                    showToast('⚠️ رقم واتساب غير صحيح', 'error');
+                    return null;
+                }
+                return { method: 'أكواد', playerId: 'كود الشحن', whatsapp };
             } else if (tab === 'id') {
                 const playerId = document.getElementById('idPlayerId')?.value.trim();
                 const whatsapp = document.getElementById('idWhatsapp')?.value.trim();
@@ -768,24 +878,26 @@
             return null;
         }
 
-        // =============================================
-        // ===== مودال تأكيد الطلب =====
-        // =============================================
+        // ===== فتح مودال التأكيد =====
         function openConfirmModal(tab, amount, price, shippingData) {
+            if (!currentUser) {
+                showToast('⚠️ يرجى تسجيل الدخول أولاً', 'error');
+                return;
+            }
+
             const modal = document.getElementById('confirmModal');
             document.getElementById('detailProduct').textContent = `${amount} جوهرة`;
             document.getElementById('detailMethod').textContent = shippingData.method;
             document.getElementById('detailPlayerId').textContent = shippingData.playerId;
-            document.getElementById('detailWhatsapp').textContent = shippingData.whatsapp || 'غير مطلوب';
+            document.getElementById('detailWhatsapp').textContent = shippingData.whatsapp;
             document.getElementById('detailPrice').textContent = price.toLocaleString() + ' ج.س';
             document.getElementById('detailTotal').textContent = price.toLocaleString() + ' ج.س';
 
-            // حفظ البيانات للاستخدام عند التأكيد
             modal.dataset.tab = tab;
             modal.dataset.amount = amount;
             modal.dataset.price = price;
             modal.dataset.playerId = shippingData.playerId;
-            modal.dataset.whatsapp = shippingData.whatsapp || '';
+            modal.dataset.whatsapp = shippingData.whatsapp;
             modal.dataset.method = shippingData.method;
 
             modal.classList.add('active');
@@ -798,9 +910,7 @@
             document.body.style.overflow = '';
         };
 
-        // =============================================
-        // ===== تأكيد الطلب وحفظه في Firebase =====
-        // =============================================
+        // ===== تأكيد الطلب =====
         document.getElementById('confirmOrderBtn').addEventListener('click', async function() {
             const modal = document.getElementById('confirmModal');
             const tab = modal.dataset.tab;
@@ -829,10 +939,10 @@
                     status: 'قيد الانتظار',
                     userId: currentUser.uid,
                     userEmail: currentUser.email,
+                    userName: userData?.name || 'مستخدم',
                     createdAt: serverTimestamp()
                 };
 
-                // حفظ في Firebase
                 const docRef = await addDoc(collection(db, "orders"), orderData);
                 console.log('✅ تم حفظ الطلب بنجاح! ID:', docRef.id);
 
@@ -844,16 +954,12 @@
                 selectedProduct = null;
 
                 // تنظيف الحقول
+                document.getElementById('codesWhatsapp').value = '';
                 document.getElementById('idPlayerId').value = '';
                 document.getElementById('idWhatsapp').value = '';
                 document.getElementById('accountEmail').value = '';
                 document.getElementById('accountPassword').value = '';
                 document.getElementById('accountWhatsapp').value = '';
-
-                // فتح واتساب للتواصل
-                setTimeout(() => {
-                    window.open(`https://wa.me/2490991305468?text=مرحباً%20تم%20إرسال%20طلب%20شراء%20${amount}%20جوهرة%20فري%20فاير%20رقم%20الطلب%3A%20${docRef.id}`, '_blank');
-                }, 1000);
 
             } catch (error) {
                 console.error('❌ خطأ في حفظ الطلب:', error);
@@ -864,9 +970,7 @@
             }
         });
 
-        // =============================================
         // ===== تبديل التبويبات =====
-        // =============================================
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -878,61 +982,58 @@
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 document.getElementById(`tab-${tab}`).classList.add('active');
 
-                // عرض المنتجات
-                renderProducts(tab);
-
-                // إزالة التحديد
                 document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
                 selectedProduct = null;
+
+                loadProducts();
             });
         });
 
-        // =============================================
         // ===== المصادقة =====
-        // =============================================
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
-                console.log('✅ مستخدم مسجل دخول:', user.email);
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+                if (userSnap.exists()) {
+                    userData = userSnap.data();
+                    document.getElementById('uName').innerText = userData.name;
+                    document.getElementById('uImg').src = userData.img || 'https://via.placeholder.com/100';
+                    document.getElementById('uBal').innerText = (userData.balance || 0).toLocaleString();
+                    document.getElementById('uWallet').innerText = `المحفظة: #${userData.walletID}`;
+                }
                 // تفعيل الشريط السفلي
                 document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
                 document.getElementById('nav-home')?.classList.add('active');
+                
+                loadProducts();
             } else {
                 currentUser = null;
-                console.log('⚠️ لم يتم تسجيل الدخول');
+                userData = null;
                 showToast('⚠️ يرجى تسجيل الدخول أولاً', 'error');
-                // توجيه إلى صفحة تسجيل الدخول
                 setTimeout(() => {
                     window.location.href = 'index.html';
                 }, 1500);
             }
         });
 
-        // =============================================
-        // ===== التحميل الأولي =====
-        // =============================================
-        document.addEventListener('DOMContentLoaded', function() {
-            renderProducts('codes');
-            // تفعيل الشريط السفلي
-            document.querySelectorAll('.bottom-nav .nav-item').forEach(el => el.classList.remove('active'));
-            document.getElementById('nav-home')?.classList.add('active');
+        // ===== الثيم =====
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
 
-            // التحقق من الثيم
-            if (localStorage.getItem('theme') === 'dark') {
-                document.documentElement.classList.add('dark');
-            }
-        });
+        // ===== Toast =====
+        window.showToast = showToast;
 
-        // =============================================
-        // ===== إغلاق المودال عند النقر خارجها =====
-        // =============================================
-        document.getElementById('confirmModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
+        // ===== فتح واتساب =====
+        window.openWalletWhatsApp = function() {
+            window.open('https://wa.me/2490991305468?text=مرحباً%20أريد%20شحن%20محفظتي', '_blank');
+        };
 
-        console.log('🔥 MORRE STORE | فري فاير جاهز!');
+        console.log('🔥 MORRE STORE | فري فاير جاهز مع Firebase!');
+        console.log('✅ الطلبات تُحفظ في Firebase وتظهر في لوحة التحكم');
+        console.log('✅ إدارة المنتجات متاحة من لوحة التحكم');
     </script>
+
 </body>
-            </html>
+</html>
