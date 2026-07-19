@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>MORRE STORE | متجر شامل للخدمات الرقمية</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
@@ -1172,14 +1173,9 @@
                                 <option value="steam">🎮 ستيم</option>
                                 <option value="playstation">🎮 بلاي ستيشن</option>
                             </select>
-                            <select id="productType" class="w-full">
-                                <option value="codes">📱 أكواد</option>
-                                <option value="id">🆔 عبر ID</option>
-                                <option value="account">👤 عبر الحساب</option>
-                            </select>
                             <input type="text" id="productName" placeholder="اسم المنتج (مثال: 110 جوهرة)">
                             <input type="number" id="productPrice" placeholder="السعر (جنيه)">
-                            <button onclick="addNewProductWithType()" class="w-full action-btn">➕ إضافة المنتج</button>
+                            <button onclick="addNewProduct()" class="w-full action-btn">➕ إضافة المنتج</button>
                         </div>
                     </div>
 
@@ -1237,7 +1233,7 @@
                                 <h3 class="text-dark font-bold mt-2">ببجي PUBG</h3>
                                 <p class="text-dark-light text-xs">شحن فوري</p>
                             </div>
-                            <div class="glass-card p-4 text-center service-card" onclick="window.location.href='freefire.html'">
+                            <div class="glass-card p-4 text-center service-card" onclick="navigateTo('category', 'freefire')">
                                 <img src="https://i.postimg.cc/x8DsznDp/file-0000000095d871f4a98ae4b5e7f7563e.png" alt="FreeFire" class="service-icon">
                                 <h3 class="text-dark font-bold mt-2">فري فاير FreeFire</h3>
                                 <p class="text-dark-light text-xs">شحن فوري</p>
@@ -1345,6 +1341,15 @@
                     <h2 class="page-title">🎮 ببجي PUBG</h2>
                 </div>
                 <div id="pubgGrid" class="product-grid"></div>
+            </div>
+
+            <!-- Free Fire -->
+            <div id="category-freefire" class="category-page">
+                <div class="category-header">
+                    <button onclick="navigateTo('home')" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع</button>
+                    <h2 class="page-title">🔥 فري فاير FreeFire</h2>
+                </div>
+                <div id="freefireGrid" class="product-grid"></div>
             </div>
 
             <!-- Clash of Clans -->
@@ -2387,7 +2392,6 @@
                                 name: product.name,
                                 price: product.price,
                                 category: category,
-                                type: 'general',
                                 isActive: true,
                                 createdAt: serverTimestamp()
                             });
@@ -2489,45 +2493,8 @@
         }
 
         // =============================================
-        // ===== إضافة منتج مع نوع (للأدمن) =====
+        // ===== إضافة منتج =====
         // =============================================
-        window.addNewProductWithType = async () => {
-            const game = document.getElementById('productGame').value;
-            const type = document.getElementById('productType').value;
-            const name = document.getElementById('productName').value.trim();
-            const price = parseInt(document.getElementById('productPrice').value);
-
-            if (!name || !price) {
-                alert("❌ اسم المنتج والسعر مطلوبين");
-                return;
-            }
-
-            const docRef = doc(collection(db, "products"));
-            const newId = docRef.id;
-
-            const newProduct = {
-                id: newId,
-                name: name,
-                price: price,
-                category: game,
-                type: type,
-                isActive: true,
-                createdAt: serverTimestamp()
-            };
-
-            await setDoc(docRef, newProduct);
-
-            if (!allProducts[game]) allProducts[game] = [];
-            allProducts[game].push({ ...newProduct, id: newId });
-
-            renderAllProducts();
-            loadManageProducts();
-
-            document.getElementById('productName').value = '';
-            document.getElementById('productPrice').value = '';
-            alert(`✅ تم إضافة المنتج بنجاح!\nالنوع: ${type}\nاللعبة: ${game}`);
-        };
-
         window.addNewProduct = async () => {
             const game = document.getElementById('productGame').value;
             const name = document.getElementById('productName').value.trim();
@@ -2546,7 +2513,6 @@
                 name,
                 price,
                 category: game,
-                type: 'general',
                 isActive: true,
                 createdAt: serverTimestamp()
             };
@@ -2682,12 +2648,6 @@
                     steam: '🎮 ستيم',
                     playstation: '🎮 بلاي ستيشن'
                 };
-                const typeNames = {
-                    codes: '📱 أكواد',
-                    id: '🆔 ID',
-                    account: '👤 حساب',
-                    general: '📦 عام'
-                };
                 let html = '';
                 productsSnap.forEach(doc => {
                     const p = doc.data();
@@ -2696,7 +2656,7 @@
                                     <div>
                                         <p class="text-dark font-bold">${p.name}</p>
                                         <p class="text-yellow-dark text-sm">${p.price.toLocaleString()} ج.س</p>
-                                        <p class="text-dark-light text-xs">${catNames[p.category] || p.category} | ${typeNames[p.type] || p.type || 'عام'}</p>
+                                        <p class="text-dark-light text-xs">${catNames[p.category] || p.category}</p>
                                     </div>
                                     <div class="flex gap-2">
                                         <button onclick="window.editProductPrice('${doc.id}', ${p.price})" class="bg-yellow-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-yellow-600">تعديل السعر</button>
@@ -3216,9 +3176,8 @@
         });
 
         console.log('🚀 MORRE STORE جاهز بالكامل!');
-        console.log('✅ إدارة المنتجات حسب النوع (أكواد، ID، حساب)');
-        console.log('✅ الطلبات تظهر في لوحة التحكم');
+        console.log('✅ فري فاير أصبحت داخل index.html مثل باقي الألعاب');
     </script>
 
 </body>
-                                </html>
+                        </html>
