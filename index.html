@@ -3386,6 +3386,216 @@
                 if (sidebarAdmin) sidebarAdmin.style.display = 'flex';
             }
         });
+        // =============================================
+// ===== حقول الشحن لكل لعبة =====
+// =============================================
+function getOrderFields(category) {
+    const fields = {
+        pubg: [
+            { id: 'gameID', label: '🆔 معرف اللاعب (Player ID)', placeholder: 'مثال: 5123456789', required: true },
+            { id: 'gameName', label: '🎮 اسمك داخل اللعبة', placeholder: 'اسمك في ببجي', required: true },
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        freefire: [
+            { id: 'gameID', label: '🆔 معرف اللاعب (UID)', placeholder: 'مثال: 1234567890', required: true },
+            { id: 'gameName', label: '🎮 اسمك داخل اللعبة', placeholder: 'اسمك في فري فاير', required: true },
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        clash: [
+            { id: 'email', label: '📧 ايميل حساب Supercell', placeholder: 'example@email.com', required: true, type: 'email' },
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        clashroyale: [
+            { id: 'gameID', label: '🆔 معرف اللاعب (Player Tag)', placeholder: 'مثال: #2ABC123XY', required: true },
+            { id: 'gameName', label: '🎮 اسم اللاعب', placeholder: 'اسمك في كلاش رويال', required: true },
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        efootball: [
+            { id: 'email', label: '📧 ايميل حساب Konami', placeholder: 'example@email.com', required: true, type: 'email' },
+            { id: 'password', label: '🔑 كلمة السر حساب Konami', placeholder: 'أدخل كلمة السر', required: true, type: 'password' },
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        fcmobile: [
+            { id: 'gameName', label: '🎮 اسم اللاعب', placeholder: 'اسمك في FC Mobile', required: true },
+            { id: 'gameID', label: '🆔 Player UID', placeholder: 'مثال: 123456789', required: true },
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        netflix: [
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        tiktok: [
+            { id: 'email', label: '📧 بريد إلكتروني تيك توك', placeholder: 'example@email.com', required: true, type: 'email' },
+            { id: 'password', label: '🔑 كلمة السر تيك توك', placeholder: 'أدخل كلمة السر', required: true, type: 'password' },
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        ai: [
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        canva: [
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        capcut: [
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        tod: [
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        googleplay: [
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        redotpay: [
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        mastercard: [
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        steam: [
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ],
+        playstation: [
+            { id: 'whatsapp', label: '📱 رقم واتساب للتواصل', placeholder: 'مثال: 0991234567', required: true, type: 'tel' }
+        ]
+    };
+    return fields[category] || fields.googleplay;
+}
+
+// =============================================
+// ===== عرض مودال الطلب =====
+// =============================================
+window.showOrderModal = function(product, price, category, productId) {
+    // التحقق من تسجيل الدخول
+    if (!auth.currentUser) {
+        alert('❌ يرجى تسجيل الدخول أولاً');
+        return;
+    }
+
+    // التحقق من الرصيد
+    if (userData && userData.balance < price) {
+        alert(`❌ رصيدك غير كافي!\n\nرصيدك الحالي: ${userData.balance.toLocaleString()} ج.س\nسعر المنتج: ${price.toLocaleString()} ج.س\n\nيرجى شحن محفظتك عبر زر "شحن المحفظة"`);
+        return;
+    }
+
+    // حفظ الطلب الحالي
+    currentOrder = { product, price, category, productId };
+
+    // الحصول على حقول الشحن حسب اللعبة
+    const fields = getOrderFields(category);
+    const container = document.getElementById('orderFields');
+    if (!container) {
+        alert('❌ حدث خطأ في النظام');
+        return;
+    }
+
+    // بناء حقول الشحن
+    container.innerHTML = fields.map(field => `
+        <div>
+            <label class="text-sm font-bold text-dark block mb-1">${field.label}</label>
+            <input type="${field.type || 'text'}" id="${field.id}" placeholder="${field.placeholder}" ${field.required ? 'required' : ''} class="w-full p-3 rounded-xl border border-gray-200 focus:border-yellow-500 focus:outline-none">
+        </div>
+    `).join('');
+
+    // تحديث ملخص الطلب
+    document.getElementById('modalProductName').innerHTML = `المنتج: ${product}`;
+    document.getElementById('modalProductPrice').innerHTML = `المبلغ: ${price.toLocaleString()} ج.س`;
+
+    // إظهار المودال
+    const modal = document.getElementById('orderModal');
+    modal.classList.remove('hidden');
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+};
+
+// =============================================
+// ===== إغلاق مودال الطلب =====
+// =============================================
+window.closeOrderModal = function() {
+    const modal = document.getElementById('orderModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+    }
+    document.body.style.overflow = '';
+    currentOrder = null;
+};
+
+// =============================================
+// ===== تأكيد الطلب =====
+// =============================================
+document.getElementById('confirmOrderBtn')?.addEventListener('click', async function() {
+    if (!currentOrder) {
+        alert("❌ لا يوجد طلب نشط");
+        return;
+    }
+
+    // جمع بيانات الشحن
+    const inputs = document.querySelectorAll('#orderFields input');
+    const orderData = {};
+    let isValid = true;
+
+    inputs.forEach(input => {
+        const value = input.value.trim();
+        orderData[input.id] = value;
+        if (input.hasAttribute('required') && !value) {
+            isValid = false;
+            input.classList.add('border-red-500');
+        } else {
+            input.classList.remove('border-red-500');
+        }
+    });
+
+    // التحقق من رقم واتساب
+    if (orderData.whatsapp && !orderData.whatsapp.match(/^[0-9]{10,15}$/)) {
+        alert("❌ رقم واتساب غير صحيح!");
+        return;
+    }
+
+    if (!isValid) {
+        alert("❌ جميع الحقول المطلوبة يجب تعبئتها!");
+        return;
+    }
+
+    this.textContent = '⏳ جاري المعالجة...';
+    this.disabled = true;
+
+    try {
+        // حفظ الطلب في Firebase
+        const orderRef = await addDoc(collection(db, "orders"), {
+            game: currentOrder.category || 'منتج رقمي',
+            product: currentOrder.product,
+            price: currentOrder.price,
+            status: 'قيد الانتظار',
+            userId: auth.currentUser.uid,
+            userEmail: auth.currentUser.email,
+            userName: userData?.name || 'مستخدم',
+            ...orderData,
+            createdAt: serverTimestamp(),
+            timestamp: serverTimestamp()
+        });
+
+        alert("✅ تم إرسال طلبك بنجاح!");
+        closeOrderModal();
+
+        // إعادة تعيين الحقول
+        document.querySelectorAll('#orderFields input').forEach(input => input.value = '');
+        document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+
+    } catch (error) {
+        console.error('❌ خطأ في حفظ الطلب:', error);
+        alert("❌ حدث خطأ في تأكيد الطلب");
+    } finally {
+        this.textContent = '✔ تأكيد الطلب';
+        this.disabled = false;
+    }
+});
+
+// =============================================
+// ===== إغلاق المودال عند النقر خارجها =====
+// =============================================
+document.getElementById('orderModal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeOrderModal();
+    }
+});
 
         console.log('🚀 MORRE STORE جاهز بالكامل!');
     </script>
