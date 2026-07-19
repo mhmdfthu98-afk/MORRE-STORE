@@ -2347,155 +2347,110 @@
 
         window.addEventListener('hashchange', handleRoute);
 
-        // =============================================
-        // ===== دوال الأدمن =====
-        // =============================================
-        window.addNewProduct = async () => {
-            const game = document.getElementById('productGame').value;
-            const name = document.getElementById('productName').value.trim();
-            const price = parseInt(document.getElementById('productPrice').value);
+        // ========== دوال الأدمن ==========
 
-            if (!name || !price) {
-                alert("❌ اسم المنتج والسعر مطلوبين");
-                return;
-            }
+// ... loadAdminStats, loadAllUsers, addNewProduct, deleteProduct ...
 
-            const docRef = doc(collection(db, "products"));
-            const newId = docRef.id;
-
-            const newProduct = {
-                id: newId,
-                name,
-                price,
-                category: game,
-                isActive: true,
-                createdAt: serverTimestamp()
-            };
-
-            await setDoc(docRef, newProduct);
-
-            if (!allProducts[game]) allProducts[game] = [];
-            allProducts[game].push({ ...newProduct, id: newId });
-
-            renderAllProducts();
-            loadManageProducts();
-
-            document.getElementById('productName').value = '';
-            document.getElementById('productPrice').value = '';
-            alert(`✅ تم إضافة المنتج بنجاح!\nرابط المنتج: #product/${newId}`);
-        };
-
-        window.editProductPrice = (productId, currentPrice) => {
-            editingProductId = productId;
-            document.getElementById('editPriceInput').value = currentPrice;
-            document.getElementById('editPriceModal').classList.remove('hidden');
-        };
-
-        window.closeEditModal = () => {
-            document.getElementById('editPriceModal').classList.add('hidden');
-            editingProductId = null;
-        };
-
-        document.getElementById('savePriceBtn').onclick = async () => {
-            if (!editingProductId) return;
-            const newPrice = parseInt(document.getElementById('editPriceInput').value);
-            if (!newPrice || newPrice < 0) {
-                alert("❌ سعر غير صحيح");
-                return;
-            }
-            await updateDoc(doc(db, "products", editingProductId), { price: newPrice });
-            for (const category in allProducts) {
-                const product = allProducts[category].find(p => p.id === editingProductId);
-                if (product) {
-                    product.price = newPrice;
-                    break;
-                }
-            }
-            renderAllProducts();
-            loadManageProducts();
-            closeEditModal();
-            alert("✅ تم تحديث السعر");
-        };
-
-        window.deleteProduct = async (productId) => {
-            if (confirm("⚠️ هل أنت متأكد من حذف هذا المنتج نهائياً؟")) {
-                await deleteDoc(doc(db, "products", productId));
-                for (const category in allProducts) {
-                    allProducts[category] = allProducts[category].filter(p => p.id !== productId);
-                }
-                renderAllProducts();
-                loadManageProducts();
-                alert("✅ تم حذف المنتج نهائياً");
-            }
-        };
-
-        window.deleteAllProducts = async function() {
-            if (!confirm("⚠️ تحذير: هل أنت متأكد من حذف جميع المنتجات نهائياً؟")) return;
-            if (!confirm("⚠️ تأكيد نهائي: لا يمكن التراجع عن هذا الإجراء! هل تريد المتابعة؟")) return;
-            try {
-                const productsSnap = await getDocs(collection(db, "products"));
-                const batch = writeBatch(db);
-                productsSnap.forEach(doc => batch.delete(doc.ref));
-                await batch.commit();
-                allProducts = {
-                    pubg: [], freefire: [], clash: [], efootball: [], fcmobile: [], clashroyale: [],
-                    netflix: [], tiktok: [], ai: [], canva: [], capcut: [], tod: [],
-                    googleplay: [], redotpay: [], mastercard: [], steam: [], playstation: []
-                };
-                renderAllProducts();
-                loadManageProducts();
-                alert("✅ تم حذف جميع المنتجات بنجاح!");
-            } catch (e) {
-                alert("❌ حدث خطأ في حذف المنتجات: " + e.message);
-                console.error(e);
-            }
-        };
-
-        async function loadManageProducts() {
-            try {
-                const productsSnap = await getDocs(query(collection(db, "products"), where("isActive", "==", true)));
-                const list = document.getElementById('manageProductsList');
-                if (!list) return;
-                list.innerHTML = '';
-                if (productsSnap.empty) {
-                    list.innerHTML = `
-                        <div class="empty-products">
-                            <i class="fas fa-box-open"></i>
-                            <p>لا توجد منتجات مضافة</p>
-                            <p class="text-sm mt-2">أضف منتجاً جديداً من تبويب "إضافة منتج"</p>
-                        </div>
-                    `;
-                    return;
-                }
-                const catNames = {
-                    pubg: '🎮 ببجي', freefire: '🔥 فري فاير', clash: '👑 كلاش', efootball: '⚽ eFootball',
-                    fcmobile: '⚽ FC Mobile', clashroyale: '👑 كلاش رويال', netflix: '🎬 نتفليكس',
-                    tiktok: '🎵 تيك توك', ai: '🤖 ذكاء اصطناعي', canva: '🎨 كانفا', capcut: '🎬 كاب كات برو',
-                    tod: '🎵 TOD', googleplay: '🛍️ جوجل بلاي', redotpay: '💳 فيزا', mastercard: '💳 ماستر كارد',
-                    steam: '🎮 ستيم', playstation: '🎮 بلاي ستيشن'
-                };
-                let html = '';
-                productsSnap.forEach(doc => {
-                    const p = doc.data();
-                    html += `
-                        <div class="product-item flex justify-between items-center p-3 bg-white/50 rounded-xl">
-                            <div>
-                                <p class="text-dark font-bold">${p.name}</p>
-                                <p class="text-yellow-dark text-sm">${p.price.toLocaleString()} ج.س</p>
-                                <p class="text-dark-light text-xs">${catNames[p.category] || p.category}</p>
-                            </div>
-                            <div class="flex gap-2">
-                                <button onclick="window.editProductPrice('${doc.id}', ${p.price})" class="bg-yellow-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-yellow-600">تعديل السعر</button>
-                                <button onclick="window.deleteProduct('${doc.id}')" class="bg-red-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-600">حذف</button>
-                            </div>
-                        </div>
-                    `;
-                });
-                list.innerHTML = html;
-            } catch (e) {
-                console.error("Error loading manage products:", e);
-            }
+function loadAdminOrders() {
+    onSnapshot(query(collection(db, "orders"), where("status", "==", "قيد الانتظار"), orderBy("timestamp", "desc")), (snap) => {
+        const list = document.getElementById('adminOrdersList');
+        if (!list) return;
+        list.innerHTML = '';
+        if (snap.empty) {
+            list.innerHTML = '<p class="text-dark-light text-center">لا توجد طلبات معلقة</p>';
+            return;
         }
+        snap.forEach(d => {
+            const o = d.data();
+            list.innerHTML += `
+                <div class="bg-white/50 p-3 rounded-xl">
+                    <div class="flex justify-between">
+                        <p class="font-bold text-dark">${o.product}</p>
+                        <span class="text-yellow-dark text-xs">${o.timestamp?.toDate ? new Date(o.timestamp.toDate()).toLocaleString() : 'الآن'}</span>
+                    </div>
+                    <p class="text-sm text-dark-light">👤 ${o.userName || o.uName || 'مستخدم'} | 🆔 ${o.playerId || 'غير محدد'}</p>
+                    <p class="text-sm text-dark-light">📱 واتساب: ${o.whatsapp || 'غير محدد'}</p>
+                    <p class="text-sm text-dark-light">💰 ${(o.price || 0).toLocaleString()} ج.س</p>
+                    <p class="text-sm text-dark-light">📋 الطريقة: ${o.method || 'غير محدد'}</p>
+                    <div class="flex gap-2 mt-2 flex-wrap">
+                        <button onclick="updateOrderStatus('${d.id}', '${o.userId}', 'مكتمل')" class="bg-green-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-green-600">✅ تم الشحن</button>
+                        <button onclick="updateOrderStatus('${d.id}', '${o.userId}', 'فشل', ${o.price || 0})" class="bg-red-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-red-600">❌ إلغاء</button>
+                        <button onclick="showOrderDetails('${d.id}')" class="bg-blue-500 text-white px-3 py-1 rounded-lg text-xs font-bold hover:bg-blue-600">📄 تفاصيل</button>
+                    </div>
+                </div>
+            `;
+        });
+    });
+}
+
+// ===== تحديث حالة الطلب =====
+window.updateOrderStatus = async (orderId, userId, status, refundAmount = 0) => {
+    try {
+        if (status === 'فشل' && refundAmount > 0 && userId) {
+            await updateDoc(doc(db, "users", userId), { balance: increment(refundAmount) });
+        }
+        await updateDoc(doc(db, "orders", orderId), { 
+            status: status,
+            updatedAt: serverTimestamp()
+        });
+        alert(`✅ تم تحديث الطلب إلى ${status}`);
+    } catch (error) {
+        console.error('❌ خطأ في تحديث الطلب:', error);
+        alert('❌ حدث خطأ في تحديث الطلب');
+    }
+};
+
+// ===== عرض تفاصيل الطلب =====
+window.showOrderDetails = async (orderId) => {
+    try {
+        const orderSnap = await getDoc(doc(db, "orders", orderId));
+        if (orderSnap.exists()) {
+            const o = orderSnap.data();
+            document.getElementById('orderDetailContent').innerHTML = `
+                <p><strong>📦 المنتج:</strong> ${o.product}</p>
+                <p><strong>💰 السعر:</strong> ${(o.price || 0).toLocaleString()} ج.س</p>
+                <p><strong>👤 العميل:</strong> ${o.userName || o.uName || 'غير محدد'}</p>
+                <p><strong>🆔 معرف اللاعب:</strong> ${o.playerId || 'غير محدد'}</p>
+                <p><strong>📱 واتساب:</strong> ${o.whatsapp || 'غير محدد'}</p>
+                <p><strong>📋 طريقة الشحن:</strong> ${o.method || 'غير محدد'}</p>
+                <p><strong>📧 البريد:</strong> ${o.userEmail || 'غير محدد'}</p>
+                <p><strong>📅 التاريخ:</strong> ${o.timestamp?.toDate ? new Date(o.timestamp.toDate()).toLocaleString() : 'غير محدد'}</p>
+                <p><strong>📌 الحالة:</strong> ${o.status}</p>
+            `;
+            document.getElementById('orderDetailModal').classList.remove('hidden');
+        }
+    } catch (error) {
+        console.error('❌ خطأ في جلب تفاصيل الطلب:', error);
+        alert('❌ حدث خطأ في جلب تفاصيل الطلب');
+    }
+};
+
+window.closeOrderDetailModal = () => {
+    document.getElementById('orderDetailModal').classList.add('hidden');
+};
+
+// ===== دوال الأدمن الأخرى =====
+window.deleteAllProducts = async function() {
+    if (!confirm("⚠️ تحذير: هل أنت متأكد من حذف جميع المنتجات نهائياً؟")) return;
+    if (!confirm("⚠️ تأكيد نهائي: لا يمكن التراجع عن هذا الإجراء! هل تريد المتابعة؟")) return;
+    try {
+        const productsSnap = await getDocs(collection(db, "products"));
+        const batch = writeBatch(db);
+        productsSnap.forEach(doc => batch.delete(doc.ref));
+        await batch.commit();
+        allProducts = {
+            pubg: [], freefire: [], clash: [], efootball: [], fcmobile: [], clashroyale: [],
+            netflix: [], tiktok: [], ai: [], canva: [], capcut: [], tod: [],
+            googleplay: [], redotpay: [], mastercard: [], steam: [], playstation: []
+        };
+        renderAllProducts();
+        loadManageProducts();
+        alert("✅ تم حذف جميع المنتجات بنجاح!");
+    } catch (e) {
+        alert("❌ حدث خطأ في حذف المنتجات: " + e.message);
+        console.error(e);
+    }
+};
 
         // =============================================
         // ===== دوال المستخدمين والطلبات =====
@@ -2906,4 +2861,4 @@
     </script>
 
 </body>
-    </html>
+                                    </html>
