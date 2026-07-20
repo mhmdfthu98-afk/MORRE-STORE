@@ -4,256 +4,413 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>MORRE STORE | محفظتي</title>
-    <script src="https://cdn.tailwindcss.com">
-    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+
+        /* =============================================
+                   CSS VARIABLES & RESET
+                   ============================================= */
+        :root {
+            --primary: #F59E0B;
+            --primary-dark: #D97706;
+            --primary-light: #FBBF24;
+            --bg: #FFFFFF;
+            --white: #FFFFFF;
+            --dark: #1E293B;
+            --gray: #64748B;
+            --gray-light: #F1F5F9;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
-            font-family: 'Cairo', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Cairo', sans-serif;
         }
+
         body {
-            background: linear-gradient(135deg, #fef08a 0%, #fde047 30%, #fef9c3 60%, #fef08a 100%);
+            background: var(--bg);
             min-height: 100vh;
-            overflow-x: hidden;
             padding-bottom: 80px;
         }
+
+        /* =============================================
+                   DARK MODE
+                   ============================================= */
+        [data-theme="dark"] {
+            --bg: #0F172A;
+            --white: #1E293B;
+            --gray-light: #334155;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* =============================================
+                   CONTAINER
+                   ============================================= */
         .container {
             max-width: 550px;
             margin: 0 auto;
-            padding: 16px;
+            padding: 0 16px 20px;
         }
-        .back-header {
+
+        /* =============================================
+                   HEADER
+                   ============================================= */
+        .page-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 0;
-            margin-bottom: 8px;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            z-index: 100;
         }
-        .back-header .back-btn {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+
+        .back-btn {
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.04);
             border-radius: 12px;
             padding: 8px 16px;
-            color: #1e293b;
+            color: var(--dark);
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
+            transition: var(--transition);
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 6px;
             font-size: 0.9rem;
         }
-        .back-header .back-btn:hover {
-            background: rgba(255, 255, 255, 0.8);
+
+        .back-btn:hover {
+            background: var(--gray-light);
         }
-        .back-header .page-title {
+
+        .page-title {
             font-size: 1.3rem;
             font-weight: 900;
-            color: #1e293b;
-        }
-        .glass-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid #f1f5f9;
-            margin-bottom: 16px;
-            transition: all 0.3s ease;
-            will-change: transform;
-            backface-visibility: hidden;
-        }
-        .glass-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-        }
-        .glass-card .card-title {
-            font-size: 1rem;
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .glass-card .card-title i {
-            color: #d97706;
+            color: var(--dark);
         }
 
+        /* =============================================
+                   BALANCE CARD
+                   ============================================= */
         .balance-card {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            border-radius: 16px;
+            background: linear-gradient(135deg, #F59E0B, #D97706);
+            border-radius: var(--radius);
             padding: 24px;
             color: white;
-            text-align: center;
-            margin-bottom: 16px;
-            position: relative;
-            overflow: hidden;
-        }
-        .balance-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-        }
-        .balance-card .balance-amount {
-            font-size: 2.8rem;
-            font-weight: 900;
-            position: relative;
-            z-index: 1;
-        }
-        .balance-card .balance-label {
-            font-size: 0.8rem;
-            opacity: 0.8;
-            position: relative;
-            z-index: 1;
-        }
-        .balance-card .wallet-id {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 4px 16px;
-            border-radius: 20px;
-            display: inline-block;
-            font-size: 0.75rem;
-            margin-top: 8px;
-            position: relative;
-            z-index: 1;
-        }
-        .balance-card .wallet-status {
-            display: inline-block;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            margin-top: 6px;
-            position: relative;
-            z-index: 1;
-        }
-        .balance-card .wallet-status.active {
-            background: rgba(34, 197, 94, 0.3);
-            color: #86efac;
-        }
-        .balance-card .wallet-status.inactive {
-            background: rgba(239, 68, 68, 0.3);
-            color: #fca5a5;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(245, 158, 11, 0.25);
         }
 
-        /* ===== Payment Methods ===== */
-        .payment-methods {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .payment-methods .pm-item {
-            padding: 14px 10px;
-            border-radius: 12px;
-            border: 2px solid #e2e8f0;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: #f8fafc;
-            text-decoration: none;
-            display: block;
-            will-change: transform;
-        }
-        .payment-methods .pm-item:hover {
-            border-color: #d97706;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(217, 119, 6, 0.15);
-        }
-        .payment-methods .pm-item:active {
-            transform: scale(0.96);
-        }
-        .payment-methods .pm-item .pm-img {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 6px;
-            border-radius: 10px;
-            background: white;
-            padding: 4px;
-            border: 1px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-        .payment-methods .pm-item .pm-img img {
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            display: block;
-        }
-        .payment-methods .pm-item .pm-name {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #1e293b;
-        }
-        .payment-methods .pm-item .pm-desc {
-            font-size: 0.55rem;
-            color: #94a3b8;
-        }
-        .payment-methods .pm-item.selected {
-            border-color: #d97706;
-            background: #fef3c7;
-            transform: scale(1.02);
-        }
-
-        .quick-actions-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-        .quick-actions-grid .q-btn {
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            background: #f8fafc;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.2s;
-            font-weight: 700;
-            font-size: 0.8rem;
-            color: #1e293b;
-        }
-        .quick-actions-grid .q-btn:hover {
-            border-color: #d97706;
-            background: white;
-        }
-        .quick-actions-grid .q-btn i {
-            display: block;
-            font-size: 1.4rem;
-            margin-bottom: 4px;
-            color: #d97706;
-        }
-        .quick-actions-grid .q-btn.danger i {
-            color: #ef4444;
-        }
-        .quick-actions-grid .q-btn.danger:hover {
-            border-color: #ef4444;
-        }
-
-        .transaction-item {
+        .balance-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .balance-label {
+            font-size: 0.85rem;
+            opacity: 0.85;
+        }
+
+        .hide-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .hide-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .balance-amount {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 8px 0 16px;
+        }
+
+        .balance-amount .currency {
+            font-size: 1.2rem;
+            font-weight: 700;
+            opacity: 0.85;
+        }
+
+        .balance-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .wallet-id {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            color: white;
+        }
+
+        .wallet-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .wallet-status.active {
+            background: rgba(34, 197, 94, 0.25);
+            color: #86EFAC;
+        }
+
+        .wallet-status.inactive {
+            background: rgba(239, 68, 68, 0.25);
+            color: #FCA5A5;
+        }
+
+        /* =============================================
+                   SECTION HEADER
+                   ============================================= */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 16px 0 12px;
+        }
+
+        .section-header i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .section-header h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        /* =============================================
+                   PAYMENT GRID
+                   ============================================= */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .payment-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .payment-card:hover {
+            transform: translateX(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .payment-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .payment-info {
+            flex: 1;
+        }
+
+        .payment-info h4 {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .payment-info p {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        .payment-card .fa-chevron-left {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* =============================================
+                   QUICK ACTIONS
+                   ============================================= */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 16px 0;
+        }
+
+        .q-btn {
+            padding: 14px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: var(--radius);
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .q-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .q-btn i {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        /* =============================================
+                   FILTER SECTION
+                   ============================================= */
+        .filter-section {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .filter-btn {
+            padding: 6px 14px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: 20px;
+            background: var(--white);
+            color: var(--gray);
+            font-weight: 700;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .filter-btn:hover:not(.active) {
+            border-color: var(--primary);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--white);
+            padding: 0 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: var(--transition);
+        }
+
+        .search-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+
+        .search-box i {
+            color: var(--gray);
+        }
+
+        .search-box input {
+            flex: 1;
             padding: 12px 0;
-            border-bottom: 1px solid #f1f5f9;
+            border: none;
+            background: transparent;
+            font-size: 0.9rem;
+            color: var(--dark);
+            font-family: 'Cairo', sans-serif;
         }
-        .transaction-item:last-child {
-            border-bottom: none;
+
+        .search-box input:focus {
+            outline: none;
         }
-        .transaction-item .tx-icon {
+
+        /* =============================================
+                   TRANSACTIONS
+                   ============================================= */
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .transaction-item:hover {
+            background: rgba(245, 158, 11, 0.03);
+            margin: 0 -8px;
+            padding: 12px 8px;
+            border-radius: 8px;
+        }
+
+        .tx-icon {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -261,451 +418,317 @@
             align-items: center;
             justify-content: center;
             font-size: 1rem;
-            margin-left: 12px;
         }
-        .transaction-item .tx-icon.deposit { background: #d1fae5; color: #059669; }
-        .transaction-item .tx-icon.withdraw { background: #fee2e2; color: #dc2626; }
-        .transaction-item .tx-icon.purchase { background: #dbeafe; color: #2563eb; }
-        .transaction-item .tx-icon.refund { background: #fef3c7; color: #d97706; }
-        .transaction-item .tx-info { flex: 1; }
-        .transaction-item .tx-info .tx-title { font-weight: 700; color: #1e293b; font-size: 0.85rem; }
-        .transaction-item .tx-info .tx-date { font-size: 0.65rem; color: #94a3b8; }
-        .transaction-item .tx-amount { font-weight: 900; font-size: 0.9rem; }
-        .transaction-item .tx-amount.positive { color: #059669; }
-        .transaction-item .tx-amount.negative { color: #dc2626; }
-        .transaction-item .tx-status {
+
+        .tx-icon.deposit {
+            background: #D1FAE5;
+            color: #059669;
+        }
+        .tx-icon.withdraw {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+        .tx-icon.purchase {
+            background: #DBEAFE;
+            color: #2563EB;
+        }
+        .tx-icon.refund {
+            background: #FEF3C7;
+            color: var(--primary);
+        }
+
+        .tx-info {
+            flex: 1;
+        }
+
+        .tx-title {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 0.85rem;
+        }
+
+        .tx-date {
+            font-size: 0.65rem;
+            color: var(--gray);
+        }
+
+        .tx-amount {
+            font-weight: 900;
+            font-size: 0.9rem;
+        }
+
+        .tx-amount.positive {
+            color: #059669;
+        }
+        .tx-amount.negative {
+            color: #DC2626;
+        }
+
+        .tx-status {
             font-size: 0.55rem;
             padding: 2px 8px;
             border-radius: 12px;
             font-weight: 700;
-        }
-        .transaction-item .tx-status.pending { background: #fef3c7; color: #d97706; }
-        .transaction-item .tx-status.completed { background: #d1fae5; color: #059669; }
-        .transaction-item .tx-status.rejected { background: #fee2e2; color: #dc2626; }
-
-        .tabs {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-            position: relative;
-            padding-bottom: 4px;
-        }
-        .tabs .tab-btn {
-            padding: 6px 14px;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
-            background: white;
-            color: #64748b;
-            font-weight: 700;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            flex: 1;
-            text-align: center;
-            min-width: 50px;
-            will-change: transform, background, color;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-            touch-action: manipulation;
-        }
-        .tabs .tab-btn:active {
-            transform: scale(0.94);
-        }
-        .tabs .tab-btn.active {
-            background: #f59e0b;
-            color: white;
-            border-color: #f59e0b;
-            transform: scale(1.02);
-        }
-        .tabs .tab-btn:hover:not(.active) {
-            border-color: #d97706;
+            white-space: nowrap;
         }
 
-        .tab-content {
-            display: none;
-            opacity: 0;
-            transform: translateY(12px) scale(0.97);
-            transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: opacity, transform;
-            pointer-events: none;
-            position: relative;
-            height: 0;
-            overflow: hidden;
+        .tx-status.pending {
+            background: #FEF3C7;
+            color: var(--primary);
         }
-        .tab-content.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            pointer-events: auto;
-            height: auto;
-            overflow: visible;
+        .tx-status.completed {
+            background: #D1FAE5;
+            color: #059669;
+        }
+        .tx-status.rejected {
+            background: #FEE2E2;
+            color: #DC2626;
         }
 
-        .deposit-section-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #64748b;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .deposit-section-title i {
-            color: #d97706;
-        }
-
+        /* =============================================
+                   EMPTY STATE
+                   ============================================= */
         .empty-state {
             text-align: center;
-            padding: 30px 20px;
-            color: #64748b;
+            padding: 40px 20px;
+            color: var(--gray);
         }
+
         .empty-state i {
             font-size: 3rem;
-            color: #cbd5e1;
+            color: #CBD5E1;
             margin-bottom: 12px;
             display: block;
         }
+
         .empty-state h4 {
-            color: #1e293b;
+            color: var(--dark);
             font-weight: 700;
+            margin-bottom: 4px;
         }
 
-        .reward-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .reward-item:last-child {
-            border-bottom: none;
-        }
-        .reward-item .reward-info .reward-title {
-            font-weight: 700;
-            color: #1e293b;
+        .empty-state p {
             font-size: 0.85rem;
         }
-        .reward-item .reward-info .reward-desc {
-            font-size: 0.7rem;
-            color: #94a3b8;
-        }
-        .reward-item .reward-value {
-            font-weight: 900;
-            color: #d97706;
-            font-size: 0.9rem;
-        }
-        .coupon-code {
-            background: #fef3c7;
-            padding: 6px 12px;
+
+        /* =============================================
+                   SKELETON LOADER
+                   ============================================= */
+        .skeleton {
+            background: linear-gradient(90deg, var(--gray-light) 25%, #e2e8f0 50%, var(--gray-light) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
             border-radius: 8px;
-            font-weight: 700;
-            color: #d97706;
-            font-size: 0.8rem;
-            border: 1px dashed #d97706;
-            display: inline-block;
         }
 
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-            z-index: 99999;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .modal-overlay.active {
-            display: flex;
-        }
-        .modal-box {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            max-width: 450px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        .modal-box h3 {
-            font-weight: 900;
-            font-size: 1.2rem;
-            color: #1e293b;
-            margin-bottom: 16px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .modal-box .close-modal {
-            float: left;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #94a3b8;
-            cursor: pointer;
-        }
-        .modal-box .close-modal:hover {
-            color: #1e293b;
-        }
-        .modal-box input,
-        .modal-box select,
-        .modal-box textarea {
-            width: 100%;
-            padding: 10px 14px;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
-            font-size: 0.9rem;
-            background: #f8fafc;
-            transition: 0.2s;
-            font-family: 'Cairo', sans-serif;
-        }
-        .modal-box input:focus,
-        .modal-box select:focus,
-        .modal-box textarea:focus {
-            outline: none;
-            border-color: #d97706;
-            background: white;
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
         }
 
+        .skeleton-loader .skeleton {
+            height: 60px;
+            margin-bottom: 10px;
+        }
+
+        /* =============================================
+                   BOTTOM NAV
+                   ============================================= */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            background: var(--white);
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 6px 0 10px 0;
+            padding: 8px 0 12px 0;
             z-index: 9999;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.04);
         }
+
         .bottom-nav .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 2px;
-            color: #94a3b8;
+            color: var(--gray);
             font-size: 0.55rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             padding: 4px 12px;
             border-radius: 12px;
             text-decoration: none;
-            border: none;
-            background: transparent;
         }
+
         .bottom-nav .nav-item i {
             font-size: 1.3rem;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
-        .bottom-nav .nav-item span {
-            font-size: 0.55rem;
-            font-weight: 700;
-        }
+
         .bottom-nav .nav-item.active {
-            color: #d97706;
+            color: var(--primary);
         }
+
         .bottom-nav .nav-item.active i {
             transform: translateY(-2px);
         }
+
         .bottom-nav .nav-item:hover {
-            color: #d97706;
-        }
-        @media (max-width: 480px) {
-            .bottom-nav .nav-item {
-                padding: 4px 6px;
-            }
-            .bottom-nav .nav-item i {
-                font-size: 1.1rem;
-            }
-            .bottom-nav .nav-item span {
-                font-size: 0.45rem;
-            }
+            color: var(--primary);
         }
 
-        .btn-primary {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: white;
-            font-weight: 800;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn-primary:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
-        }
-
-        .file-upload {
-            padding: 12px;
-            border: 2px dashed #e2e8f0;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            background: #f8fafc;
-            transition: 0.2s;
-        }
-        .file-upload:hover {
-            border-color: #d97706;
-        }
-        .file-upload input {
-            display: none;
-        }
-        .file-upload label {
-            cursor: pointer;
-            color: #64748b;
-            font-weight: 600;
-        }
-        .file-upload label i {
-            color: #d97706;
-        }
-
+        /* =============================================
+                   TOAST
+                   ============================================= */
         .toast {
             position: fixed;
             bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
-            background: #1e293b;
+            background: var(--dark);
             color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 0.8rem;
+            padding: 12px 24px;
+            border-radius: 12px;
             font-weight: 600;
             z-index: 999999;
             opacity: 0;
             transition: 0.3s;
             pointer-events: none;
-            white-space: nowrap;
+            font-size: 0.9rem;
         }
+
         .toast.show {
             opacity: 1;
             transform: translateX(-50%) translateY(-10px);
         }
 
-        /* Dark Mode */
-        .dark body {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        /* =============================================
+                   RESPONSIVE
+                   ============================================= */
+        @media (max-width: 480px) {
+            .balance-amount {
+                font-size: 2rem;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .filter-btn {
+                font-size: 0.65rem;
+                padding: 4px 10px;
+            }
+
+            .payment-card {
+                padding: 12px;
+            }
         }
-        .dark .glass-card {
-            background: #1e293b;
-            border-color: #334155;
+
+        /* =============================================
+                   DARK MODE ADJUSTMENTS
+                   ============================================= */
+        [data-theme="dark"] .balance-card {
+            background: linear-gradient(135deg, #0F172A, #1E293B);
         }
-        .dark .glass-card .card-title {
-            color: #f1f5f9;
+
+        [data-theme="dark"] .payment-card {
+            background: var(--white);
         }
-        .dark .back-header .page-title {
-            color: #f1f5f9;
+
+        [data-theme="dark"] .q-btn {
+            background: var(--white);
         }
-        .dark .back-header .back-btn {
-            background: rgba(30, 41, 59, 0.6);
-            color: #f1f5f9;
-            border-color: #334155;
+
+        [data-theme="dark"] .filter-btn {
+            background: var(--white);
         }
-        .dark .back-header .back-btn:hover {
-            background: rgba(30, 41, 59, 0.8);
+
+        [data-theme="dark"] .search-box {
+            background: var(--white);
         }
-        .dark .quick-actions-grid .q-btn {
-            background: #0f172a;
-            border-color: #334155;
-            color: #f1f5f9;
+
+        [data-theme="dark"] .tx-icon.deposit {
+            background: #064E3B;
+            color: #34D399;
         }
-        .dark .quick-actions-grid .q-btn:hover {
-            border-color: #d97706;
+        [data-theme="dark"] .tx-icon.withdraw {
+            background: #7F1D1D;
+            color: #F87171;
         }
-        .dark .payment-methods .pm-item {
-            background: #0f172a;
-            border-color: #334155;
+        [data-theme="dark"] .tx-icon.purchase {
+            background: #1E3A5F;
+            color: #60A5FA;
         }
-        .dark .payment-methods .pm-item .pm-name {
-            color: #f1f5f9;
+        [data-theme="dark"] .tx-icon.refund {
+            background: #78350F;
+            color: #FBBF24;
         }
-        .dark .payment-methods .pm-item:hover {
-            border-color: #d97706;
+
+        [data-theme="dark"] .tx-status.pending {
+            background: #78350F;
+            color: #FBBF24;
         }
-        .dark .payment-methods .pm-item .pm-img {
-            background: #0f172a;
-            border-color: #334155;
+        [data-theme="dark"] .tx-status.completed {
+            background: #064E3B;
+            color: #34D399;
         }
-        .dark .transaction-item {
-            border-color: #334155;
+        [data-theme="dark"] .tx-status.rejected {
+            background: #7F1D1D;
+            color: #F87171;
         }
-        .dark .transaction-item .tx-info .tx-title {
-            color: #f1f5f9;
+
+        /* =============================================
+                   TOAST DARK MODE
+                   ============================================= */
+        [data-theme="dark"] .toast {
+            background: #F1F5F9;
+            color: var(--dark);
         }
-        .dark .reward-item {
-            border-color: #334155;
+
+        /* =============================================
+                   RIPPLE EFFECT
+                   ============================================= */
+        .ripple {
+            position: relative;
+            overflow: hidden;
         }
-        .dark .reward-item .reward-info .reward-title {
-            color: #f1f5f9;
+
+        .ripple::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            padding-top: 100%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            opacity: 0;
+            pointer-events: none;
+            left: var(--x, 50%);
+            top: var(--y, 50%);
+            transform-origin: center;
         }
-        .dark .bottom-nav {
-            background: rgba(30, 41, 59, 0.95);
-            border-top-color: rgba(255, 255, 255, 0.05);
+
+        .ripple:active::after {
+            animation: rippleAnim 0.6s ease-out;
         }
-        .dark .bottom-nav .nav-item {
-            color: #64748b;
-        }
-        .dark .bottom-nav .nav-item.active {
-            color: #fbbf24;
-        }
-        .dark .coupon-code {
-            background: #78350f;
-            color: #fbbf24;
-            border-color: #fbbf24;
-        }
-        .dark .tabs .tab-btn {
-            background: #1e293b;
-            border-color: #334155;
-            color: #94a3b8;
-        }
-        .dark .tabs .tab-btn.active {
-            background: #f59e0b;
-            color: #1e293b;
-        }
-        .dark .modal-box {
-            background: #1e293b;
-        }
-        .dark .modal-box h3 {
-            color: #f1f5f9;
-        }
-        .dark .modal-box .close-modal {
-            color: #94a3b8;
-        }
-        .dark .modal-box input,
-        .dark .modal-box select,
-        .dark .modal-box textarea {
-            background: #0f172a;
-            border-color: #334155;
-            color: #f1f5f9;
-        }
-        .dark .modal-box input:focus,
-        .dark .modal-box select:focus,
-        .dark .modal-box textarea:focus {
-            background: #1e293b;
-            border-color: #d97706;
-        }
-        .dark .file-upload {
-            background: #0f172a;
-            border-color: #334155;
-        }
-        .dark .file-upload label {
-            color: #94a3b8;
-        }
-        .dark .toast {
-            background: #f1f5f9;
-            color: #1e293b;
+
+        @keyframes rippleAnim {
+            from {
+                transform: scale(0);
+                opacity: 1;
+            }
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -713,284 +736,98 @@
 
     <div class="container">
 
-        <!-- ===== رأس الصفحة ===== -->
-        <div class="back-header">
-            <a href="index.html" class="back-btn">
+        <!-- ===== HEADER ===== -->
+        <header class="page-header">
+            <a href="/" class="back-btn">
                 <i class="fas fa-arrow-right"></i> رجوع
             </a>
             <div class="page-title">💰 محفظتي</div>
-        </div>
+            <button onclick="toggleTheme()" style="margin-right:auto;background:none;border:none;color:var(--dark);font-size:1.2rem;cursor:pointer;">
+                <i class="fas fa-moon" id="themeIcon"></i>
+            </button>
+        </header>
 
-        <!-- ===== بطاقة الرصيد ===== -->
+        <!-- ===== BALANCE CARD ===== -->
         <div class="balance-card">
-            <div class="balance-label">💳 الرصيد الحالي</div>
-            <div class="balance-amount" id="walletBalance">0 <span style="font-size:1.2rem;">ج.س</span></div>
-            <div class="wallet-id" id="walletId">🔑 #جاري التحميل...</div>
-            <div>
+            <div class="balance-header">
+                <span class="balance-label">💳 الرصيد الحالي</span>
+                <button class="hide-btn" onclick="toggleBalance()" id="hideBtn">
+                    <i class="fas fa-eye" id="eyeIcon"></i>
+                </button>
+            </div>
+            <div class="balance-amount">
+                <span id="balanceDisplay">0</span>
+                <span class="currency">ج.س</span>
+            </div>
+            <div class="balance-footer">
+                <div class="wallet-id">
+                    <span>🔑</span>
+                    <span id="walletId">#123456789</span>
+                    <button class="copy-btn" onclick="copyWalletId()">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
                 <span class="wallet-status active" id="walletStatus">✅ نشطة</span>
             </div>
         </div>
 
-        <!-- ===== طرق الإيداع السريع ===== -->
-        <div class="glass-card">
-            <div class="deposit-section-title">
-                <i class="fas fa-plus-circle"></i> اختر طريقة الإيداع
-            </div>
-            <div class="payment-methods">
-
-                <a href="https://wa.me/249991305468?text=أريد%20شحن%20محفظتي%20عبر%20RedotPay" target="_blank" class="pm-item">
-                    <div class="pm-img">
-                        <img src="https://i.postimg.cc/L54q1fQz/6feb9ec0dc4a917f20ee4499659d56ce.jpg" alt="RedotPay" loading="lazy">
-                    </div>
-                    <div class="pm-name">💳 RedotPay</div>
-                    <div class="pm-desc">بطاقة افتراضية</div>
-                </a>
-
-                <a href="https://wa.me/249991305468?text=أريد%20شحن%20محفظتي%20عبر%20بنكك" target="_blank" class="pm-item">
-                    <div class="pm-img">
-                        <img src="https://i.postimg.cc/yN5nn6CP/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك" loading="lazy">
-                    </div>
-                    <div class="pm-name">🏦 بنكك</div>
-                    <div class="pm-desc">تحويل بنكي</div>
-                </a>
-
-                <a href="https://wa.me/249991305468?text=أريد%20شحن%20محفظتي%20عبر%20Binance" target="_blank" class="pm-item">
-                    <div class="pm-img">
-                        <img src="https://i.postimg.cc/9QZkDq6G/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance" loading="lazy">
-                    </div>
-                    <div class="pm-name">🟡 Binance</div>
-                    <div class="pm-desc">عملات رقمية</div>
-                </a>
-
-                <a href="https://wa.me/249991305468?text=أريد%20شحن%20محفظتي%20عبر%20MyCash" target="_blank" class="pm-item">
-                    <div class="pm-img">
-                        <img src="https://i.postimg.cc/26hdw4wN/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash" loading="lazy">
-                    </div>
-                    <div class="pm-name">📱 MyCash</div>
-                    <div class="pm-desc">محفظة إلكترونية</div>
-                </a>
-
-            </div>
+        <!-- ===== PAYMENT METHODS ===== -->
+        <div class="section-header">
+            <i class="fas fa-plus-circle"></i>
+            <h3>طرق الإيداع</h3>
         </div>
+        <div class="payment-grid" id="paymentMethods"></div>
 
-        <!-- ===== أزرار الإجراءات ===== -->
-        <div class="quick-actions-grid">
-            <div class="q-btn" onclick="openDepositModal()">
-                <i class="fas fa-plus-circle"></i>
-                إيداع رصيد
-            </div>
-            <div class="q-btn danger" onclick="openWithdrawModal()">
-                <i class="fas fa-minus-circle"></i>
+        <!-- ===== QUICK ACTIONS ===== -->
+        <div class="quick-actions">
+            <button class="q-btn ripple" onclick="openWithdraw()">
+                <i class="fas fa-arrow-up"></i>
                 سحب رصيد
-            </div>
-        </div>
-
-        <!-- ===== تبويبات المحفظة ===== -->
-        <div class="glass-card" style="padding:12px 16px;">
-            <div class="tabs" id="walletTabs">
-                <button class="tab-btn active" data-tab="transactions">📋 المعاملات</button>
-                <button class="tab-btn" data-tab="rewards">🎁 المكافآت</button>
-                <button class="tab-btn" data-tab="security">🔒 الأمان</button>
-            </div>
-        </div>
-
-        <!-- ===== سجل المعاملات ===== -->
-        <div id="tab-transactions" class="tab-content active">
-            <div class="glass-card">
-                <div class="card-title"><i class="fas fa-history"></i> سجل المعاملات</div>
-                <div id="transactionsList">
-                    <div class="empty-state">
-                        <i class="fas fa-receipt"></i>
-                        <h4>جاري التحميل...</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== المكافآت ===== -->
-        <div id="tab-rewards" class="tab-content">
-            <div class="glass-card">
-                <div class="card-title"><i class="fas fa-gift"></i> المكافآت والعروض</div>
-
-                <div class="reward-item">
-                    <div class="reward-info">
-                        <div class="reward-title">🎉 مكافأة التسجيل</div>
-                        <div class="reward-desc">تم إضافتها عند إنشاء الحساب</div>
-                    </div>
-                    <div class="reward-value" id="rewardBonus">+500 ج.س</div>
-                </div>
-
-                <div class="reward-item">
-                    <div class="reward-info">
-                        <div class="reward-title">🎁 كوبون خصم 10%</div>
-                        <div class="reward-desc">صالح حتى 31 ديسمبر 2025</div>
-                    </div>
-                    <div class="coupon-code">MORRE10</div>
-                </div>
-
-                <div class="reward-item">
-                    <div class="reward-info">
-                        <div class="reward-title">⭐ نقاط الولاء</div>
-                        <div class="reward-desc">لكل 1000 ج.س تشتريها تحصل على 50 نقطة</div>
-                    </div>
-                    <div class="reward-value" id="loyaltyPoints">0 نقطة</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== الأمان ===== -->
-        <div id="tab-security" class="tab-content">
-            <div class="glass-card">
-                <div class="card-title"><i class="fas fa-shield-alt"></i> الأمان</div>
-
-                <div style="margin-bottom:12px;">
-                    <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">🔑 تغيير كلمة مرور المحفظة</label>
-                    <input type="password" id="newWalletPassword" placeholder="كلمة المرور الجديدة">
-                    <button onclick="changeWalletPassword()" class="btn-primary" style="margin-top:8px;">
-                        تغيير كلمة المرور
-                    </button>
-                </div>
-
-                <div style="margin-top:12px;padding-top:12px;border-top:1px solid #e2e8f0;">
-                    <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">🔐 التحقق بخطوتين (2FA)</label>
-                    <div style="display:flex;gap:10px;">
-                        <button onclick="enable2FA()" style="flex:1;padding:12px;background:transparent;color:#1e293b;font-weight:700;border:2px solid #e2e8f0;border-radius:10px;font-size:1rem;cursor:pointer;transition:0.2s;">
-                            ✅ تفعيل
-                        </button>
-                        <button onclick="disable2FA()" style="flex:1;padding:12px;background:transparent;color:#ef4444;font-weight:700;border:2px solid #ef4444;border-radius:10px;font-size:1rem;cursor:pointer;transition:0.2s;">
-                            ❌ تعطيل
-                        </button>
-                    </div>
-                </div>
-
-                <div style="margin-top:12px;padding-top:12px;border-top:1px solid #e2e8f0;">
-                    <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">🕐 آخر عمليات تسجيل الدخول</label>
-                    <div style="font-size:0.8rem;color:#64748b;" id="loginHistory">
-                        <div>• جاري التحميل...</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ===== مودال الإيداع ===== -->
-    <div class="modal-overlay" id="depositModal">
-        <div class="modal-box">
-            <button class="close-modal" onclick="closeDepositModal()">&times;</button>
-            <h3>💰 إيداع رصيد</h3>
-
-            <div style="margin-bottom:12px;">
-                <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">اختر طريقة الإيداع</label>
-                <div class="payment-methods" id="depositMethods">
-                    <div class="pm-item" data-method="RedotPay" onclick="selectDepositMethod(this)">
-                        <div class="pm-img">
-                            <img src="https://i.postimg.cc/L54q1fQz/6feb9ec0dc4a917f20ee4499659d56ce.jpg" alt="RedotPay">
-                        </div>
-                        <div class="pm-name">💳 RedotPay</div>
-                    </div>
-                    <div class="pm-item" data-method="بنكك" onclick="selectDepositMethod(this)">
-                        <div class="pm-img">
-                            <img src="https://i.postimg.cc/yN5nn6CP/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك">
-                        </div>
-                        <div class="pm-name">🏦 بنكك</div>
-                    </div>
-                    <div class="pm-item" data-method="Binance" onclick="selectDepositMethod(this)">
-                        <div class="pm-img">
-                            <img src="https://i.postimg.cc/9QZkDq6G/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance">
-                        </div>
-                        <div class="pm-name">🟡 Binance</div>
-                    </div>
-                    <div class="pm-item" data-method="MyCash" onclick="selectDepositMethod(this)">
-                        <div class="pm-img">
-                            <img src="https://i.postimg.cc/26hdw4wN/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash">
-                        </div>
-                        <div class="pm-name">📱 MyCash</div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="margin-bottom:12px;">
-                <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">💰 المبلغ (ج.س)</label>
-                <input type="number" id="depositAmount" placeholder="أدخل المبلغ" min="1">
-            </div>
-
-            <div style="margin-bottom:12px;">
-                <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">📝 رقم العملية (اختياري)</label>
-                <input type="text" id="depositRef" placeholder="رقم العملية من التطبيق">
-            </div>
-
-            <div style="margin-bottom:12px;">
-                <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">📎 إرفاق صورة إثبات الدفع</label>
-                <div class="file-upload">
-                    <label for="depositProof">
-                        <i class="fas fa-cloud-upload-alt"></i> اضغط لرفع الصورة
-                    </label>
-                    <input type="file" id="depositProof" accept="image/*">
-                </div>
-            </div>
-
-            <button onclick="submitDeposit()" class="btn-primary">
-                ✅ تأكيد الإيداع
+            </button>
+            <button class="q-btn ripple" onclick="refreshData()">
+                <i class="fas fa-sync"></i>
+                تحديث
             </button>
         </div>
-    </div>
 
-    <!-- ===== مودال السحب ===== -->
-    <div class="modal-overlay" id="withdrawModal">
-        <div class="modal-box">
-            <button class="close-modal" onclick="closeWithdrawModal()">&times;</button>
-            <h3>💰 سحب رصيد</h3>
-
-            <div style="margin-bottom:12px;">
-                <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">اختر طريقة السحب</label>
-                <div class="payment-methods" id="withdrawMethods">
-                    <div class="pm-item" data-method="بنكك" onclick="selectWithdrawMethod(this)">
-                        <div class="pm-img">
-                            <img src="https://i.postimg.cc/yN5nn6CP/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="بنكك">
-                        </div>
-                        <div class="pm-name">🏦 بنكك</div>
-                    </div>
-                    <div class="pm-item" data-method="MyCash" onclick="selectWithdrawMethod(this)">
-                        <div class="pm-img">
-                            <img src="https://i.postimg.cc/26hdw4wN/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="MyCash">
-                        </div>
-                        <div class="pm-name">📱 MyCash</div>
-                    </div>
-                    <div class="pm-item" data-method="Binance" onclick="selectWithdrawMethod(this)">
-                        <div class="pm-img">
-                            <img src="https://i.postimg.cc/9QZkDq6G/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg" alt="Binance">
-                        </div>
-                        <div class="pm-name">🟡 Binance</div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="margin-bottom:12px;">
-                <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">💰 المبلغ (ج.س)</label>
-                <input type="number" id="withdrawAmount" placeholder="أدخل المبلغ" min="1">
-            </div>
-
-            <div style="margin-bottom:12px;">
-                <label style="display:block;font-weight:700;font-size:0.8rem;color:#64748b;margin-bottom:4px;">📱 رقم الحساب/المحفظة</label>
-                <input type="text" id="withdrawAccount" placeholder="أدخل رقم الحساب أو المحفظة">
-            </div>
-
-            <button onclick="submitWithdraw()" class="btn-primary">
-                ✅ تأكيد السحب
-            </button>
+        <!-- ===== TRANSACTIONS ===== -->
+        <div class="section-header" style="margin-top:20px;">
+            <i class="fas fa-list"></i>
+            <h3>سجل المعاملات</h3>
         </div>
+
+        <!-- ===== FILTERS & SEARCH ===== -->
+        <div class="filter-section">
+            <div class="filter-tabs" id="filterTabs">
+                <button class="filter-btn active" data-filter="all">الكل</button>
+                <button class="filter-btn" data-filter="deposit">💳 إيداع</button>
+                <button class="filter-btn" data-filter="purchase">🛒 شراء</button>
+                <button class="filter-btn" data-filter="withdraw">💰 سحب</button>
+                <button class="filter-btn" data-filter="refund">🔄 استرداد</button>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="ابحث في المعاملات...">
+            </div>
+        </div>
+
+        <!-- ===== TRANSACTIONS LIST ===== -->
+        <div id="transactionsList">
+            <div class="skeleton-loader">
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- ===== الشريط السفلي ===== -->
-    <div class="bottom-nav">
-        <a href="index.html" class="nav-item">
+    <!-- ===== BOTTOM NAV ===== -->
+    <nav class="bottom-nav">
+        <a href="/" class="nav-item">
             <i class="fas fa-home"></i>
             <span>الرئيسية</span>
-        </a>
-        <a href="support.html" class="nav-item">
-            <i class="fas fa-headset"></i>
-            <span>الدعم</span>
         </a>
         <a href="orders.html" class="nav-item">
             <i class="fas fa-box"></i>
@@ -1000,21 +837,76 @@
             <i class="fas fa-wallet"></i>
             <span>محفظتي</span>
         </a>
+        <a href="support.html" class="nav-item">
+            <i class="fas fa-headset"></i>
+            <span>الدعم</span>
+        </a>
         <a href="account.html" class="nav-item">
             <i class="fas fa-user"></i>
             <span>الحساب</span>
         </a>
-    </div>
+    </nav>
 
-    <!-- ===== Toast ===== -->
+    <!-- ===== TOAST ===== -->
     <div id="toast" class="toast"></div>
 
-    <script type="module">
-        // ========== استيراد Firebase ==========
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, updateDoc, collection, query, where, orderBy, onSnapshot, addDoc, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <!-- =============================================
+    JAVASCRIPT
+    ============================================= -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
+                "firebase/storage": "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"
+            }
+        }
+    </script>
 
+    <script type="module">
+        // =============================================
+        // FIREBASE IMPORTS
+        // =============================================
+        import { initializeApp } from "firebase/app";
+        import {
+            getFirestore,
+            collection,
+            doc,
+            addDoc,
+            getDoc,
+            getDocs,
+            setDoc,
+            updateDoc,
+            deleteDoc,
+            query,
+            where,
+            orderBy,
+            onSnapshot,
+            serverTimestamp,
+            increment,
+            runTransaction
+        } from "firebase/firestore";
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            signOut,
+            signInWithPopup,
+            GoogleAuthProvider
+        } from "firebase/auth";
+        import {
+            getStorage,
+            ref,
+            uploadBytes,
+            getDownloadURL,
+            deleteObject
+        } from "firebase/storage";
+
+        // =============================================
+        // FIREBASE CONFIG
+        // =============================================
         const firebaseConfig = {
             apiKey: "AIzaSyC0jzecEwKgHpxHpTi8Y-_bwwfzVdtgf3E",
             authDomain: "khasmshop.firebaseapp.com",
@@ -1025,319 +917,47 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
         const db = getFirestore(app);
+        const auth = getAuth(app);
+        const storage = getStorage(app);
+        const provider = new GoogleAuthProvider();
 
-        // ========== متغيرات عامة ==========
-        let currentUser = null;
-        let userData = {
-            balance: 0,
-            walletID: '000000',
-            name: 'مستخدم'
-        };
-        let selectedDepositMethod = null;
-        let selectedWithdrawMethod = null;
+        // =============================================
+        // VARIABLES
+        // =============================================
+        let userData = null;
+        let allTransactions = [];
+        let currentFilter = 'all';
+        let searchQuery = '';
 
-        // ========== عرض الرصيد ==========
-        function updateBalance(balance) {
-            document.getElementById('walletBalance').innerHTML =
-                balance.toLocaleString() + ' <span style="font-size:1.2rem;">ج.س</span>';
-        }
+        // =============================================
+        // PAYMENT METHODS (من Firestore)
+        // =============================================
+        const paymentMethodsData = [{
+            id: 'bankak',
+            name: '🏦 بنكك',
+            description: 'تحويل بنكي مباشر',
+            logo: '🏦'
+        }, {
+            id: 'mycash',
+            name: '📱 MyCash',
+            description: 'محفظة إلكترونية',
+            logo: '📱'
+        }, {
+            id: 'binance',
+            name: '🟡 Binance',
+            description: 'عملات رقمية',
+            logo: '🟡'
+        }, {
+            id: 'redotpay',
+            name: '💳 RedotPay',
+            description: 'بطاقة افتراضية',
+            logo: '💳'
+        }];
 
-        // ========== عرض رقم المحفظة ==========
-        function updateWalletID(walletID) {
-            document.getElementById('walletId').textContent = '🔑 #' + walletID;
-        }
-
-        // ========== جلب بيانات المستخدم من Firebase ==========
-        function loadUserData(uid) {
-            const userRef = doc(db, "users", uid);
-            onSnapshot(userRef, (snap) => {
-                if (snap.exists()) {
-                    const data = snap.data();
-                    userData = { ...userData, ...data };
-                    updateBalance(data.balance || 0);
-                    updateWalletID(data.walletID || '000000');
-
-                    const statusEl = document.getElementById('walletStatus');
-                    if (data.walletActive !== false) {
-                        statusEl.textContent = '✅ نشطة';
-                        statusEl.className = 'wallet-status active';
-                    } else {
-                        statusEl.textContent = '❌ موقوفة';
-                        statusEl.className = 'wallet-status inactive';
-                    }
-
-                    document.getElementById('rewardBonus').textContent = '+500 ج.س';
-                    document.getElementById('loyaltyPoints').textContent = Math.floor((data.balance || 0) / 1000) * 50 +
-                        ' نقطة';
-                }
-            });
-        }
-
-        // ========== جلب سجل المعاملات من Firebase (معدل) ==========
-        function loadTransactions(uid) {
-            const q = query(
-                collection(db, "transactions"),
-                where("userId", "==", uid),
-                orderBy("timestamp", "desc")
-            );
-
-            onSnapshot(q, (snapshot) => {
-                const container = document.getElementById('transactionsList');
-
-                if (snapshot.empty) {
-                    container.innerHTML = `
-                            <div class="empty-state">
-                                <i class="fas fa-receipt"></i>
-                                <h4>لا توجد معاملات حالياً</h4>
-                                <p style="font-size:0.8rem;">قم بإجراء عملية شراء أو إيداع</p>
-                            </div>
-                        `;
-                    return;
-                }
-
-                let html = '';
-                snapshot.forEach(doc => {
-                    const tx = doc.data();
-                    const date = tx.timestamp?.toDate ? new Date(tx.timestamp.toDate()).toLocaleString(
-                        'ar-SD') : 'غير محدد';
-
-                    // تحديد نوع المعاملة وأيقونتها
-                    let iconClass = 'deposit';
-                    let icon = 'fa-arrow-down';
-                    let title = tx.type || 'معاملة';
-
-                    if (tx.type === 'إيداع' || tx.type === 'شحن') {
-                        iconClass = 'deposit';
-                        icon = 'fa-arrow-down';
-                        title = 'إيداع';
-                    } else if (tx.type === 'سحب' || tx.type === 'خصم') {
-                        iconClass = 'withdraw';
-                        icon = 'fa-arrow-up';
-                        title = 'سحب';
-                    } else if (tx.type === 'شراء') {
-                        iconClass = 'purchase';
-                        icon = 'fa-shopping-cart';
-                        title = 'شراء';
-                    } else if (tx.type === 'استرداد') {
-                        iconClass = 'refund';
-                        icon = 'fa-undo';
-                        title = 'استرداد';
-                    }
-
-                    const sign = (tx.type === 'إيداع' || tx.type === 'شحن' || tx.type === 'استرداد') ? '+' : '-';
-                    const colorClass = (tx.type === 'إيداع' || tx.type === 'شحن' || tx.type === 'استرداد') ? 'positive' : 'negative';
-                    
-                    // حالة المعاملة
-                    const status = tx.status || 'قيد المراجعة';
-                    let statusClass = 'pending';
-                    if (status === 'مكتمل' || status === 'مكتملة') statusClass = 'completed';
-                    else if (status === 'مرفوض' || status === 'مرفوضة') statusClass = 'rejected';
-
-                    const displayName = tx.title || title;
-
-                    html += `
-                            <div class="transaction-item">
-                                <div style="display:flex;align-items:center;">
-                                    <div class="tx-icon ${iconClass}">
-                                        <i class="fas ${icon}"></i>
-                                    </div>
-                                    <div class="tx-info">
-                                        <div class="tx-title">${displayName}</div>
-                                        <div class="tx-date">${date}</div>
-                                    </div>
-                                </div>
-                                <div style="text-align:left;">
-                                    <div class="tx-amount ${colorClass}">${sign}${(tx.amount || 0).toLocaleString()} ج.س</div>
-                                    <span class="tx-status ${statusClass}">${status}</span>
-                                </div>
-                            </div>
-                        `;
-                });
-
-                container.innerHTML = html;
-            });
-        }
-
-        // ========== جلب سجل تسجيل الدخول ==========
-        function loadLoginHistory(uid) {
-            const historyContainer = document.getElementById('loginHistory');
-            historyContainer.innerHTML = `
-                    <div>• اليوم 10:30 ص - الخرطوم, السودان</div>
-                    <div>• أمس 8:15 م - الخرطوم, السودان</div>
-                    <div>• 14 يوليو 2025 - 2:00 م - الخرطوم, السودان</div>
-                `;
-        }
-
-        // ========== التبويبات ==========
-        document.querySelectorAll('#walletTabs .tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('#walletTabs .tab-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-
-                const tab = this.dataset.tab;
-                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-                document.getElementById('tab-' + tab).classList.add('active');
-            });
-        });
-
-        // ========== اختيار طريقة الإيداع ==========
-        window.selectDepositMethod = function(el) {
-            document.querySelectorAll('#depositMethods .pm-item').forEach(p => p.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedDepositMethod = el.dataset.method;
-        };
-
-        window.selectWithdrawMethod = function(el) {
-            document.querySelectorAll('#withdrawMethods .pm-item').forEach(p => p.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedWithdrawMethod = el.dataset.method;
-        };
-
-        // ========== فتح وإغلاق مودال الإيداع ==========
-        window.openDepositModal = function() {
-            document.getElementById('depositModal').classList.add('active');
-        };
-
-        window.closeDepositModal = function() {
-            document.getElementById('depositModal').classList.remove('active');
-            selectedDepositMethod = null;
-            document.querySelectorAll('#depositMethods .pm-item').forEach(p => p.classList.remove('selected'));
-            document.getElementById('depositAmount').value = '';
-            document.getElementById('depositRef').value = '';
-            document.getElementById('depositProof').value = '';
-        };
-
-        // ========== فتح وإغلاق مودال السحب ==========
-        window.openWithdrawModal = function() {
-            document.getElementById('withdrawModal').classList.add('active');
-        };
-
-        window.closeWithdrawModal = function() {
-            document.getElementById('withdrawModal').classList.remove('active');
-            selectedWithdrawMethod = null;
-            document.querySelectorAll('#withdrawMethods .pm-item').forEach(p => p.classList.remove('selected'));
-            document.getElementById('withdrawAmount').value = '';
-            document.getElementById('withdrawAccount').value = '';
-        };
-
-        // ========== إرسال طلب إيداع ==========
-        window.submitDeposit = async function() {
-            if (!currentUser) {
-                showToast('❌ يرجى تسجيل الدخول أولاً');
-                return;
-            }
-
-            if (!selectedDepositMethod) {
-                showToast('❌ اختر طريقة الإيداع');
-                return;
-            }
-
-            const amount = parseInt(document.getElementById('depositAmount').value);
-            if (!amount || amount < 1) {
-                showToast('❌ أدخل مبلغ صحيح');
-                return;
-            }
-
-            const ref = document.getElementById('depositRef').value.trim() || 'بدون رقم';
-            const fileInput = document.getElementById('depositProof');
-            const fileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'بدون صورة';
-
-            try {
-                await addDoc(collection(db, "transactions"), {
-                    uID: currentUser.uid,
-                    type: 'إيداع',
-                    title: `إيداع عبر ${selectedDepositMethod}`,
-                    amount: amount,
-                    method: selectedDepositMethod,
-                    ref: ref,
-                    proof: fileName,
-                    status: 'قيد المراجعة',
-                    timestamp: serverTimestamp()
-                });
-
-                showToast('✅ تم إرسال طلب الإيداع بنجاح! جاري المراجعة');
-                closeDepositModal();
-            } catch (e) {
-                showToast('❌ حدث خطأ: ' + e.message);
-            }
-        };
-
-        // ========== إرسال طلب سحب ==========
-        window.submitWithdraw = async function() {
-            if (!currentUser) {
-                showToast('❌ يرجى تسجيل الدخول أولاً');
-                return;
-            }
-
-            if (!selectedWithdrawMethod) {
-                showToast('❌ اختر طريقة السحب');
-                return;
-            }
-
-            const amount = parseInt(document.getElementById('withdrawAmount').value);
-            if (!amount || amount < 1) {
-                showToast('❌ أدخل مبلغ صحيح');
-                return;
-            }
-
-            if (amount > userData.balance) {
-                showToast('❌ رصيدك غير كافي! الرصيد: ' + userData.balance.toLocaleString() + ' ج.س');
-                return;
-            }
-
-            const account = document.getElementById('withdrawAccount').value.trim();
-            if (!account) {
-                showToast('❌ أدخل رقم الحساب أو المحفظة');
-                return;
-            }
-
-            try {
-                const userRef = doc(db, "users", currentUser.uid);
-                await updateDoc(userRef, {
-                    balance: increment(-amount)
-                });
-
-                await addDoc(collection(db, "transactions"), {
-                    uID: currentUser.uid,
-                    type: 'سحب',
-                    title: `سحب عبر ${selectedWithdrawMethod}`,
-                    amount: amount,
-                    method: selectedWithdrawMethod,
-                    account: account,
-                    status: 'قيد المراجعة',
-                    timestamp: serverTimestamp()
-                });
-
-                showToast('✅ تم إرسال طلب السحب بنجاح! جاري المراجعة');
-                closeWithdrawModal();
-            } catch (e) {
-                showToast('❌ حدث خطأ: ' + e.message);
-            }
-        };
-
-        // ========== تغيير كلمة المرور ==========
-        window.changeWalletPassword = function() {
-            const password = document.getElementById('newWalletPassword').value.trim();
-            if (!password || password.length < 6) {
-                showToast('❌ كلمة المرور يجب أن تكون 6 أحرف على الأقل');
-                return;
-            }
-            showToast('✅ تم تغيير كلمة مرور المحفظة بنجاح');
-            document.getElementById('newWalletPassword').value = '';
-        };
-
-        // ========== 2FA ==========
-        window.enable2FA = function() {
-            showToast('✅ تم تفعيل التحقق بخطوتين');
-        };
-
-        window.disable2FA = function() {
-            showToast('❌ تم تعطيل التحقق بخطوتين');
-        };
-
-        // ========== Toast ==========
+        // =============================================
+        // TOAST
+        // =============================================
         function showToast(msg) {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
@@ -1347,34 +967,267 @@
         }
         window.showToast = showToast;
 
-        // ========== إغلاق المودالات ==========
-        document.getElementById('depositModal').addEventListener('click', function(e) {
-            if (e.target === this) closeDepositModal();
-        });
-        document.getElementById('withdrawModal').addEventListener('click', function(e) {
-            if (e.target === this) closeWithdrawModal();
-        });
+        // =============================================
+        // TOGGLE BALANCE
+        // =============================================
+        window.toggleBalance = function() {
+            const display = document.getElementById('balanceDisplay');
+            const eye = document.getElementById('eyeIcon');
+            if (display.textContent === '••••') {
+                display.textContent = userData?.balance?.toLocaleString() || '0';
+                eye.className = 'fas fa-eye';
+            } else {
+                display.textContent = '••••';
+                eye.className = 'fas fa-eye-slash';
+            }
+        };
 
-        // ========== تشغيل الصفحة ==========
+        // =============================================
+        // COPY WALLET ID
+        // =============================================
+        window.copyWalletId = function() {
+            const id = document.getElementById('walletId').textContent;
+            navigator.clipboard.writeText(id).then(() => {
+                showToast('✅ تم نسخ رقم المحفظة');
+            });
+        };
+
+        // =============================================
+        // OPEN WITHDRAW
+        // =============================================
+        window.openWithdraw = function() {
+            window.location.href = 'pages/withdraw.html';
+        };
+
+        // =============================================
+        // REFRESH DATA
+        // =============================================
+        window.refreshData = function() {
+            showToast('🔄 جاري تحديث البيانات...');
+            setTimeout(() => showToast('✅ تم تحديث البيانات'), 1000);
+        };
+
+        // =============================================
+        // TOGGLE THEME
+        // =============================================
+        window.toggleTheme = function() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                icon.className = 'fas fa-moon';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                icon.className = 'fas fa-sun';
+            }
+        };
+
+        // =============================================
+        // LOAD PAYMENT METHODS
+        // =============================================
+        function loadPaymentMethods() {
+            const container = document.getElementById('paymentMethods');
+            container.innerHTML = '';
+            paymentMethodsData.forEach(method => {
+                const div = document.createElement('div');
+                div.className = 'payment-card ripple';
+                div.innerHTML = `
+                        <div class="payment-logo">${method.logo}</div>
+                        <div class="payment-info">
+                            <h4>${method.name}</h4>
+                            <p>${method.description}</p>
+                        </div>
+                        <i class="fas fa-chevron-left"></i>
+                    `;
+                div.addEventListener('click', () => {
+                    window.location.href = `pages/deposit-${method.id}.html`;
+                });
+                container.appendChild(div);
+            });
+        }
+
+        // =============================================
+        // LOAD USER BALANCE
+        // =============================================
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                currentUser = user;
-                loadUserData(user.uid);
+                const userRef = doc(db, "users", user.uid);
+                onSnapshot(userRef, (snap) => {
+                    if (snap.exists()) {
+                        userData = snap.data();
+                        document.getElementById('balanceDisplay').textContent = userData.balance?.toLocaleString() ||
+                            '0';
+                        document.getElementById('walletId').textContent = `#${userData.walletID || '123456789'}`;
+                        const status = document.getElementById('walletStatus');
+                        if (userData.walletActive !== false) {
+                            status.className = 'wallet-status active';
+                            status.textContent = '✅ نشطة';
+                        } else {
+                            status.className = 'wallet-status inactive';
+                            status.textContent = '⛔ موقوفة';
+                        }
+                    }
+                });
                 loadTransactions(user.uid);
-                loadLoginHistory(user.uid);
             } else {
                 showToast('❌ يرجى تسجيل الدخول أولاً');
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1500);
+                setTimeout(() => window.location.href = '/', 2000);
             }
         });
 
-        // ========== تفعيل الوضع الليلي ==========
-        if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.classList.add('dark');
+        // =============================================
+        // LOAD TRANSACTIONS
+        // =============================================
+        function loadTransactions(userId) {
+            const q = query(
+                collection(db, "transactions"),
+                where("userId", "==", userId),
+                orderBy("createdAt", "desc")
+            );
+
+            onSnapshot(q, (snapshot) => {
+                allTransactions = [];
+                snapshot.forEach(doc => {
+                    allTransactions.push({ id: doc.id, ...doc.data() });
+                });
+                renderTransactions();
+            }, (error) => {
+                console.error('Error loading transactions:', error);
+                showToast('❌ حدث خطأ في تحميل المعاملات');
+            });
         }
+
+        // =============================================
+        // RENDER TRANSACTIONS
+        // =============================================
+        function renderTransactions() {
+            const container = document.getElementById('transactionsList');
+            let filtered = allTransactions;
+
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(t => t.type === currentFilter);
+            }
+
+            if (searchQuery) {
+                const q = searchQuery.toLowerCase();
+                filtered = filtered.filter(t =>
+                    t.title?.toLowerCase().includes(q) ||
+                    t.reference?.toLowerCase().includes(q) ||
+                    t.method?.toLowerCase().includes(q)
+                );
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-receipt"></i>
+                            <h4>لا توجد معاملات</h4>
+                            <p>قم بإجراء عملية شراء أو إيداع</p>
+                        </div>
+                    `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(t => {
+                const icons = {
+                    deposit: 'fa-plus-circle',
+                    purchase: 'fa-shopping-cart',
+                    withdraw: 'fa-arrow-up',
+                    refund: 'fa-undo'
+                };
+                const colors = {
+                    deposit: 'deposit',
+                    purchase: 'purchase',
+                    withdraw: 'withdraw',
+                    refund: 'refund'
+                };
+                const statusText = {
+                    pending: '⏳ قيد المراجعة',
+                    completed: '✅ مكتمل',
+                    rejected: '❌ مرفوض'
+                };
+                const date = t.createdAt?.toDate ? new Date(t.createdAt.toDate()) : new Date();
+
+                return `
+                        <div class="transaction-item" onclick="showTransactionDetail('${t.id}')">
+                            <div class="tx-icon ${colors[t.type] || 'deposit'}">
+                                <i class="fas ${icons[t.type] || 'fa-circle'}"></i>
+                            </div>
+                            <div class="tx-info">
+                                <div class="tx-title">${t.title || t.type}</div>
+                                <div class="tx-date">${date.toLocaleDateString('ar-SD')} - ${date.toLocaleTimeString('ar-SD', {hour:'2-digit',minute:'2-digit'})}</div>
+                            </div>
+                            <div class="tx-amount ${t.amount > 0 ? 'positive' : 'negative'}">
+                                ${t.amount > 0 ? '+' : ''}${t.amount.toLocaleString()} ج.س
+                            </div>
+                            <span class="tx-status ${t.status || 'pending'}">${statusText[t.status] || '⏳ قيد المراجعة'}</span>
+                        </div>
+                    `;
+            }).join('');
+        }
+
+        // =============================================
+        // SHOW TRANSACTION DETAIL
+        // =============================================
+        window.showTransactionDetail = function(id) {
+            const tx = allTransactions.find(t => t.id === id);
+            if (!tx) return;
+
+            const statusText = {
+                pending: '⏳ قيد المراجعة',
+                completed: '✅ مكتمل',
+                rejected: '❌ مرفوض'
+            };
+            const date = tx.createdAt?.toDate ? new Date(tx.createdAt.toDate()) : new Date();
+
+            alert(`📋 تفاصيل المعاملة
+
+        📌 العنوان: ${tx.title || tx.type}
+        💰 المبلغ: ${tx.amount.toLocaleString()} ج.س
+        📅 التاريخ: ${date.toLocaleDateString('ar-SD')}
+        🕐 الوقت: ${date.toLocaleTimeString('ar-SD', {hour:'2-digit',minute:'2-digit'})}
+        📊 الحالة: ${statusText[tx.status] || '⏳ قيد المراجعة'}
+        📝 طريقة الدفع: ${tx.method || 'غير محدد'}
+        🔢 المرجع: ${tx.reference || 'غير محدد'}
+        📎 ملاحظات: ${tx.note || 'لا توجد ملاحظات'}`);
+        };
+
+        // =============================================
+        // FILTERS & SEARCH
+        // =============================================
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                renderTransactions();
+            });
+        });
+
+        document.getElementById('searchInput')?.addEventListener('input', function() {
+            searchQuery = this.value.trim();
+            renderTransactions();
+        });
+
+        // =============================================
+        // THEME ON LOAD
+        // =============================================
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.getElementById('themeIcon').className = 'fas fa-sun';
+        }
+
+        // =============================================
+        // INIT
+        // =============================================
+        loadPaymentMethods();
+
+        console.log('🚀 MORRE STORE Wallet loaded successfully!');
+        console.log('📦 Payment Methods:', paymentMethodsData.length);
+        console.log('💳 Firebase connected');
     </script>
 
 </body>
-                </html>
+</html>
