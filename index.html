@@ -3598,6 +3598,16 @@ document.getElementById('orderModal')?.addEventListener('click', function(e) {
 });
 
         console.log('🚀 MORRE STORE جاهز بالكامل!');
+        <script>
+    // إخفاء شاشة التحميل بعد 5 ثواني كحد أقصى
+    setTimeout(function() {
+        const loading = document.getElementById('loading-screen');
+        if (loading) {
+            loading.classList.add('hidden');
+            loading.style.display = 'none';
+        }
+    }, 5000);
+</script>
     </script>
 </body>
     </html>
