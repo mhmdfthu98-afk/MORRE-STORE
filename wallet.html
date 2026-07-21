@@ -51,7 +51,6 @@
             padding: 0 16px 20px;
         }
 
-        /* ===== HEADER ===== */
         .page-header {
             display: flex;
             align-items: center;
@@ -428,7 +427,6 @@
             100% { background-position: 200% 0; }
         }
 
-        /* ===== BOTTOM NAV ===== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -462,7 +460,6 @@
         .bottom-nav .nav-item.active { color: var(--primary); }
         .bottom-nav .nav-item.active i { transform: translateY(-2px); }
 
-        /* ===== TOAST ===== */
         .toast {
             position: fixed;
             bottom: 80px;
@@ -481,7 +478,6 @@
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(-10px); }
 
-        /* ===== MODAL ===== */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -604,7 +600,6 @@
         }
         .btn-primary:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3); }
 
-        /* ===== DARK MODE ===== */
         [data-theme="dark"] .balance-card {
             background: linear-gradient(135deg, #0F172A, #1E293B);
         }
@@ -1039,20 +1034,42 @@
             document.getElementById('withdrawMethod').value = '';
         };
 
-        // ===== DEPOSIT FORM SUBMIT =====
-        document.getElementById('depositForm').addEventListener('submit', function(e) {
+        // ===== DEPOSIT FORM SUBMIT (مع تسجيل المعاملة في Firebase) =====
+        document.getElementById('depositForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const amount = document.getElementById('depositAmount').value;
+            const reference = document.getElementById('depositReference').value;
+            const method = document.getElementById('depositMethod').textContent;
+
             if (!amount || amount < 1) {
                 showToast('❌ أدخل مبلغ صحيح');
                 return;
             }
-            showToast('✅ تم إرسال طلب الإيداع بنجاح! جاري المراجعة');
-            setTimeout(() => closeDepositModal(), 1500);
+
+            try {
+                // تسجيل معاملة إيداع في Firebase
+                await addDoc(collection(db, "transactions"), {
+                    uID: auth.currentUser.uid,
+                    userName: userData?.name || 'مستخدم',
+                    type: "deposit",
+                    title: `💰 إيداع عبر ${method}`,
+                    amount: parseInt(amount),
+                    method: method,
+                    reference: reference || 'غير محدد',
+                    status: "pending",
+                    createdAt: serverTimestamp(),
+                    timestamp: serverTimestamp()
+                });
+                showToast('✅ تم إرسال طلب الإيداع بنجاح! جاري المراجعة');
+                closeDepositModal();
+            } catch (error) {
+                console.error('❌ خطأ في تسجيل الإيداع:', error);
+                showToast('❌ حدث خطأ في تسجيل الإيداع');
+            }
         });
 
-        // ===== WITHDRAW FORM SUBMIT =====
-        document.getElementById('withdrawForm').addEventListener('submit', function(e) {
+        // ===== WITHDRAW FORM SUBMIT (مع تسجيل المعاملة في Firebase) =====
+        document.getElementById('withdrawForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const method = document.getElementById('withdrawMethod').value;
             const amount = document.getElementById('withdrawAmount').value;
@@ -1062,8 +1079,26 @@
             if (!amount || amount < 1) { showToast('❌ أدخل مبلغ صحيح'); return; }
             if (!account) { showToast('❌ أدخل رقم الحساب'); return; }
 
-            showToast('✅ تم إرسال طلب السحب بنجاح! جاري المراجعة');
-            setTimeout(() => closeWithdrawModal(), 1500);
+            try {
+                // تسجيل معاملة سحب في Firebase
+                await addDoc(collection(db, "transactions"), {
+                    uID: auth.currentUser.uid,
+                    userName: userData?.name || 'مستخدم',
+                    type: "withdraw",
+                    title: `💰 سحب رصيد عبر ${method}`,
+                    amount: -parseInt(amount),
+                    method: method,
+                    account: account,
+                    status: "pending",
+                    createdAt: serverTimestamp(),
+                    timestamp: serverTimestamp()
+                });
+                showToast('✅ تم إرسال طلب السحب بنجاح! جاري المراجعة');
+                closeWithdrawModal();
+            } catch (error) {
+                console.error('❌ خطأ في تسجيل السحب:', error);
+                showToast('❌ حدث خطأ في تسجيل السحب');
+            }
         });
 
         // ===== CLOSE MODALS ON OUTSIDE CLICK =====
@@ -1207,4 +1242,4 @@
     </script>
 
 </body>
-            </html>
+        </html>
