@@ -824,6 +824,55 @@
 
     </div>
 
+<!-- ===== مودال الإيداع ===== -->
+<div id="depositModal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <h2 id="depositModalTitle">💰 إيداع</h2>
+            <button onclick="closeDepositModal()" style="background:none;border:none;font-size:1.5rem;color:var(--gray);cursor:pointer;">&times;</button>
+        </div>
+        
+        <div id="depositInfo" style="background:var(--gray-light);border-radius:12px;padding:16px;margin-bottom:16px;">
+            <div class="account-detail" style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.04);">
+                <span style="color:var(--gray);font-weight:600;">📋 رقم الحساب</span>
+                <span id="depositAccount" style="font-weight:800;color:var(--dark);">4845774</span>
+                <button onclick="copyDepositAccount()" style="background:none;border:none;color:var(--primary);cursor:pointer;"><i class="fas fa-copy"></i></button>
+            </div>
+            <div class="account-detail" style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.04);">
+                <span style="color:var(--gray);font-weight:600;">👤 اسم صاحب الحساب</span>
+                <span id="depositHolder" style="font-weight:800;color:var(--dark);">امنه محمد علي مبارك</span>
+            </div>
+            <div class="account-detail" style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;">
+                <span style="color:var(--gray);font-weight:600;">🏦 الطريقة</span>
+                <span id="depositMethod" style="font-weight:800;color:var(--dark);">بنكك</span>
+            </div>
+        </div>
+
+        <form id="depositForm">
+            <div class="form-group" style="margin-bottom:14px;">
+                <label style="display:block;font-weight:700;font-size:0.8rem;color:var(--gray);margin-bottom:4px;">💰 المبلغ (ج.س)</label>
+                <input type="number" id="depositAmount" placeholder="أدخل المبلغ" min="1" required style="width:100%;padding:12px 16px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);background:var(--white);font-size:0.95rem;font-family:'Cairo',sans-serif;">
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+                <label style="display:block;font-weight:700;font-size:0.8rem;color:var(--gray);margin-bottom:4px;">📝 رقم العملية</label>
+                <input type="text" id="depositReference" placeholder="رقم العملية من التطبيق" style="width:100%;padding:12px 16px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);background:var(--white);font-size:0.95rem;font-family:'Cairo',sans-serif;">
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+                <label style="display:block;font-weight:700;font-size:0.8rem;color:var(--gray);margin-bottom:4px;">📎 إثبات الدفع</label>
+                <div class="upload-area" onclick="document.getElementById('proofInput').click()" style="border:2px dashed rgba(0,0,0,0.04);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:var(--transition);background:var(--white);">
+                    <i class="fas fa-cloud-upload-alt" style="font-size:2rem;color:var(--gray);display:block;margin-bottom:8px;"></i>
+                    <p style="color:var(--gray);font-size:0.85rem;">اضغط لرفع صورة إثبات الدفع</p>
+                    <input type="file" id="proofInput" accept="image/*" style="display:none;" onchange="previewDepositProof(this)">
+                    <img id="depositPreview" alt="معاينة الصورة" style="max-width:100%;max-height:200px;margin-top:10px;border-radius:8px;display:none;">
+                </div>
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%;padding:14px;font-size:1rem;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;font-weight:800;border:none;border-radius:12px;cursor:pointer;transition:var(--transition);">
+                <i class="fas fa-paper-plane"></i> إرسال طلب الإيداع
+            </button>
+        </form>
+    </div>
+</div>
+
     <!-- ===== BOTTOM NAV ===== -->
     <nav class="bottom-nav">
         <a href="/" class="nav-item">
@@ -1043,8 +1092,8 @@
                         <i class="fas fa-chevron-left"></i>
                     `;
                 div.addEventListener('click', () => {
-                    window.location.href = `pages/deposit-${method.id}.html`;
-                });
+    openDepositModal(method.id);
+});
                 container.appendChild(div);
             });
         }
@@ -1351,6 +1400,111 @@ document.getElementById('confirmOrderBtn')?.addEventListener('click', async func
         this.disabled = false;
     }
 });
+
+// =============================================
+// ===== نظام الإيداع (مودال واحد) =====
+// =============================================
+
+// بيانات طرق الإيداع
+const depositMethods = {
+    bankak: {
+        title: '🏦 إيداع بنكك',
+        account: '4845774',
+        holder: 'امنه محمد علي مبارك',
+        method: 'بنكك'
+    },
+    mycash: {
+        title: '📱 إيداع MyCash',
+        account: '401793722',
+        holder: 'محمد فتحي حمزه مضوي',
+        method: 'MyCash'
+    },
+    binance: {
+        title: '🟡 إيداع Binance',
+        account: '1206604367',
+        holder: 'MORRE STORE',
+        method: 'Binance'
+    },
+    redotpay: {
+        title: '💳 إيداع RedotPay',
+        account: '1143769920',
+        holder: 'MORRE STORE',
+        method: 'RedotPay'
+    }
+};
+
+// فتح مودال الإيداع
+function openDepositModal(methodId) {
+    const data = depositMethods[methodId];
+    if (!data) {
+        showToast('❌ طريقة الإيداع غير موجودة');
+        return;
+    }
+
+    document.getElementById('depositModalTitle').textContent = data.title;
+    document.getElementById('depositAccount').textContent = data.account;
+    document.getElementById('depositHolder').textContent = data.holder;
+    document.getElementById('depositMethod').textContent = data.method;
+    
+    document.getElementById('depositModal').classList.add('active');
+    document.getElementById('depositModal').style.display = 'flex';
+}
+
+// إغلاق مودال الإيداع
+function closeDepositModal() {
+    document.getElementById('depositModal').classList.remove('active');
+    document.getElementById('depositModal').style.display = 'none';
+    document.getElementById('depositAmount').value = '';
+    document.getElementById('depositReference').value = '';
+    document.getElementById('proofInput').value = '';
+    document.getElementById('depositPreview').style.display = 'none';
+}
+
+// نسخ رقم الحساب
+function copyDepositAccount() {
+    const account = document.getElementById('depositAccount').textContent;
+    navigator.clipboard.writeText(account).then(() => {
+        showToast('✅ تم نسخ رقم الحساب');
+    });
+}
+
+// معاينة الصورة
+function previewDepositProof(input) {
+    const preview = document.getElementById('depositPreview');
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// إرسال طلب الإيداع
+document.getElementById('depositForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const amount = document.getElementById('depositAmount').value;
+    if (!amount || amount < 1) {
+        showToast('❌ أدخل مبلغ صحيح');
+        return;
+    }
+    showToast('✅ تم إرسال طلب الإيداع بنجاح! جاري المراجعة');
+    setTimeout(() => closeDepositModal(), 1500);
+});
+
+// إغلاق المودال عند النقر خارجها
+document.getElementById('depositModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeDepositModal();
+    }
+});
+
+// جعل الدوال عامة (Global)
+window.openDepositModal = openDepositModal;
+window.closeDepositModal = closeDepositModal;
+window.copyDepositAccount = copyDepositAccount;
+window.previewDepositProof = previewDepositProof;
         
     </script>
 
