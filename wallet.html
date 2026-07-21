@@ -1070,10 +1070,12 @@ const paymentMethodsData = [{
             }
         };
 
-       function loadPaymentMethods() {
+      function loadPaymentMethods() {
+    console.log('✅ جاري تحميل طرق الإيداع...');
     const container = document.getElementById('paymentMethods');
     container.innerHTML = '';
     paymentMethodsData.forEach(method => {
+        console.log('📦 طريقة:', method.name);
         const div = document.createElement('div');
         div.className = 'payment-card';
         div.innerHTML = `
@@ -1085,10 +1087,12 @@ const paymentMethodsData = [{
             <i class="fas fa-chevron-left"></i>
         `;
         div.addEventListener('click', () => {
+            console.log('🖱️ تم الضغط على:', method.id);
             openDepositModal(method.id);
         });
         container.appendChild(div);
     });
+    console.log('✅ تم تحميل', paymentMethodsData.length, 'طرق');
 }
 
         // =============================================
