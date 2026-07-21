@@ -980,31 +980,27 @@
         let currentFilter = 'all';
         let searchQuery = '';
 
-        // =============================================
-        // PAYMENT METHODS (من Firestore)
-        // =============================================
-        const paymentMethodsData = [{
-            id: 'bankak',
-            name: '🏦 بنكك',
-            description: 'تحويل بنكي مباشر',
-            logo: '🏦'
-        }, {
-            id: 'mycash',
-            name: '📱 MyCash',
-            description: 'محفظة إلكترونية',
-            logo: '📱'
-        }, {
-            id: 'binance',
-            name: '🟡 Binance',
-            description: 'عملات رقمية',
-            logo: '🟡'
-        }, {
-            id: 'redotpay',
-            name: '💳 RedotPay',
-            description: 'بطاقة افتراضية',
-            logo: '💳'
-        }];
-
+const paymentMethodsData = [{
+    id: 'bankak',
+    name: 'بنكك',
+    description: 'تحويل بنكي مباشر',
+    logo: 'https://i.postimg.cc/DZpn1gZq/Screenshot-20260711-132107-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg'
+}, {
+    id: 'mycash',
+    name: 'ماي كاشي',
+    description: 'محفظة إلكترونية',
+    logo: 'https://i.postimg.cc/wBfjkH4g/Screenshot-20260711-132124-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg'
+}, {
+    id: 'binance',
+    name: 'باينانس',
+    description: 'عملات رقمية',
+    logo: 'https://i.postimg.cc/Rhn5KxyX/Screenshot-20260711-132041-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg'
+}, {
+    id: 'redotpay',
+    name: 'RedotPay',
+    description: 'بطاقة افتراضية',
+    logo: 'https://i.postimg.cc/y8n1VsHh/Screenshot-20260721-174351-com-android-vending-Transparent-Page-Controller-Overlay-Act.jpg'
+}];
         // =============================================
         // TOAST
         // =============================================
@@ -1074,29 +1070,26 @@
             }
         };
 
-        // =============================================
-        // LOAD PAYMENT METHODS
-        // =============================================
-        function loadPaymentMethods() {
-            const container = document.getElementById('paymentMethods');
-            container.innerHTML = '';
-            paymentMethodsData.forEach(method => {
-                const div = document.createElement('div');
-                div.className = 'payment-card ripple';
-                div.innerHTML = `
-                        <div class="payment-logo">${method.logo}</div>
-                        <div class="payment-info">
-                            <h4>${method.name}</h4>
-                            <p>${method.description}</p>
-                        </div>
-                        <i class="fas fa-chevron-left"></i>
-                    `;
-                div.addEventListener('click', () => {
-    openDepositModal(method.id);
-});
-                container.appendChild(div);
-            });
-        }
+       function loadPaymentMethods() {
+    const container = document.getElementById('paymentMethods');
+    container.innerHTML = '';
+    paymentMethodsData.forEach(method => {
+        const div = document.createElement('div');
+        div.className = 'payment-card';
+        div.innerHTML = `
+            <img src="${method.logo}" alt="${method.name}" style="width:50px;height:50px;object-fit:contain;border-radius:8px;border:1px solid #e9ecef;padding:4px;background:white;">
+            <div class="payment-info">
+                <h4>${method.name}</h4>
+                <p>${method.description}</p>
+            </div>
+            <i class="fas fa-chevron-left"></i>
+        `;
+        div.addEventListener('click', () => {
+            openDepositModal(method.id);
+        });
+        container.appendChild(div);
+    });
+}
 
         // =============================================
         // LOAD USER BALANCE
