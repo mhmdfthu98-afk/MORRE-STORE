@@ -189,8 +189,6 @@
         .status-badge.progress { background: #DBEAFE; color: #3B82F6; }
         .status-badge.done { background: #D1FAE5; color: var(--success); }
         .status-badge.cancelled { background: #FEE2E2; color: var(--danger); }
-        .status-badge.deposit { background: #D1FAE5; color: var(--success); }
-        .status-badge.withdraw { background: #FEE2E2; color: var(--danger); }
 
         .input-field {
             width: 100%;
@@ -279,6 +277,19 @@
         @media (max-width: 480px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .admin-tabs .tab-btn { font-size: 0.6rem; padding: 6px 10px; }
+        }
+
+        .deposit-proof-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--gray-light);
+            cursor: pointer;
+        }
+        .deposit-proof-img:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow);
         }
     </style>
 </head>
@@ -1118,7 +1129,7 @@
         //  LOAD DEPOSITS
         // ============================================================
         function loadDeposits() {
-            const q = query(collection(db, "transactions"), where("type", "==", "deposit"), orderBy("createdAt", "desc"));
+            const q = query(collection(db, "transactions"), where("type", "==", "deposit"));
             onSnapshot(q, (snapshot) => {
                 allDeposits = [];
                 snapshot.forEach(doc => {
@@ -1148,27 +1159,29 @@
                 rejected: '<span class="status-badge cancelled">❌ مرفوض</span>'
             };
 
-            table.innerHTML = filtered.map(d => `
-                <tr>
-                    <td>#${d.id?.substring(0, 6) || '---'}</td>
-                    <td>${d.userName || 'مستخدم'}</td>
-                    <td style="color:var(--success);">+${(d.amount || 0).toLocaleString()} ج.س</td>
-                    <td>${d.method || 'غير محدد'}</td>
-                    <td>${d.reference || 'غير محدد'}</td>
-                    <td>
-                        ${d.proofURL ? `<button class="btn-sm blue" onclick="viewImage('${d.proofURL}')">📷</button>` : 'لا توجد'}
-                    </td>
-                    <td>${statusMap[d.status] || statusMap.pending}</td>
-                    <td>
-                        ${d.status === 'pending' ? `
-                            <button class="btn-sm green" onclick="approveDeposit('${d.id}', ${d.amount || 0}, '${d.uID || ''}')">قبول</button>
-                            <button class="btn-sm red" onclick="rejectDeposit('${d.id}')">رفض</button>
-                        ` : `
-                            <button class="btn-sm outline" onclick="showDepositDetail('${d.id}')">📄</button>
-                        `}
-                    </td>
-                </tr>
-            `).join('');
+            table.innerHTML = filtered.map(d => {
+                return `
+                    <tr>
+                        <td>#${d.id?.substring(0, 6) || '---'}</td>
+                        <td>${d.userName || 'مستخدم'}</td>
+                        <td style="color:var(--success);">+${(d.amount || 0).toLocaleString()} ج.س</td>
+                        <td>${d.method || 'غير محدد'}</td>
+                        <td>${d.reference || 'غير محدد'}</td>
+                        <td>
+                            ${d.proofURL ? `<img src="${d.proofURL}" class="deposit-proof-img" onclick="viewImage('${d.proofURL}')" alt="صورة الإيصال">` : 'لا توجد'}
+                        </td>
+                        <td>${statusMap[d.status] || statusMap.pending}</td>
+                        <td>
+                            ${d.status === 'pending' ? `
+                                <button class="btn-sm green" onclick="approveDeposit('${d.id}', ${d.amount || 0}, '${d.uID || ''}')">قبول</button>
+                                <button class="btn-sm red" onclick="rejectDeposit('${d.id}')">رفض</button>
+                            ` : `
+                                <button class="btn-sm outline" onclick="showDepositDetail('${d.id}')">📄</button>
+                            `}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         // ============================================================
@@ -1190,6 +1203,7 @@
                 }
 
                 showToast('✅ تم قبول الإيداع وتم إضافة الرصيد');
+                renderDeposits();
             } catch (error) {
                 console.error('خطأ:', error);
                 showToast('❌ حدث خطأ');
@@ -1207,6 +1221,7 @@
                     adminNote: "تم رفض الإيداع"
                 });
                 showToast('❌ تم رفض الإيداع');
+                renderDeposits();
             } catch (error) {
                 console.error('خطأ:', error);
                 showToast('❌ حدث خطأ');
@@ -1246,7 +1261,7 @@
         //  LOAD WITHDRAWS
         // ============================================================
         function loadWithdraws() {
-            const q = query(collection(db, "transactions"), where("type", "==", "withdraw"), orderBy("createdAt", "desc"));
+            const q = query(collection(db, "transactions"), where("type", "==", "withdraw"));
             onSnapshot(q, (snapshot) => {
                 allWithdraws = [];
                 snapshot.forEach(doc => {
@@ -1315,6 +1330,7 @@
                 }
 
                 showToast('✅ تم قبول السحب وتم خصم الرصيد');
+                renderWithdraws();
             } catch (error) {
                 console.error('خطأ:', error);
                 showToast('❌ حدث خطأ');
@@ -1332,6 +1348,7 @@
                     adminNote: "تم رفض السحب"
                 });
                 showToast('❌ تم رفض السحب');
+                renderWithdraws();
             } catch (error) {
                 console.error('خطأ:', error);
                 showToast('❌ حدث خطأ');
