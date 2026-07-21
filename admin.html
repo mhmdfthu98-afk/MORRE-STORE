@@ -189,6 +189,8 @@
         .status-badge.progress { background: #DBEAFE; color: #3B82F6; }
         .status-badge.done { background: #D1FAE5; color: var(--success); }
         .status-badge.cancelled { background: #FEE2E2; color: var(--danger); }
+        .status-badge.deposit { background: #D1FAE5; color: var(--success); }
+        .status-badge.withdraw { background: #FEE2E2; color: var(--danger); }
 
         .input-field {
             width: 100%;
@@ -310,6 +312,8 @@
             <button class="tab-btn active" data-tab="dashboard">📊 الرئيسية</button>
             <button class="tab-btn" data-tab="orders">🧾 الطلبات</button>
             <button class="tab-btn" data-tab="wallet">💳 المحفظة</button>
+            <button class="tab-btn" data-tab="deposits">💳 طلبات الإيداع</button>
+            <button class="tab-btn" data-tab="withdraws">💰 طلبات السحب</button>
             <button class="tab-btn" data-tab="products">📦 المنتجات</button>
             <button class="tab-btn" data-tab="customers">👥 العملاء</button>
             <button class="tab-btn" data-tab="notifications">🔔 الإشعارات</button>
@@ -383,6 +387,79 @@
                     <table>
                         <thead><tr><th>العميل</th><th>النوع</th><th>المبلغ</th><th>الطريقة</th><th>الحالة</th><th>التاريخ</th></tr></thead>
                         <tbody id="walletTransactionsTable"><tr><td colspan="6" class="text-center text-dark-light">لا توجد معاملات</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- DEPOSITS -->
+        <!-- ============================================================ -->
+        <div id="tab-deposits" class="tab-content">
+            <div class="glass-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-arrow-down"></i> طلبات الإيداع</h3>
+                    <span id="depositsCount" style="font-size:0.75rem;color:var(--gray);">0 طلب</span>
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+                    <button class="btn-sm gold" onclick="filterDeposits('all')">الكل</button>
+                    <button class="btn-sm outline" onclick="filterDeposits('pending')">⏳ معلقة</button>
+                    <button class="btn-sm outline" onclick="filterDeposits('completed')">✅ مقبولة</button>
+                    <button class="btn-sm outline" onclick="filterDeposits('rejected')">❌ مرفوضة</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>العميل</th>
+                                <th>المبلغ</th>
+                                <th>الطريقة</th>
+                                <th>رقم العملية</th>
+                                <th>الصورة</th>
+                                <th>الحالة</th>
+                                <th>إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="depositsTable">
+                            <tr><td colspan="8" class="text-center text-dark-light">جاري التحميل...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- WITHDRAWS -->
+        <!-- ============================================================ -->
+        <div id="tab-withdraws" class="tab-content">
+            <div class="glass-card">
+                <div class="section-header">
+                    <h3><i class="fas fa-arrow-up"></i> طلبات السحب</h3>
+                    <span id="withdrawsCount" style="font-size:0.75rem;color:var(--gray);">0 طلب</span>
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+                    <button class="btn-sm gold" onclick="filterWithdraws('all')">الكل</button>
+                    <button class="btn-sm outline" onclick="filterWithdraws('pending')">⏳ معلقة</button>
+                    <button class="btn-sm outline" onclick="filterWithdraws('completed')">✅ مقبولة</button>
+                    <button class="btn-sm outline" onclick="filterWithdraws('rejected')">❌ مرفوضة</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>العميل</th>
+                                <th>المبلغ</th>
+                                <th>الطريقة</th>
+                                <th>رقم الحساب</th>
+                                <th>الحالة</th>
+                                <th>إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="withdrawsTable">
+                            <tr><td colspan="7" class="text-center text-dark-light">جاري التحميل...</td></tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -505,6 +582,23 @@
         </div>
     </div>
 
+    <!-- ===== IMAGE MODAL ===== -->
+    <div id="imageModal" class="modal-overlay">
+        <div class="modal-box" style="max-width:600px;">
+            <div class="modal-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                <h3><i class="fas fa-image"></i> صورة الإيصال</h3>
+                <button onclick="closeModal('imageModal')" class="modal-close">&times;</button>
+            </div>
+            <div style="text-align:center;">
+                <img id="modalImage" src="" alt="صورة الإيصال" style="max-width:100%;max-height:500px;border-radius:8px;">
+            </div>
+            <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+                <button onclick="window.open(document.getElementById('modalImage').src,'_blank')" class="btn-primary">📷 فتح</button>
+                <button onclick="downloadImage()" class="btn-primary" style="background:var(--gray);">💾 تحميل</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ============================================================ -->
     <!-- JAVASCRIPT مع Firebase -->
     <!-- ============================================================ -->
@@ -550,7 +644,11 @@
         let allCustomers = [];
         let allProducts = [];
         let allTransactions = [];
+        let allDeposits = [];
+        let allWithdraws = [];
         let currentOrderFilter = 'all';
+        let depositFilter = 'all';
+        let withdrawFilter = 'all';
         let currentUser = null;
 
         // ============================================================
@@ -896,7 +994,6 @@
                 return;
             }
 
-            // حساب عدد الطلبات لكل عميل
             const orderCounts = {};
             allOrders.forEach(o => {
                 const uid = o.uID || o.userId;
@@ -1018,6 +1115,272 @@
         }
 
         // ============================================================
+        //  LOAD DEPOSITS
+        // ============================================================
+        function loadDeposits() {
+            const q = query(collection(db, "transactions"), where("type", "==", "deposit"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                allDeposits = [];
+                snapshot.forEach(doc => {
+                    allDeposits.push({ id: doc.id, ...doc.data() });
+                });
+                renderDeposits();
+                document.getElementById('depositsCount').textContent = allDeposits.length + ' طلب';
+            });
+        }
+
+        function renderDeposits() {
+            const table = document.getElementById('depositsTable');
+            let filtered = allDeposits;
+
+            if (depositFilter !== 'all') {
+                filtered = filtered.filter(d => d.status === depositFilter);
+            }
+
+            if (filtered.length === 0) {
+                table.innerHTML = `<tr><td colspan="8" class="text-center text-dark-light">لا توجد طلبات إيداع</td></tr>`;
+                return;
+            }
+
+            const statusMap = {
+                pending: '<span class="status-badge pending">⏳ معلق</span>',
+                completed: '<span class="status-badge done">✅ مقبول</span>',
+                rejected: '<span class="status-badge cancelled">❌ مرفوض</span>'
+            };
+
+            table.innerHTML = filtered.map(d => `
+                <tr>
+                    <td>#${d.id?.substring(0, 6) || '---'}</td>
+                    <td>${d.userName || 'مستخدم'}</td>
+                    <td style="color:var(--success);">+${(d.amount || 0).toLocaleString()} ج.س</td>
+                    <td>${d.method || 'غير محدد'}</td>
+                    <td>${d.reference || 'غير محدد'}</td>
+                    <td>
+                        ${d.proofURL ? `<button class="btn-sm blue" onclick="viewImage('${d.proofURL}')">📷</button>` : 'لا توجد'}
+                    </td>
+                    <td>${statusMap[d.status] || statusMap.pending}</td>
+                    <td>
+                        ${d.status === 'pending' ? `
+                            <button class="btn-sm green" onclick="approveDeposit('${d.id}', ${d.amount || 0}, '${d.uID || ''}')">قبول</button>
+                            <button class="btn-sm red" onclick="rejectDeposit('${d.id}')">رفض</button>
+                        ` : `
+                            <button class="btn-sm outline" onclick="showDepositDetail('${d.id}')">📄</button>
+                        `}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // ============================================================
+        //  APPROVE DEPOSIT
+        // ============================================================
+        window.approveDeposit = async function(id, amount, userId) {
+            if (!confirm('⚠️ هل تريد قبول هذا الإيداع؟')) return;
+            try {
+                await updateDoc(doc(db, "transactions", id), {
+                    status: "completed",
+                    adminNote: "تم قبول الإيداع",
+                    approvedAt: serverTimestamp()
+                });
+
+                if (userId) {
+                    await updateDoc(doc(db, "users", userId), {
+                        balance: increment(amount)
+                    });
+                }
+
+                showToast('✅ تم قبول الإيداع وتم إضافة الرصيد');
+            } catch (error) {
+                console.error('خطأ:', error);
+                showToast('❌ حدث خطأ');
+            }
+        };
+
+        // ============================================================
+        //  REJECT DEPOSIT
+        // ============================================================
+        window.rejectDeposit = async function(id) {
+            if (!confirm('⚠️ هل تريد رفض هذا الإيداع؟')) return;
+            try {
+                await updateDoc(doc(db, "transactions", id), {
+                    status: "rejected",
+                    adminNote: "تم رفض الإيداع"
+                });
+                showToast('❌ تم رفض الإيداع');
+            } catch (error) {
+                console.error('خطأ:', error);
+                showToast('❌ حدث خطأ');
+            }
+        };
+
+        // ============================================================
+        //  FILTER DEPOSITS
+        // ============================================================
+        window.filterDeposits = function(status) {
+            depositFilter = status;
+            document.querySelectorAll('#tab-deposits .btn-sm').forEach(b => b.className = 'btn-sm outline');
+            const activeBtn = document.querySelector(`#tab-deposits .btn-sm[onclick="filterDeposits('${status}')"]`);
+            if (activeBtn) activeBtn.className = 'btn-sm gold';
+            renderDeposits();
+        };
+
+        // ============================================================
+        //  SHOW DEPOSIT DETAIL
+        // ============================================================
+        window.showDepositDetail = function(id) {
+            const deposit = allDeposits.find(d => d.id === id);
+            if (!deposit) { showToast('❌ غير موجود'); return; }
+            const date = deposit.createdAt?.toDate ? new Date(deposit.createdAt.toDate()) : new Date();
+            alert(`📋 تفاصيل الإيداع
+
+📌 العميل: ${deposit.userName || 'مستخدم'}
+💰 المبلغ: ${(deposit.amount || 0).toLocaleString()} ج.س
+📅 التاريخ: ${date.toLocaleString('ar-SD')}
+📱 الطريقة: ${deposit.method || 'غير محدد'}
+🔢 رقم العملية: ${deposit.reference || 'غير محدد'}
+📊 الحالة: ${deposit.status || 'قيد المراجعة'}
+📎 ملاحظات: ${deposit.adminNote || 'لا توجد'}`);
+        };
+
+        // ============================================================
+        //  LOAD WITHDRAWS
+        // ============================================================
+        function loadWithdraws() {
+            const q = query(collection(db, "transactions"), where("type", "==", "withdraw"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                allWithdraws = [];
+                snapshot.forEach(doc => {
+                    allWithdraws.push({ id: doc.id, ...doc.data() });
+                });
+                renderWithdraws();
+                document.getElementById('withdrawsCount').textContent = allWithdraws.length + ' طلب';
+            });
+        }
+
+        function renderWithdraws() {
+            const table = document.getElementById('withdrawsTable');
+            let filtered = allWithdraws;
+
+            if (withdrawFilter !== 'all') {
+                filtered = filtered.filter(d => d.status === withdrawFilter);
+            }
+
+            if (filtered.length === 0) {
+                table.innerHTML = `<tr><td colspan="7" class="text-center text-dark-light">لا توجد طلبات سحب</td></tr>`;
+                return;
+            }
+
+            const statusMap = {
+                pending: '<span class="status-badge pending">⏳ معلق</span>',
+                completed: '<span class="status-badge done">✅ مقبول</span>',
+                rejected: '<span class="status-badge cancelled">❌ مرفوض</span>'
+            };
+
+            table.innerHTML = filtered.map(d => `
+                <tr>
+                    <td>#${d.id?.substring(0, 6) || '---'}</td>
+                    <td>${d.userName || 'مستخدم'}</td>
+                    <td style="color:var(--danger);">${(d.amount || 0).toLocaleString()} ج.س</td>
+                    <td>${d.method || 'غير محدد'}</td>
+                    <td>${d.account || 'غير محدد'}</td>
+                    <td>${statusMap[d.status] || statusMap.pending}</td>
+                    <td>
+                        ${d.status === 'pending' ? `
+                            <button class="btn-sm green" onclick="approveWithdraw('${d.id}', ${Math.abs(d.amount || 0)}, '${d.uID || ''}')">قبول</button>
+                            <button class="btn-sm red" onclick="rejectWithdraw('${d.id}')">رفض</button>
+                        ` : `
+                            <button class="btn-sm outline" onclick="showWithdrawDetail('${d.id}')">📄</button>
+                        `}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // ============================================================
+        //  APPROVE WITHDRAW
+        // ============================================================
+        window.approveWithdraw = async function(id, amount, userId) {
+            if (!confirm('⚠️ هل تريد قبول طلب السحب؟')) return;
+            try {
+                await updateDoc(doc(db, "transactions", id), {
+                    status: "completed",
+                    adminNote: "تم قبول السحب",
+                    approvedAt: serverTimestamp()
+                });
+
+                if (userId) {
+                    await updateDoc(doc(db, "users", userId), {
+                        balance: increment(-amount)
+                    });
+                }
+
+                showToast('✅ تم قبول السحب وتم خصم الرصيد');
+            } catch (error) {
+                console.error('خطأ:', error);
+                showToast('❌ حدث خطأ');
+            }
+        };
+
+        // ============================================================
+        //  REJECT WITHDRAW
+        // ============================================================
+        window.rejectWithdraw = async function(id) {
+            if (!confirm('⚠️ هل تريد رفض طلب السحب؟')) return;
+            try {
+                await updateDoc(doc(db, "transactions", id), {
+                    status: "rejected",
+                    adminNote: "تم رفض السحب"
+                });
+                showToast('❌ تم رفض السحب');
+            } catch (error) {
+                console.error('خطأ:', error);
+                showToast('❌ حدث خطأ');
+            }
+        };
+
+        // ============================================================
+        //  FILTER WITHDRAWS
+        // ============================================================
+        window.filterWithdraws = function(status) {
+            withdrawFilter = status;
+            document.querySelectorAll('#tab-withdraws .btn-sm').forEach(b => b.className = 'btn-sm outline');
+            const activeBtn = document.querySelector(`#tab-withdraws .btn-sm[onclick="filterWithdraws('${status}')"]`);
+            if (activeBtn) activeBtn.className = 'btn-sm gold';
+            renderWithdraws();
+        };
+
+        // ============================================================
+        //  SHOW WITHDRAW DETAIL
+        // ============================================================
+        window.showWithdrawDetail = function(id) {
+            const withdraw = allWithdraws.find(d => d.id === id);
+            if (!withdraw) { showToast('❌ غير موجود'); return; }
+            const date = withdraw.createdAt?.toDate ? new Date(withdraw.createdAt.toDate()) : new Date();
+            alert(`📋 تفاصيل السحب
+
+📌 العميل: ${withdraw.userName || 'مستخدم'}
+💰 المبلغ: ${(withdraw.amount || 0).toLocaleString()} ج.س
+📅 التاريخ: ${date.toLocaleString('ar-SD')}
+📱 الطريقة: ${withdraw.method || 'غير محدد'}
+🔢 رقم الحساب: ${withdraw.account || 'غير محدد'}
+📊 الحالة: ${withdraw.status || 'قيد المراجعة'}
+📎 ملاحظات: ${withdraw.adminNote || 'لا توجد'}`);
+        };
+
+        // ============================================================
+        //  VIEW IMAGE
+        // ============================================================
+        window.viewImage = function(url) {
+            document.getElementById('modalImage').src = url;
+            openModal('imageModal');
+        };
+
+        window.downloadImage = function() {
+            const url = document.getElementById('modalImage').src;
+            window.open(url, '_blank');
+        };
+
+        // ============================================================
         //  NOTIFICATIONS
         // ============================================================
         window.sendNotification = async function() {
@@ -1027,7 +1390,6 @@
             if (!title || !body) { showToast('❌ عنوان ونص الإشعار مطلوبين'); return; }
 
             try {
-                // حفظ الإشعار في Firebase
                 await addDoc(collection(db, "notifications"), {
                     title,
                     body,
@@ -1049,7 +1411,6 @@
         window.saveSettings = function() {
             const name = document.getElementById('storeName').value.trim();
             if (!name) { showToast('❌ اسم المتجر مطلوب'); return; }
-            // حفظ الإعدادات في localStorage مؤقتاً
             localStorage.setItem('storeSettings', JSON.stringify({
                 name: name,
                 phone: document.getElementById('storePhone').value,
@@ -1097,6 +1458,8 @@
                 loadTransactions();
                 loadWalletBalances();
                 loadRecentActivity();
+                loadDeposits();
+                loadWithdraws();
             } else {
                 showToast('❌ يرجى تسجيل الدخول');
                 setTimeout(() => window.location.href = 'index.html', 1500);
@@ -1107,4 +1470,4 @@
     </script>
 
 </body>
-            </html>
+    </html>
