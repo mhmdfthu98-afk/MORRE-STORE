@@ -1071,30 +1071,54 @@ const paymentMethodsData = [{
         };
 
       function loadPaymentMethods() {
-    console.log('✅ جاري تحميل طرق الإيداع...');
     const container = document.getElementById('paymentMethods');
     container.innerHTML = '';
-    paymentMethodsData.forEach(method => {
-        console.log('📦 طريقة:', method.name);
+    
+    paymentMethodsData.forEach((method, index) => {
         const div = document.createElement('div');
         div.className = 'payment-card';
+        div.style.cursor = 'pointer';
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.gap = '14px';
+        div.style.padding = '14px 16px';
+        div.style.background = 'var(--white)';
+        div.style.borderRadius = 'var(--radius)';
+        div.style.boxShadow = 'var(--shadow)';
+        div.style.border = '1px solid rgba(0,0,0,0.04)';
+        div.style.transition = 'var(--transition)';
+        
         div.innerHTML = `
             <img src="${method.logo}" alt="${method.name}" style="width:50px;height:50px;object-fit:contain;border-radius:8px;border:1px solid #e9ecef;padding:4px;background:white;">
-            <div class="payment-info">
-                <h4>${method.name}</h4>
-                <p>${method.description}</p>
+            <div style="flex:1;">
+                <h4 style="font-size:0.95rem;font-weight:800;color:var(--dark);margin:0;">${method.name}</h4>
+                <p style="font-size:0.75rem;color:var(--gray);margin:0;">${method.description}</p>
             </div>
-            <i class="fas fa-chevron-left"></i>
+            <i class="fas fa-chevron-left" style="color:var(--gray);font-size:0.9rem;"></i>
         `;
-        div.addEventListener('click', () => {
-            console.log('🖱️ تم الضغط على:', method.id);
-            openDepositModal(method.id);
-        });
+        
+        // استخدام onclick مباشرة بدلاً من addEventListener
+        div.onclick = function() {
+            console.log('✅ تم الضغط على:', method.id);
+            const data = depositMethods[method.id];
+            if (!data) {
+                alert('❌ طريقة الإيداع غير موجودة');
+                return;
+            }
+            
+            document.getElementById('depositModalTitle').textContent = data.title;
+            document.getElementById('depositAccount').textContent = data.account;
+            document.getElementById('depositHolder').textContent = data.holder;
+            document.getElementById('depositMethod').textContent = data.method;
+            
+            const modal = document.getElementById('depositModal');
+            modal.classList.add('active');
+            modal.style.display = 'flex';
+        };
+        
         container.appendChild(div);
     });
-    console.log('✅ تم تحميل', paymentMethodsData.length, 'طرق');
 }
-
         // =============================================
         // LOAD USER BALANCE
         // =============================================
