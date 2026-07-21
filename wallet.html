@@ -589,7 +589,7 @@
         }
         .upload-area i { font-size: 2rem; color: var(--gray); display: block; margin-bottom: 8px; }
         .upload-area p { color: var(--gray); font-size: 0.85rem; }
-        #previewImage { max-width: 100%; max-height: 200px; margin-top: 10px; border-radius: 8px; display: none; }
+        #previewImage { max-width: 100%; max-height: 150px; margin-top: 10px; border-radius: 8px; display: none; object-fit: contain; }
 
         .btn-primary {
             width: 100%;
@@ -775,7 +775,7 @@
                 </div>
             </div>
 
-            <form id="depositForm">
+            <form id="depositForm" onsubmit="return false;">
                 <div class="form-group">
                     <label>💰 المبلغ (ج.س) <span style="color:red;">*</span></label>
                     <input type="number" id="depositAmount" placeholder="أدخل المبلغ" min="1" required>
@@ -813,7 +813,7 @@
                 سيتم مراجعة طلب السحب من قبل الإدارة خلال 24 ساعة.
             </div>
 
-            <form id="withdrawForm">
+            <form id="withdrawForm" onsubmit="return false;">
                 <div class="form-group">
                     <label>📱 طريقة السحب <span style="color:red;">*</span></label>
                     <select id="withdrawMethod" required>
@@ -1105,39 +1105,57 @@
             reader.readAsDataURL(file);
         };
 
-        // ===== SUBMIT DEPOSIT =====
+        // ===== SUBMIT DEPOSIT (مع رفع الصورة) =====
         window.submitDeposit = async function() {
-            const amount = document.getElementById('depositAmount').value;
-            const reference = document.getElementById('depositReference').value.trim();
-            const method = document.getElementById('depositMethod').textContent;
-            const proofInput = document.getElementById('proofInput');
-            
-            if (!amount || amount < 1) {
-                showToast('❌ المبلغ مطلوب');
-                document.getElementById('depositAmount').focus();
-                return;
-            }
-            
-            if (!reference) {
-                showToast('❌ رقم العملية مطلوب');
-                document.getElementById('depositReference').focus();
-                return;
-            }
-            
-            let proofURL = '';
-            if (proofInput.files && proofInput.files[0]) {
-                try {
-                    const storageRef = ref(storage, `deposits/${auth.currentUser.uid}/${Date.now()}_${proofInput.files[0].name}`);
-                    const uploadResult = await uploadBytes(storageRef, proofInput.files[0]);
-                    proofURL = await getDownloadURL(uploadResult.ref);
-                } catch (error) {
-                    console.error('خطأ في رفع الصورة:', error);
-                    showToast('⚠️ فشل رفع الصورة، سيتم إرسال الطلب بدونها');
-                }
-            }
-            
             try {
-                await addDoc(collection(db, "transactions"), {
+                // 1. التحقق من تسجيل الدخول
+                if (!auth.currentUser) {
+                    showToast('❌ يرجى تسجيل الدخول أولاً');
+                    return;
+                }
+                
+                // 2. التحقق من بيانات المستخدم
+                if (!userData) {
+                    showToast('❌ بيانات المستخدم غير متوفرة');
+                    return;
+                }
+                
+                // 3. جلب البيانات
+                const amount = document.getElementById('depositAmount').value;
+                const reference = document.getElementById('depositReference').value.trim();
+                const method = document.getElementById('depositMethod').textContent;
+                const proofInput = document.getElementById('proofInput');
+                
+                // 4. التحقق من الحقول الإجبارية
+                if (!amount || amount < 1) {
+                    showToast('❌ المبلغ مطلوب');
+                    document.getElementById('depositAmount').focus();
+                    return;
+                }
+                
+                if (!reference) {
+                    showToast('❌ رقم العملية مطلوب');
+                    document.getElementById('depositReference').focus();
+                    return;
+                }
+                
+                // 5. رفع الصورة (إن وجدت)
+                let proofURL = '';
+                if (proofInput.files && proofInput.files[0]) {
+                    try {
+                        const file = proofInput.files[0];
+                        const storageRef = ref(storage, `deposits/${auth.currentUser.uid}/${Date.now()}_${file.name}`);
+                        const uploadResult = await uploadBytes(storageRef, file);
+                        proofURL = await getDownloadURL(uploadResult.ref);
+                        console.log('✅ تم رفع الصورة:', proofURL);
+                    } catch (uploadError) {
+                        console.error('❌ خطأ في رفع الصورة:', uploadError);
+                        showToast('⚠️ فشل رفع الصورة، سيتم إرسال الطلب بدونها');
+                    }
+                }
+                
+                // 6. حفظ في Firebase
+                const docRef = await addDoc(collection(db, "transactions"), {
                     uID: auth.currentUser.uid,
                     userName: userData?.name || 'مستخدم',
                     type: "deposit",
@@ -1150,25 +1168,46 @@
                     createdAt: serverTimestamp(),
                     timestamp: serverTimestamp()
                 });
-                showToast('✅ تم إرسال طلب الإيداع بنجاح! جاري المراجعة');
-                closeDepositModal();
+                
+                console.log('✅ تم حفظ الإيداع:', docRef.id);
+                showToast('✅ تم إرسال طلب الإيداع بنجاح!');
+                
+                // 7. تنظيف الحقول
+                document.getElementById('depositAmount').value = '';
+                document.getElementById('depositReference').value = '';
+                document.getElementById('proofInput').value = '';
+                document.getElementById('depositPreview').style.display = 'none';
+                
+                // 8. إغلاق المودال
+                closeModal('depositModal');
+                
             } catch (error) {
-                console.error('❌ خطأ:', error);
-                showToast('❌ حدث خطأ في تسجيل الإيداع');
+                console.error('❌ خطأ في الإيداع:', error);
+                showToast('❌ حدث خطأ: ' + error.message);
             }
         };
 
         // ===== SUBMIT WITHDRAW =====
         window.submitWithdraw = async function() {
-            const method = document.getElementById('withdrawMethod').value;
-            const amount = document.getElementById('withdrawAmount').value;
-            const account = document.getElementById('withdrawAccount').value.trim();
-
-            if (!method) { showToast('❌ اختر طريقة السحب'); return; }
-            if (!amount || amount < 1) { showToast('❌ أدخل مبلغ صحيح'); return; }
-            if (!account) { showToast('❌ أدخل رقم الحساب'); return; }
-
             try {
+                if (!auth.currentUser) {
+                    showToast('❌ يرجى تسجيل الدخول أولاً');
+                    return;
+                }
+                
+                if (!userData) {
+                    showToast('❌ بيانات المستخدم غير متوفرة');
+                    return;
+                }
+                
+                const method = document.getElementById('withdrawMethod').value;
+                const amount = document.getElementById('withdrawAmount').value;
+                const account = document.getElementById('withdrawAccount').value.trim();
+
+                if (!method) { showToast('❌ اختر طريقة السحب'); return; }
+                if (!amount || amount < 1) { showToast('❌ أدخل مبلغ صحيح'); return; }
+                if (!account) { showToast('❌ أدخل رقم الحساب'); return; }
+
                 await addDoc(collection(db, "transactions"), {
                     uID: auth.currentUser.uid,
                     userName: userData?.name || 'مستخدم',
@@ -1181,11 +1220,13 @@
                     createdAt: serverTimestamp(),
                     timestamp: serverTimestamp()
                 });
-                showToast('✅ تم إرسال طلب السحب بنجاح! جاري المراجعة');
+                
+                showToast('✅ تم إرسال طلب السحب بنجاح!');
                 closeWithdrawModal();
+                
             } catch (error) {
                 console.error('❌ خطأ:', error);
-                showToast('❌ حدث خطأ في تسجيل السحب');
+                showToast('❌ حدث خطأ: ' + error.message);
             }
         };
 
@@ -1344,4 +1385,4 @@
     </script>
 
 </body>
-    </html>
+                        </html>
