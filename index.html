@@ -3209,77 +3209,91 @@
             });
         });
 
-        // =============================================
-        // ===== المصادقة =====
-        // =============================================
-        function startEngine(user) {
-            const isAdmin = ADMINS.includes(user.email);
-            onSnapshot(doc(db, "users", user.uid), (snap) => {
-                if (snap.exists()) {
-                    userData = snap.data();
-                    document.getElementById('uName').innerText = userData.name;
-                    document.getElementById('uImg').src = userData.img || 'https://via.placeholder.com/100';
-                    document.getElementById('uBal').innerText = (userData.balance || 0).toLocaleString();
-                    document.getElementById('uWallet').innerText = `المحفظة: #${userData.walletID}`;
-                    updateSidebarUser();
-                    if (userData) {
-                        user.name = userData.name || 'مستخدم';
-                        user.username = userData.username || userData.name?.toLowerCase().replace(/\s/g,
-                            '_') || 'user';
-                        user.email = userData.email || 'user@example.com';
-                        user.phone = userData.phone || '0991234567';
-                        user.wallet = '#' + (userData.walletID || '123456789');
-                        user.balance = userData.balance || 0;
-                        user.avatar = userData.img ||
-                            `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
-                        updateProfileUI();
-                    }
-                    if (isAdmin) {
-                        document.getElementById('adminPanel').classList.remove('hidden');
-                        loadAdminStats();
-                        loadAdminOrders();
-                        loadManageProducts();
-                        loadAllUsers();
-                    } else {
-                        document.getElementById('adminPanel').classList.add('hidden');
-                    }
-                }
-            });
-            loadProductsFromFirestore();
-        }
-
-        onAuthStateChanged(auth, async (user) => {
-            const loading = document.getElementById('loading-screen');
-            const loginScreen = document.getElementById('login-screen');
-            const appScr = document.getElementById('main-app');
-
-            if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const userSnap = await getDoc(userRef);
-                if (!userSnap.exists()) {
-                    const walletID = Math.floor(100000 + Math.random() * 900000).toString();
-                    await setDoc(userRef, {
-                        name: user.displayName || user.email?.split('@')[0] || 'مستخدم',
-                        email: user.email,
-                        img: user.photoURL || 'https://via.placeholder.com/100',
-                        walletID: walletID,
-                        balance: 0,
-                        createdAt: serverTimestamp()
-                    });
-                    alert(
-                        `✨ مرحباً بك في MORRE STORE!\n📱 رقم محفظتك: #${walletID}\n💰 للشحن اضغط على زر "شحن المحفظة"`
-                        );
-                }
-                loading.classList.add('hidden');
-                loginScreen.style.display = 'none';
-                appScr.classList.remove('hidden');
-                startEngine(user);
-            } else {
-                loading.classList.add('hidden');
-                loginScreen.style.display = 'flex';
-                appScr.classList.add('hidden');
+      // =============================================
+// ===== المصادقة (معدل بالكامل) =====
+// =============================================
+function startEngine(user) {
+    const isAdmin = ADMINS.includes(user.email);
+    onSnapshot(doc(db, "users", user.uid), (snap) => {
+        if (snap.exists()) {
+            userData = snap.data();
+            document.getElementById('uName').innerText = userData.name;
+            document.getElementById('uImg').src = userData.img || 'https://via.placeholder.com/100';
+            document.getElementById('uBal').innerText = (userData.balance || 0).toLocaleString();
+            document.getElementById('uWallet').innerText = `المحفظة: #${userData.walletID}`;
+            updateSidebarUser();
+            if (userData) {
+                user.name = userData.name || 'مستخدم';
+                user.username = userData.username || userData.name?.toLowerCase().replace(/\s/g, '_') || 'user';
+                user.email = userData.email || 'user@example.com';
+                user.phone = userData.phone || '0991234567';
+                user.wallet = '#' + (userData.walletID || '123456789');
+                user.balance = userData.balance || 0;
+                user.avatar = userData.img || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=80&background=f59e0b&color=fff&bold=true`;
+                updateProfileUI();
             }
-        });
+            if (isAdmin) {
+                document.getElementById('adminPanel').classList.remove('hidden');
+                loadAdminStats();
+                loadAdminOrders();
+                loadManageProducts();
+                loadAllUsers();
+            } else {
+                document.getElementById('adminPanel').classList.add('hidden');
+            }
+        }
+    });
+    loadProductsFromFirestore();
+}
+
+// ===== معالج المصادقة الرئيسي =====
+onAuthStateChanged(auth, async (user) => {
+    const loading = document.getElementById('loading-screen');
+    const loginScreen = document.getElementById('login-screen');
+    const appScr = document.getElementById('main-app');
+
+    // إخفاء شاشة التحميل فوراً بغض النظر عن النتيجة
+    if (loading) {
+        loading.style.display = 'none';
+        loading.classList.add('hidden');
+    }
+
+    try {
+        if (user) {
+            // مستخدم مسجل دخول
+            const userRef = doc(db, "users", user.uid);
+            const userSnap = await getDoc(userRef);
+            
+            if (!userSnap.exists()) {
+                const walletID = Math.floor(100000 + Math.random() * 900000).toString();
+                await setDoc(userRef, {
+                    name: user.displayName || user.email?.split('@')[0] || 'مستخدم',
+                    email: user.email,
+                    img: user.photoURL || 'https://via.placeholder.com/100',
+                    walletID: walletID,
+                    balance: 0,
+                    createdAt: serverTimestamp()
+                });
+                alert(`✨ مرحباً بك في MORRE STORE!\n📱 رقم محفظتك: #${walletID}\n💰 للشحن اضغط على زر "شحن المحفظة"`);
+            }
+            
+            loginScreen.style.display = 'none';
+            appScr.classList.remove('hidden');
+            startEngine(user);
+            
+        } else {
+            // مستخدم غير مسجل
+            loginScreen.style.display = 'flex';
+            appScr.classList.add('hidden');
+        }
+    } catch (error) {
+        console.error('❌ خطأ في المصادقة:', error);
+        // في حالة الخطأ، نعرض شاشة تسجيل الدخول
+        loginScreen.style.display = 'flex';
+        appScr.classList.add('hidden');
+        showLoginToast('❌ حدث خطأ في الاتصال بقاعدة البيانات', 'error');
+    }
+});
 
         // =============================================
         // ===== WebView Check =====
@@ -3598,16 +3612,6 @@ document.getElementById('orderModal')?.addEventListener('click', function(e) {
 });
 
         console.log('🚀 MORRE STORE جاهز بالكامل!');
-        <script>
-    // إخفاء شاشة التحميل بعد 5 ثواني كحد أقصى
-    setTimeout(function() {
-        const loading = document.getElementById('loading-screen');
-        if (loading) {
-            loading.classList.add('hidden');
-            loading.style.display = 'none';
-        }
-    }, 5000);
-</script>
     </script>
 </body>
     </html>
